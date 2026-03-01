@@ -1,0 +1,132 @@
+.experience {
+  padding: var(--space-4xl) var(--space-3xl);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.timeline {
+  position: relative;
+  margin-top: var(--space-xl);
+  padding-left: var(--space-xl);
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-primary-light), var(--color-border));
+  border-radius: 1px;
+}
+
+.entry {
+  position: relative;
+  margin-bottom: var(--space-xl);
+}
+
+.entry:last-child {
+  margin-bottom: 0;
+}
+
+.dot {
+  position: absolute;
+  left: calc(-1 * var(--space-xl) + 4px);
+  top: 24px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid var(--color-bg);
+  z-index: 1;
+}
+
+.card {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: var(--space-lg);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary-light);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.company {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.role {
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.period, .location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.bullets li {
+  position: relative;
+  padding-left: var(--space-lg);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+}
+
+@media (max-width: 1024px) {
+  .experience { padding: var(--space-3xl) var(--space-xl); }
+}
+
+@media (max-width: 640px) {
+  .experience { padding: var(--space-2xl) var(--space-md); }
+  .cardTop { flex-direction: column; }
+  .meta { align-items: flex-start; }
+}
