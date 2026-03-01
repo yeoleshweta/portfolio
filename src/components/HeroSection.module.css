@@ -1,0 +1,409 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 94px;
+  background: #f1eeee;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.backgroundLayer {
+  position: fixed;
+  inset: 94px 0 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cubeVisual {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  perspective: 2600px;
+  will-change: transform, opacity;
+}
+
+.transitionFog {
+  position: fixed;
+  inset: 94px 0 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      68% 54% at 50% 72%,
+      rgba(255, 255, 255, 0.44) 0%,
+      rgba(247, 247, 247, 0.34) 26%,
+      rgba(247, 247, 247, 0.18) 44%,
+      rgba(247, 247, 247, 0.08) 66%,
+      rgba(247, 247, 247, 0) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(247, 247, 247, 0) 0%,
+      rgba(247, 247, 247, 0.05) 18%,
+      rgba(247, 247, 247, 0.18) 58%,
+      rgba(247, 247, 247, 0.36) 100%
+    );
+}
+
+.container {
+  width: 100%;
+  min-height: calc(100vh - 94px);
+  padding: clamp(116px, 9vw, 176px) clamp(48px, 3vw, 64px) 88px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(460px, 0.94fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.content {
+  position: relative;
+  z-index: 4;
+}
+
+.cubeSlot {
+  min-height: 620px;
+  position: relative;
+  z-index: 4;
+}
+
+.textStack {
+  position: relative;
+}
+
+.heading {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-size: clamp(92px, 9.05vw, 184px);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.09em;
+  color: #5f5f5f;
+  text-transform: uppercase;
+}
+
+.line {
+  display: block;
+}
+
+.script {
+  position: absolute;
+  top: clamp(-8px, -0.6vw, -2px);
+  left: clamp(350px, 34vw, 720px);
+  font-family: var(--font-script);
+  font-size: clamp(148px, 11.1vw, 232px);
+  font-weight: 400;
+  line-height: 0.82;
+  letter-spacing: -0.08em;
+  color: #8466f3;
+  text-transform: none;
+  font-style: italic;
+  white-space: nowrap;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.scriptInner {
+  display: block;
+}
+
+.bioContainer {
+  margin-top: 42px;
+  max-width: 900px;
+}
+
+.bioInner {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.profilePic {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #dbd8d6;
+}
+
+.profilePic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.description {
+  font-size: clamp(22px, 1.52vw, 30px);
+  line-height: 1.55;
+  letter-spacing: -0.03em;
+  color: #232323;
+  font-weight: 500;
+}
+
+.description strong {
+  font-weight: 700;
+}
+
+.cubeFollow,
+.cubeIntro,
+.cubeMotion,
+.cubeSpin,
+.cubeBase {
+  position: relative;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+}
+
+.cubeIntro {
+  position: absolute;
+  top: clamp(260px, 45vh, 430px);
+  left: clamp(56vw, 69vw, calc(100% - 220px));
+  will-change: transform;
+}
+
+.cubeBase {
+  transform: scale(1.02);
+}
+
+.cubie {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 112px;
+  height: 112px;
+  margin-left: -56px;
+  margin-top: -56px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.cubieFace {
+  position: absolute;
+  inset: 0;
+  border: 1.4px solid #171717;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #faf8f6 0%, #f1ece9 100%);
+  box-shadow:
+    0 0 0 1px rgba(132, 102, 243, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  backface-visibility: hidden;
+}
+
+.front {
+  background: linear-gradient(180deg, #f9f7f4 0%, #f0ebe8 100%);
+}
+
+.back {
+  background: linear-gradient(180deg, #f4f1ee 0%, #ebe6e2 100%);
+}
+
+.right {
+  background: linear-gradient(180deg, #f0ede9 0%, #e5dfdb 100%);
+}
+
+.left {
+  background: linear-gradient(180deg, #f7f4f2 0%, #ede7e4 100%);
+}
+
+.top {
+  background: linear-gradient(180deg, #fffdfb 0%, #f0ece7 100%);
+}
+
+.bottom {
+  background: linear-gradient(180deg, #e6dfda 0%, #ddd5cf 100%);
+}
+
+.hoverNote {
+  position: absolute;
+  top: 44%;
+  right: clamp(-34px, -2vw, 10px);
+  color: #a5a3a3;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.hoverLabel {
+  font-size: clamp(24px, 2vw, 34px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #a4a2a2;
+}
+
+.hoverLabel span {
+  font-family: var(--font-script);
+  font-size: 1.22em;
+  font-style: italic;
+  color: #a9a5a5;
+}
+
+.hoverArrow {
+  width: 166px;
+  height: 128px;
+  margin-top: 8px;
+  margin-left: -12px;
+  color: #afacac;
+}
+
+@media (max-width: 1400px) {
+  .container {
+    grid-template-columns: minmax(0, 1fr) minmax(420px, 0.92fr);
+    padding-top: 104px;
+  }
+
+  .script {
+    left: clamp(310px, 34vw, 610px);
+  }
+
+  .cubeBase {
+    transform: scale(0.9);
+  }
+
+  .cubeVisual {
+    inset: 0;
+  }
+
+  .cubeIntro {
+    top: clamp(250px, 46vh, 400px);
+    left: clamp(54vw, 67vw, calc(100% - 200px));
+  }
+}
+
+@media (max-width: 1180px) {
+  .container {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding-top: 84px;
+  }
+
+  .content {
+    order: 2;
+  }
+
+  .backgroundLayer {
+    position: absolute;
+    inset: 84px 0 auto;
+    height: 58vw;
+  }
+
+  .transitionFog {
+    inset: 84px 0 0;
+  }
+
+  .cubeVisual {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    min-height: 460px;
+    height: 58vw;
+    inset: auto;
+  }
+
+  .cubeSlot {
+    min-height: 460px;
+    order: 1;
+  }
+
+  .cubeIntro {
+    top: 50%;
+    left: 54%;
+  }
+
+  .cubeBase {
+    transform: scale(0.76);
+  }
+
+  .script {
+    top: -58px;
+    left: clamp(184px, 28vw, 430px);
+  }
+
+  .hoverNote {
+    top: auto;
+    right: 4%;
+    bottom: 14%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 82px;
+  }
+
+  .backgroundLayer {
+    inset: 82px 0 auto;
+    height: 82vw;
+  }
+
+  .transitionFog {
+    inset: 82px 0 0;
+  }
+
+  .cubeVisual {
+    min-height: 360px;
+    height: 82vw;
+  }
+
+  .cubeIntro {
+    top: 52%;
+    left: 50%;
+  }
+
+  .container {
+    padding: 54px 20px 54px;
+  }
+
+  .heading {
+    font-size: clamp(60px, 18vw, 98px);
+    line-height: 0.9;
+  }
+
+  .script {
+    top: -28px;
+    left: 156px;
+    font-size: clamp(98px, 20vw, 144px);
+  }
+
+  .bioContainer {
+    margin-top: 28px;
+  }
+
+  .bioInner {
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .profilePic {
+    width: 72px;
+    height: 72px;
+  }
+
+  .description {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .cubeSlot {
+    min-height: 360px;
+  }
+
+  .cubeBase {
+    transform: scale(0.52);
+  }
+
+  .hoverNote {
+    right: 0;
+    bottom: 4%;
+  }
+
+  .hoverArrow {
+    width: 124px;
+    height: 96px;
+  }
+}

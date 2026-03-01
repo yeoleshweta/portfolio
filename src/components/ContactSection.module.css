@@ -1,0 +1,602 @@
+.section {
+  position: relative;
+  background: #f7f7f7;
+}
+
+.hobbiesScene {
+  position: relative;
+  height: 360svh;
+}
+
+.hobbiesSticky {
+  position: sticky;
+  top: 94px;
+  height: calc(100svh - 94px);
+  overflow: hidden;
+}
+
+.hobbiesHeader {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding-top: 58px;
+  text-align: center;
+}
+
+.title {
+  color: #111;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.italic {
+  font-family: var(--font-script);
+  font-size: 37px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+
+.description {
+  width: 521px;
+  max-width: calc(100% - 32px);
+  color: #595959;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.03em;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.heartStage {
+  position: absolute;
+  top: calc(64.375% - 165px);
+  left: calc(50% - 173.5px);
+  z-index: 2;
+  width: 347px;
+  height: 330px;
+}
+
+.heartGrid {
+  display: grid;
+  width: fit-content;
+  margin: 0 auto;
+  gap: 1px;
+  grid-template-columns: repeat(9, 30px);
+  grid-template-rows: repeat(6, 31px);
+}
+
+.pixel {
+  width: 29px;
+  height: 29px;
+  border: 1px solid #111;
+  border-radius: 6px;
+  background: #d7baff;
+  box-shadow: 4px 0 0 #b08cf1;
+}
+
+.galleryTrack {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  display: flex;
+  width: 1651px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transform: translate(-50%, -6%);
+}
+
+.galleryCard {
+  position: relative;
+  width: 240px;
+  height: 306px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.galleryCard img {
+  object-fit: cover;
+}
+
+.stageDot,
+.stageCube,
+.stageScatterCube {
+  position: absolute;
+  display: block;
+}
+
+.stageDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #8566f3;
+}
+
+.stageDotLeft {
+  top: 54%;
+  left: 19%;
+}
+
+.stageDotRight {
+  top: 48%;
+  right: 17%;
+}
+
+.stageCube {
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(17, 17, 17, 0.22);
+  border-radius: 4px;
+  background: #d8c0ff;
+}
+
+.stageCubeLeft {
+  bottom: 18%;
+  left: 10%;
+  transform: rotate(-8deg);
+}
+
+.stageCubeRight {
+  top: 32%;
+  right: 12%;
+  transform: rotate(8deg);
+}
+
+.stageScatterCube {
+  border: 1px solid rgba(17, 17, 17, 0.18);
+  border-radius: 4px;
+  background: #d8c0ff;
+}
+
+.contactPanel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+  gap: 48px;
+  align-items: start;
+  min-height: 452px;
+  padding: 80px 52px 24px;
+  background: #eee7f7;
+}
+
+.panelLeft {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.workBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1px solid #57a352;
+  border-radius: 99px;
+  background: #e6f6d9;
+  color: #57a352;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.badgeGlow {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #27eb05;
+  box-shadow: 0 0 16px rgba(39, 235, 5, 0.5);
+}
+
+.headlineWrap {
+  margin-top: 22px;
+}
+
+.contactTitle {
+  color: #595959;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 81px;
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+}
+
+.contactScript {
+  margin-top: -8px;
+  color: #8b69fa;
+  font-family: var(--font-script);
+  font-size: 81px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+}
+
+.toolsBoard {
+  position: relative;
+  width: 600px;
+  height: 198px;
+  margin-top: 34px;
+}
+
+.toolTile {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border: 1px solid #222;
+  background: #e7d6ff;
+  box-shadow: 3px 5px 0 #000;
+  color: #8566f3;
+}
+
+.toolTile span {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  text-shadow: 2px 2px 0 rgba(74, 51, 148, 0.35);
+}
+
+.boardSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.figmaTile {
+  top: 16px;
+  left: 0;
+  width: 144px;
+  height: 135px;
+  border-radius: 30px;
+  transform: rotate(-12deg);
+}
+
+.aeTile {
+  top: 48px;
+  left: 138px;
+  width: 126px;
+  height: 121px;
+  border-radius: 30px;
+  transform: rotate(-12deg);
+}
+
+.psTile {
+  top: 98px;
+  left: 54px;
+  width: 126px;
+  height: 121px;
+  border-radius: 30px;
+}
+
+.aiTile {
+  top: 118px;
+  left: 298px;
+  width: 126px;
+  height: 121px;
+  border-radius: 30px;
+}
+
+.aeTile span,
+.psTile span,
+.aiTile span {
+  font-size: 68px;
+}
+
+.boltTile {
+  position: absolute;
+  top: 62px;
+  left: 112px;
+  width: 76px;
+  height: 54px;
+}
+
+.starTile {
+  bottom: -2px;
+  left: -2px;
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  background: #191919;
+}
+
+.smileTile {
+  top: 144px;
+  left: 164px;
+  width: 63px;
+  height: 64px;
+  border-radius: 999px;
+}
+
+.gearTile {
+  top: 134px;
+  left: 238px;
+  width: 74px;
+  height: 74px;
+  border-radius: 999px;
+}
+
+.dragTile {
+  position: absolute;
+  top: 148px;
+  left: 410px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 170px;
+  height: 50px;
+  border: 1px solid #222;
+  border-radius: 99px;
+  background: #e7d6ff;
+  box-shadow: 3px 5px 0 #000;
+  color: #8566f3;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-shadow: 2px 2px 0 rgba(74, 51, 148, 0.25);
+}
+
+.dragDot {
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(34, 34, 34, 0.55);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd37e 0%, #d8b3ff 100%);
+}
+
+.figmaMark {
+  position: relative;
+  width: 56px;
+  height: 72px;
+}
+
+.figmaMark span {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+}
+
+.figmaRed {
+  top: 0;
+  left: 0;
+  background: #f54d58;
+}
+
+.figmaPurple {
+  top: 24px;
+  left: 0;
+  background: #a15cff;
+}
+
+.figmaBlue {
+  top: 0;
+  left: 24px;
+  background: #0fbcff;
+}
+
+.figmaGreen {
+  top: 48px;
+  left: 0;
+  background: #16cf73;
+}
+
+.figmaPink {
+  top: 24px;
+  left: 24px;
+  background: #ff7db0;
+}
+
+.panelRight {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.letsTalk {
+  color: #111;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.letsTalk span {
+  font-family: var(--font-script);
+  font-size: 37px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: fit-content;
+}
+
+.contactIcon {
+  display: grid;
+  width: 71px;
+  height: 69px;
+  place-items: center;
+}
+
+.contactSvg {
+  width: 71px;
+  height: 69px;
+  filter: drop-shadow(3px 5px 0 #000);
+}
+
+.contactText {
+  color: #595959;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 1180px) {
+  .hobbiesScene {
+    height: 260svh;
+  }
+
+  .hobbiesSticky {
+    top: 84px;
+    height: calc(100svh - 84px);
+  }
+
+  .galleryTrack {
+    transform: translate(-50%, -6%) scale(0.76);
+    transform-origin: center center;
+  }
+
+  .contactPanel {
+    grid-template-columns: 1fr;
+    padding: 64px 28px 24px;
+  }
+
+  .contactTitle,
+  .contactScript {
+    font-size: 64px;
+  }
+
+  .toolsBoard {
+    transform: scale(0.88);
+    transform-origin: left top;
+  }
+}
+
+@media (max-width: 768px) {
+  .hobbiesScene {
+    height: auto;
+  }
+
+  .hobbiesSticky {
+    position: relative;
+    top: 0;
+    height: auto;
+    padding: 92px 20px 80px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .italic {
+    font-size: 25px;
+  }
+
+  .description {
+    width: 100%;
+    font-size: 17px;
+  }
+
+  .stage {
+    height: 520px;
+    margin-top: 12px;
+  }
+
+  .heartStage {
+    top: 230px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.78);
+  }
+
+  .galleryTrack {
+    top: 322px;
+    transform: translate(-50%, -6%) scale(0.38);
+  }
+
+  .stageScatterCube,
+  .stageCube,
+  .stageDot {
+    display: none;
+  }
+
+  .contactPanel {
+    gap: 36px;
+    padding: 52px 20px 24px;
+  }
+
+  .contactTitle,
+  .contactScript {
+    font-size: 46px;
+  }
+
+  .toolsBoard {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    transform: none;
+  }
+
+  .toolTile,
+  .boltTile,
+  .dragTile {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    transform: none;
+  }
+
+  .figmaTile {
+    width: 108px;
+    height: 102px;
+  }
+
+  .aeTile,
+  .psTile,
+  .aiTile {
+    width: 96px;
+    height: 92px;
+  }
+
+  .aeTile span,
+  .psTile span,
+  .aiTile span {
+    font-size: 52px;
+  }
+
+  .starTile,
+  .smileTile,
+  .gearTile {
+    width: 58px;
+    height: 58px;
+  }
+
+  .dragTile {
+    width: 148px;
+    height: 48px;
+    font-size: 15px;
+  }
+}

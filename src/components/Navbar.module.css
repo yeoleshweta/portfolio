@@ -1,0 +1,164 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 94px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  background: rgba(241, 238, 238, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(23, 23, 23, 0.38);
+}
+
+.container {
+  width: 100%;
+  max-width: 1710px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.08em;
+  color: #0f0f0f;
+}
+
+.brandDot {
+  color: var(--color-accent);
+  margin-right: 4px;
+}
+
+.brandScript {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 56px;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  margin-left: 2px;
+  color: #050505;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 58px;
+}
+
+.navLink {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #5d5d5d;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: #1b1b1b;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.cvBtn {
+  font-size: 17px;
+  font-weight: 700;
+  padding: 13px 24px;
+  border-radius: 20px;
+  background: #ece7ef;
+  color: #5a5a5a;
+  border: 1.4px solid rgba(23, 23, 23, 0.52);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.03em;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.cvBtn:hover {
+  transform: translateY(-1px);
+  background: #e7dff1;
+  color: #181818;
+}
+
+.menuBtn {
+  display: none;
+  color: var(--color-text);
+}
+
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-bg);
+  padding: 100px 40px 40px;
+  z-index: 99;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mobileLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.mobileLink {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--color-text);
+}
+
+.mobileCvBtn {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 32px;
+  border-radius: 100px;
+  background: var(--color-text);
+  color: white;
+}
+
+@media (max-width: 809px) {
+  .links,
+  .actions {
+    display: none;
+  }
+
+  .menuBtn {
+    display: block;
+  }
+
+  .navbar {
+    height: 82px;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .brand {
+    font-size: 30px;
+  }
+
+  .brandScript {
+    font-size: 38px;
+  }
+}
