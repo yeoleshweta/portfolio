@@ -2,17 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { motion, useSpring } from "framer-motion";
-import styles from "./CustomCursor.module.css";
+import styles from "./CursorFollower.module.css";
 
-export default function CustomCursor() {
-  const cursorX = useSpring(0, { stiffness: 500, damping: 28 });
-  const cursorY = useSpring(0, { stiffness: 500, damping: 28 });
+export default function CursorFollower() {
+  const mouseX = useSpring(0, { stiffness: 500, damping: 28 });
+  const mouseY = useSpring(0, { stiffness: 500, damping: 28 });
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX - 12);
-      cursorY.set(e.clientY - 12);
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX - 12);
+      mouseY.set(e.clientY - 12);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -29,21 +29,21 @@ export default function CustomCursor() {
       }
     };
 
-    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseover", handleMouseOver);
 
     return () => {
-      window.removeEventListener("mousemove", moveCursor);
+      window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseover", handleMouseOver);
     };
-  }, [cursorX, cursorY]);
+  }, [mouseX, mouseY]);
 
   return (
     <motion.div
       className={styles.cursor}
       style={{
-        x: cursorX,
-        y: cursorY,
+        x: mouseX,
+        y: mouseY,
         scale: isHovering ? 2.5 : 1,
       }}
     />
