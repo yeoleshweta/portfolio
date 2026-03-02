@@ -7,14 +7,15 @@
 
 .scene {
   position: relative;
-  height: 165svh;
+  height: 360svh;
 }
 
 .sticky {
   position: sticky;
-  top: 0;
-  height: 100svh;
-  overflow: visible;
+  top: 94px;
+  height: calc(100svh - 94px);
+  overflow: hidden;
+  display: block;
 }
 
 .backdropWash {
@@ -22,36 +23,18 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
-    radial-gradient(
-      56% 44% at 50% 56%,
-      rgba(255, 255, 255, 0.82) 0%,
-      rgba(247, 247, 247, 0.72) 28%,
-      rgba(247, 247, 247, 0.44) 46%,
-      rgba(247, 247, 247, 0.14) 72%,
-      rgba(247, 247, 247, 0) 100%
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(247, 247, 247, 0.2) 0%,
-      rgba(247, 247, 247, 0.08) 22%,
-      rgba(247, 247, 247, 0) 46%,
-      rgba(247, 247, 247, 0.1) 72%,
-      rgba(247, 247, 247, 0.28) 100%
-    );
+  background: transparent;
 }
 
 .header {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position: relative;
   z-index: 4;
   display: flex;
-  width: 72%;
+  margin: 0 auto;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
-  transform: translate(-50%, -50%);
+  gap: 16px;
+  padding-top: 58px;
   text-align: center;
 }
 
@@ -73,207 +56,14 @@
 }
 
 .description {
-  width: min(1110px, 92%);
+  width: 521px;
+  max-width: calc(100% - 32px);
   color: #595959;
   font-family: "IBM Plex Sans", sans-serif;
   font-size: 18px;
   font-weight: 500;
-  line-height: 1.47;
+  line-height: 1.5;
   letter-spacing: -0.03em;
-}
-
-.logoField {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-}
-
-.topCube,
-.leftCube,
-.rightCube {
-  position: absolute;
-}
-
-.topCube {
-  top: 44px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.leftCube {
-  bottom: 84px;
-  left: 67px;
-}
-
-.rightCube {
-  top: calc(81.1141% - 65px);
-  left: calc(88.125% - 65px);
-}
-
-.logoCube {
-  position: relative;
-  width: 130px;
-  height: 130px;
-  transform-style: preserve-3d;
-}
-
-.logoCubeFront,
-.logoCubeRight,
-.logoCubeTop {
-  position: absolute;
-  border: 1px solid #111;
-  border-radius: 15px;
-}
-
-.logoCubeFront {
-  inset: 0;
-  display: grid;
-  place-items: center;
-  background: #fff;
-}
-
-.logoCubeRight {
-  top: 9px;
-  right: -18px;
-  width: 28px;
-  height: calc(100% - 12px);
-  border-left: none;
-  border-radius: 0 15px 15px 0;
-  background: #f0e4ff;
-  transform: skewY(38deg);
-  transform-origin: left top;
-}
-
-.logoCubeTop {
-  top: -14px;
-  left: 10px;
-  width: calc(100% - 13px);
-  height: 28px;
-  border-bottom: none;
-  border-radius: 15px 15px 0 0;
-  background: #faf6ff;
-  transform: skewX(50deg);
-  transform-origin: left bottom;
-}
-
-.myntraMark {
-  position: relative;
-  width: 56px;
-  height: 48px;
-}
-
-.myntraPink,
-.myntraOrange,
-.myntraPurple {
-  position: absolute;
-  display: block;
-  width: 18px;
-  height: 40px;
-  border-radius: 999px;
-}
-
-.myntraPink {
-  top: 5px;
-  left: 3px;
-  background: #f92f84;
-  transform: rotate(26deg);
-}
-
-.myntraOrange {
-  top: 3px;
-  left: 20px;
-  background: #ff8f28;
-  transform: rotate(-18deg);
-}
-
-.myntraPurple {
-  top: 6px;
-  right: 4px;
-  background: #7a1cff;
-  transform: rotate(18deg);
-}
-
-.cultMark {
-  position: relative;
-  width: 64px;
-  height: 64px;
-}
-
-.cultDot {
-  position: absolute;
-  top: 4px;
-  left: 50%;
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: #ee477e;
-  transform: translateX(-50%);
-}
-
-.cultBarOne,
-.cultBarTwo,
-.cultBarThree,
-.cultBarFour {
-  position: absolute;
-  left: 50%;
-  width: 36px;
-  height: 8px;
-  border-radius: 999px;
-  transform-origin: center;
-}
-
-.cultBarOne {
-  top: 18px;
-  background: #111;
-  transform: translateX(-50%) rotate(24deg);
-}
-
-.cultBarTwo {
-  top: 28px;
-  background: #6fd2ff;
-  transform: translateX(-50%) rotate(-20deg);
-}
-
-.cultBarThree {
-  top: 38px;
-  background: #111;
-  transform: translateX(-50%) rotate(18deg);
-}
-
-.cultBarFour {
-  top: 49px;
-  background: #ffc624;
-  transform: translateX(-50%) rotate(-24deg);
-}
-
-.naviMark {
-  position: relative;
-  width: 54px;
-  height: 54px;
-}
-
-.naviStem {
-  position: absolute;
-  bottom: 5px;
-  left: 8px;
-  width: 16px;
-  height: 32px;
-  border-radius: 8px 8px 6px 6px;
-  background: #14bf67;
-}
-
-.naviArc {
-  position: absolute;
-  top: 8px;
-  right: 4px;
-  width: 30px;
-  height: 30px;
-  border: 10px solid #14bf67;
-  border-bottom-width: 8px;
-  border-left-width: 8px;
-  border-radius: 9px 9px 10px 3px;
-  transform: rotate(12deg);
 }
 
 .smallCubeField {
@@ -285,108 +75,55 @@
 
 .smallCube {
   position: absolute;
-  top: 50%;
-  left: 50%;
   display: block;
   border: 1px solid rgba(17, 17, 17, 0.18);
   border-radius: 5px;
   background: rgba(231, 214, 255, 0.72);
 }
 
-.carryCube {
+.heartCube {
   position: absolute;
-  top: -26px;
-  right: -24px;
-  z-index: 2;
-  width: 336px;
-  height: 336px;
-  pointer-events: none;
+  width: 20px;
+  height: 20px;
+  transform-style: preserve-3d;
 }
 
-.carryFace {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 1px solid rgba(17, 17, 17, 0.34);
-  border-radius: 30px;
-  background: linear-gradient(180deg, #faf7ff 0%, #ddccff 100%);
-}
-
-.carryFace::before,
-.carryFace::after {
+.heartCubeFace {
   position: absolute;
-  content: "";
-  display: block;
-  border: 1px solid rgba(17, 17, 17, 0.24);
+  inset: 0;
+  background: var(--color-lilac);
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  backface-visibility: hidden;
 }
 
-.carryFace::before {
-  top: 16px;
-  right: -34px;
-  width: 52px;
-  height: calc(100% - 22px);
-  border-left: none;
-  border-radius: 0 30px 30px 0;
-  background: #eadcff;
-  transform: skewY(38deg);
-  transform-origin: left top;
+.heartFront {
+  transform: translateZ(10px);
 }
-
-.carryFace::after {
-  top: -28px;
-  left: 18px;
-  width: calc(100% - 20px);
-  height: 52px;
-  border-bottom: none;
-  border-radius: 30px 30px 0 0;
-  background: #fcf9ff;
-  transform: skewX(50deg);
-  transform-origin: left bottom;
+.heartBack {
+  transform: rotateY(180deg) translateZ(10px);
+}
+.heartRight {
+  transform: rotateY(90deg) translateZ(10px);
+}
+.heartLeft {
+  transform: rotateY(-90deg) translateZ(10px);
+}
+.heartTop {
+  transform: rotateX(90deg) translateZ(10px);
+}
+.heartBottom {
+  transform: rotateX(-90deg) translateZ(10px);
 }
 
 @media (max-width: 1180px) {
   .scene {
-    height: 145svh;
+    height: 260svh;
   }
 
   .sticky {
-    top: 0;
-    height: 100svh;
-  }
-
-  .header {
-    width: 88%;
-  }
-
-  .description {
-    width: 100%;
-  }
-
-  .topCube {
-    top: 28px;
-  }
-
-  .leftCube,
-  .rightCube {
-    transform: scale(0.84);
-    transform-origin: center;
-  }
-
-  .leftCube {
-    left: 24px;
-  }
-
-  .rightCube {
-    left: auto;
-    right: 16px;
-  }
-
-  .carryCube {
-    width: 244px;
-    height: 244px;
-    top: -14px;
-    right: -52px;
+    top: 84px;
+    height: calc(100svh - 84px);
   }
 }
 
@@ -399,16 +136,11 @@
     position: relative;
     top: 0;
     height: auto;
-    padding: 120px 20px 112px;
-    overflow: hidden;
+    padding: 92px 20px 80px;
   }
 
   .header {
-    position: relative;
-    top: auto;
-    left: auto;
     width: 100%;
-    transform: none;
   }
 
   .title {
@@ -420,38 +152,59 @@
   }
 
   .description {
+    width: 100%;
     font-size: 17px;
   }
 
-  .logoField {
-    position: relative;
-    height: 420px;
-    margin-top: 60px;
-  }
-
-  .topCube,
-  .leftCube,
-  .rightCube {
-    transform: none;
-  }
-
-  .topCube {
-    top: 0;
-  }
-
-  .leftCube {
-    bottom: 12px;
-    left: 0;
-  }
-
-  .rightCube {
-    top: 190px;
-    right: 4px;
-    left: auto;
-  }
-
-  .carryCube,
-  .smallCubeField {
+  .smallCubeField,
+  .stageScatterCube {
     display: none;
+  }
+}
+
+.galleryTrack {
+  position: absolute;
+  top: 47%;
+  left: calc(50% - 825px);
+  z-index: 1;
+  display: flex;
+  width: 1651px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.galleryCard {
+  position: relative;
+  width: 240px;
+  height: 306px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.galleryCard img {
+  object-fit: cover;
+}
+
+.stageScatterCube {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(17, 17, 17, 0.18);
+  border-radius: 4px;
+  background: #d8c0ff;
+}
+
+@media (max-width: 1180px) {
+  .galleryTrack {
+    left: calc(50% - 627px);
+    width: 1255px;
+  }
+}
+
+@media (max-width: 768px) {
+  .galleryTrack {
+    top: 322px;
+    left: calc(50% - 314px);
+    width: 627px;
   }
 }

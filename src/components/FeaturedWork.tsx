@@ -58,7 +58,11 @@ function FloatingDebris({
 }) {
   const x = useTransform(progress, [0, 1], [xOrigin, xOrigin * 0.72]);
   const y = useTransform(progress, [0, 1], [yOrigin, yOrigin - 28]);
-  const rotate = useTransform(progress, [0, 1], [rotateOrigin, rotateOrigin + 24]);
+  const rotate = useTransform(
+    progress,
+    [0, 1],
+    [rotateOrigin, rotateOrigin + 24],
+  );
   const opacity = useTransform(progress, [0, 0.14, 1], [0, 1, 0.62]);
 
   return (
@@ -75,7 +79,7 @@ function FloatingDebris({
 
 export default function FeaturedWork() {
   const sectionRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion() ?? false;
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -160,12 +164,14 @@ export default function FeaturedWork() {
                 }
               >
                 <div className={styles.cardImage}>
-                  <Image
-                    fill
-                    src={caseStudies[0].image}
-                    alt={caseStudies[0].title}
-                    sizes="432px"
-                  />
+                  <div className={styles.tiltedMockup}>
+                    <Image
+                      fill
+                      src={caseStudies[0].image}
+                      alt={caseStudies[0].title}
+                      sizes="432px"
+                    />
+                  </div>
                 </div>
                 <div className={styles.cardBody}>
                   <div className={styles.cardTop}>
@@ -177,13 +183,10 @@ export default function FeaturedWork() {
                       className={styles.arrow}
                       aria-label={caseStudies[0].title}
                     >
-                      <ArrowUpRight size={36} strokeWidth={1.8} />
+                      <ArrowUpRight size={28} strokeWidth={2.5} />
                     </a>
                   </div>
                   <h3 className={styles.cardTitle}>{caseStudies[0].title}</h3>
-                  <p className={styles.cardDescription}>
-                    {caseStudies[0].description}
-                  </p>
                 </div>
               </motion.article>
 
@@ -202,12 +205,14 @@ export default function FeaturedWork() {
                 }
               >
                 <div className={styles.cardImage}>
-                  <Image
-                    fill
-                    src={caseStudies[1].image}
-                    alt={caseStudies[1].title}
-                    sizes="432px"
-                  />
+                  <div className={styles.tiltedMockup}>
+                    <Image
+                      fill
+                      src={caseStudies[1].image}
+                      alt={caseStudies[1].title}
+                      sizes="432px"
+                    />
+                  </div>
                 </div>
                 <div className={styles.cardBody}>
                   <div className={styles.cardTop}>
@@ -219,13 +224,10 @@ export default function FeaturedWork() {
                       className={styles.arrow}
                       aria-label={caseStudies[1].title}
                     >
-                      <ArrowUpRight size={36} strokeWidth={1.8} />
+                      <ArrowUpRight size={28} strokeWidth={2.5} />
                     </a>
                   </div>
                   <h3 className={styles.cardTitle}>{caseStudies[1].title}</h3>
-                  <p className={styles.cardDescription}>
-                    {caseStudies[1].description}
-                  </p>
                 </div>
               </motion.article>
             </motion.div>
