@@ -36,7 +36,7 @@
 
 :root {
   /* Colors — devashish.design palette */
-  --color-bg: #f7f7f7;
+  --color-bg: #f2f2f2;
   --color-surface: #ffffff;
   --color-text: #1c1c1c;
   --color-text-secondary: #595959;
@@ -47,6 +47,7 @@
   --font-primary: "Inter", "IBM Plex Sans", sans-serif;
   --font-display: "Inter Display", sans-serif;
   --font-script: "Kepler Std Extended Italic Display", serif;
+  --color-lilac: #b59bff;
 
   /* Font sizes */
   --text-hero: clamp(48px, 10vw, 139px);
@@ -81,7 +82,7 @@ html {
 body {
   font-family: var(--font-primary);
   color: var(--color-text);
-  background: #f7f7f7;
+  background: var(--color-bg);
   font-size: var(--text-body);
   line-height: 1.6;
   overflow-x: hidden;

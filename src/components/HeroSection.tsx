@@ -1,12 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  useRef,
-  useState,
-  type CSSProperties,
-  type MouseEvent,
-} from "react";
+import { useRef, useState, type CSSProperties, type MouseEvent } from "react";
 import {
   motion,
   useScroll,
@@ -32,7 +27,7 @@ const FACE_TRANSFORMS = {
 const cubies = (() => {
   return Array.from({ length: 27 }, (_, index) => {
     const x = (index % 3) - 1;
-    const y = Math.floor(index / 3) % 3 - 1;
+    const y = (Math.floor(index / 3) % 3) - 1;
     const z = Math.floor(index / 9) - 1;
     const edgeWeight = (Math.abs(x) + Math.abs(y) + Math.abs(z)) / 3;
     const layerWeight = (z + 1) / 2;
@@ -75,32 +70,17 @@ function Cubie({
   const x = useTransform(
     progress,
     [0, explosionStart, explosionMidpoint, 1],
-    [
-      baseX,
-      baseX,
-      baseX + cubie.explosionX * 0.52,
-      baseX + cubie.explosionX,
-    ],
+    [baseX, baseX, baseX + cubie.explosionX * 0.52, baseX + cubie.explosionX],
   );
   const y = useTransform(
     progress,
     [0, explosionStart, explosionMidpoint, 1],
-    [
-      baseY,
-      baseY,
-      baseY + cubie.explosionY * 0.48,
-      baseY + cubie.explosionY,
-    ],
+    [baseY, baseY, baseY + cubie.explosionY * 0.48, baseY + cubie.explosionY],
   );
   const z = useTransform(
     progress,
     [0, explosionStart, explosionMidpoint, 1],
-    [
-      baseZ,
-      baseZ,
-      baseZ + cubie.explosionZ * 0.52,
-      baseZ + cubie.explosionZ,
-    ],
+    [baseZ, baseZ, baseZ + cubie.explosionZ * 0.52, baseZ + cubie.explosionZ],
   );
   const rotateX = useTransform(progress, [explosionStart, 1], [0, cubie.spinX]);
   const rotateY = useTransform(progress, [explosionStart, 1], [0, cubie.spinY]);
@@ -248,7 +228,11 @@ export default function HeroSection() {
             style={{ x: mouseX, y: mouseY }}
             initial={{ opacity: 0, scale: 0.88, rotate: 6 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1.15, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            transition={{
+              duration: 1.15,
+              delay: 0.12,
+              ease: [0.16, 1, 0.3, 1],
+            }}
           >
             <motion.div
               className={styles.cubeMotion}
@@ -347,7 +331,11 @@ export default function HeroSection() {
               className={styles.bioInner}
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.28, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                delay: 0.28,
+                duration: 0.9,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
               <div className={styles.profilePic}>
                 <Image
@@ -358,8 +346,8 @@ export default function HeroSection() {
                 />
               </div>
               <p className={styles.description}>
-                Hi! I&apos;m <strong>Dev Ashish</strong>, a Product Designer from
-                India, transforming complex problems into clean, intuitive
+                Hi! I&apos;m <strong>Dev Ashish</strong>, a Product Designer
+                from India, transforming complex problems into clean, intuitive
                 experiences that just make sense.
               </p>
             </motion.div>
@@ -380,7 +368,11 @@ export default function HeroSection() {
             <motion.div
               initial={{ opacity: 0, x: 28 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.42, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                delay: 0.42,
+                duration: 0.85,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
               <div className={styles.hoverLabel}>
                 Hover to <span>play</span>
@@ -390,7 +382,11 @@ export default function HeroSection() {
                 viewBox="0 0 165 128"
                 aria-hidden="true"
                 animate={{ y: [0, -7, 0] }}
-                transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 2.4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <path
                   d="M28 12C28 47 18 74 2 92c-13 14 28 23 54-8 20-24 15-45 6-50-8-4-16 6-11 21 5 13 27 25 56 9 23-13 33-34 31-56"

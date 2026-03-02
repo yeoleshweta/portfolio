@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 import Navbar from "@/components/Navbar";
 import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
+import BackgroundScene from "@/components/BackgroundScene";
 
 export default function RootLayout({
   children,
@@ -22,6 +23,7 @@ export default function RootLayout({
         <SmoothScroll>
           <CustomCursor />
           <Navbar />
+          <BackgroundScene />
           <main className="main-content">{children}</main>
         </SmoothScroll>
       </body>

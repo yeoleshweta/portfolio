@@ -1,6 +1,6 @@
 .section {
   position: relative;
-  background: #f7f7f7;
+  background: transparent;
 }
 
 .hobbiesScene {
@@ -41,6 +41,60 @@
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.05em;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #e9f9ee;
+  color: #1a6d34;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.ctaSub {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+.ctaMain {
+  font-family: var(--font-script);
+  font-size: clamp(80px, 12vw, 160px);
+  line-height: 0.8;
+  color: var(--color-text);
+  margin-bottom: 48px;
 }
 
 .description {
@@ -89,15 +143,14 @@
 
 .galleryTrack {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 47%;
+  left: calc(50% - 825px);
   z-index: 1;
   display: flex;
   width: 1651px;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transform: translate(-50%, -6%);
 }
 
 .galleryCard {
@@ -169,7 +222,7 @@
   align-items: start;
   min-height: 452px;
   padding: 80px 52px 24px;
-  background: #eee7f7;
+  background: #f9f2ff;
 }
 
 .panelLeft {
@@ -472,8 +525,8 @@
   }
 
   .galleryTrack {
-    transform: translate(-50%, -6%) scale(0.76);
-    transform-origin: center center;
+    left: calc(50% - 627px);
+    width: 1255px;
   }
 
   .contactPanel {
@@ -530,7 +583,8 @@
 
   .galleryTrack {
     top: 322px;
-    transform: translate(-50%, -6%) scale(0.38);
+    left: calc(50% - 314px);
+    width: 627px;
   }
 
   .stageScatterCube,
