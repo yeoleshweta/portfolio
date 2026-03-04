@@ -2,14 +2,15 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { Menu, X, Download } from "lucide-react";
 import styles from "./Navbar.module.css";
 
 const navLinks = [
-  { label: "Home", href: "#" },
-  { label: "Projects", href: "#work" },
-  { label: "Work Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "/#work" },
+  { label: "Work Experience", href: "/experience" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const cvHref = "https://www.dropbox.com/";
@@ -21,16 +22,20 @@ export default function Navbar() {
     <>
       <nav className={styles.navbar}>
         <div className={styles.container}>
-          <a href="#" className={styles.brand}>
+          <Link href="/" className={styles.brand}>
             shweta<span className={styles.brandDot}>.</span>
             <span className={styles.brandScript}>design</span>
-          </a>
+          </Link>
 
           <div className={styles.links}>
             {navLinks.map((link) => (
-              <a key={link.label} href={link.href} className={styles.navLink}>
+              <Link
+                key={link.label}
+                href={link.href}
+                className={styles.navLink}
+              >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -67,14 +72,14 @@ export default function Navbar() {
           >
             <div className={styles.mobileLinks}>
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
                   className={styles.mobileLink}
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <a
                 href={cvHref}

@@ -12,6 +12,7 @@ import {
   DoubleDiamondCarousel,
   InteractiveBarChart,
   Blockquote,
+  PersonaCardActual,
 } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
@@ -28,12 +29,12 @@ export default function DesignThinkingCaseStudy() {
   return (
     <CaseStudyLayout sections={sections}>
       <CaseStudyHero
-        title="Empowering Product Managers with UX & Design Thinking"
+        title="Product Managers with UX & Design Thinking"
         category="UX Research Case Study"
-        role="UX Advocate & Research Lead"
-        team="Cross-functional (PMs, UX, Eng)"
-        timeline="6 Months"
-        image="/ux_law_hero.png"
+        role="Lead UX Consultant"
+        team="2 UX Researchers, 1 Service Designer, 1 PM"
+        timeline="12 Weeks"
+        image="/hicks_law_hero.png"
       />
 
       {/* --- OVERVIEW --- */}
@@ -44,27 +45,58 @@ export default function DesignThinkingCaseStudy() {
       >
         <p>
           At John Deere, Product Managers are the connective tissue between
-          users, engineering, and business strategy. They own roadmaps,
-          negotiate priorities, and ship features across a portfolio of 250+
-          products spanning agriculture, construction, and enterprise tooling.
+          users, engineering, and business strategy across a 250+ product
+          portfolio. But observations revealed a critical gap: PMs were making
+          decisions about user-facing features without a shared UX language.
+          Research findings sat in slide decks, and usability results arrived
+          too late to impact development.
         </p>
-        <p>
-          When I joined the UX team as the only UX researcher on the India team,
-          I noticed a pattern in every sprint planning, backlog refinement, and
-          stakeholder sync. PMs were making decisions about user-facing features
-          without a shared language for talking about users. Research findings
-          sat in slide decks nobody opened. Usability results arrived after
-          features were already in development.
-        </p>
-
-        <Blockquote
-          text="I know UX is important. I just don't know what to do with the research once I get it."
-          author="Senior Product Manager, John Deere"
-        />
 
         <ContextCard
-          title="Research Question"
-          text="How might we equip Product Managers with UX frameworks and collaborative workflows so they can confidently lead user-centred design and stop relying on ad-hoc practices?"
+          title="The Challenge"
+          text="Equip PMs with UX frameworks and collaborative workflows so they can confidently lead user-centred design, moving from ad-hoc practices to systematic execution."
+        />
+      </CaseStudySection>
+
+      {/* --- IMMEDIATE IMPACT (Moved UP for punchiness) --- */}
+      <CaseStudySection
+        id="impact"
+        label="Outcomes"
+        heading="Measurable Cultural Shift"
+      >
+        <p style={{ marginBottom: "32px" }}>
+          Before diving into the methodology, here is the tangible impact of
+          deploying the "PM-UX Playbook" pilot to a 50-person cohort over 4
+          weeks:
+        </p>
+
+        <ResultsGrid
+          items={[
+            {
+              value: "80%",
+              label: "UX Confidence",
+              description:
+                "Participants reported greater confidence interpreting research deliverables.",
+            },
+            {
+              value: "25%",
+              label: "Faster Specs",
+              description:
+                "Reduction in average time to complete feature specifications.",
+            },
+            {
+              value: "120",
+              label: "Forum Threads",
+              description:
+                "Started in month one. Peer learning happened organically.",
+            },
+            {
+              value: "10/12",
+              label: "Buddy Retention",
+              description:
+                "Mentorship pairs voluntarily continued beyond the pilot.",
+            },
+          ]}
         />
       </CaseStudySection>
 
@@ -132,40 +164,37 @@ export default function DesignThinkingCaseStudy() {
         heading="What The Research Revealed"
       >
         <p>
-          The 15 contextual interviews revealed five structural gaps that showed
-          up across product lines, seniority levels, and geographies.
+          15 contextual interviews revealed structural gaps that showed up
+          consistently across product lines, driving the need for a practical,
+          low-friction solution.
         </p>
 
         <InteractiveBarChart
           data={[
             { label: "No shared UX language", value: 90, color: "#8b69fa" },
-            { label: "Research arrived too late", value: 80, color: "#ff80ab" },
+            { label: "Research arrived too late", value: 80, color: "#9f85f8" },
             {
               label: "PMs solving UX problems alone",
               value: 75,
-              color: "#26c6da",
+              color: "#b4a1f7",
             },
-            { label: "Technical confidence gap", value: 65, color: "#ffa726" },
+            { label: "Technical confidence gap", value: 65, color: "#c8bdf5" },
             {
               label: "No career pathway at intersection",
               value: 55,
-              color: "#66bb6a",
+              color: "#ddd8f4",
             },
           ]}
         />
 
         <h3>Rajesh, Senior Product Manager</h3>
         <p>
-          From the research, I synthesised a primary persona that captured the
-          composite behaviours, frustrations, and goals of the PMs I had
-          interviewed. Every PM who reviewed this persona said: "That's me."
+          Research synthesised into "Rajesh," capturing the composite behaviours
+          and frustrations of our target PMs. Identifying his true baseline was
+          critical: they needed collaboration templates, not UX encyclopedias.
         </p>
 
-        <CaseStudyImage
-          src="/ux_user_persona.png"
-          alt="User Persona: Rajesh the Product Manager"
-          caption="Rajesh manages 3 engineering squads. Non-design background. 7 years in product."
-        />
+        <PersonaCardActual />
 
         <div style={{ maxWidth: "500px", margin: "0 auto" }}>
           <h4>Rajesh's Baseline Proficiency</h4>
@@ -174,11 +203,6 @@ export default function DesignThinkingCaseStudy() {
           <PersonaProgress label="UX Vocabulary" value={30} />
           <PersonaProgress label="User Empathy" value={45} />
         </div>
-
-        <Blockquote
-          text="I don't need to run the research. I need to know what to do with it."
-          author="Rajesh persona quote"
-        />
       </CaseStudySection>
 
       {/* --- DEVELOP: SOLUTIONS --- */}
@@ -188,122 +212,117 @@ export default function DesignThinkingCaseStudy() {
         heading="Four Solutions From Co-Creation"
       >
         <p>
-          Two 2-hour co-creation sessions using Crazy 8s and storyboarding
-          generated 40+ ideas. After dot-voting and feasibility discussion, four
-          solution concepts rose to the top.
+          Co-creation sessions generated 40+ ideas, which we whittled down to
+          four highly feasible, high-impact concepts designed to integrate into
+          existing workflows.
         </p>
 
-        <h3>1. PM-UX Playbook</h3>
-        <p>
-          A template-driven guide with ready-to-use journey map templates,
-          usability heuristic checklists, and "how to read a research report"
-          guides. Designed to be grabbed in the moment, not studied in advance.
-        </p>
-
-        <h3>2. Buddy-Up Programme</h3>
-        <p>
-          Structured mentorship pairing PMs with UX researchers for a quarter.
-          Not a training relationship but a collaboration partnership.
-        </p>
-
-        <h3>3. Community Forum</h3>
-        <p>
-          A dedicated internal platform for sharing case studies, templates, and
-          learning from each other's wins and failures.
-        </p>
-
-        <h3>4. Micro-Learning Modules</h3>
-        <p>
-          Bite-sized 5-10 minute lessons on core UX concepts, delivered via
-          Slack and Jira rather than a separate LMS.
-        </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "24px",
+            marginTop: "32px",
+            marginBottom: "48px",
+          }}
+        >
+          <div>
+            <h3>
+              1. PM-UX Playbook <br />
+              <span
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "normal",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                Template-driven heuristic guides.
+              </span>
+            </h3>
+          </div>
+          <div>
+            <h3>
+              2. Buddy-Up Programme <br />
+              <span
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "normal",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                Quarterly UX/PM collaboration pairs.
+              </span>
+            </h3>
+          </div>
+          <div>
+            <h3>
+              3. Community Forum <br />
+              <span
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "normal",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                Internal platform for sharing templates & wins.
+              </span>
+            </h3>
+          </div>
+          <div>
+            <h3>
+              4. Micro-Learning <br />
+              <span
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "normal",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                5min UX concepts via Slack & Jira.
+              </span>
+            </h3>
+          </div>
+        </div>
 
         <CaseStudyImage
-          src="/ux_wireframe_sketch.png"
-          alt="Product & UX Hub Wireframes"
-          caption="Low-fidelity prototype of the Product & UX Hub, restructured to use existing infrastructure."
+          src="/assets/aUPlkh0IoNtafdCvbQjivxXT4hY.webp"
+          alt="Design Thinking Conceptual Process"
+          caption="Strategizing UX integration into the Product Management lifecycle."
         />
+
+        <div style={{ marginTop: "48px" }}>
+          <CaseStudyImage
+            src="/assets/2uthT7OtMnIEGFrcGYTGbSq8iyQ.webp"
+            alt="Collaborative Action Map"
+            caption="Transforming ad-hoc decisions into a structured, trackable UX collaboration network."
+          />
+        </div>
       </CaseStudySection>
 
       {/* --- DELIVER: TESTING --- */}
       <CaseStudySection
         id="deliver"
         label="Phase 4: Deliver"
-        heading="Testing, Iterating, and Launching"
+        heading="Testing in the Real World"
       >
         <p>
-          Tested the prototype with 5 PMs during actual monthly planning
-          workshops, not in a lab. What worked: template discovery was fast,
-          micro-learning format resonated, and the community concept generated
-          genuine enthusiasm.
+          Tested directly during actual monthly planning workshops. The key
+          insight: <strong>Contextual timing is everything.</strong>
         </p>
-
-        <h3>Key Iterations</h3>
         <ul>
           <li>
-            <strong>Simplified navigation:</strong> Merged "Learn" and
-            "Templates" into a single "Resources" section organised by workflow
-            stage.
+            <strong>Simplified Navigation:</strong> Merged "Learn" and
+            "Templates" into a workflow-staged "Resources" hub.
           </li>
           <li>
-            <strong>Added contextual tips:</strong> Every template now includes
-            "Use this when..." prompts.
-          </li>
-          <li>
-            <strong>Slack integration:</strong> Notifications for new content
-            and replies pushed directly into existing channels.
+            <strong>Contextual Prompts:</strong> Added "Use this when..." tips
+            to all UX Playbooks.
           </li>
         </ul>
 
         <Blockquote
           text="Now I know when to use this, not just that it exists."
           author="PM participant, Round 2 testing"
-        />
-      </CaseStudySection>
-
-      {/* --- IMPACT --- */}
-      <CaseStudySection
-        id="impact"
-        label="Outcomes"
-        heading="Measurable Cultural Shift"
-      >
-        <p>
-          The pilot launched with a 50-person PM cohort across four product
-          lines, tracked over 4 weeks.
-        </p>
-
-        <ResultsGrid
-          items={[
-            {
-              value: "80%",
-              label: "UX Confidence",
-              description:
-                "Pilot participants reported greater confidence interpreting research deliverables.",
-            },
-            {
-              value: "25%",
-              label: "Faster Specs",
-              description:
-                "Reduction in average time to complete feature specifications.",
-            },
-            {
-              value: "120",
-              label: "Forum Threads",
-              description:
-                "Started in the first month with 300+ replies. Peer learning happened organically.",
-            },
-            {
-              value: "10/12",
-              label: "Buddy Retention",
-              description:
-                "Initial Buddy-Up pairs continued beyond the first quarter voluntarily.",
-            },
-          ]}
-        />
-
-        <Blockquote
-          text="I'm not a UX researcher and I don't want to be. But now I know enough to ask the right questions, and that changes everything."
-          author="Product Manager, pilot participant"
         />
       </CaseStudySection>
 

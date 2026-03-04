@@ -10,7 +10,9 @@ interface CaseStudyHeroProps {
   role: string;
   team: string;
   timeline: string;
-  image: string;
+  image?: string;
+  isVideo?: boolean;
+  videoUrl?: string;
 }
 
 export default function CaseStudyHero({
@@ -20,6 +22,8 @@ export default function CaseStudyHero({
   team,
   timeline,
   image,
+  isVideo = false,
+  videoUrl,
 }: CaseStudyHeroProps) {
   return (
     <section className={styles.hero}>
@@ -68,7 +72,26 @@ export default function CaseStudyHero({
         transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={styles.mockupContainer}
       >
-        <img src={image} alt={title} className={styles.mockup} />
+        {isVideo && videoUrl ? (
+          <div className={styles.laptopMockup}>
+            <div className={styles.laptopScreen}>
+              <div className={styles.webcam}></div>
+              <video
+                src={videoUrl}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className={styles.videoPlayer}
+              />
+            </div>
+            <div className={styles.laptopBase}>
+              <div className={styles.laptopNotch}></div>
+            </div>
+          </div>
+        ) : (
+          <img src={image} alt={title} className={styles.mockup} />
+        )}
       </motion.div>
     </section>
   );

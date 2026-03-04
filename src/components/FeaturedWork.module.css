@@ -138,12 +138,26 @@
   line-height: 1.1;
 }
 
-.arrow {
+.cardLink {
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  border-radius: 32px;
+  transition: transform 0.3s ease;
+}
+
+.cardLink:hover .arrowContainer {
+  transform: rotate(45deg);
+  color: #111;
+}
+
+.arrowContainer {
   display: grid;
   width: 36px;
   height: 36px;
   place-items: center;
   color: #5f5f5f;
+  transition: transform 0.3s ease;
 }
 
 .cardTitle {

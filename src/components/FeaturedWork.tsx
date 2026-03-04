@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import {
   motion,
@@ -28,7 +29,15 @@ const caseStudies = [
       "An internal enterprise UX platform for survey creation, streamlining research operations at scale",
     image:
       "https://framerusercontent.com/images/cRVg4Sq0wW8rh829k0LII56TsvQ.png?width=1372&height=968",
-    href: "https://shwetasharma.tech/work/surveytooldesign",
+    href: "/work/john-deere",
+  },
+  {
+    title: "Stories by Children — Research & Design",
+    description:
+      "Redesigning a children's storytelling platform through UX research, driving +40% page views and +25% submissions",
+    image:
+      "https://framerusercontent.com/images/jzfSUI7bevQam4vxuI7w91xWZI.png?width=1372&height=968",
+    href: "/work/stories-by-children",
   },
 ] as const;
 
@@ -149,87 +158,114 @@ export default function FeaturedWork() {
               className={styles.cardsStage}
               style={reduceMotion ? undefined : { opacity: cardsOpacity }}
             >
-              <motion.article
-                className={styles.card}
-                style={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        x: leftCardX,
-                        y: leftCardY,
-                        rotateX: leftCardRotateX,
-                        rotateY: leftCardRotateY,
-                        scale: leftCardScale,
-                      }
-                }
-              >
-                <div className={styles.cardImage}>
-                  <div className={styles.tiltedMockup}>
-                    <Image
-                      fill
-                      src={caseStudies[0].image}
-                      alt={caseStudies[0].title}
-                      sizes="432px"
-                    />
+              <Link href={caseStudies[0].href} className={styles.cardLink}>
+                <motion.article
+                  className={styles.card}
+                  style={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          x: leftCardX,
+                          y: leftCardY,
+                          rotateX: leftCardRotateX,
+                          rotateY: leftCardRotateY,
+                          scale: leftCardScale,
+                        }
+                  }
+                >
+                  <div className={styles.cardImage}>
+                    <div className={styles.tiltedMockup}>
+                      <Image
+                        fill
+                        src={caseStudies[0].image}
+                        alt={caseStudies[0].title}
+                        sizes="432px"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className={styles.cardBody}>
-                  <div className={styles.cardTop}>
-                    <span className={styles.badge}>CASE STUDY</span>
-                    <a
-                      href={caseStudies[0].href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={styles.arrow}
-                      aria-label={caseStudies[0].title}
-                    >
-                      <ArrowUpRight size={28} strokeWidth={2.5} />
-                    </a>
+                  <div className={styles.cardBody}>
+                    <div className={styles.cardTop}>
+                      <span className={styles.badge}>CASE STUDY</span>
+                      <div className={styles.arrowContainer}>
+                        <ArrowUpRight size={28} strokeWidth={2.5} />
+                      </div>
+                    </div>
+                    <h3 className={styles.cardTitle}>{caseStudies[0].title}</h3>
                   </div>
-                  <h3 className={styles.cardTitle}>{caseStudies[0].title}</h3>
-                </div>
-              </motion.article>
+                </motion.article>
+              </Link>
 
-              <motion.article
-                className={styles.card}
-                style={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        x: rightCardX,
-                        y: rightCardY,
-                        rotateX: rightCardRotateX,
-                        rotateY: rightCardRotateY,
-                        scale: rightCardScale,
-                      }
-                }
-              >
-                <div className={styles.cardImage}>
-                  <div className={styles.tiltedMockup}>
-                    <Image
-                      fill
-                      src={caseStudies[1].image}
-                      alt={caseStudies[1].title}
-                      sizes="432px"
-                    />
+              <Link href={caseStudies[1].href} className={styles.cardLink}>
+                <motion.article
+                  className={styles.card}
+                  style={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          x: rightCardX,
+                          y: rightCardY,
+                          rotateX: rightCardRotateX,
+                          rotateY: rightCardRotateY,
+                          scale: rightCardScale,
+                        }
+                  }
+                >
+                  <div className={styles.cardImage}>
+                    <div className={styles.tiltedMockup}>
+                      <Image
+                        fill
+                        src={caseStudies[1].image}
+                        alt={caseStudies[1].title}
+                        sizes="432px"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className={styles.cardBody}>
-                  <div className={styles.cardTop}>
-                    <span className={styles.badge}>CASE STUDY</span>
-                    <a
-                      href={caseStudies[1].href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={styles.arrow}
-                      aria-label={caseStudies[1].title}
-                    >
-                      <ArrowUpRight size={28} strokeWidth={2.5} />
-                    </a>
+                  <div className={styles.cardBody}>
+                    <div className={styles.cardTop}>
+                      <span className={styles.badge}>CASE STUDY</span>
+                      <div className={styles.arrowContainer}>
+                        <ArrowUpRight size={28} strokeWidth={2.5} />
+                      </div>
+                    </div>
+                    <h3 className={styles.cardTitle}>{caseStudies[1].title}</h3>
                   </div>
-                  <h3 className={styles.cardTitle}>{caseStudies[1].title}</h3>
-                </div>
-              </motion.article>
+                </motion.article>
+              </Link>
+
+              <Link href={caseStudies[2].href} className={styles.cardLink}>
+                <motion.article
+                  className={styles.card}
+                  style={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          y: rightCardY,
+                          rotateX: rightCardRotateX,
+                          scale: rightCardScale,
+                        }
+                  }
+                >
+                  <div className={styles.cardImage}>
+                    <div className={styles.tiltedMockup}>
+                      <Image
+                        fill
+                        src={caseStudies[2].image}
+                        alt={caseStudies[2].title}
+                        sizes="432px"
+                      />
+                    </div>
+                  </div>
+                  <div className={styles.cardBody}>
+                    <div className={styles.cardTop}>
+                      <span className={styles.badge}>CASE STUDY</span>
+                      <div className={styles.arrowContainer}>
+                        <ArrowUpRight size={28} strokeWidth={2.5} />
+                      </div>
+                    </div>
+                    <h3 className={styles.cardTitle}>{caseStudies[2].title}</h3>
+                  </div>
+                </motion.article>
+              </Link>
             </motion.div>
           </div>
 
