@@ -15,20 +15,20 @@ import styles from "./FeaturedWork.module.css";
 
 const caseStudies = [
   {
-    title: "How we reduced mutual fund support tickets by 12% at Navi",
+    title: "Product Managers with UX & Design Thinking",
     description:
-      "By fixing expectation gaps and reducing post-purchase anxiety in the unit allotment journey",
+      "A design research initiative bridging product management and UX thinking through hands-on methodology",
     image:
       "https://framerusercontent.com/images/jzfSUI7bevQam4vxuI7w91xWZI.png?width=1372&height=968",
-    href: "https://www.devashish.design/navi-mutual-fund-support",
+    href: "/work/design-thinking",
   },
   {
-    title: "Increased 4% conversion by revamping investment landing page",
+    title: "Survey Design Platform — Enterprise UX",
     description:
-      "Improving discoverability, clarity, and accessibility to drive a significant conversion increase",
+      "An internal enterprise UX platform for survey creation, streamlining research operations at scale",
     image:
       "https://framerusercontent.com/images/cRVg4Sq0wW8rh829k0LII56TsvQ.png?width=1372&height=968",
-    href: "https://www.devashish.design/",
+    href: "https://shwetasharma.tech/work/surveytooldesign",
   },
 ] as const;
 
@@ -141,7 +141,7 @@ export default function FeaturedWork() {
               }
             >
               <h2 className={styles.title}>
-                Case <span className={styles.italic}>studies</span>
+                Featured <span className={styles.italic}>projects</span>
               </h2>
             </motion.div>
 

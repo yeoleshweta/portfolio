@@ -37,10 +37,16 @@
 .face {
   position: absolute;
   inset: 0;
-  border: 1.5px solid #161616;
+  border: 1.5px solid #a855f7;
   border-radius: 9px;
-  background: #ffffff;
-  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 0.5px rgba(168, 85, 247, 0.2);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.cubie:hover .face {
+  background: rgba(233, 213, 255, 0.3);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
 }
 
 .front {
@@ -49,42 +55,43 @@
 
 .back {
   transform: rotateY(180deg) translateZ(36px);
-  background: #f3f3f3;
+  background: rgba(243, 243, 243, 0.1);
 }
 
 .right {
   transform: rotateY(90deg) translateZ(36px);
-  background: #ececec;
+  background: rgba(236, 236, 236, 0.1);
 }
 
 .left {
   transform: rotateY(-90deg) translateZ(36px);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .top {
   transform: rotateX(90deg) translateZ(36px);
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .bottom {
   transform: rotateX(-90deg) translateZ(36px);
-  background: #e7e7e7;
+  background: rgba(231, 231, 231, 0.1);
 }
 
 .accent {
-  background: #8b69fa;
+  background: #a855f7 !important;
 }
 
 .accentDark {
-  background: #7853f0;
+  background: #9333ea !important;
 }
 
 .accentLight {
-  background: #a688ff;
+  background: #c084fc !important;
 }
 
 .accentDeep {
-  background: #6a49d2;
+  background: #7e22ce !important;
 }
 
 .badge {

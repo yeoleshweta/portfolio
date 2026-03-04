@@ -288,7 +288,7 @@ export default function HeroSection() {
                   animate={{ y: 0 }}
                   transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  SOLVING
+                  DESIGNING
                 </motion.span>
                 <motion.span
                   className={styles.line}
@@ -300,7 +300,7 @@ export default function HeroSection() {
                     ease: [0.16, 1, 0.3, 1],
                   }}
                 >
-                  PROBLEMS
+                  EXPERIENCES
                 </motion.span>
                 <motion.span
                   className={styles.script}
@@ -316,7 +316,7 @@ export default function HeroSection() {
                       ease: [0.16, 1, 0.3, 1],
                     }}
                   >
-                    design
+                    research
                   </motion.span>
                 </motion.span>
               </h1>
@@ -340,15 +340,16 @@ export default function HeroSection() {
               <div className={styles.profilePic}>
                 <Image
                   src="https://framerusercontent.com/images/7xLqLqX0X6z4gYX9H6tQY.png"
-                  alt="Dev Ashish"
+                  alt="Shweta Sharma"
                   width={112}
                   height={112}
                 />
               </div>
               <p className={styles.description}>
-                Hi! I&apos;m <strong>Dev Ashish</strong>, a Product Designer
-                from India, transforming complex problems into clean, intuitive
-                experiences that just make sense.
+                Hi! I&apos;m <strong>Shweta Sharma</strong>, a UX Researcher
+                &amp; AI/ML Grad Student at Drexel — I design experiences people
+                actually want to use, and lately, I&apos;ve been teaching
+                machines to help.
               </p>
             </motion.div>
           </motion.div>

@@ -16,17 +16,17 @@ const contactItems = [
   {
     type: "linkedin",
     label: "LinkedIN",
-    href: "https://linkedin.com/in/dev-ashish-dewangan-38144a50/",
+    href: "https://www.linkedin.com/in/sharmashweta08",
   },
   {
     type: "gmail",
-    label: "devashish020@gmail.com",
-    href: "mailto:devashish020@gmail.com",
+    label: "shwetayeolesharma@gmail.com",
+    href: "mailto:shwetayeolesharma@gmail.com",
   },
   {
     type: "cv",
     label: "Download CV",
-    href: "https://drive.google.com/file/d/1oLVImum8mBiIrh1nR1b5Fc_r3DLyQVZU/view?usp=sharing",
+    href: "https://www.dropbox.com/",
   },
 ] as const;
 
@@ -143,7 +143,7 @@ export default function ContactSection() {
 
           <div className={styles.headlineWrap}>
             <h2 className={styles.contactTitle}>Looking for a</h2>
-            <p className={styles.contactScript}>Product Designer?</p>
+            <p className={styles.contactScript}>UX Researcher?</p>
           </div>
 
           <div className={styles.toolsBoard}>
@@ -204,7 +204,7 @@ export default function ContactSection() {
               whileDrag={{ scale: 1.1, zIndex: 10 }}
               className={`${styles.toolTile} ${styles.aeTile}`}
             >
-              <span>Ae</span>
+              <span>Py</span>
             </motion.div>
             <motion.div
               drag
@@ -232,7 +232,7 @@ export default function ContactSection() {
               whileDrag={{ scale: 1.1, zIndex: 10 }}
               className={`${styles.toolTile} ${styles.aiTile}`}
             >
-              <span>Ai</span>
+              <span>Xd</span>
             </motion.div>
 
             <div

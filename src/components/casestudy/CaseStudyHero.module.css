@@ -1,0 +1,86 @@
+.hero {
+  padding: 160px 24px 80px;
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.header {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.category {
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 24px;
+  display: block;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: 1.1;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 32px;
+}
+
+.meta {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 64px;
+  border-top: 1px solid var(--color-border);
+  padding-top: 32px;
+}
+
+.metaItem {
+  text-align: left;
+}
+
+.metaLabel {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.metaValue {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.mockupContainer {
+  margin-top: 80px;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--color-bg);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.mockup {
+  width: 100%;
+  height: auto;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 120px;
+  }
+  .meta {
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: flex-start;
+    text-align: left;
+  }
+}

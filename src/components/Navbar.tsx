@@ -8,12 +8,11 @@ import styles from "./Navbar.module.css";
 const navLinks = [
   { label: "Home", href: "#" },
   { label: "Projects", href: "#work" },
-  { label: "Archive", href: "https://devspace.wixsite.com/portfolio" },
+  { label: "Work Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
 
-const cvHref =
-  "https://drive.google.com/file/d/1CxF9Rk3Xb9Ju-NMNSSvZ_iEEFaoEmu4a/view?usp=sharing";
+const cvHref = "https://www.dropbox.com/";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -23,7 +22,7 @@ export default function Navbar() {
       <nav className={styles.navbar}>
         <div className={styles.container}>
           <a href="#" className={styles.brand}>
-            dev<span className={styles.brandDot}>.</span>
+            shweta<span className={styles.brandDot}>.</span>
             <span className={styles.brandScript}>design</span>
           </a>
 

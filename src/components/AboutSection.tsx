@@ -279,11 +279,13 @@ export default function AboutSection() {
             }
           >
             <h2 className={styles.title}>
-              When I&apos;m not <span className={styles.italic}>designing</span>
+              When I&apos;m not{" "}
+              <span className={styles.italic}>researching</span>
             </h2>
             <p className={styles.description}>
-              I&apos;m drawn to mountains, adventure, dance, and shared moments
-              that spark joy.
+              I&apos;m drawn to sketching wireframes, exploring data
+              visualizations, reading about behavioral science, and the
+              occasional adventure.
             </p>
           </motion.div>
 
