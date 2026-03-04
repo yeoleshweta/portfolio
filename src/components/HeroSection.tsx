@@ -190,13 +190,6 @@ export default function HeroSection() {
     [0, 0.12, 0.28, 0.38],
   );
 
-  const noteY = useTransform(heroScrollYProgress, [0, 1], [0, 24]);
-  const noteOpacity = useTransform(
-    heroScrollYProgress,
-    [0, 0.72, 1],
-    [1, 0.95, 0.18],
-  );
-
   const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
     if (!hotspotRef.current) {
       return;
@@ -361,54 +354,7 @@ export default function HeroSection() {
           onMouseEnter={() => setIsCubeHovered(true)}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-        >
-          <motion.div
-            className={styles.hoverNote}
-            style={{ y: noteY, opacity: noteOpacity }}
-          >
-            <motion.div
-              initial={{ opacity: 0, x: 28 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                delay: 0.42,
-                duration: 0.85,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-            >
-              <div className={styles.hoverLabel}>
-                Hover to <span>play</span>
-              </div>
-              <motion.svg
-                className={styles.hoverArrow}
-                viewBox="0 0 165 128"
-                aria-hidden="true"
-                animate={{ y: [0, -7, 0] }}
-                transition={{
-                  duration: 2.4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                <path
-                  d="M28 12C28 47 18 74 2 92c-13 14 28 23 54-8 20-24 15-45 6-50-8-4-16 6-11 21 5 13 27 25 56 9 23-13 33-34 31-56"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="4"
-                />
-                <path
-                  d="M114 95l-23 18 28 2"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="4"
-                />
-              </motion.svg>
-            </motion.div>
-          </motion.div>
-        </div>
+        ></div>
       </div>
     </section>
   );

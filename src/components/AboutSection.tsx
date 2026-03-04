@@ -13,48 +13,22 @@ import { useRef, type ReactNode } from "react";
 import styles from "./AboutSection.module.css";
 
 const galleryImages = [
+  { src: "/assets/SelfImages/IMG_5383.jpg", alt: "Group selfie" },
+  { src: "/assets/SelfImages/IMG_6857.jpg", alt: "Jumping portrait" },
   {
-    src: "https://framerusercontent.com/images/334qmjMjoOVKDPHnfedV0ajsTHA.jpeg?width=1280&height=1280",
-    alt: "Group selfie",
-    x: -390,
-    y: 6,
-    rotate: -1,
-    scale: 0.92,
-  },
-  {
-    src: "https://framerusercontent.com/images/Vnp4EZEQ5VOH1LIXEZoLMVtGWo.jpeg?width=1080&height=1080",
-    alt: "Jumping portrait",
-    x: -254,
-    y: 16,
-    rotate: -1.5,
-    scale: 1,
-  },
-  {
-    src: "https://framerusercontent.com/images/7HbPgCtljtALVEjk8Xk7Qw55rh4.jpeg?width=720&height=1280",
+    src: "/assets/SelfImages/IMG_9702.jpg",
     alt: "Motorcycle in the mountains",
-    x: 20,
-    y: 8,
-    rotate: 0.8,
-    scale: 1.02,
   },
   {
-    src: "https://framerusercontent.com/images/3WOXIBnqCAarjKWP5te8xpwzs.jpeg?width=720&height=1280",
+    src: "/assets/SelfImages/af88938a-795e-4ee4-b92f-435eb48be0af.JPG",
     alt: "Handstand in the mountains",
-    x: 290,
-    y: 12,
-    rotate: 1.4,
-    scale: 0.98,
   },
-  {
-    src: "https://framerusercontent.com/images/kCfId1TEbqFB2KM41hEddQYQ.jpeg?width=720&height=1280",
-    alt: "Scuba diving",
-    x: 430,
-    y: 2,
-    rotate: 3,
-    scale: 0.94,
-  },
+  { src: "/assets/SelfImages/IMG_9547_2.jpg", alt: "Scuba diving" },
+  { src: "/assets/SelfImages/IMG_8208.jpg", alt: "Travel exploring" },
+  { src: "/assets/SelfImages/IMG_8783.jpg", alt: "Fun trip" },
 ] as const;
 
+/* ... staging and debris logic omitted from top snippet, preserved below ... */
 const stageDebris = [
   { size: 18, x: 214, y: -62, rotate: 6 },
   { size: 16, x: 332, y: 46, rotate: 10 },
@@ -152,39 +126,11 @@ function HeartCube({
   );
 }
 
-function GalleryCard({
-  image,
-  progress,
-  reduceMotion,
-}: {
-  image: (typeof galleryImages)[number];
-  progress: MotionValue<number>;
-  reduceMotion: boolean;
-}) {
-  const x = useTransform(
-    progress,
-    [0.28, 0.48, 1],
-    [0, image.x * 0.5, image.x],
-  );
-  const y = useTransform(progress, [0.28, 0.48, 1], [0, image.y + 24, image.y]);
-  const rotate = useTransform(
-    progress,
-    [0.28, 0.48, 1],
-    [0, image.rotate * 0.4, image.rotate],
-  );
-  const scale = useTransform(
-    progress,
-    [0.28, 0.48, 1],
-    [0.74, 0.88, image.scale],
-  );
-
+function GalleryCard({ src, alt }: { src: string; alt: string }) {
   return (
-    <motion.div
-      className={styles.galleryCard}
-      style={reduceMotion ? undefined : { x, y, rotate, scale }}
-    >
-      <Image fill src={image.src} alt={image.alt} sizes="240px" />
-    </motion.div>
+    <div className={styles.galleryCard}>
+      <Image fill src={src} alt={alt} sizes="240px" />
+    </div>
   );
 }
 
@@ -261,7 +207,8 @@ export default function AboutSection() {
   const titleOpacity = useTransform(progress, [0.06, 0.22], [0, 1]);
 
   const galleryOpacity = useTransform(progress, [0.42, 0.52, 0.88], [0, 1, 1]);
-  const galleryY = useTransform(progress, [0.28, 0.56, 1], [82, 0, -52]);
+  // Start the track centered at first card, then scroll horizontally
+  const galleryX = useTransform(progress, [0.35, 1], ["0%", "-60%"]);
 
   return (
     <section ref={sectionRef} className={styles.section}>
@@ -289,6 +236,7 @@ export default function AboutSection() {
             </p>
           </motion.div>
 
+          {/* Decorative floating heart pixels in the background */}
           <div className={styles.smallCubeField} aria-hidden="true">
             {heartPixels.map(([x, y], index) => (
               <HeartCube
@@ -301,23 +249,20 @@ export default function AboutSection() {
             ))}
           </div>
 
-          <motion.div
-            className={styles.galleryTrack}
-            style={
-              reduceMotion
-                ? undefined
-                : { opacity: galleryOpacity, y: galleryY }
-            }
-          >
-            {galleryImages.map((image) => (
-              <GalleryCard
-                key={image.src}
-                image={image}
-                progress={progress}
-                reduceMotion={reduceMotion}
-              />
-            ))}
-          </motion.div>
+          <div className={styles.carouselContainer}>
+            <motion.div
+              className={styles.galleryTrack}
+              style={
+                reduceMotion
+                  ? undefined
+                  : { opacity: galleryOpacity, x: galleryX }
+              }
+            >
+              {galleryImages.map((image) => (
+                <GalleryCard key={image.src} src={image.src} alt={image.alt} />
+              ))}
+            </motion.div>
+          </div>
 
           {stageDebris.map((piece) => (
             <StageDebris

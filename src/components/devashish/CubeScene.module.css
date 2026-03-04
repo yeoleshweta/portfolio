@@ -94,38 +94,11 @@
   background: #7e22ce !important;
 }
 
-.badge {
-  position: absolute;
-  top: 18%;
-  right: 6%;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #8b69fa;
-  font-family: var(--font-script);
-  font-size: 28px;
-  font-style: italic;
-  line-height: 1;
-  pointer-events: none;
-  animation: drift 3s ease-in-out infinite;
-}
 
-.badgeArrow {
-  font-family: var(--font-primary);
-  font-size: 28px;
-  font-style: normal;
-}
 
-@keyframes drift {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
 
-  50% {
-    transform: translateY(-10px);
-  }
-}
+
+
 
 @media (max-width: 1024px) {
   .stage {
@@ -169,10 +142,4 @@
   }
 }
 
-@media (max-width: 767px) {
-  .badge {
-    top: 8%;
-    right: 12%;
-    font-size: 22px;
-  }
-}
+

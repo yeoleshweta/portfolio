@@ -223,36 +223,7 @@
   background: linear-gradient(180deg, #e6dfda 0%, #ddd5cf 100%);
 }
 
-.hoverNote {
-  position: absolute;
-  top: 44%;
-  right: clamp(-34px, -2vw, 10px);
-  color: #a5a3a3;
-  pointer-events: none;
-  will-change: transform, opacity;
-}
 
-.hoverLabel {
-  font-size: clamp(24px, 2vw, 34px);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: #a4a2a2;
-}
-
-.hoverLabel span {
-  font-family: var(--font-script);
-  font-size: 1.22em;
-  font-style: italic;
-  color: #a9a5a5;
-}
-
-.hoverArrow {
-  width: 166px;
-  height: 128px;
-  margin-top: 8px;
-  margin-left: -12px;
-  color: #afacac;
-}
 
 @media (max-width: 1400px) {
   .container {
@@ -329,12 +300,7 @@
     left: clamp(184px, 28vw, 430px);
   }
 
-  .hoverNote {
-    top: auto;
-    right: 4%;
-    bottom: 14%;
   }
-}
 
 @media (max-width: 768px) {
   .hero {
@@ -401,14 +367,5 @@
   .cubeBase {
     transform: scale(0.52);
   }
-
-  .hoverNote {
-    right: 0;
-    bottom: 4%;
-  }
-
-  .hoverArrow {
-    width: 124px;
-    height: 96px;
-  }
 }
+

@@ -267,10 +267,6 @@ export default function CubeScene() {
           </div>
         ))}
       </div>
-      <div className={styles.badge}>
-        <span>Hover to play</span>
-        <span className={styles.badgeArrow}>↗</span>
-      </div>
     </div>
   );
 }

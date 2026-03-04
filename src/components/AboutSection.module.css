@@ -127,59 +127,42 @@
   }
 }
 
-@media (max-width: 768px) {
-  .scene {
-    height: auto;
-  }
-
-  .sticky {
-    position: relative;
-    top: 0;
-    height: auto;
-    padding: 92px 20px 80px;
-  }
-
-  .header {
-    width: 100%;
-  }
-
-  .title {
-    font-size: 20px;
-  }
-
-  .italic {
-    font-size: 25px;
-  }
-
-  .description {
-    width: 100%;
-    font-size: 17px;
-  }
-
-  .smallCubeField,
-  .stageScatterCube {
-    display: none;
-  }
+.carouselContainer {
+  position: absolute;
+  top: 55%;
+  left: 0;
+  right: 0;
+  height: 340px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  z-index: 10;
 }
 
 .galleryTrack {
-  position: absolute;
-  top: 47%;
-  left: calc(50% - 825px);
-  z-index: 1;
   display: flex;
-  width: 1651px;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  gap: 24px;
+  /* Centering the first card initially: 50vw minus half a card width */
+  padding-left: calc(50vw - 120px);
+  padding-right: 50vw;
+  width: max-content;
 }
 
 .galleryCard {
   position: relative;
-  width: 240px;
-  height: 306px;
-  overflow: hidden;
+  width: 280px;
+  height: 380px;
   border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.galleryCard:hover {
+  transform: translateY(-4px);
 }
 
 .galleryCard img {
@@ -195,16 +178,57 @@
 }
 
 @media (max-width: 1180px) {
-  .galleryTrack {
-    left: calc(50% - 627px);
-    width: 1255px;
+  .scene {
+    height: 360svh;
+  }
+
+  .sticky {
+    top: 84px;
+    height: calc(100svh - 84px);
   }
 }
 
 @media (max-width: 768px) {
-  .galleryTrack {
-    top: 322px;
-    left: calc(50% - 314px);
-    width: 627px;
+  .scene {
+    height: 360svh;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 64px;
+    height: calc(100svh - 64px);
+    overflow: hidden;
+  }
+
+  .header {
+    width: 100%;
+    padding-top: 32px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .italic {
+    font-size: 25px;
+  }
+
+  .description {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .smallCubeField,
+  .stageScatterCube {
+    display: none;
+  }
+  
+  .carouselContainer {
+    height: 300px;
+  }
+  
+  .galleryCard {
+    width: 240px;
+    height: 320px;
   }
 }
