@@ -39,6 +39,20 @@ const caseStudies = [
       "https://framerusercontent.com/images/jzfSUI7bevQam4vxuI7w91xWZI.png?width=1372&height=968",
     href: "/work/stories-by-children",
   },
+  {
+    title: "ABIM — Patient Communication NLP",
+    description:
+      "Built an LLM-to-BERT pipeline measuring physician communication behaviors at scale, grounded in Calgary-Cambridge and NURSE frameworks",
+    image: "/assets/abim-hero.png",
+    href: "/work/abim",
+  },
+  {
+    title: "GesturePro — Sign Language Translator",
+    description:
+      "Real-time AI-powered sign language to text translation using computer vision and deep learning",
+    image: "/assets/gesturepro-hero.png",
+    href: "/work/gesturepro",
+  },
 ] as const;
 
 const debris = [
@@ -263,6 +277,80 @@ export default function FeaturedWork() {
                       </div>
                     </div>
                     <h3 className={styles.cardTitle}>{caseStudies[2].title}</h3>
+                  </div>
+                </motion.article>
+              </Link>
+
+              <Link href={caseStudies[3].href} className={styles.cardLink}>
+                <motion.article
+                  className={styles.card}
+                  style={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          x: leftCardX,
+                          y: leftCardY,
+                          rotateX: leftCardRotateX,
+                          rotateY: leftCardRotateY,
+                          scale: leftCardScale,
+                        }
+                  }
+                >
+                  <div className={styles.cardImage}>
+                    <div className={styles.tiltedMockup}>
+                      <Image
+                        fill
+                        src={caseStudies[3].image}
+                        alt={caseStudies[3].title}
+                        sizes="432px"
+                      />
+                    </div>
+                  </div>
+                  <div className={styles.cardBody}>
+                    <div className={styles.cardTop}>
+                      <span className={styles.badge}>CASE STUDY</span>
+                      <div className={styles.arrowContainer}>
+                        <ArrowUpRight size={28} strokeWidth={2.5} />
+                      </div>
+                    </div>
+                    <h3 className={styles.cardTitle}>{caseStudies[3].title}</h3>
+                  </div>
+                </motion.article>
+              </Link>
+
+              <Link href={caseStudies[4].href} className={styles.cardLink}>
+                <motion.article
+                  className={styles.card}
+                  style={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          x: rightCardX,
+                          y: rightCardY,
+                          rotateX: rightCardRotateX,
+                          rotateY: rightCardRotateY,
+                          scale: rightCardScale,
+                        }
+                  }
+                >
+                  <div className={styles.cardImage}>
+                    <div className={styles.tiltedMockup}>
+                      <Image
+                        fill
+                        src={caseStudies[4].image}
+                        alt={caseStudies[4].title}
+                        sizes="432px"
+                      />
+                    </div>
+                  </div>
+                  <div className={styles.cardBody}>
+                    <div className={styles.cardTop}>
+                      <span className={styles.badge}>CASE STUDY</span>
+                      <div className={styles.arrowContainer}>
+                        <ArrowUpRight size={28} strokeWidth={2.5} />
+                      </div>
+                    </div>
+                    <h3 className={styles.cardTitle}>{caseStudies[4].title}</h3>
                   </div>
                 </motion.article>
               </Link>
