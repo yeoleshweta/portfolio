@@ -600,15 +600,32 @@
 
   .contactTitle,
   .contactScript {
-    font-size: 46px;
+    font-size: clamp(34px, 11vw, 52px);
+    line-height: 1.1;
+  }
+  
+  .contactScript {
+    margin-top: 8px;
+  }
+
+  .headlineWrap {
+    margin-top: 16px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .panelLeft {
+    align-items: center;
   }
 
   .toolsBoard {
     width: 100%;
     height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    justify-items: center;
+    margin-top: 24px;
     transform: none;
   }
 
@@ -649,8 +666,10 @@
   }
 
   .dragTile {
-    width: 148px;
+    grid-column: span 3;
+    width: 160px;
     height: 48px;
     font-size: 15px;
+    margin-top: 12px;
   }
 }

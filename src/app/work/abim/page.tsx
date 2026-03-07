@@ -127,61 +127,68 @@ function DatasetTable() {
         border: "1px solid rgba(0,0,0,0.08)",
       }}
     >
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          fontSize: "14px",
-        }}
-      >
-        <thead>
-          <tr
-            style={{
-              background: "rgba(0,0,0,0.03)",
-              textAlign: "left",
-            }}
-          >
-            <th style={{ padding: "14px 18px", fontWeight: 700 }}>Source</th>
-            <th style={{ padding: "14px 18px", fontWeight: 700 }}>
-              Real vs Simulated
-            </th>
-            <th style={{ padding: "14px 18px", fontWeight: 700 }}>
-              Contribution
-            </th>
-            <th style={{ padding: "14px 18px", fontWeight: 700 }}>
-              Labeling Implication
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {datasets.map((d, i) => (
+      <div style={{ overflowX: "auto", width: "100%" }}>
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            fontSize: "14px",
+            minWidth: "600px",
+          }}
+        >
+          <thead>
             <tr
-              key={d.source}
               style={{
-                borderTop: "1px solid rgba(0,0,0,0.06)",
-                background: i % 2 === 1 ? "rgba(0,0,0,0.015)" : "transparent",
+                background: "rgba(0,0,0,0.03)",
+                textAlign: "left",
               }}
             >
-              <td
-                style={{ padding: "14px 18px", fontWeight: 600, minWidth: 120 }}
-              >
-                {d.source}
-              </td>
-              <td style={{ padding: "14px 18px" }}>{d.type}</td>
-              <td style={{ padding: "14px 18px" }}>{d.contribution}</td>
-              <td
+              <th style={{ padding: "14px 18px", fontWeight: 700 }}>Source</th>
+              <th style={{ padding: "14px 18px", fontWeight: 700 }}>
+                Real vs Simulated
+              </th>
+              <th style={{ padding: "14px 18px", fontWeight: 700 }}>
+                Contribution
+              </th>
+              <th style={{ padding: "14px 18px", fontWeight: 700 }}>
+                Labeling Implication
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {datasets.map((d, i) => (
+              <tr
+                key={d.source}
                 style={{
-                  padding: "14px 18px",
-                  color: "var(--color-text-secondary)",
-                  fontStyle: "italic",
+                  borderTop: "1px solid rgba(0,0,0,0.06)",
+                  background: i % 2 === 1 ? "rgba(0,0,0,0.015)" : "transparent",
                 }}
               >
-                {d.note}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <td
+                  style={{
+                    padding: "14px 18px",
+                    fontWeight: 600,
+                    minWidth: 120,
+                  }}
+                >
+                  {d.source}
+                </td>
+                <td style={{ padding: "14px 18px" }}>{d.type}</td>
+                <td style={{ padding: "14px 18px" }}>{d.contribution}</td>
+                <td
+                  style={{
+                    padding: "14px 18px",
+                    color: "var(--color-text-secondary)",
+                    fontStyle: "italic",
+                  }}
+                >
+                  {d.note}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </motion.div>
   );
 }

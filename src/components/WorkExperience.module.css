@@ -17,6 +17,51 @@
   overflow: hidden;
 }
 
+@media (max-width: 768px) {
+  .section {
+    height: auto !important;
+    min-height: 100vh;
+    overflow: visible !important;
+  }
+  .stickyContainer {
+    position: relative !important;
+    height: auto !important;
+    width: 100%;
+    display: block !important;
+    overflow: visible !important;
+    top: auto !important;
+  }
+  .scene {
+    height: auto !important;
+    width: 100%;
+    padding: 80px 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    overflow: visible !important;
+  }
+  .introContainer,
+  .experienceContainer,
+  .educationContainer,
+  .stackContainer {
+    position: relative !important;
+    height: auto !important;
+    width: 100% !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    padding: 40px 0 !important;
+    margin: 0 !important;
+    top: auto !important;
+    left: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    z-index: 10;
+  }
+}
+
 .scene {
   position: relative;
   width: 100%;
@@ -130,8 +175,8 @@
 .company {
   font-family: var(--font-primary);
   font-size: 16px;
-  color: var(--color-lilac);
-  font-weight: 400;
+  color: var(--color-text-secondary);
+  font-weight: 600;
   margin: 0 0 16px 0;
 }
 
@@ -172,6 +217,12 @@
   align-items: center;
 }
 
+.period {
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
 .school {
   font-family: var(--font-secondary);
   font-size: 16px;
@@ -182,9 +233,10 @@
   font-family: var(--font-secondary);
   font-size: 14px;
   color: var(--color-text);
-  background: rgba(0, 0, 0, 0.06);
-  padding: 4px 12px;
-  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.08); /* Darker background for pill */
+  padding: 4px 14px;
+  border-radius: 1000px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Tech Stack Grid */
