@@ -44,7 +44,7 @@ export default function CustomCursor() {
       style={{
         x: cursorX,
         y: cursorY,
-        scale: isHovering ? 2.5 : 1,
+        scale: isHovering ? 1.5 : 1,
       }}
     />
   );
