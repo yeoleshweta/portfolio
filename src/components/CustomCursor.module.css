@@ -10,12 +10,3 @@
   z-index: 9999;
   mix-blend-mode: normal;
 }
-
-:global(body) {
-  cursor: none;
-}
-
-:global(a:hover),
-:global(button:hover) {
-  cursor: none;
-}

@@ -331,16 +331,14 @@
   }
 
   .heading {
-    font-size: clamp(48px, 15vw, 82px);
-    line-height: 0.85;
-    letter-spacing: -0.06em;
+    font-size: clamp(60px, 18vw, 98px);
+    line-height: 0.9;
   }
 
   .script {
-    top: -24px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: clamp(72px, 16vw, 100px);
+    top: -28px;
+    left: 156px;
+    font-size: clamp(98px, 20vw, 144px);
   }
 
   .bioContainer {

@@ -2,154 +2,183 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useRef } from "react";
 import styles from "./FeaturedWork.module.css";
 
 const caseStudies = [
   {
-    title: "Product Managers with UX & Design Thinking",
+    title: "EcoMed AI",
     description:
-      "Design research initiative bridging product management and UX",
+      "An intelligent AI system developed for Philly {Codefest} '25, creating practical solutions for greener healthcare systems. EcoMed analyzes hospital inventories to recommend affordable, high-quality sustainable supplies using a 'BOM Processing System' and leverages 'Image Classification' using ResNet50 to accurately sort waste, preventing costly hazardous-waste disposal.",
     image:
       "https://framerusercontent.com/images/jzfSUI7bevQam4vxuI7w91xWZI.png?width=1372&height=968",
     href: "/work/design-thinking",
+    cta: "View Case Study",
   },
   {
-    title: "Survey Design Platform — Enterprise UX",
-    description: "Internal enterprise UX platform for survey creation",
+    title: "Fact-checker Tool",
+    description:
+      "Factchecker is a modular pipeline that extracts claims from LLM-generated text, retrieves supporting evidence, and verifies accuracy using both LLM-based checks and tools like Factool achieving an F1-score of 0.87. The platform addresses the growing challenge of misinformation by providing users with an intuitive interface to verify claims while ensuring transparency through detailed analysis reports.",
     image:
       "https://framerusercontent.com/images/cRVg4Sq0wW8rh829k0LII56TsvQ.png?width=1372&height=968",
     href: "/work/john-deere",
+    cta: "View on GitHub",
   },
   {
-    title: "Stories by Children — Research & Design",
-    description: "Redesigning a children's storytelling platform",
-    image:
-      "https://framerusercontent.com/images/jzfSUI7bevQam4vxuI7w91xWZI.png?width=1372&height=968",
-    href: "/work/stories-by-children",
-  },
-  {
-    title: "GesturePro — Sign Language Translator",
-    description: "AI-powered sign language to text translation",
+    title: "GesturePro — An Interactive Sign Language Translator",
+    description:
+      "GesturePro is an AI-powered sign language translation platform that bridges communication between sign language users and non-signers. Using computer vision and deep learning, it converts real-time hand gestures into text and speech, enabling seamless two-way communication.",
     image: "/assets/gesturepro-hero.png",
     href: "/work/gesturepro",
-  },
-  {
-    title: "ABIM — Patient Communication NLP",
-    description: "NLP pipeline measuring physician communication behaviors",
-    image: "/assets/abim-hero.png",
-    href: "/work/abim",
+    cta: "View Case Study",
   },
   {
     title: "Healthcare Bias — NLP Detection",
     description:
-      "Machine learning pipelines surfacing implicit clinician bias at scale",
+      "Machine learning pipelines surfacing implicit clinician bias at scale. Developed NLP models to analyze clinical notes and identify patterns of differential language use across patient demographics, aiming to improve equitable healthcare outcomes.",
     image: "/assets/healthcare-bias-hero.png",
     href: "/work/healthcare-bias",
+    cta: "View Case Study",
   },
   {
     title: "E-Commerce Personalization at Scale",
     description:
-      "Designing conversion strategies for 50M+ shoppers across seven retail brands",
+      "Designing conversion strategies for 50M+ shoppers across seven retail brands. Built personalized recommendation engines and A/B testing frameworks to deliver tailored shopping experiences that increased conversion rates and customer engagement.",
     image: "/assets/personalization-hero.png",
     href: "/work/personalization",
+    cta: "View Case Study",
   },
 ] as const;
 
-/* ── Project Card ── */
-function CarouselCard({
+/**
+ * Vertical stacking card that responds to scroll.
+ *
+ * Approach: Each card "owns" its segment of the scroll [i/N, (i+1)/N].
+ * - It sits at y=0 (centered) during its segment.
+ * - It enters from below (y=100%) at the end of the previous segment.
+ * - It exits upward (y=-100%) during the next card's entering phase.
+ * - Cards overlap during transitions for a smooth hand-off.
+ *
+ * No useSpring — direct useTransform for instant 1:1 scroll tracking.
+ */
+function StackCard({
   study,
   index,
-  scrollProgress,
+  scrollYProgress,
+  total,
 }: {
   study: (typeof caseStudies)[number];
   index: number;
-  scrollProgress: any;
+  scrollYProgress: MotionValue<number>;
+  total: number;
 }) {
-  // Map card position relative to the scroll progress
-  // Pacing adjusted for forensic video match (Mar 4 signature)
-  const startOffset = index * 0.18;
-  const peakOffset = startOffset + 0.1;
-  const endOffset = startOffset + 0.2;
+  const seg = 1 / total;
 
-  // Forensic Scale (1.5x peak) and Opacity
-  const rawScale = useTransform(
-    scrollProgress,
-    [startOffset, peakOffset, endOffset],
-    [0.8, 1.5, 0.8],
-  );
-  const rawOpacity = useTransform(
-    scrollProgress,
-    [startOffset, peakOffset, endOffset],
-    [0.3, 1, 0.3],
-  );
-  const labelOpacity = useTransform(
-    scrollProgress,
-    [peakOffset - 0.05, peakOffset, peakOffset + 0.05],
-    [0, 1, 0],
-  );
+  // Transition zone: how much of a segment is used for in/out
+  const t = seg * 0.45;
 
-  // Spring for luxurious but responsive feel
-  const scale = useSpring(rawScale, { stiffness: 60, damping: 20 });
-  const opacity = useSpring(rawOpacity, { stiffness: 60, damping: 20 });
+  // Key progress points
+  const holdStart = index * seg; // this card enters center
+  const holdEnd = (index + 1) * seg; // this card leaves center
+  const enterStart = holdStart - t; // this card begins entering
+  const exitEnd = holdEnd + t; // this card finishes exiting
+
+  // Build arrays for useTransform
+  const buildInputOutput = () => {
+    const input: number[] = [];
+    const yOut: number[] = [];
+    const sOut: number[] = [];
+    const oOut: number[] = [];
+
+    if (index === 0) {
+      // First card: start visible, then exit
+      input.push(0, holdEnd - t, holdEnd, holdEnd + t * 0.4);
+      yOut.push(0, 0, -40, -100);
+      sOut.push(1, 1, 0.95, 0.88);
+      oOut.push(1, 1, 0.7, 0);
+    } else if (index === total - 1) {
+      // Last card: enter, then stay
+      input.push(Math.max(0, holdStart - t), holdStart, 1);
+      yOut.push(100, 0, 0);
+      sOut.push(0.88, 1, 1);
+      oOut.push(0, 1, 1);
+    } else {
+      // Middle cards: enter, hold, exit
+      const eStart = Math.max(0, holdStart - t);
+      input.push(
+        eStart,
+        holdStart,
+        holdEnd - t,
+        holdEnd,
+        Math.min(1, holdEnd + t * 0.4),
+      );
+      yOut.push(100, 0, 0, -40, -100);
+      sOut.push(0.88, 1, 1, 0.95, 0.88);
+      oOut.push(0, 1, 1, 0.7, 0);
+    }
+
+    return { input, yOut, sOut, oOut };
+  };
+
+  const { input, yOut, sOut, oOut } = buildInputOutput();
+
+  const y = useTransform(scrollYProgress, input, yOut);
+  const scale = useTransform(scrollYProgress, input, sOut);
+  const opacity = useTransform(scrollYProgress, input, oOut);
 
   return (
     <motion.div
-      className={styles.cardWrapper}
+      className={styles.card}
       style={{
+        y: useTransform(y, (v: number) => `${v}%`),
         scale,
         opacity,
+        // Entering cards should appear ABOVE exiting ones
+        zIndex: index + 1,
       }}
     >
-      <span className={styles.indexNumber}>0{index + 1}</span>
+      <div className={styles.cardContent}>
+        <h3 className={styles.cardTitle}>{study.title}</h3>
+        <p className={styles.cardDescription}>{study.description}</p>
+        <Link href={study.href} className={styles.cardCta}>
+          {study.cta}
+        </Link>
+      </div>
 
-      <Link
-        href={study.href}
-        className={styles.cardLink}
-        style={{ width: "100%" }}
-      >
-        <article className={styles.card}>
-          <div className={styles.cardImage}>
-            <Image
-              fill
-              src={study.image}
-              alt={study.title}
-              sizes="600px"
-              priority={index < 2}
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-        </article>
-      </Link>
-
-      <motion.span
-        className={styles.exploreLabel}
-        style={{ opacity: labelOpacity }}
-      >
-        Download now
-      </motion.span>
+      <div className={styles.cardImageContainer}>
+        <div className={styles.cardImage}>
+          <Image
+            fill
+            src={study.image}
+            alt={study.title}
+            sizes="(max-width: 810px) 90vw, 50vw"
+            priority={index < 2}
+            style={{ objectFit: "cover" }}
+          />
+        </div>
+      </div>
     </motion.div>
   );
 }
 
 export default function FeaturedWork() {
   const sectionRef = useRef<HTMLElement>(null);
+  const total = caseStudies.length;
 
-  // Track vertical scroll of the entire 500vh section
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
-  // Vertical scroll drives horizontal translation
-  const xTransform = useTransform(scrollYProgress, [0, 1], ["0%", "-85%"]);
-  const x = useSpring(xTransform, { stiffness: 45, damping: 18 });
-
   return (
-    <section ref={sectionRef} id="work" className={styles.section}>
-      <div className={styles.glowTop} aria-hidden="true" />
-      <div className={styles.glowBottom} aria-hidden="true" />
+    <section
+      ref={sectionRef}
+      id="work"
+      className={styles.section}
+      // total+1 gives each card ~100vh of scroll + 100vh tail
+      style={{ height: `${(total + 1) * 100}vh` }}
+    >
       <div className={styles.stickyContainer}>
         <div className={styles.header}>
           <h2 className={styles.title}>
@@ -157,16 +186,17 @@ export default function FeaturedWork() {
           </h2>
         </div>
 
-        <motion.div className={styles.carouselTrack} style={{ x }}>
+        <div className={styles.cardStack}>
           {caseStudies.map((study, i) => (
-            <CarouselCard
+            <StackCard
               key={study.href}
               study={study}
               index={i}
-              scrollProgress={scrollYProgress}
+              scrollYProgress={scrollYProgress}
+              total={total}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -165,7 +165,7 @@
   transform: translateY(-4px);
 }
 
-.galleryImage {
+.galleryCard img {
   object-fit: cover;
 }
 
@@ -218,15 +218,7 @@
     font-size: 15px;
   }
 
-  .smallCubeField {
-    display: block;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 200px;
-    height: 150px;
-  }
-  
+  .smallCubeField,
   .stageScatterCube {
     display: none;
   }
@@ -236,17 +228,7 @@
   }
   
   .galleryCard {
-    width: 280px;
-    height: 280px;
-    background: #f5f5f7;
-    border-radius: 12px;
-  }
-
-  .galleryImage {
-    object-fit: cover !important;
-  }
-
-  .galleryTrack {
-    padding-left: calc(50vw - 140px);
+    width: 240px;
+    height: 320px;
   }
 }

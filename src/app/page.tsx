@@ -1,5 +1,5 @@
 import HeroSection from "@/components/HeroSection";
-import ExperienceSnippet from "@/components/ExperienceSnippet";
+import WorkExperience from "@/components/WorkExperience";
 import FeaturedWork from "@/components/FeaturedWork";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
@@ -9,7 +9,6 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <ExperienceSnippet />
       <FeaturedWork />
       <AboutSection />
       <ContactSection />

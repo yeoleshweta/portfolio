@@ -26,7 +26,7 @@ const contactItems = [
   {
     type: "cv",
     label: "Download CV",
-    href: "/assets/UX_Researcher_Resume.pdf",
+    href: "https://www.dropbox.com/",
   },
 ] as const;
 

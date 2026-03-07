@@ -77,21 +77,18 @@ function HeartCube({
   progress: MotionValue<number>;
   reduceMotion: boolean;
 }) {
-  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
-  const spacing = isMobile ? 12 : 22;
-  const xOffset = (x - 4) * spacing;
-  const yOffset = (y - 2.5) * spacing;
+  const xOffset = (x - 4) * 22;
+  const yOffset = (y - 2.5) * 22;
 
-  const explosionRange = isMobile ? 150 : 400;
   const initialX = useTransform(
     progress,
     [0, 0.3],
-    [xOffset * 3 + (Math.random() - 0.5) * explosionRange, xOffset],
+    [xOffset * 5 + (Math.random() - 0.5) * 400, xOffset],
   );
   const initialY = useTransform(
     progress,
     [0, 0.3],
-    [yOffset * 3 + (Math.random() - 0.5) * explosionRange, yOffset],
+    [yOffset * 5 + (Math.random() - 0.5) * 400, yOffset],
   );
   const rotateX = useTransform(progress, [0, 0.3], [Math.random() * 360, 0]);
   const rotateY = useTransform(progress, [0, 0.3], [Math.random() * 360, 0]);
@@ -132,13 +129,7 @@ function HeartCube({
 function GalleryCard({ src, alt }: { src: string; alt: string }) {
   return (
     <div className={styles.galleryCard}>
-      <Image
-        fill
-        src={src}
-        alt={alt}
-        sizes="(max-width: 768px) 250px, 280px"
-        className={styles.galleryImage}
-      />
+      <Image fill src={src} alt={alt} sizes="280px" priority />
     </div>
   );
 }

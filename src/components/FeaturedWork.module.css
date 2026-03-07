@@ -1,12 +1,11 @@
 .section {
   position: relative;
-  height: 500vh;
-  background: #f5f5f5; /* Light Gray from reference */
-  color: #111;
-  overflow: hidden;
+  background: #0a0a14;
+  color: #ffffff;
+  overflow: clip;
 }
 
-/* Perspective Grid (Reusing Hero pattern) */
+/* Subtle ambient glow */
 .section::before {
   content: "";
   position: absolute;
@@ -14,38 +13,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
-    linear-gradient(rgba(139, 105, 250, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 105, 250, 0.05) 1px, transparent 1px);
-  background-size: 50px 50px;
-  background-position: center center;
-  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(94, 103, 230, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(11, 222, 102, 0.03) 0%, transparent 60%);
   pointer-events: none;
 }
 
-/* Vignettes */
-.glowTop {
-  position: absolute;
-  top: -10%;
-  left: -10%;
-  width: 50%;
-  height: 60%;
-  background: radial-gradient(circle at center, rgba(139, 105, 250, 0.08) 0%, transparent 70%);
-  filter: blur(60px);
-  pointer-events: none;
-}
-
-.glowBottom {
-  position: absolute;
-  bottom: -10%;
-  right: -10%;
-  width: 50%;
-  height: 60%;
-  background: radial-gradient(circle at center, rgba(54, 145, 255, 0.06) 0%, transparent 70%);
-  filter: blur(60px);
-  pointer-events: none;
-}
-
+/* ── Sticky viewport container ── */
 .stickyContainer {
   position: sticky;
   top: 0;
@@ -53,154 +27,212 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   overflow: hidden;
 }
 
+/* ── Section header ── */
 .header {
-  position: absolute; /* Fixed top-center position */
-  top: 5vh;
+  position: absolute;
+  top: 4vh;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 10;
+  z-index: 20;
   text-align: center;
 }
 
 .title {
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  color: #595959;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.45);
   text-transform: uppercase;
   margin: 0;
 }
 
 .italic {
-  font-family: inherit;
+  font-family: var(--font-script);
   font-style: italic;
-  font-weight: 300;
-  color: #ff9d00;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--color-lilac);
 }
 
-.carouselTrack {
-  display: flex;
-  align-items: center;
-  padding-left: 35vw; /* Start with first card centered */
-  gap: 120px;
-  width: max-content;
-}
-
-/* ── Card Wrapper ── */
-.cardWrapper {
+/* ── Card stack container ── */
+.cardStack {
   position: relative;
-  width: 380px;
-  flex-shrink: 0;
+  width: 82%;
+  max-width: 1100px;
+  height: 60vh;
+  min-height: 400px;
+  max-height: 600px;
+}
+
+/* ── Individual card ── */
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(22, 22, 40, 0.95) 0%, rgba(18, 18, 30, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.4),
+    0 2px 12px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  will-change: transform, opacity;
+}
+
+/* ── Text content (left side) ── */
+.cardContent {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center-aligned for Mar 4 match */
+  justify-content: center;
+  padding: 48px 40px 48px 56px;
+  gap: 16px;
 }
 
-/* ── Index Number ── */
-.indexNumber {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-lilac);
-  margin-bottom: 24px;
-  font-family: var(--font-primary);
-  opacity: 0.8;
+.cardTitle {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #ffffff;
+  margin: 0;
 }
 
-.card {
+.cardDescription {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  max-width: 420px;
+}
+
+.cardCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 22px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.cardCta:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+}
+
+/* ── Image (right side) ── */
+.cardImageContainer {
   position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 3; /* More horizontal to reduce cropping */
-  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 40px 32px 0;
   overflow: hidden;
-  background: #fff;
-  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.1), 
-              0 18px 36px -18px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background: transparent;
 }
 
 .cardImage {
   position: relative;
   width: 100%;
   height: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(30, 30, 50, 0.5);
 }
 
-.exploreLabel {
-  margin-top: 24px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #8b69fa;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 8px 16px;
-  background: rgba(139, 105, 250, 0.1);
-  border-radius: 100px;
-}
-
-@media (max-width: 1024px) {
-  .carouselTrack {
-    padding-left: 25vw;
-    gap: 80px;
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+  .cardStack {
+    width: 88%;
   }
-  .cardWrapper {
-    width: 320px;
+
+  .cardContent {
+    padding: 36px 28px 36px 40px;
+  }
+
+  .cardTitle {
+    font-size: 24px;
+  }
+
+  .cardDescription {
+    font-size: 14px;
   }
 }
 
-@media (max-width: 768px) {
-  .section {
-    height: 400vh; /* Shorter scroll for mobile */
+@media (max-width: 810px) {
+  .cardStack {
+    width: 92%;
+    height: 70vh;
+    max-height: 550px;
   }
 
-  .header {
-    top: 10vh;
+  .card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
   }
 
-  .carouselTrack {
-    padding-left: 20px;
-    gap: 32px;
+  .cardContent {
+    padding: 28px 24px 16px;
+    gap: 10px;
   }
 
-  .cardWrapper {
-    width: calc(100vw - 60px);
-    max-width: 320px;
+  .cardTitle {
+    font-size: 20px;
   }
 
-  .header {
-    top: 8vh;
-    width: 90%;
+  .cardDescription {
+    font-size: 13px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  .card img {
-    object-fit: cover !important;
-  }
-
-  .indexNumber {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-    position: relative;
-    left: 0;
-  }
-
-  .exploreLabel {
-    margin-top: 16px;
-    font-size: 0.7rem;
-    position: relative;
-    bottom: 0;
+  .cardImageContainer {
+    padding: 0 20px 20px;
   }
 }
 
 @media (max-width: 480px) {
-  .carouselTrack {
-    padding-left: 15px;
-    gap: 24px;
+  .cardStack {
+    width: 95%;
+    height: 65vh;
   }
-  
-  .cardWrapper {
-    width: calc(100vw - 30px);
+
+  .cardContent {
+    padding: 20px 20px 12px;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+  }
+
+  .cardCta {
+    font-size: 13px;
+    padding: 8px 18px;
   }
 }
