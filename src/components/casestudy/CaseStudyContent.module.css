@@ -1,11 +1,12 @@
 .section {
-  padding: 100px 24px;
+  padding: clamp(60px, 15vw, 100px) 24px;
   scroll-margin-top: 100px;
 }
 
 .container {
   max-width: 900px;
   margin: 0 auto;
+  overflow-x: hidden; /* Prevent horizontal scroll on sections */
 }
 
 .label {
@@ -19,9 +20,9 @@
 
 .heading {
   font-family: var(--font-display);
-  font-size: 48px;
+  font-size: clamp(32px, 8vw, 48px);
   line-height: 1.2;
-  margin-bottom: 32px;
+  margin-bottom: clamp(16px, 4vw, 32px);
   color: var(--color-text);
 }
 
@@ -60,11 +61,13 @@
 
 .card {
   background: #ffffff;
-  padding: 56px;
+  padding: clamp(20px, 5vw, 56px);
   border-radius: 32px;
-  margin: 80px 0;
+  margin: clamp(32px, 8vw, 80px) 0;
   box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); /* Softened shadow */
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .card:hover {
@@ -342,6 +345,18 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
   margin: 64px 0;
+}
+
+@media (max-width: 640px) {
+  .resultsGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin: 40px 0;
+  }
+  
+  .resultValue {
+    font-size: 40px;
+  }
 }
 
 .resultItem {

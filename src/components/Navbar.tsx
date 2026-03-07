@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Menu, X, Download } from "lucide-react";
@@ -17,6 +18,7 @@ const cvHref = "https://www.dropbox.com/";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <>
@@ -32,7 +34,9 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
-                className={styles.navLink}
+                className={`${styles.navLink} ${
+                  pathname === link.href ? styles.active : ""
+                }`}
               >
                 {link.label}
               </Link>
@@ -75,7 +79,9 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={styles.mobileLink}
+                  className={`${styles.mobileLink} ${
+                    pathname === link.href ? styles.active : ""
+                  }`}
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}

@@ -41,6 +41,20 @@ const caseStudies = [
     image: "/assets/abim-hero.png",
     href: "/work/abim",
   },
+  {
+    title: "Healthcare Bias — NLP Detection",
+    description:
+      "Machine learning pipelines surfacing implicit clinician bias at scale",
+    image: "/assets/healthcare-bias-hero.png",
+    href: "/work/healthcare-bias",
+  },
+  {
+    title: "E-Commerce Personalization at Scale",
+    description:
+      "Designing conversion strategies for 50M+ shoppers across seven retail brands",
+    image: "/assets/personalization-hero.png",
+    href: "/work/personalization",
+  },
 ] as const;
 
 /* ── Project Card ── */
@@ -134,6 +148,8 @@ export default function FeaturedWork() {
 
   return (
     <section ref={sectionRef} id="work" className={styles.section}>
+      <div className={styles.glowTop} aria-hidden="true" />
+      <div className={styles.glowBottom} aria-hidden="true" />
       <div className={styles.stickyContainer}>
         <div className={styles.header}>
           <h2 className={styles.title}>
