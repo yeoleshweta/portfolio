@@ -108,6 +108,57 @@ export default function GestureProCaseStudy() {
         image="/assets/gesturepro-hero.png"
       />
 
+      <div
+        style={{
+          display: "flex",
+          gap: "16px",
+          justifyContent: "center",
+          padding: "0 24px 48px",
+          maxWidth: "900px",
+          margin: "0 auto",
+        }}
+      >
+        <a
+          href="https://gesturepro-dev.vercel.app/signin"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "14px 28px",
+            borderRadius: "12px",
+            background: "#8b5cf6",
+            color: "#ffffff",
+            fontWeight: 600,
+            fontSize: "15px",
+            textDecoration: "none",
+          }}
+        >
+          🚀 Live Demo
+        </a>
+        <a
+          href="https://github.com/khushboohpatel/gesturepro"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "14px 28px",
+            borderRadius: "12px",
+            background: "rgba(0,0,0,0.05)",
+            color: "var(--color-text-primary)",
+            fontWeight: 600,
+            fontSize: "15px",
+            textDecoration: "none",
+            border: "1px solid rgba(0,0,0,0.1)",
+          }}
+        >
+          ⭐ GitHub Repository
+        </a>
+      </div>
+
       <CaseStudyLayout sections={sections}>
         {/* ============================================ */}
         {/* SECTION 1: OVERVIEW                          */}
@@ -163,56 +214,6 @@ export default function GestureProCaseStudy() {
               title="Solution"
               text="A browser-based, real-time sign language translator using just a webcam — no special hardware needed. Powered by ML hand-tracking and gesture recognition."
             />
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              gap: "16px",
-              marginTop: "32px",
-            }}
-          >
-            <a
-              href="https://gesturepro-dev.vercel.app/signin"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "12px 24px",
-                borderRadius: "12px",
-                background: "#8b5cf6",
-                color: "#ffffff",
-                fontWeight: 600,
-                fontSize: "14px",
-                textDecoration: "none",
-                transition: "transform 0.2s, box-shadow 0.2s",
-              }}
-            >
-              🚀 Live Demo
-            </a>
-            <a
-              href="https://github.com/khushboohpatel/gesturepro"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "12px 24px",
-                borderRadius: "12px",
-                background: "rgba(0,0,0,0.05)",
-                color: "var(--color-text-primary)",
-                fontWeight: 600,
-                fontSize: "14px",
-                textDecoration: "none",
-                border: "1px solid rgba(0,0,0,0.1)",
-                transition: "transform 0.2s, box-shadow 0.2s",
-              }}
-            >
-              ⭐ GitHub Repository
-            </a>
           </div>
         </CaseStudySection>
 
@@ -522,55 +523,6 @@ export default function GestureProCaseStudy() {
                 </p>
               </motion.div>
             ))}
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              gap: "16px",
-              marginTop: "48px",
-              justifyContent: "center",
-            }}
-          >
-            <a
-              href="https://gesturepro-dev.vercel.app/signin"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "14px 28px",
-                borderRadius: "12px",
-                background: "#8b5cf6",
-                color: "#ffffff",
-                fontWeight: 600,
-                fontSize: "15px",
-                textDecoration: "none",
-              }}
-            >
-              🚀 Try the Live Demo
-            </a>
-            <a
-              href="https://github.com/khushboohpatel/gesturepro"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "14px 28px",
-                borderRadius: "12px",
-                background: "rgba(0,0,0,0.05)",
-                color: "var(--color-text-primary)",
-                fontWeight: 600,
-                fontSize: "15px",
-                textDecoration: "none",
-                border: "1px solid rgba(0,0,0,0.1)",
-              }}
-            >
-              ⭐ View on GitHub
-            </a>
           </div>
 
           <div
