@@ -13,7 +13,7 @@ const navLinks = [
   { label: "Contact", href: "/#contact" },
 ];
 
-const cvHref = "https://www.dropbox.com/";
+const cvHref = "/assets/UX_Researcher_Resume.pdf";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);

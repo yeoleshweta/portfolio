@@ -50,7 +50,7 @@ export default function CryptoSecureCaseStudy() {
         title="CryptoSecure: AI-Powered Smart Contract Security"
         category="Blockchain Security / ML Engineering"
         role="ML/AI Engineering & Frontend"
-        team="4 members (Areef Syed, Rishit Epari, Khushboo Patel, Shweta Sharma)"
+        team="4 Members"
         timeline="~3 months"
         image="/assets/crypto_secure_hero.png"
       />
@@ -258,50 +258,109 @@ export default function CryptoSecureCaseStudy() {
 
           <div
             style={{
-              padding: 0,
-              margin: "0 0 24px 0",
-              fontSize: "13px",
-              color: "var(--color-text-secondary)",
+              padding: "24px",
+              margin: "32px 0",
+              background: "rgba(0,0,0,0.02)",
+              border: "1px solid rgba(0,0,0,0.05)",
+              borderRadius: "16px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "32px",
             }}
           >
-            <div style={{ marginBottom: "12px", display: "flex", gap: "8px" }}>
-              <span
+            <div
+              style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}
+            >
+              <div
                 style={{
-                  color: "var(--color-accent)",
-                  fontSize: "18px",
-                  lineHeight: "1",
+                  background: "#0098EA",
+                  color: "#fff",
+                  minWidth: "32px",
+                  height: "32px",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                  flexShrink: 0,
+                  marginTop: "2px",
                 }}
               >
-                •
-              </span>
-              <div>
-                <strong>Layer 1: Static Analysis & Heuristic Engine.</strong> A
-                custom vulnerability database built from TONScanner research and
-                known exploit patterns specific to the TON blockchain. This
-                catches the deterministic issues—the patterns we know are
-                dangerous based on historical exploits and documented
-                vulnerability classes. This layer works without any API
-                dependency and provides baseline detection.
+                1
+              </div>
+              <div style={{ flex: 1 }}>
+                <h4
+                  style={{
+                    margin: "0 0 8px 0",
+                    fontSize: "18px",
+                    color: "#1a1c20",
+                  }}
+                >
+                  Layer 1: Static Analysis & Heuristic Engine
+                </h4>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "16px",
+                    lineHeight: "1.6",
+                    color: "var(--color-text-secondary)",
+                  }}
+                >
+                  A custom vulnerability database built from TONScanner research
+                  and known exploit patterns specific to the TON blockchain.
+                  This catches the deterministic issues—the patterns we know are
+                  dangerous based on historical exploits and documented
+                  vulnerability classes. This layer works without any API
+                  dependency and provides baseline detection.
+                </p>
               </div>
             </div>
-            <div style={{ marginBottom: "12px", display: "flex", gap: "8px" }}>
-              <span
+            <div
+              style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}
+            >
+              <div
                 style={{
-                  color: "var(--color-accent)",
-                  fontSize: "18px",
-                  lineHeight: "1",
+                  background: "#0098EA",
+                  color: "#fff",
+                  minWidth: "32px",
+                  height: "32px",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                  flexShrink: 0,
+                  marginTop: "2px",
                 }}
               >
-                •
-              </span>
-              <div>
-                <strong>Layer 2: AI-Powered Semantic Analysis.</strong> Using
-                OpenAI's GPT-4o model to perform deeper semantic reasoning about
-                the contract's logic. This is where CryptoSecure goes beyond
-                what traditional automated tools can do—the AI can understand
-                the intent of the code, spot logical flaws that aren't captured
-                by pattern matching, and reason about how different functions
-                interact in ways that create emergent vulnerabilities.
+                2
+              </div>
+              <div style={{ flex: 1 }}>
+                <h4
+                  style={{
+                    margin: "0 0 8px 0",
+                    fontSize: "18px",
+                    color: "#1a1c20",
+                  }}
+                >
+                  Layer 2: AI-Powered Semantic Analysis
+                </h4>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "16px",
+                    lineHeight: "1.6",
+                    color: "var(--color-text-secondary)",
+                  }}
+                >
+                  Using OpenAI's GPT-4o model to perform deeper semantic
+                  reasoning about the contract's logic. This is where
+                  CryptoSecure goes beyond what traditional automated tools can
+                  do—the AI can understand the intent of the code, spot logical
+                  flaws that aren't captured by pattern matching, and reason
+                  about how different functions interact in ways that create
+                  emergent vulnerabilities.
+                </p>
               </div>
             </div>
           </div>
@@ -1215,70 +1274,80 @@ export default function CryptoSecureCaseStudy() {
           <div
             style={{
               padding: 0,
-              margin: "16px 0 0 0",
-              fontSize: "13px",
+              margin: "24px 0 0 0",
+              fontSize: "16px",
               color: "var(--color-text-secondary)",
+              lineHeight: "1.6",
             }}
           >
-            <div style={{ marginBottom: "12px", display: "flex", gap: "8px" }}>
+            <div style={{ marginBottom: "16px", display: "flex", gap: "12px" }}>
               <span
                 style={{
                   color: "var(--color-accent)",
-                  fontSize: "18px",
-                  lineHeight: "1",
+                  fontSize: "20px",
+                  lineHeight: "1.2",
                 }}
               >
-                •
+                →
               </span>
               <div>
-                <strong>Expanded language support</strong> — Extending beyond
-                FunC and Tact to cover Solidity (Ethereum) and Move (Aptos/Sui).
+                <strong style={{ color: "#1a1c20" }}>
+                  Expanded language support
+                </strong>{" "}
+                — Extending beyond FunC and Tact to cover Solidity (Ethereum)
+                and Move (Aptos/Sui).
               </div>
             </div>
-            <div style={{ marginBottom: "12px", display: "flex", gap: "8px" }}>
+            <div style={{ marginBottom: "16px", display: "flex", gap: "12px" }}>
               <span
                 style={{
                   color: "var(--color-accent)",
-                  fontSize: "18px",
-                  lineHeight: "1",
+                  fontSize: "20px",
+                  lineHeight: "1.2",
                 }}
               >
-                •
+                →
               </span>
               <div>
-                <strong>CI/CD integration</strong> — A GitHub Action / CLI tool
-                that runs CryptoSecure as part of the deployment pipeline.
+                <strong style={{ color: "#1a1c20" }}>CI/CD integration</strong>{" "}
+                — A GitHub Action / CLI tool that runs CryptoSecure as part of
+                the deployment pipeline.
               </div>
             </div>
-            <div style={{ marginBottom: "12px", display: "flex", gap: "8px" }}>
+            <div style={{ marginBottom: "16px", display: "flex", gap: "12px" }}>
               <span
                 style={{
                   color: "var(--color-accent)",
-                  fontSize: "18px",
-                  lineHeight: "1",
+                  fontSize: "20px",
+                  lineHeight: "1.2",
                 }}
               >
-                •
+                →
               </span>
               <div>
-                <strong>Vulnerability knowledge base</strong> — A public,
-                searchable database of TON vulnerability patterns that feeds
-                back into the analysis engine.
+                <strong style={{ color: "#1a1c20" }}>
+                  Vulnerability knowledge base
+                </strong>{" "}
+                — A public, searchable database of TON vulnerability patterns
+                that feeds back into the analysis engine.
               </div>
             </div>
-            <div style={{ marginBottom: "12px", display: "flex", gap: "8px" }}>
+            <div style={{ marginBottom: "16px", display: "flex", gap: "12px" }}>
               <span
                 style={{
                   color: "var(--color-accent)",
-                  fontSize: "18px",
-                  lineHeight: "1",
+                  fontSize: "20px",
+                  lineHeight: "1.2",
                 }}
               >
-                •
+                →
               </span>
               <div>
-                <strong>Community-driven rule sets</strong> — Allowing security
-                researchers to contribute custom detection rules.
+                <strong style={{ color: "#1a1c20" }}>
+                  Community-driven rule sets
+                </strong>{" "}
+                — Allowing security researchers to contribute custom detection
+                rules.
               </div>
             </div>
           </div>
