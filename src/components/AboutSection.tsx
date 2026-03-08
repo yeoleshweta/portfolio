@@ -7,6 +7,8 @@ import {
   useScroll,
   useSpring,
   useTransform,
+  useMotionTemplate,
+  useMotionValue,
   type MotionValue,
 } from "framer-motion";
 import { useRef, type ReactNode } from "react";
@@ -225,11 +227,93 @@ function TransitionCube({
   );
 }
 
-function GalleryCard({ src, alt }: { src: string; alt: string }) {
+function GalleryCard({
+  src,
+  alt,
+  index,
+  total,
+  progress,
+  galleryRotation,
+}: {
+  src: string;
+  alt: string;
+  index: number;
+  total: number;
+  progress: MotionValue<number>;
+  galleryRotation: MotionValue<number>;
+}) {
+  const angleStep = 360 / total;
+  // Use useMotionValue to ensure 0 is correctly rendered as '0deg' in templates
+  const startAngle = useMotionValue(index * angleStep);
+  const radius = 1100; // Expanded radius to widen the cover across the screen
+
+  // Entry: Cards rise and fan out from the center depth
+  const entryY = useTransform(progress, [0.25, 0.45], [400, 0]);
+  const entryOpacity = useTransform(progress, [0.25, 0.4], [0, 1]);
+  // Dynamic radius: start from a visible 3D shape (600px) instead of a flat point
+  const currentRadius = useTransform(progress, [0.25, 0.5], [600, radius]);
+  // Current angle relative to the center camera
+  const currentAngle = useTransform(galleryRotation, (rot: number) => {
+    let a = (startAngle.get() + rot) % 360;
+    if (a > 180) a -= 360;
+    if (a < -180) a += 360;
+    return a;
+  });
+
+  // Highlight front cards and dim/fade back cards
+  // Highlight front cards (1.4x) and drastically shrink/dim back cards (0.5x)
+  const cardScale = useTransform(
+    currentAngle,
+    [-180, -60, 0, 60, 180],
+    [0.5, 0.7, 1.4, 0.7, 0.5],
+  );
+  const cardOpacity = useTransform(
+    currentAngle,
+    [-150, -90, 0, 90, 150],
+    [0, 0.6, 1, 0.6, 0],
+  );
+
+  // High-end adjustment: Stronger counter-rotate for wide 1100px radius
+  const faceForward = useTransform(currentAngle, (a: number) => -a * 0.85);
+
+  // Parallax: Shift image horizontally inside frame based on ring angle
+  const imageX = useTransform(currentAngle, [-60, 60], ["15%", "-15%"]);
+
+  const transform = useMotionTemplate`rotateY(${startAngle}deg) translateZ(${currentRadius}px) rotateY(${faceForward}deg) scale(${cardScale})`;
+
   return (
-    <div className={styles.galleryCard}>
-      <Image fill src={src} alt={alt} sizes="280px" priority />
-    </div>
+    <motion.div
+      className={styles.galleryCard}
+      style={{
+        y: entryY,
+        transform,
+        opacity: useTransform(
+          [entryOpacity, cardOpacity],
+          ([e, c]) => (e as number) * (c as number),
+        ),
+      }}
+    >
+      <div className={styles.cardImageInner}>
+        <motion.div
+          style={{
+            x: imageX,
+            width: "130%",
+            height: "100%",
+            position: "relative",
+            left: "-15%",
+          }}
+        >
+          <Image
+            fill
+            src={src}
+            alt={alt}
+            sizes="400px"
+            priority
+            className={styles.cardCover}
+          />
+        </motion.div>
+      </div>
+    </motion.div>
   );
 }
 
@@ -304,10 +388,21 @@ export default function AboutSection() {
   );
   const titleY = useTransform(progress, [0, 0.18], [72, 0]);
   const titleOpacity = useTransform(progress, [0.06, 0.22], [0, 1]);
+  const galleryOpacity = useTransform(
+    progress,
+    [0.25, 0.45, 0.92, 0.98],
+    [0, 1, 1, 0],
+  );
+  // Exteneded rotation to show all images in the front focus
+  const galleryRotation = useTransform(progress, [0.3, 0.98], [0, -540]);
 
-  const galleryOpacity = useTransform(progress, [0.5, 0.6, 0.88], [0, 1, 1]);
-  // Start the track centered at first card, then scroll horizontally after heart is formed
-  const galleryX = useTransform(progress, [0.55, 1], ["0%", "-60%"]);
+  // Cinematic transformations: start from a visible depth to avoid the "flat" line feel
+  const galleryTilt = useTransform(progress, [0.25, 0.5], [45, 12]);
+  const galleryDepth = useTransform(progress, [0.25, 0.5], [-2000, -1100]);
+  const galleryY = useTransform(progress, [0.25, 0.5], [500, 400]);
+
+  // We double the images to create a denser, more professional ring with fewer gaps
+  const denseGallery = [...galleryImages, ...galleryImages];
 
   return (
     <section ref={sectionRef} className={styles.section}>
@@ -353,12 +448,29 @@ export default function AboutSection() {
               style={
                 reduceMotion
                   ? undefined
-                  : { opacity: galleryOpacity, x: galleryX }
+                  : {
+                      opacity: galleryOpacity,
+                      rotateY: galleryRotation,
+                      rotateX: galleryTilt, // Cinematic tilt
+                      translateZ: galleryDepth, // Depth calibration
+                      y: galleryY, // Anchored much lower to avoid header/heart overlap
+                      z: 10,
+                    }
               }
             >
-              {galleryImages.map((image) => (
-                <GalleryCard key={image.src} src={image.src} alt={image.alt} />
-              ))}
+              {denseGallery.map(
+                (image: { src: string; alt: string }, i: number) => (
+                  <GalleryCard
+                    key={`${image.src}-${i}`}
+                    src={image.src}
+                    alt={image.alt}
+                    index={i}
+                    total={denseGallery.length}
+                    progress={progress}
+                    galleryRotation={galleryRotation}
+                  />
+                ),
+              )}
             </motion.div>
           </div>
 
