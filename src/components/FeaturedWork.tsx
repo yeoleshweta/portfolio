@@ -63,6 +63,14 @@ const caseStudies = [
     href: "/work/gesturepro",
     cta: "View Case Study",
   },
+  {
+    title: "CryptoSecure: AI-Powered Smart Contract Security",
+    description:
+      "An AI-powered security scanner that analyzes TON smart contracts in seconds, identifying vulnerabilities and auto-generating patched code. Replaces expensive manual audits with accessible, plain-English security insights for any developer.",
+    image: "/assets/crypto_secure_hero.png",
+    href: "/work/crypto-secure",
+    cta: "View Case Study",
+  },
 ] as const;
 
 /**
