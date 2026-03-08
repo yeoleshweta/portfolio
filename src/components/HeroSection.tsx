@@ -332,7 +332,7 @@ export default function HeroSection() {
             >
               <div className={styles.profilePic}>
                 <Image
-                  src="https://framerusercontent.com/images/7xLqLqX0X6z4gYX9H6tQY.png"
+                  src="/assets/IMG_1191.JPG"
                   alt="Shweta Sharma"
                   width={112}
                   height={112}

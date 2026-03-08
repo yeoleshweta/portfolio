@@ -8,29 +8,11 @@ import styles from "./FeaturedWork.module.css";
 
 const caseStudies = [
   {
-    title: "EcoMed AI",
+    title: "Measuring Patient-Centered Communication",
     description:
-      "An intelligent AI system developed for Philly {Codefest} '25, creating practical solutions for greener healthcare systems. EcoMed analyzes hospital inventories to recommend affordable, high-quality sustainable supplies using a 'BOM Processing System' and leverages 'Image Classification' using ResNet50 to accurately sort waste, preventing costly hazardous-waste disposal.",
-    image:
-      "https://framerusercontent.com/images/jzfSUI7bevQam4vxuI7w91xWZI.png?width=1372&height=968",
-    href: "/work/design-thinking",
-    cta: "View Case Study",
-  },
-  {
-    title: "Fact-checker Tool",
-    description:
-      "Factchecker is a modular pipeline that extracts claims from LLM-generated text, retrieves supporting evidence, and verifies accuracy using both LLM-based checks and tools like Factool achieving an F1-score of 0.87. The platform addresses the growing challenge of misinformation by providing users with an intuitive interface to verify claims while ensuring transparency through detailed analysis reports.",
-    image:
-      "https://framerusercontent.com/images/cRVg4Sq0wW8rh829k0LII56TsvQ.png?width=1372&height=968",
-    href: "/work/john-deere",
-    cta: "View on GitHub",
-  },
-  {
-    title: "GesturePro — An Interactive Sign Language Translator",
-    description:
-      "GesturePro is an AI-powered sign language translation platform that bridges communication between sign language users and non-signers. Using computer vision and deep learning, it converts real-time hand gestures into text and speech, enabling seamless two-way communication.",
-    image: "/assets/gesturepro-hero.png",
-    href: "/work/gesturepro",
+      "Building a scalable, rubric-grounded NLP pipeline that measures patient-centered communication behaviors across real clinical transcripts. Operationalized frameworks like Calgary-Cambridge and NURSE into measurable constructs for ABIM.",
+    image: "/assets/abim-hero.png",
+    href: "/work/abim",
     cta: "View Case Study",
   },
   {
@@ -42,11 +24,43 @@ const caseStudies = [
     cta: "View Case Study",
   },
   {
+    title: "Product Managers with UX & Design Thinking",
+    description:
+      "Equipping Product Managers at John Deere with UX frameworks and collaborative workflows. Moving from ad-hoc practices to systematic execution across a 250+ product portfolio through a 12-week design thinking initiative.",
+    image: "/jd_abstract_ui.png",
+    href: "/work/design-thinking",
+    cta: "View Case Study",
+  },
+  {
+    title: "Enterprise Survey Logic & Analytics",
+    description:
+      "Redesigning John Deere's survey tools to eliminate the '2-hour survey tax'. Reduced build time by 60% through a fundamentally restructured mental model featuring inline branching UI and interactive analytics.",
+    image: "/micro_learning_ui.png",
+    href: "/work/john-deere",
+    cta: "View Case Study",
+  },
+  {
+    title: "Stories by Children — Redesigning for Young Creators",
+    description:
+      "Increased task success from 50% to 85% for a global storytelling platform. Rebuilt the upload workflow for parents and introduced age-appropriate visual cues to nurture creativity for children aged 6–17.",
+    image: "/assets/Reading Challenge.png",
+    href: "/work/stories-by-children",
+    cta: "View Case Study",
+  },
+  {
     title: "E-Commerce Personalization at Scale",
     description:
-      "Designing conversion strategies for 50M+ shoppers across seven retail brands. Built personalized recommendation engines and A/B testing frameworks to deliver tailored shopping experiences that increased conversion rates and customer engagement.",
+      "Designing conversion strategies for 50M+ shoppers across seven retail brands. Built personalized recommendation engines and A/B testing frameworks that increased conversion rates and customer engagement for Arcadia Group.",
     image: "/assets/personalization-hero.png",
     href: "/work/personalization",
+    cta: "View Case Study",
+  },
+  {
+    title: "GesturePro — Real-Time Sign Language Translation",
+    description:
+      "An AI-powered sign language translation platform that bridges communication between sign language users and non-signers. Using computer vision and deep learning, it converts hand gestures into text and speech in real-time.",
+    image: "/assets/gesturepro-hero.png",
+    href: "/work/gesturepro",
     cta: "View Case Study",
   },
 ] as const;

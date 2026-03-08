@@ -129,7 +129,7 @@ function ArchitectureBox({
       >
         {title}
       </h4>
-      <ul
+      <div
         style={{
           padding: 0,
           margin: 0,
@@ -139,7 +139,7 @@ function ArchitectureBox({
         }}
       >
         {items.map((item, i) => (
-          <li
+          <div
             key={i}
             style={{
               marginBottom: "6px",
@@ -150,9 +150,9 @@ function ArchitectureBox({
           >
             <span style={{ color, fontSize: "18px", lineHeight: "1" }}>•</span>
             {item}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
@@ -163,8 +163,8 @@ export default function HealthcareBiasCaseStudy() {
       <CaseStudyHero
         title="Detecting Healthcare Bias with NLP"
         category="Data Science & ML Engineering"
-        role="Data Analyst CO-OP"
-        team="Data Science, Clinical Research, Measurement Scientists"
+        role="Data Scientist Co-op"
+        team="1 Data Scientist Co-op, 1 Advisor"
         timeline="Sept 2025 – Present"
         image="/assets/healthcare-bias-hero.png"
       />
@@ -189,25 +189,7 @@ export default function HealthcareBiasCaseStudy() {
             detect these patterns reliably, automatically, and at scale.
           </p>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "24px",
-              marginTop: "32px",
-            }}
-          >
-            <ContextCard
-              title="Methods"
-              text="NLP Pipeline Engineering, Transformer Fine-Tuning, Gold-Standard Annotation, LLM Evaluation, Synthetic Data Generation"
-            />
-            <ContextCard
-              title="Tools"
-              text="Python, PyTorch, Hugging Face, Label Studio, ClinicalBERT, RoBERTa, GPT-family LLMs"
-            />
-          </div>
-
-          <div style={{ marginTop: "40px" }}>
+          <div style={{ marginTop: "24px", marginBottom: "32px" }}>
             <a
               href="https://bias-checker-healthcare.vercel.app/"
               target="_blank"
@@ -231,6 +213,24 @@ export default function HealthcareBiasCaseStudy() {
             >
               Live Demo →
             </a>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "24px",
+              marginTop: "32px",
+            }}
+          >
+            <ContextCard
+              title="Methods"
+              text="NLP Pipeline Engineering, Transformer Fine-Tuning, Gold-Standard Annotation, LLM Evaluation, Synthetic Data Generation"
+            />
+            <ContextCard
+              title="Tools"
+              text="Python, PyTorch, Hugging Face, Label Studio, ClinicalBERT, RoBERTa, GPT-family LLMs"
+            />
           </div>
         </CaseStudySection>
 
@@ -265,11 +265,11 @@ export default function HealthcareBiasCaseStudy() {
             Model Selection: ClinicalBERT vs. RoBERTa
           </h3>
           <p>
-            I fine-tuned and compared <strong>ClinicalBERT</strong> (pre-trained
-            on MIMIC-III) and <strong>RoBERTa</strong>. While both performed
-            well on binary tasks, the differentiation appeared in granular
-            classification. ClinicalBERT excelled with dense medical
-            terminology, while RoBERTa provided consistent robustness.
+            I fine-tuned and compared <strong>ClinicalBERT</strong> and{" "}
+            <strong>RoBERTa</strong>. While both performed well on binary tasks,
+            the differentiation appeared in granular classification.
+            ClinicalBERT excelled with dense medical terminology, while RoBERTa
+            provided consistent robustness.
           </p>
 
           <h3 style={{ marginTop: "48px" }}>
@@ -329,11 +329,7 @@ export default function HealthcareBiasCaseStudy() {
             <ArchitectureBox
               title="Behaviour Classifier"
               color="#11a961"
-              items={[
-                "Supervised NLP model",
-                "NURSE / SHARE labels",
-                "Turn-level detection",
-              ]}
+              items={["Supervised NLP model", "Turn-level detection"]}
             />
             <ArchitectureBox
               title="Evaluation Engine"

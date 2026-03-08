@@ -32,7 +32,7 @@ export default function DesignThinkingCaseStudy() {
         title="Product Managers with UX & Design Thinking"
         category="UX Research Case Study"
         role="Lead UX Consultant"
-        team="2 UX Researchers, 1 Service Designer, 1 PM"
+        team="2 UX Researchers, 1 Tech Lead, 1 PM"
         timeline="12 Weeks"
         image="/hicks_law_hero.png"
       />
