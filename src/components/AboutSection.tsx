@@ -66,62 +66,161 @@ const heartPixels = [
   [4, 5],
 ] as const;
 
-function HeartCube({
-  x,
-  y,
+const TOTAL_CUBES = 80;
+
+const tornadoCubesLogic = Array.from({ length: TOTAL_CUBES }).map((_, i) => {
+  const pseudoRandom1 = ((i * 13) % 100) / 100;
+  const pseudoRandom2 = ((i * 29) % 100) / 100;
+  const pseudoRandom3 = ((i * 47) % 100) / 100;
+
+  const yOffset = (pseudoRandom1 - 0.5) * 1200;
+  const normalizedY = (yOffset + 600) / 1200;
+  const baseRadius = 150 + (1 - normalizedY) * 500;
+  const radius = baseRadius + (pseudoRandom2 - 0.5) * 100;
+
+  const initialAngle = pseudoRandom3 * 360;
+  const speed = 2 + (1 - normalizedY) * 2;
+  const scale = 0.4 + pseudoRandom2 * 0.4;
+
+  // Assign a heart target to the first 27 cubes
+  const heartTarget = i < heartPixels.length ? heartPixels[i] : null;
+
+  return { id: i, yOffset, radius, initialAngle, speed, scale, heartTarget };
+});
+
+function TransitionCube({
+  cube,
   progress,
   reduceMotion,
 }: {
-  x: number;
-  y: number;
+  cube: (typeof tornadoCubesLogic)[0];
   progress: MotionValue<number>;
   reduceMotion: boolean;
 }) {
-  const xOffset = (x - 4) * 22;
-  const yOffset = (y - 2.5) * 22;
+  // Phase 1: Tornado (0.0 - 0.35)
+  // Phase 2: Assembly (0.35 - 0.5)
+  // Phase 3: Heart (0.5 - 0.85)
 
-  const initialX = useTransform(
+  // Continuous rotation for the cyclone vibe
+  const angle = useTransform(
     progress,
-    [0, 0.3],
-    [xOffset * 5 + (Math.random() - 0.5) * 400, xOffset],
+    [0, 1],
+    [cube.initialAngle, cube.initialAngle + cube.speed * 360],
   );
-  const initialY = useTransform(
+
+  // Shrink orbit to zero during assembly
+  const tornadoRadius = useTransform(
     progress,
-    [0, 0.3],
-    [yOffset * 5 + (Math.random() - 0.5) * 400, yOffset],
+    [0, 0.35, 0.5],
+    [cube.radius, cube.radius, 0],
   );
-  const rotateX = useTransform(progress, [0, 0.3], [Math.random() * 360, 0]);
-  const rotateY = useTransform(progress, [0, 0.3], [Math.random() * 360, 0]);
-  const opacity = useTransform(progress, [0, 0.15, 0.38, 0.42], [0, 1, 1, 0]);
-  const scale = useTransform(progress, [0, 0.3, 0.42], [0.5, 1, 1.2]);
+
+  const xOrbit = useTransform(
+    [tornadoRadius, angle],
+    ([r, a]) => Math.cos((a as number) * (Math.PI / 180)) * (r as number),
+  );
+  const zOrbit = useTransform(
+    [tornadoRadius, angle],
+    ([r, a]) => Math.sin((a as number) * (Math.PI / 180)) * (r as number),
+  );
+
+  // Target heart coordinates
+  const heartX = cube.heartTarget ? (cube.heartTarget[0] - 4) * 24 : 0;
+  const heartY = cube.heartTarget ? (cube.heartTarget[1] - 2.5) * 24 : 0;
+
+  // Vertical drift transitions to heart Y
+  const y = useTransform(
+    progress,
+    [0, 0.35, 0.5],
+    [cube.yOffset + 100, cube.yOffset, heartY],
+  );
+
+  // Horizontal drift transitions to heart X
+  const xOffset = useTransform(progress, [0, 0.35, 0.5], [0, 0, heartX]);
+
+  // Rotations - cubes settle into flat faces as they hit the heart
+  const rotateX = useTransform(progress, [0.35, 0.5], [cube.initialAngle, 0]);
+  const rotateY = useTransform(
+    progress,
+    [0.35, 0.5],
+    [cube.initialAngle * 1.5, 0],
+  );
+
+  // Scale - cubes settle into a consistent size as they hit the heart
+  const finalScale = useTransform(progress, [0.35, 0.5], [cube.scale, 1.0]);
+
+  // Opacity & Color Blending
+  const opacity = useTransform(progress, [0, 0.1, 0.85, 0.95], [0, 1, 1, 0]);
+
+  // Non-heart cubes dissipate
+  const fillerFade = useTransform(progress, [0.35, 0.5], [1, 0]);
+  const finalOpacity = cube.heartTarget
+    ? opacity
+    : useTransform(
+        [opacity, fillerFade],
+        ([o, f]) => (o as number) * (f as number),
+      );
+
+  const colorBlend = useTransform(progress, [0.35, 0.5], [0, 1]);
+  const color = useTransform(
+    colorBlend,
+    [0, 1],
+    ["var(--color-lilac)", "var(--color-lilac)"],
+  );
+  const borderColor = useTransform(
+    colorBlend,
+    [0, 1],
+    ["rgba(0, 0, 0, 0.1)", "rgba(0, 0, 0, 0.2)"],
+  );
+
+  if (reduceMotion && cube.heartTarget) {
+    return (
+      <div
+        className={styles.heartCube}
+        style={{
+          left: `calc(50% + ${heartX}px)`,
+          top: `calc(50% + ${heartY}px)`,
+        }}
+      >
+        <span className={`${styles.heartCubeFace} ${styles.heartFront}`} />
+      </div>
+    );
+  }
+
+  if (reduceMotion && !cube.heartTarget) return null;
 
   return (
     <motion.div
       className={styles.heartCube}
-      style={
-        reduceMotion
-          ? {
-              left: `calc(50% + ${xOffset}px)`,
-              top: `calc(50% + ${yOffset}px)`,
-            }
-          : {
-              x: initialX,
-              y: initialY,
-              rotateX,
-              rotateY,
-              opacity,
-              scale,
-              left: "50%",
-              top: "50%",
-            }
-      }
+      style={{
+        x: useTransform(
+          [xOrbit, xOffset],
+          ([xo, xf]) => (xo as number) + (xf as number),
+        ),
+        y,
+        z: zOrbit,
+        rotateX,
+        rotateY,
+        opacity: finalOpacity,
+        scale: finalScale,
+        left: "50%",
+        top: "50%",
+      }}
     >
-      <span className={`${styles.heartCubeFace} ${styles.heartFront}`} />
-      <span className={`${styles.heartCubeFace} ${styles.heartBack}`} />
-      <span className={`${styles.heartCubeFace} ${styles.heartRight}`} />
-      <span className={`${styles.heartCubeFace} ${styles.heartLeft}`} />
-      <span className={`${styles.heartCubeFace} ${styles.heartTop}`} />
-      <span className={`${styles.heartCubeFace} ${styles.heartBottom}`} />
+      {[
+        styles.heartFront,
+        styles.heartBack,
+        styles.heartRight,
+        styles.heartLeft,
+        styles.heartTop,
+        styles.heartBottom,
+      ].map((faceClass) => (
+        <motion.span
+          key={faceClass}
+          className={`${styles.heartCubeFace} ${faceClass}`}
+          style={{ backgroundColor: color, borderColor }}
+        />
+      ))}
     </motion.div>
   );
 }
@@ -238,11 +337,10 @@ export default function AboutSection() {
 
           {/* Decorative floating heart pixels in the background */}
           <div className={styles.smallCubeField} aria-hidden="true">
-            {heartPixels.map(([x, y], index) => (
-              <HeartCube
-                key={`${x}-${y}-${index}`}
-                x={x}
-                y={y}
+            {tornadoCubesLogic.map((cube) => (
+              <TransitionCube
+                key={cube.id}
+                cube={cube}
                 progress={progress}
                 reduceMotion={reduceMotion}
               />

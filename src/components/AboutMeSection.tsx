@@ -11,72 +11,6 @@ import {
 } from "framer-motion";
 import styles from "./AboutMeSection.module.css";
 
-// Generate deterministic pseudo-random tornado cubes
-const tornadoCubes = Array.from({ length: 80 }).map((_, i) => {
-  const pseudoRandom1 = ((i * 13) % 100) / 100;
-  const pseudoRandom2 = ((i * 29) % 100) / 100;
-  const pseudoRandom3 = ((i * 47) % 100) / 100;
-
-  // Distribute vertically (higher Y = bottom of tornado, lower Y = top)
-  const yOffset = (pseudoRandom1 - 0.5) * 1600;
-
-  // Radius based on Y position (wider at top, very narrow at bottom)
-  const normalizedY = (yOffset + 800) / 1600; // 0 to 1
-  const baseRadius = 100 + (1 - normalizedY) * 600;
-  const radius = baseRadius + (pseudoRandom2 - 0.5) * 150;
-
-  const initialAngle = pseudoRandom3 * 360;
-  const speed = 2 + (1 - normalizedY) * 3; // faster near the bottom
-  const scale = 0.3 + pseudoRandom2 * 0.6;
-
-  return { id: i, yOffset, radius, initialAngle, speed, scale };
-});
-
-function TornadoCube({
-  cube,
-  progress,
-}: {
-  cube: (typeof tornadoCubes)[0];
-  progress: MotionValue<number>;
-}) {
-  // Rotate around the Y axis
-  const rotateY = useTransform(
-    progress,
-    [0, 1],
-    [cube.initialAngle, cube.initialAngle + cube.speed * 360],
-  );
-
-  // Drift vertically
-  const dynamicY = useTransform(
-    progress,
-    [0, 1],
-    [cube.yOffset + 400, cube.yOffset - 400],
-  );
-
-  return (
-    <motion.div
-      className={styles.orbitWrapper}
-      style={{ rotateY, y: dynamicY }}
-    >
-      <div
-        className={styles.cubeWrapper}
-        style={{
-          transform: `translateZ(${cube.radius}px) scale(${cube.scale})`,
-        }}
-      >
-        <div className={styles.cube}>
-          <span className={`${styles.cubeFace} ${styles.front}`} />
-          <span className={`${styles.cubeFace} ${styles.back}`} />
-          <span className={`${styles.cubeFace} ${styles.right}`} />
-          <span className={`${styles.cubeFace} ${styles.left}`} />
-          <span className={`${styles.cubeFace} ${styles.top}`} />
-          <span className={`${styles.cubeFace} ${styles.bottom}`} />
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 function AnimatedHeading({
   children,
   progress,
@@ -181,12 +115,6 @@ export default function AboutMeSection() {
   return (
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.stickyContainer}>
-        <div className={styles.cycloneViewport}>
-          {tornadoCubes.map((cube) => (
-            <TornadoCube key={cube.id} cube={cube} progress={smoothProgress} />
-          ))}
-        </div>
-
         <motion.div
           className={styles.content}
           style={{ opacity: containerOpacity, scale: containerScale }}
