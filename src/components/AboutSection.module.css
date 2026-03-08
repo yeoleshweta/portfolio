@@ -1,7 +1,7 @@
 .section {
   position: relative;
-  z-index: 5;
-  background: transparent;
+  z-index: 30;
+  background: var(--color-background);
   isolation: isolate;
 }
 
@@ -129,11 +129,10 @@
 
 .carouselContainer {
   position: absolute;
-  top: 95%;
+  bottom: 20px; /* Aligned to the bottom of visibility */
   left: 0;
   right: 0;
-  height: 340px;
-  transform: translateY(-50%);
+  height: 360px; /* Reduced to avoid overlap */
   display: flex;
   align-items: center;
   overflow: visible;
@@ -153,7 +152,7 @@
 .galleryCard {
   position: relative;
   width: 280px;
-  height: 380px;
+  height: 340px;
   border-radius: 16px;
   overflow: hidden;
   flex-shrink: 0;

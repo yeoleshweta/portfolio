@@ -113,48 +113,39 @@ function StackCard({
     const sOut: number[] = [];
     const oOut: number[] = [];
 
+    const stackOffset = index * 24; // Fixed pixel offset for consistent "bands" at the top
+    const entryY = 800; // Slide up from 800px below
+
     if (index === 0) {
-      // First card: start visible, then exit
-      input.push(0, holdEnd - t, holdEnd, holdEnd + t * 0.4);
-      yOut.push(0, 0, -40, -100);
-      sOut.push(1, 1, 0.95, 0.88);
-      oOut.push(1, 1, 0.7, 0);
+      // First card: enters from below, then stacks at the top
+      input.push(0, seg * 0.4, seg * 0.6, seg);
+      yOut.push(entryY, 0, 0, stackOffset);
+      oOut.push(0, 1, 1, 0.7);
     } else if (index === total - 1) {
-      // Last card: enter, then stay
-      input.push(Math.max(0, holdStart - t), holdStart, 1);
-      yOut.push(100, 0, 0);
-      sOut.push(0.88, 1, 1);
+      // Last card: enters, then stays
+      input.push(holdStart - t, holdStart, 1);
+      yOut.push(entryY, stackOffset, stackOffset);
       oOut.push(0, 1, 1);
     } else {
-      // Middle cards: enter, hold, exit
-      const eStart = Math.max(0, holdStart - t);
-      input.push(
-        eStart,
-        holdStart,
-        holdEnd - t,
-        holdEnd,
-        Math.min(1, holdEnd + t * 0.4),
-      );
-      yOut.push(100, 0, 0, -40, -100);
-      sOut.push(0.88, 1, 1, 0.95, 0.88);
-      oOut.push(0, 1, 1, 0.7, 0);
+      // Middle cards: enter, hold, then stack
+      input.push(Math.max(0, holdStart - t), holdStart, holdEnd - t, holdEnd);
+      yOut.push(entryY, stackOffset, stackOffset, stackOffset);
+      oOut.push(0, 1, 1, 0.7);
     }
 
-    return { input, yOut, sOut, oOut };
+    return { input, yOut, oOut };
   };
 
-  const { input, yOut, sOut, oOut } = buildInputOutput();
+  const { input, yOut, oOut } = buildInputOutput();
 
   const y = useTransform(scrollYProgress, input, yOut);
-  const scale = useTransform(scrollYProgress, input, sOut);
   const opacity = useTransform(scrollYProgress, input, oOut);
 
   return (
     <motion.div
       className={styles.card}
       style={{
-        y: useTransform(y, (v: number) => `${v}%`),
-        scale,
+        y: useTransform(y, (v: number) => `${v}px`),
         opacity,
         // Entering cards should appear ABOVE exiting ones
         zIndex: index + 1,

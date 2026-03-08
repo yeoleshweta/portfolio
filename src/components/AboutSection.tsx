@@ -204,7 +204,7 @@ function TransitionCube({
         opacity: finalOpacity,
         scale: finalScale,
         left: "50%",
-        top: "50%",
+        top: "35%",
       }}
     >
       {[
@@ -266,13 +266,13 @@ function StageDebris({
               width: size,
               height: size,
               left: `calc(50% + ${xOrigin}px)`,
-              top: `calc(50% + ${yOrigin}px)`,
+              top: `calc(35% + ${yOrigin}px)`,
             }
           : {
               width: size,
               height: size,
               left: "50%",
-              top: "50%",
+              top: "35%",
               x,
               y,
               rotate,
@@ -305,9 +305,9 @@ export default function AboutSection() {
   const titleY = useTransform(progress, [0, 0.18], [72, 0]);
   const titleOpacity = useTransform(progress, [0.06, 0.22], [0, 1]);
 
-  const galleryOpacity = useTransform(progress, [0.42, 0.52, 0.88], [0, 1, 1]);
-  // Start the track centered at first card, then scroll horizontally
-  const galleryX = useTransform(progress, [0.35, 1], ["0%", "-60%"]);
+  const galleryOpacity = useTransform(progress, [0.5, 0.6, 0.88], [0, 1, 1]);
+  // Start the track centered at first card, then scroll horizontally after heart is formed
+  const galleryX = useTransform(progress, [0.55, 1], ["0%", "-60%"]);
 
   return (
     <section ref={sectionRef} className={styles.section}>
