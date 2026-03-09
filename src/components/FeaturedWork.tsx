@@ -11,7 +11,7 @@ const caseStudies = [
     title: "Measuring Patient-Centered Communication",
     description:
       "Building a scalable, rubric-grounded NLP pipeline that measures patient-centered communication behaviors across real clinical transcripts. Operationalized frameworks like Calgary-Cambridge and NURSE into measurable constructs for ABIM.",
-    image: "/assets/PatientCentered.jpg",
+    image: "/assets/personalization.jpg",
     href: "/work/abim",
     cta: "View Case Study",
   },
