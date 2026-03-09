@@ -24,7 +24,7 @@ export default function Navbar() {
         <div className={styles.container}>
           <Link href="/" className={styles.brand}>
             shweta<span className={styles.brandDot}>.</span>
-            <span className={styles.brandScript}>design</span>
+            <span className={styles.brandScript}>tech</span>
           </Link>
 
           <div className={styles.links}>

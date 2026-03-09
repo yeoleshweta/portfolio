@@ -102,7 +102,7 @@
   text-transform: none;
   font-style: italic;
   white-space: nowrap;
-  z-index: 1;
+  z-index: 10;
   pointer-events: none;
 }
 
@@ -326,44 +326,84 @@
   }
 
   .container {
-    padding: 54px 20px 54px;
+    padding: 12px 20px 54px;
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 
   .heading {
-    font-size: clamp(60px, 18vw, 98px);
-    line-height: 0.9;
+    font-size: clamp(42px, 14vw, 75px);
+    line-height: 0.82;
   }
 
   .script {
-    top: -28px;
-    left: 156px;
-    font-size: clamp(98px, 20vw, 144px);
+    position: relative;
+    top: 0.25em;
+    left: 0.1em;
+    font-size: clamp(72px, 20vw, 112px);
+    margin-top: 0.45em;
+    margin-bottom: -0.2em;
+    display: inline-block;
   }
 
   .bioContainer {
-    margin-top: 28px;
+    margin-top: 64px;
+    position: relative;
+    z-index: 20;
   }
 
   .bioInner {
-    gap: 16px;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    text-align: center;
   }
 
   .profilePic {
-    width: 72px;
-    height: 72px;
+    width: 96px;
+    height: 96px;
+    margin-bottom: 8px;
   }
 
   .description {
-    font-size: 18px;
+    font-size: 19px;
     line-height: 1.5;
   }
 
   .cubeSlot {
-    min-height: 360px;
+    min-height: 280px;
+    margin-top: -20px;
+    margin-bottom: -60px;
   }
 
   .cubeBase {
-    transform: scale(0.52);
+    transform: scale(0.54);
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: clamp(38px, 13vw, 52px);
+  }
+
+  .script {
+    font-size: clamp(64px, 18vw, 88px);
+    top: 0;
+  }
+
+  .cubeBase {
+    transform: scale(0.46);
+  }
+
+  .cubeSlot {
+    min-height: 240px;
+  }
+
+  .bioContainer {
+    margin-top: 48px;
+  }
+
+  .description {
+    font-size: 17px;
   }
 }

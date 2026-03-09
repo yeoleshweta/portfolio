@@ -141,6 +141,16 @@ function StackCard({
   const y = useTransform(scrollYProgress, input, yOut);
   const opacity = useTransform(scrollYProgress, input, oOut);
 
+  // Content opacity: Only visible when card is focal/entering,
+  // fades out as the NEXT card starts its entry transition.
+  const contentOpacity = useTransform(
+    scrollYProgress,
+    index === total - 1
+      ? [holdStart - t, holdStart]
+      : [holdStart - t, holdStart, holdEnd - t, holdEnd],
+    index === total - 1 ? [0, 1] : [0, 1, 1, 0],
+  );
+
   return (
     <motion.div
       className={styles.card}
@@ -151,13 +161,16 @@ function StackCard({
         zIndex: index + 1,
       }}
     >
-      <div className={styles.cardContent}>
+      <motion.div
+        className={styles.cardContent}
+        style={{ opacity: contentOpacity }}
+      >
         <h3 className={styles.cardTitle}>{study.title}</h3>
         <p className={styles.cardDescription}>{study.description}</p>
         <Link href={study.href} className={styles.cardCta}>
           {study.cta}
         </Link>
-      </div>
+      </motion.div>
 
       <div className={styles.cardImageContainer}>
         <div className={styles.cardImage}>

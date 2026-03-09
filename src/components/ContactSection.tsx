@@ -15,7 +15,7 @@ import styles from "./ContactSection.module.css";
 const contactItems = [
   {
     type: "linkedin",
-    label: "LinkedIN",
+    label: "Linkedin",
     href: "https://www.linkedin.com/in/sharmashweta08",
   },
   {

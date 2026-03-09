@@ -399,7 +399,7 @@ export default function AboutSection() {
   // Cinematic transformations: start from a visible depth to avoid the "flat" line feel
   const galleryTilt = useTransform(progress, [0.25, 0.5], [45, 12]);
   const galleryDepth = useTransform(progress, [0.25, 0.5], [-2000, -1100]);
-  const galleryY = useTransform(progress, [0.25, 0.5], [500, 400]);
+  const galleryY = useTransform(progress, [0.25, 0.5], [380, 260]);
 
   // We double the images to create a denser, more professional ring with fewer gaps
   const denseGallery = [...galleryImages, ...galleryImages];

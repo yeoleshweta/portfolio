@@ -76,7 +76,10 @@
     padding: 2rem;
   }
   .heading {
-    font-size: 1.75rem;
+    font-size: 1.8rem;
+  }
+  .italicSerif {
+    font-size: 2.4rem;
   }
   .paragraph {
     font-size: 1rem;

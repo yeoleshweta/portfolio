@@ -91,10 +91,10 @@
 
 .ctaMain {
   font-family: var(--font-script);
-  font-size: clamp(80px, 12vw, 160px);
+  font-size: clamp(64px, 10vw, 120px);
   line-height: 0.8;
   color: var(--color-text);
-  margin-bottom: 48px;
+  margin-bottom: 24px;
 }
 
 .description {
@@ -264,7 +264,7 @@
 .contactTitle {
   color: #595959;
   font-family: "IBM Plex Sans", sans-serif;
-  font-size: 81px;
+  font-size: 68px;
   font-weight: 700;
   line-height: 0.92;
   letter-spacing: -0.05em;
@@ -274,7 +274,7 @@
   margin-top: -8px;
   color: #8b69fa;
   font-family: var(--font-script);
-  font-size: 81px;
+  font-size: 68px;
   font-style: italic;
   font-weight: 400;
   line-height: 0.8;
@@ -313,41 +313,41 @@
 .figmaTile {
   top: 16px;
   left: 0;
-  width: 144px;
-  height: 135px;
-  border-radius: 30px;
+  width: 120px;
+  height: 112px;
+  border-radius: 24px;
   transform: rotate(-12deg);
 }
 
 .aeTile {
   top: 48px;
   left: 138px;
-  width: 126px;
-  height: 121px;
-  border-radius: 30px;
+  width: 106px;
+  height: 102px;
+  border-radius: 24px;
   transform: rotate(-12deg);
 }
 
 .psTile {
   top: 98px;
   left: 54px;
-  width: 126px;
-  height: 121px;
-  border-radius: 30px;
+  width: 106px;
+  height: 102px;
+  border-radius: 24px;
 }
 
 .aiTile {
   top: 118px;
   left: 298px;
-  width: 126px;
-  height: 121px;
-  border-radius: 30px;
+  width: 106px;
+  height: 102px;
+  border-radius: 24px;
 }
 
 .aeTile span,
 .psTile span,
 .aiTile span {
-  font-size: 68px;
+  font-size: 54px;
 }
 
 .boltTile {
@@ -465,7 +465,7 @@
 .letsTalk {
   color: #111;
   font-family: "IBM Plex Sans", sans-serif;
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -473,7 +473,7 @@
 
 .letsTalk span {
   font-family: var(--font-script);
-  font-size: 37px;
+  font-size: 30px;
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.05em;
@@ -494,21 +494,21 @@
 
 .contactIcon {
   display: grid;
-  width: 71px;
-  height: 69px;
+  width: 56px;
+  height: 54px;
   place-items: center;
 }
 
 .contactSvg {
-  width: 71px;
-  height: 69px;
+  width: 56px;
+  height: 54px;
   filter: drop-shadow(3px 5px 0 #000);
 }
 
 .contactText {
   color: #595959;
   font-family: "IBM Plex Sans", sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -600,7 +600,11 @@
 
   .contactTitle,
   .contactScript {
-    font-size: 46px;
+    font-size: 34px;
+  }
+
+  .contactScript {
+    margin-top: 24px;
   }
 
   .toolsBoard {
@@ -608,7 +612,7 @@
     height: auto;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
     transform: none;
   }
 
@@ -624,33 +628,33 @@
   }
 
   .figmaTile {
-    width: 108px;
-    height: 102px;
+    width: 86px;
+    height: 82px;
   }
 
   .aeTile,
   .psTile,
   .aiTile {
-    width: 96px;
-    height: 92px;
+    width: 74px;
+    height: 70px;
   }
 
   .aeTile span,
   .psTile span,
   .aiTile span {
-    font-size: 52px;
+    font-size: 42px;
   }
 
   .starTile,
   .smileTile,
   .gearTile {
-    width: 58px;
-    height: 58px;
+    width: 48px;
+    height: 48px;
   }
 
   .dragTile {
-    width: 148px;
-    height: 48px;
-    font-size: 15px;
+    width: 128px;
+    height: 42px;
+    font-size: 14px;
   }
 }
