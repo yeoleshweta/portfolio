@@ -119,28 +119,17 @@ export default function AboutMeSection() {
           className={styles.content}
           style={{ opacity: containerOpacity, scale: containerScale }}
         >
-          <AnimatedHeading progress={smoothProgress}>About me</AnimatedHeading>
+          <AnimatedHeading progress={smoothProgress}>
+            Work <span className={styles.italicSerif}>experience</span>
+          </AnimatedHeading>
 
           <AnimatedParagraph progress={smoothProgress} index={0}>
-            Six+ years blending UX, behavioral analytics, and data science. What
-            started as obsessing over user friction at places like John Deere is
-            now a quest to understand not just what people do, but{" "}
-            <span style={{ fontStyle: "italic" }}>why</span>—and how to model
-            it.
-          </AnimatedParagraph>
-
-          <AnimatedParagraph progress={smoothProgress} index={1}>
-            That led me to my M.S. in AI &amp; ML at Drexel. Instead of just
-            observing behavior, I&apos;m now engineering NLP pipelines and
-            fine-tuning LLMs at the American Board of Internal Medicine to
-            detect healthcare biases in clinical communication.
-          </AnimatedParagraph>
-
-          <AnimatedParagraph progress={smoothProgress} index={2}>
-            It&apos;s the perfect sweet spot where human-centered design meets
-            ML rigor. And when I&apos;m not training classifiers or evaluating
-            models? I&apos;m probably still sketching wireframes. Old habits die
-            hard!
+            My 6 year long design journey began with mastering visual
+            design—creating high-impact campaigns, expressive UI, and motion/3D
+            work for brands like Myntra-Jabong and Cult.fit. Over time, that
+            visual craft evolved into product thinking. In my recent role as a
+            Product Designer at Navi, I applied it to streamline financial
+            journey for millions.
           </AnimatedParagraph>
         </motion.div>
       </div>

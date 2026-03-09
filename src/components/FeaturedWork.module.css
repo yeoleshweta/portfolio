@@ -43,21 +43,18 @@
 
 /* ── Section header ── */
 .header {
-  position: absolute;
-  top: 4vh;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 20;
   text-align: center;
+  margin-bottom: 2rem;
 }
 
 .title {
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  color: rgba(28, 28, 28, 0.45);
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+  text-transform: none;
   margin: 0;
 }
 
@@ -65,8 +62,7 @@
   font-family: var(--font-script);
   font-style: italic;
   font-weight: 400;
-  letter-spacing: 0;
-  color: var(--color-lilac);
+  color: #444;
 }
 
 /* ── Card stack container ── */
@@ -199,6 +195,10 @@
   .cardDescription {
     font-size: 14px;
   }
+
+  .title {
+    font-size: 2.8rem;
+  }
 }
 
 @media (max-width: 810px) {
@@ -233,6 +233,10 @@
 
   .cardImageContainer {
     padding: 0 20px 20px;
+  }
+
+  .title {
+    font-size: 2.2rem;
   }
 }
 

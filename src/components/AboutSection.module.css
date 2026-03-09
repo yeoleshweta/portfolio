@@ -19,6 +19,8 @@
   height: calc(100svh - 94px);
   overflow: hidden;
   display: block;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
 }
 
 .backdropWash {
@@ -42,31 +44,30 @@
 }
 
 .title {
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 30px;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
   font-weight: 700;
   line-height: 1.1;
-  letter-spacing: -0.03em;
-  color: #111;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+  text-transform: none;
 }
 
 .italic {
   font-family: var(--font-script);
-  font-size: 37px;
   font-style: italic;
   font-weight: 400;
-  letter-spacing: -0.05em;
+  color: #444;
 }
 
 .description {
-  width: 521px;
+  width: 800px;
   max-width: calc(100% - 32px);
-  color: #595959;
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.5;
-  letter-spacing: -0.03em;
+  color: #444;
+  font-family: var(--font-primary);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 .smallCubeField {
@@ -94,10 +95,11 @@
 .heartCubeFace {
   position: absolute;
   inset: 0;
-  background: var(--color-lilac);
-  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   backface-visibility: hidden;
+  backdrop-filter: blur(2px);
 }
 
 .heartFront {
@@ -197,9 +199,10 @@
 .stageScatterCube {
   position: absolute;
   display: block;
-  border: 1px solid rgba(17, 17, 17, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  background: #d8c0ff;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(2px);
 }
 
 @media (max-width: 1180px) {

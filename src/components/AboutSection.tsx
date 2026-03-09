@@ -424,9 +424,10 @@ export default function AboutSection() {
               <span className={styles.italic}>researching</span>
             </h2>
             <p className={styles.description}>
-              I&apos;m drawn to sketching wireframes, exploring data
-              visualizations, reading about behavioral science, and the
-              occasional adventure.
+              It&apos;s the perfect sweet spot where human-centered design meets
+              ML rigor. When I&apos;m not training classifiers or evaluating
+              models, I&apos;m probably still sketching wireframes or exploring
+              new data visualizations. Old habits die hard!
             </p>
           </motion.div>
 
