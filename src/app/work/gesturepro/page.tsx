@@ -105,7 +105,7 @@ export default function GestureProCaseStudy() {
         role="Full-Stack Developer & ML Engineer"
         team="4 Engineers"
         timeline="Ongoing"
-        image="/assets/gesturepro-hero.png"
+        image="/assets/gesturepro.jpg"
       />
 
       <CaseStudyLayout sections={sections}>

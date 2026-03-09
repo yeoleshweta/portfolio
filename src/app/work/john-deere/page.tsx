@@ -28,8 +28,7 @@ export default function JohnDeereCaseStudy() {
         role="Product Designer"
         team="1 PM, 2 Developers, 1 Designer"
         timeline="8 Weeks"
-        isVideo={true}
-        videoUrl="/assets/Screen Recording 2026-03-02 at 00.58.26.mov"
+        image="/assets/survey.jpg"
       />
 
       <CaseStudyLayout sections={sections}>

@@ -52,7 +52,7 @@ export default function CryptoSecureCaseStudy() {
         role="ML/AI Engineering & Frontend"
         team="4 members (Areef Syed, Rishit Epari, Khushboo Patel, Shweta Sharma)"
         timeline="~3 months"
-        image="/assets/crypto_secure_hero.png"
+        image="/assets/Cryptosecure.jpg"
       />
 
       <CaseStudyLayout sections={sections}>

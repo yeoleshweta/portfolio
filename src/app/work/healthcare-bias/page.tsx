@@ -166,7 +166,7 @@ export default function HealthcareBiasCaseStudy() {
         role="Data Scientist Co-op"
         team="1 Data Scientist Co-op, 1 Advisor"
         timeline="Sept 2025 – Present"
-        image="/assets/healthcare-bias-hero.png"
+        image="/assets/BiasDetection.jpg"
       />
 
       <CaseStudyLayout sections={sections}>

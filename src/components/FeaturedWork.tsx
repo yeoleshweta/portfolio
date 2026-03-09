@@ -11,7 +11,7 @@ const caseStudies = [
     title: "Measuring Patient-Centered Communication",
     description:
       "Building a scalable, rubric-grounded NLP pipeline that measures patient-centered communication behaviors across real clinical transcripts. Operationalized frameworks like Calgary-Cambridge and NURSE into measurable constructs for ABIM.",
-    image: "/assets/abim-hero.png",
+    image: "/assets/PatientCentered.jpg",
     href: "/work/abim",
     cta: "View Case Study",
   },
@@ -19,7 +19,7 @@ const caseStudies = [
     title: "Healthcare Bias — NLP Detection",
     description:
       "Machine learning pipelines surfacing implicit clinician bias at scale. Developed NLP models to analyze clinical notes and identify patterns of differential language use across patient demographics, aiming to improve equitable healthcare outcomes.",
-    image: "/assets/healthcare-bias-hero.png",
+    image: "/assets/BiasDetection.jpg",
     href: "/work/healthcare-bias",
     cta: "View Case Study",
   },
@@ -27,7 +27,7 @@ const caseStudies = [
     title: "Product Managers with UX & Design Thinking",
     description:
       "Equipping Product Managers at John Deere with UX frameworks and collaborative workflows. Moving from ad-hoc practices to systematic execution across a 250+ product portfolio through a 12-week design thinking initiative.",
-    image: "/jd_abstract_ui.png",
+    image: "/assets/DesignThinking.jpg",
     href: "/work/design-thinking",
     cta: "View Case Study",
   },
@@ -35,7 +35,7 @@ const caseStudies = [
     title: "Enterprise Survey Logic & Analytics",
     description:
       "Redesigning John Deere's survey tools to eliminate the '2-hour survey tax'. Reduced build time by 60% through a fundamentally restructured mental model featuring inline branching UI and interactive analytics.",
-    image: "/micro_learning_ui.png",
+    image: "/assets/survey.jpg",
     href: "/work/john-deere",
     cta: "View Case Study",
   },
@@ -43,7 +43,7 @@ const caseStudies = [
     title: "Stories by Children — Redesigning for Young Creators",
     description:
       "Increased task success from 50% to 85% for a global storytelling platform. Rebuilt the upload workflow for parents and introduced age-appropriate visual cues to nurture creativity for children aged 6–17.",
-    image: "/assets/Reading Challenge.png",
+    image: "/assets/StoriesByChildren.jpg",
     href: "/work/stories-by-children",
     cta: "View Case Study",
   },
@@ -51,7 +51,7 @@ const caseStudies = [
     title: "E-Commerce Personalization at Scale",
     description:
       "Designing conversion strategies for 50M+ shoppers across seven retail brands. Built personalized recommendation engines and A/B testing frameworks that increased conversion rates and customer engagement for Arcadia Group.",
-    image: "/assets/personalization-hero.png",
+    image: "/assets/personalization.jpg",
     href: "/work/personalization",
     cta: "View Case Study",
   },
@@ -59,7 +59,7 @@ const caseStudies = [
     title: "GesturePro — Real-Time Sign Language Translation",
     description:
       "An AI-powered sign language translation platform that bridges communication between sign language users and non-signers. Using computer vision and deep learning, it converts hand gestures into text and speech in real-time.",
-    image: "/assets/gesturepro-hero.png",
+    image: "/assets/gesturepro.jpg",
     href: "/work/gesturepro",
     cta: "View Case Study",
   },
@@ -67,7 +67,7 @@ const caseStudies = [
     title: "CryptoSecure: AI-Powered Smart Contract Security",
     description:
       "An AI-powered security scanner that analyzes TON smart contracts in seconds, identifying vulnerabilities and auto-generating patched code. Replaces expensive manual audits with accessible, plain-English security insights for any developer.",
-    image: "/assets/crypto_secure_hero.png",
+    image: "/assets/Cryptosecure.jpg",
     href: "/work/crypto-secure",
     cta: "View Case Study",
   },
