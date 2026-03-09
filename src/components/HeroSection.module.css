@@ -77,7 +77,7 @@
   display: flex;
   flex-direction: column;
   font-family: var(--font-display);
-  font-size: clamp(72px, 8.5vw, 152px);
+  font-size: clamp(64px, 7.5vw, 128px);
   font-weight: 900;
   line-height: 0.82;
   letter-spacing: -0.05em;
@@ -92,9 +92,9 @@
 .script {
   position: absolute;
   top: clamp(-4px, -0.4vw, 0px);
-  left: clamp(380px, 40vw, 820px);
+  left: clamp(360px, 41vw, 840px);
   font-family: var(--font-script);
-  font-size: clamp(120px, 9.5vw, 196px);
+  font-size: clamp(100px, 8.5vw, 164px);
   font-weight: 400;
   line-height: 0.82;
   letter-spacing: -0.08em;

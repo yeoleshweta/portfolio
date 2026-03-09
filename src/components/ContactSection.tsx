@@ -30,6 +30,15 @@ const contactItems = [
   },
 ] as const;
 
+import GlassCube from "./GlassCube";
+
+const CUBES = [
+  { size: 30, x: "10%", y: "15%", duration: 45, delay: 0 },
+  { size: 45, x: "85%", y: "10%", duration: 60, delay: 2 },
+  { size: 25, x: "75%", y: "65%", duration: 50, delay: 4 },
+  { size: 40, x: "20%", y: "80%", duration: 55, delay: 1 },
+];
+
 function ContactBadge({
   type,
 }: {
@@ -135,6 +144,12 @@ export default function ContactSection() {
         className={styles.contactPanel}
         style={reduceMotion ? undefined : { y: panelY }}
       >
+        {/* Background Animation */}
+        <div className={styles.backgroundDecoration} aria-hidden="true">
+          {CUBES.map((cube, i) => (
+            <GlassCube key={i} {...cube} />
+          ))}
+        </div>
         <div className={styles.panelLeft}>
           <div className={styles.workBadge}>
             <span className={styles.badgeGlow}></span>

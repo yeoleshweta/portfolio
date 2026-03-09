@@ -1,7 +1,7 @@
 .section {
   position: relative;
   width: 100%;
-  min-height: 150vh;
+  min-height: 300vh;
   background-color: rgba(242, 242, 242, 0.7);
   z-index: 10;
 }
@@ -16,9 +16,34 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  perspective: 1000px;
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
+  perspective: 2000px;
+  transform-style: preserve-3d;
+}
+
+.blurLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  backdrop-filter: blur(24px);
+  mask-image: radial-gradient(circle, white 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle, white 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.backgroundDecoration {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  overflow: visible;
+}
+
+.floatingCube {
+  position: absolute;
+  border: 1px solid rgba(139, 105, 250, 0.6);
+  border-radius: 4px;
+  background: rgba(139, 105, 250, 0.12);
 }
 
 .content {
@@ -59,11 +84,17 @@
 
 .paragraph {
   font-size: 1.25rem;
-  line-height: 1.6;
+  line-height: 1.8;
   margin-bottom: 1.5rem;
-  color: #444;
+  color: #1a1a1a;
   max-width: 800px;
-  font-weight: 400;
+  font-weight: 500;
+  text-align: center;
+}
+
+.word {
+  display: inline-block;
+  white-space: pre-wrap;
 }
 
 .paragraph:last-child {

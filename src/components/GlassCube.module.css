@@ -1,0 +1,47 @@
+.cubeContainer {
+  position: absolute;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(139, 105, 250, 0.8);
+  background: linear-gradient(
+    135deg,
+    rgba(139, 105, 250, 0.2),
+    rgba(139, 105, 250, 0.05)
+  );
+  box-sizing: border-box;
+  box-shadow: inset 0 0 15px rgba(139, 105, 250, 0.2);
+  backface-visibility: visible;
+}
+
+.front {
+  transform: rotateY(0deg) translateZ(var(--translate-z));
+}
+.back {
+  transform: rotateY(180deg) translateZ(var(--translate-z));
+}
+.right {
+  transform: rotateY(90deg) translateZ(var(--translate-z));
+}
+.left {
+  transform: rotateY(-90deg) translateZ(var(--translate-z));
+}
+.top {
+  transform: rotateX(90deg) translateZ(var(--translate-z));
+}
+.bottom {
+  transform: rotateX(-90deg) translateZ(var(--translate-z));
+}

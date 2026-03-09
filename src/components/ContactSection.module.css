@@ -215,6 +215,20 @@
   background: #d8c0ff;
 }
 
+.backgroundDecoration {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.floatingCube {
+  position: absolute;
+  border: 1px solid rgba(139, 105, 250, 0.6);
+  border-radius: 4px;
+  background: rgba(139, 105, 250, 0.12);
+}
+
 .contactPanel {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
@@ -223,6 +237,8 @@
   min-height: 452px;
   padding: 80px 52px 24px;
   background: #f9f2ff;
+  isolation: isolate;
+  overflow: hidden;
 }
 
 .panelLeft {
