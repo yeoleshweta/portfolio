@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,6 +27,11 @@ export default function RootLayout({
           <BackgroundScene />
           <main className="main-content">{children}</main>
         </SmoothScroll>
+        <Script
+          src="https://unpkg.com/@klyro/widget/dist/widget.js"
+          data-widget-key="1kr1f9xRlnhy"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
