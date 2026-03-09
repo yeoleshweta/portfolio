@@ -99,18 +99,6 @@ function TransitionCube({
   progress: MotionValue<number>;
   reduceMotion: boolean;
 }) {
-<<<<<<< HEAD
-  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
-  const spacing = isMobile ? 12 : 22;
-  const xOffset = (x - 4) * spacing;
-  const yOffset = (y - 2.5) * spacing;
-
-  const explosionRange = isMobile ? 150 : 400;
-  const initialX = useTransform(
-    progress,
-    [0, 0.3],
-    [xOffset * 3 + (Math.random() - 0.5) * explosionRange, xOffset],
-=======
   // Phase 1: Tornado (0.0 - 0.35)
   // Phase 2: Assembly (0.35 - 0.5)
   // Phase 3: Heart (0.5 - 0.85)
@@ -120,19 +108,13 @@ function TransitionCube({
     progress,
     [0, 1],
     [cube.initialAngle, cube.initialAngle + cube.speed * 360],
->>>>>>> v2
   );
 
   // Shrink orbit to zero during assembly
   const tornadoRadius = useTransform(
     progress,
-<<<<<<< HEAD
-    [0, 0.3],
-    [yOffset * 3 + (Math.random() - 0.5) * explosionRange, yOffset],
-=======
     [0, 0.35, 0.5],
     [cube.radius, cube.radius, 0],
->>>>>>> v2
   );
 
   const xOrbit = useTransform(
@@ -300,17 +282,6 @@ function GalleryCard({
   const transform = useMotionTemplate`rotateY(${startAngle}deg) translateZ(${currentRadius}px) rotateY(${faceForward}deg) scale(${cardScale})`;
 
   return (
-<<<<<<< HEAD
-    <div className={styles.galleryCard}>
-      <Image
-        fill
-        src={src}
-        alt={alt}
-        sizes="(max-width: 768px) 250px, 280px"
-        className={styles.galleryImage}
-      />
-    </div>
-=======
     <motion.div
       className={styles.galleryCard}
       style={{
@@ -343,7 +314,6 @@ function GalleryCard({
         </motion.div>
       </div>
     </motion.div>
->>>>>>> v2
   );
 }
 

@@ -34,7 +34,7 @@ export default function DesignThinkingCaseStudy() {
         role="Lead UX Consultant"
         team="2 UX Researchers, 1 Tech Lead, 1 PM"
         timeline="12 Weeks"
-        image="/hicks_law_hero.png"
+        image="/assets/DesignThinking.jpg"
       />
 
       {/* --- OVERVIEW --- */}

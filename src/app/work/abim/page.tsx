@@ -251,15 +251,10 @@ export default function ABIMCaseStudy() {
       <CaseStudyHero
         title="Measuring Patient-Centered Communication with NLP"
         category="NLP & UX Research"
-<<<<<<< HEAD
-        role="NLP Researcher & Data Annotator"
-        team="3 Researchers, 1 Advisor"
-=======
         role="Data Scientist Co-op"
         team="I/O Psychologists, Data Scientist, and AI/ML Engineer"
->>>>>>> v2
         timeline="Co-Op (6 months)"
-        image="/assets/abim-hero.png"
+        image="/assets/personalization.jpg"
       />
 
       <CaseStudyLayout sections={sections}>

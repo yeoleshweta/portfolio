@@ -13,10 +13,6 @@ import {
 
 const sections = [
   { id: "overview", label: "Overview" },
-<<<<<<< HEAD
-  { id: "brands", label: "The Brands" },
-=======
->>>>>>> v2
   { id: "diagnosis", label: "The Diagnosis" },
   { id: "framework", label: "The Framework" },
   { id: "implementation", label: "Implementation" },
@@ -24,62 +20,6 @@ const sections = [
   { id: "reflections", label: "Reflections" },
 ];
 
-<<<<<<< HEAD
-/* ─────── Brand Card Component ─────── */
-function BrandCard({
-  name,
-  description,
-  audience,
-  color,
-}: {
-  name: string;
-  description: string;
-  audience: string;
-  color: string;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      style={{
-        background: "#fff",
-        borderRadius: "16px",
-        padding: "24px",
-        border: `1px solid ${color}22`,
-        boxShadow: "0 4px 20px rgba(0,0,0,0.03)",
-        flex: "1 1 300px",
-      }}
-    >
-      <h4
-        style={{
-          margin: "0 0 8px 0",
-          color,
-          fontSize: "18px",
-          fontWeight: 700,
-        }}
-      >
-        {name}
-      </h4>
-      <p style={{ fontSize: "14px", fontWeight: 600, margin: "0 0 12px 0" }}>
-        {description}
-      </p>
-      <p
-        style={{
-          fontSize: "13px",
-          color: "var(--color-text-secondary)",
-          margin: 0,
-          lineHeight: "1.5",
-        }}
-      >
-        <strong>Audience:</strong> {audience}
-      </p>
-    </motion.div>
-  );
-}
-
-=======
->>>>>>> v2
 /* ─────── Framework Layer Component ─────── */
 function FrameworkLayer({
   title,
@@ -140,11 +80,7 @@ function FrameworkLayer({
       >
         <strong>Principle:</strong> {principle}
       </p>
-<<<<<<< HEAD
-      <ul
-=======
       <div
->>>>>>> v2
         style={{
           padding: 0,
           margin: 0,
@@ -155,11 +91,7 @@ function FrameworkLayer({
         }}
       >
         {details.map((detail, i) => (
-<<<<<<< HEAD
-          <li
-=======
           <div
->>>>>>> v2
             key={i}
             style={{
               fontSize: "14px",
@@ -170,15 +102,9 @@ function FrameworkLayer({
           >
             <span style={{ color, fontSize: "18px" }}>→</span>
             {detail}
-<<<<<<< HEAD
-          </li>
-        ))}
-      </ul>
-=======
           </div>
         ))}
       </div>
->>>>>>> v2
     </motion.div>
   );
 }
@@ -190,29 +116,15 @@ export default function PersonalizationCaseStudy() {
         title="E-Commerce Personalization at Scale"
         category="UX Personalization & Data Strategy"
         role="UX Personalization Specialist"
-<<<<<<< HEAD
-        team="Capita, Qubit, Arcadia Group"
-=======
         team="Capita, Qubit, Wallis"
->>>>>>> v2
         timeline="Jan 2018 – Oct 2022"
-        image="/assets/personalization-hero.png"
+        image="/assets/Ecommerce.jpg"
       />
 
       <CaseStudyLayout sections={sections}>
         <CaseStudySection
           id="overview"
           label="Overview"
-<<<<<<< HEAD
-          heading="Designing Conversion Strategies Across Seven Retail Brands"
-        >
-          <p>
-            The project focused on bridging the gap between high-volume
-            marketing and generic website experiences. For Britain's largest
-            fashion retailers, the challenge wasn't a lack of traffic; it was
-            that 50 million shoppers saw exactly the same experience, leading to
-            significant revenue leakage.
-=======
           heading="Designing Conversion Strategies for Wallis"
         >
           <p>
@@ -220,18 +132,12 @@ export default function PersonalizationCaseStudy() {
             marketing and generic website experiences. For Wallis, the challenge
             wasn't a lack of traffic; it was that a vast number of shoppers saw
             exactly the same experience, leading to significant revenue leakage.
->>>>>>> v2
           </p>
           <p>
             As a Personalization Specialist embedded within Qubit's London team,
             I designed and implemented real-time behavioral interventions for
-<<<<<<< HEAD
-            the entire Arcadia portfolio, turning generic sessions into
-            contextually relevant journeys.
-=======
             the Wallis website, turning generic sessions into contextually
             relevant journeys.
->>>>>>> v2
           </p>
 
           <div
@@ -244,11 +150,7 @@ export default function PersonalizationCaseStudy() {
           >
             <ContextCard
               title="Scale"
-<<<<<<< HEAD
-              text="50M+ annual shoppers across 7 distinct global fashion brands."
-=======
               text="Significant annual traffic across the entire online store."
->>>>>>> v2
             />
             <ContextCard
               title="Impact"
@@ -258,67 +160,6 @@ export default function PersonalizationCaseStudy() {
         </CaseStudySection>
 
         <CaseStudySection
-<<<<<<< HEAD
-          id="brands"
-          label="The Brands"
-          heading="Seven Brands, Seven Audiences"
-        >
-          <p>
-            Arcadia Group consisted of seven distinct brands, each serving a
-            unique customer segment. The strategy required a framework that
-            could adapt to these varied behaviors while maintaining shared
-            technical efficiency.
-          </p>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "20px",
-              marginTop: "32px",
-            }}
-          >
-            <BrandCard
-              name="Topshop / Topman"
-              description="Trend-driven fashion."
-              audience="Students, fast-moving inventory, global growth."
-              color="#1a1c20"
-            />
-            <BrandCard
-              name="Dorothy Perkins"
-              description="Affordable womenswear."
-              audience="Broad demographic, heavy email promotion."
-              color="#8b69fa"
-            />
-            <BrandCard
-              name="Evans"
-              description="Plus-size womenswear."
-              audience="Older, less digitally native, high need for simplicity."
-              color="#11a961"
-            />
-            <BrandCard
-              name="Miss Selfridge"
-              description="Young, trend-conscious."
-              audience="Highly active promotional calendars (Black Friday, etc.)."
-              color="#ec4899"
-            />
-            <BrandCard
-              name="Burton"
-              description="Omnichannel menswear."
-              audience="Content-driven, consistent in-store/online story."
-              color="#f59e0b"
-            />
-            <BrandCard
-              name="Wallis & Wallis"
-              description="Sophisticated womenswear."
-              audience="Older, style-conscious professionals."
-              color="#6366f1"
-            />
-          </div>
-        </CaseStudySection>
-
-        <CaseStudySection
-=======
->>>>>>> v2
           id="diagnosis"
           label="The Diagnosis"
           heading="What the Data Revealed"
@@ -383,13 +224,8 @@ export default function PersonalizationCaseStudy() {
           <p>
             To move beyond scattered A/B testing, I developed a four-layer
             framework that addressed friction at every stage of the funnel. This
-<<<<<<< HEAD
-            allowed us to replicate success across all seven brands with speed
-            and rigour.
-=======
             allowed us to deploy interventions systematically with speed and
             rigour.
->>>>>>> v2
           </p>
 
           <div style={{ marginTop: "40px" }}>
@@ -433,11 +269,7 @@ export default function PersonalizationCaseStudy() {
               color="#ec4899"
               details={[
                 "Orienting onboarding for non-digitally native audiences.",
-<<<<<<< HEAD
-                "Student price toggles for trend-driven brands.",
-=======
                 "Tailored promotions based on user segments.",
->>>>>>> v2
                 "Product prioritization based on IP detected location.",
               ]}
             />
@@ -456,15 +288,9 @@ export default function PersonalizationCaseStudy() {
             from correlation to causation.
           </p>
           <p>
-<<<<<<< HEAD
-            For brands like <strong>Miss Selfridge</strong>, we synchronized
-            on-site messaging with a relentless daily promotional calendar,
-            ensuring creative was always aligned with the trade plan.
-=======
             We synchronized on-site messaging with a relentless daily
             promotional calendar, ensuring creative was always aligned with the
             trade plan.
->>>>>>> v2
           </p>
         </CaseStudySection>
 
@@ -476,16 +302,6 @@ export default function PersonalizationCaseStudy() {
           <ResultsGrid
             items={[
               {
-<<<<<<< HEAD
-                label: "Topshop Conversion",
-                value: "11% ↑",
-                description:
-                  "Significant revenue lift driven by student pricing and geo-social proof.",
-              },
-              {
-                label: "Dorothy Perkins",
-                value: "Campaign ROI",
-=======
                 label: "Conversion Lift",
                 value: "11% ↑",
                 description:
@@ -494,32 +310,19 @@ export default function PersonalizationCaseStudy() {
               {
                 label: "Campaign ROI",
                 value: "Increased",
->>>>>>> v2
                 description:
                   "Vast reduction in leaked conversion via mirroring.",
               },
               {
-<<<<<<< HEAD
-                label: "Evans",
-                value: "UX Simplicity",
-=======
                 label: "UX Simplicity",
                 value: "Improved",
->>>>>>> v2
                 description:
                   "Increased engagement through orienting onboarding.",
               },
               {
-<<<<<<< HEAD
-                label: "Portfolio Scale",
-                value: "50M shoppers",
-                description:
-                  "Systematic deployment across the entire Arcadia group.",
-=======
                 label: "Deployment Scale",
                 value: "Site-wide",
                 description: "Systematic deployment across all key funnels.",
->>>>>>> v2
               },
             ]}
           />
@@ -535,11 +338,7 @@ export default function PersonalizationCaseStudy() {
         <CaseStudySection
           id="reflections"
           label="Reflections"
-<<<<<<< HEAD
-          heading="Key Learnings Across Seven Brands"
-=======
           heading="Key Learnings"
->>>>>>> v2
         >
           <div
             style={{
@@ -612,17 +411,6 @@ export default function PersonalizationCaseStudy() {
                 fontWeight: 800,
               }}
             >
-<<<<<<< HEAD
-              The Evans Lesson
-            </h4>
-            <p style={{ fontSize: "15px", lineHeight: 1.7, margin: 0 }}>
-              The Evans project taught me that personalization isn't just about
-              adding more—it's about adding the right thing. For an older, less
-              digitally native audience, "good personalization" meant restraint
-              and orientation. It shifted my perspective from extracting value
-              to genuinely helping the user, making "Is this better for the
-              person?" my primary design filter.
-=======
               The Audience Lesson
             </h4>
             <p style={{ fontSize: "15px", lineHeight: 1.7, margin: 0 }}>
@@ -632,7 +420,6 @@ export default function PersonalizationCaseStudy() {
               personalization" meant restraint and orientation. It shifted my
               perspective from extracting value to genuinely helping the user,
               making "Is this better for the person?" my primary design filter.
->>>>>>> v2
             </p>
           </div>
 
@@ -645,13 +432,8 @@ export default function PersonalizationCaseStudy() {
               }}
             >
               This case study documents personalization design conducted with
-<<<<<<< HEAD
-              Qubit for Arcadia Group. Proprietary metrics have been generalized
-              for confidentiality.
-=======
               Qubit for Wallis. Proprietary metrics have been generalized for
               confidentiality.
->>>>>>> v2
             </p>
           </div>
         </CaseStudySection>

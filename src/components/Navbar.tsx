@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Menu, X, Download } from "lucide-react";
@@ -18,7 +17,6 @@ const cvHref = "/assets/UX_Researcher_Resume.pdf";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const pathname = usePathname();
 
   return (
     <>
@@ -34,9 +32,7 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
-                className={`${styles.navLink} ${
-                  pathname === link.href ? styles.active : ""
-                }`}
+                className={styles.navLink}
               >
                 {link.label}
               </Link>
@@ -79,9 +75,7 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={`${styles.mobileLink} ${
-                    pathname === link.href ? styles.active : ""
-                  }`}
+                  className={styles.mobileLink}
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}

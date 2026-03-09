@@ -160,28 +160,11 @@
 @media (max-width: 768px) {
   .hero {
     padding-top: 120px;
-    padding-bottom: 60px;
   }
   .meta {
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
     gap: 24px;
-    margin-top: 40px;
-    padding-top: 32px;
-    text-align: center;
-  }
-  .metaItem {
-    width: 100%;
-    text-align: center;
-  }
-  .metaLabel {
-    margin-bottom: 4px;
-  }
-}
-
-@media (max-width: 480px) {
-  .title {
-    font-size: clamp(32px, 10vw, 48px);
-    margin-bottom: 24px;
+    justify-content: flex-start;
+    text-align: left;
   }
 }

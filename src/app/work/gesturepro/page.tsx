@@ -105,63 +105,9 @@ export default function GestureProCaseStudy() {
         role="Full-Stack Developer & ML Engineer"
         team="4 Engineers"
         timeline="Ongoing"
-        image="/assets/gesturepro-hero.png"
+        image="/assets/gesturepro.jpg"
       />
 
-<<<<<<< HEAD
-      <div
-        style={{
-          display: "flex",
-          gap: "16px",
-          justifyContent: "center",
-          padding: "0 24px 48px",
-          maxWidth: "900px",
-          margin: "0 auto",
-        }}
-      >
-        <a
-          href="https://gesturepro-dev.vercel.app/signin"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            padding: "14px 28px",
-            borderRadius: "12px",
-            background: "#8b5cf6",
-            color: "#ffffff",
-            fontWeight: 600,
-            fontSize: "15px",
-            textDecoration: "none",
-          }}
-        >
-          🚀 Live Demo
-        </a>
-        <a
-          href="https://github.com/khushboohpatel/gesturepro"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            padding: "14px 28px",
-            borderRadius: "12px",
-            background: "rgba(0,0,0,0.05)",
-            color: "var(--color-text-primary)",
-            fontWeight: 600,
-            fontSize: "15px",
-            textDecoration: "none",
-            border: "1px solid rgba(0,0,0,0.1)",
-          }}
-        >
-          ⭐ GitHub Repository
-        </a>
-      </div>
-
-=======
->>>>>>> v2
       <CaseStudyLayout sections={sections}>
         {/* ============================================ */}
         {/* SECTION 1: OVERVIEW                          */}
@@ -184,8 +130,6 @@ export default function GestureProCaseStudy() {
           <div
             style={{
               display: "flex",
-<<<<<<< HEAD
-=======
               gap: "16px",
               marginTop: "24px",
               marginBottom: "32px",
@@ -243,7 +187,6 @@ export default function GestureProCaseStudy() {
           <div
             style={{
               display: "flex",
->>>>>>> v2
               flexWrap: "wrap",
               gap: "4px",
               marginTop: "24px",
