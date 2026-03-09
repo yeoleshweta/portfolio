@@ -254,7 +254,7 @@ export default function ABIMCaseStudy() {
         role="Data Scientist Co-op"
         team="I/O Psychologists, Data Scientist, and AI/ML Engineer"
         timeline="Co-Op (6 months)"
-        image="/assets/PatientCentered.jpg"
+        image="/assets/personalization.jpg"
       />
 
       <CaseStudyLayout sections={sections}>

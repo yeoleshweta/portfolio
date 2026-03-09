@@ -51,7 +51,7 @@ const caseStudies = [
     title: "E-Commerce Personalization at Scale",
     description:
       "Designing conversion strategies for 50M+ shoppers across seven retail brands. Built personalized recommendation engines and A/B testing frameworks that increased conversion rates and customer engagement for Arcadia Group.",
-    image: "/assets/personalization.jpg",
+    image: "/assets/Ecommerce.jpg",
     href: "/work/personalization",
     cta: "View Case Study",
   },
