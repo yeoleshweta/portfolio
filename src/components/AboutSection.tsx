@@ -424,10 +424,9 @@ export default function AboutSection() {
               <span className={styles.italic}>researching</span>
             </h2>
             <p className={styles.description}>
-              It&apos;s the perfect sweet spot where human-centered design meets
-              ML rigor. When I&apos;m not training classifiers or evaluating
-              models, I&apos;m probably still sketching wireframes or exploring
-              new data visualizations. Old habits die hard!
+              I work hard and then I go find something that has nothing to do
+              with work. <br /> Slopes, cities, finish lines, ship decks —
+              whatever gets me out of my head and into the world.
             </p>
           </motion.div>
 
