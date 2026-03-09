@@ -129,7 +129,11 @@ function ArchitectureBox({
       >
         {title}
       </h4>
+<<<<<<< HEAD
       <ul
+=======
+      <div
+>>>>>>> v2
         style={{
           padding: 0,
           margin: 0,
@@ -139,7 +143,11 @@ function ArchitectureBox({
         }}
       >
         {items.map((item, i) => (
+<<<<<<< HEAD
           <li
+=======
+          <div
+>>>>>>> v2
             key={i}
             style={{
               marginBottom: "6px",
@@ -150,9 +158,15 @@ function ArchitectureBox({
           >
             <span style={{ color, fontSize: "18px", lineHeight: "1" }}>•</span>
             {item}
+<<<<<<< HEAD
           </li>
         ))}
       </ul>
+=======
+          </div>
+        ))}
+      </div>
+>>>>>>> v2
     </div>
   );
 }
@@ -163,8 +177,13 @@ export default function HealthcareBiasCaseStudy() {
       <CaseStudyHero
         title="Detecting Healthcare Bias with NLP"
         category="Data Science & ML Engineering"
+<<<<<<< HEAD
         role="Data Analyst CO-OP"
         team="Data Science, Clinical Research, Measurement Scientists"
+=======
+        role="Data Scientist Co-op"
+        team="1 Data Scientist Co-op, 1 Advisor"
+>>>>>>> v2
         timeline="Sept 2025 – Present"
         image="/assets/healthcare-bias-hero.png"
       />
@@ -189,6 +208,7 @@ export default function HealthcareBiasCaseStudy() {
             detect these patterns reliably, automatically, and at scale.
           </p>
 
+<<<<<<< HEAD
           <div
             style={{
               display: "grid",
@@ -208,6 +228,9 @@ export default function HealthcareBiasCaseStudy() {
           </div>
 
           <div style={{ marginTop: "40px" }}>
+=======
+          <div style={{ marginTop: "24px", marginBottom: "32px" }}>
+>>>>>>> v2
             <a
               href="https://bias-checker-healthcare.vercel.app/"
               target="_blank"
@@ -232,6 +255,27 @@ export default function HealthcareBiasCaseStudy() {
               Live Demo →
             </a>
           </div>
+<<<<<<< HEAD
+=======
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "24px",
+              marginTop: "32px",
+            }}
+          >
+            <ContextCard
+              title="Methods"
+              text="NLP Pipeline Engineering, Transformer Fine-Tuning, Gold-Standard Annotation, LLM Evaluation, Synthetic Data Generation"
+            />
+            <ContextCard
+              title="Tools"
+              text="Python, PyTorch, Hugging Face, Label Studio, ClinicalBERT, RoBERTa, GPT-family LLMs"
+            />
+          </div>
+>>>>>>> v2
         </CaseStudySection>
 
         <CaseStudySection
@@ -265,11 +309,19 @@ export default function HealthcareBiasCaseStudy() {
             Model Selection: ClinicalBERT vs. RoBERTa
           </h3>
           <p>
+<<<<<<< HEAD
             I fine-tuned and compared <strong>ClinicalBERT</strong> (pre-trained
             on MIMIC-III) and <strong>RoBERTa</strong>. While both performed
             well on binary tasks, the differentiation appeared in granular
             classification. ClinicalBERT excelled with dense medical
             terminology, while RoBERTa provided consistent robustness.
+=======
+            I fine-tuned and compared <strong>ClinicalBERT</strong> and{" "}
+            <strong>RoBERTa</strong>. While both performed well on binary tasks,
+            the differentiation appeared in granular classification.
+            ClinicalBERT excelled with dense medical terminology, while RoBERTa
+            provided consistent robustness.
+>>>>>>> v2
           </p>
 
           <h3 style={{ marginTop: "48px" }}>
@@ -329,11 +381,15 @@ export default function HealthcareBiasCaseStudy() {
             <ArchitectureBox
               title="Behaviour Classifier"
               color="#11a961"
+<<<<<<< HEAD
               items={[
                 "Supervised NLP model",
                 "NURSE / SHARE labels",
                 "Turn-level detection",
               ]}
+=======
+              items={["Supervised NLP model", "Turn-level detection"]}
+>>>>>>> v2
             />
             <ArchitectureBox
               title="Evaluation Engine"

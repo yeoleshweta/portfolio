@@ -6,8 +6,8 @@ import {
   motion,
   useScroll,
   useSpring,
-  useMotionTemplate,
   useTransform,
+  useInView,
   type MotionValue,
 } from "framer-motion";
 import styles from "./HeroSection.module.css";
@@ -25,12 +25,22 @@ const FACE_TRANSFORMS = {
 } as const;
 
 const cubies = (() => {
-  return Array.from({ length: 27 }, (_, index) => {
+  const allCubies = Array.from({ length: 27 }, (_, index) => {
     const x = (index % 3) - 1;
     const y = (Math.floor(index / 3) % 3) - 1;
     const z = Math.floor(index / 9) - 1;
     const edgeWeight = (Math.abs(x) + Math.abs(y) + Math.abs(z)) / 3;
     const layerWeight = (z + 1) / 2;
+
+    const baseX = x * CUBE_STEP;
+    const baseY = y * CUBE_STEP;
+    const baseZ = z * CUBE_STEP;
+    const visibilityBias = z * -0.008 + y * 0.004;
+    const explosionStart = Math.max(
+      0.006,
+      0.016 + (1 - edgeWeight) * 0.024 + visibilityBias,
+    );
+    const explosionMidpoint = Math.min(explosionStart + 0.19, 0.34);
 
     return {
       id: index,
@@ -38,6 +48,11 @@ const cubies = (() => {
       y,
       z,
       edgeWeight,
+      baseX,
+      baseY,
+      baseZ,
+      explosionStart,
+      explosionMidpoint,
       explosionX: x * (328 + Math.abs(y) * 82 + Math.abs(z) * 96) + z * 68,
       explosionY: y * (286 + Math.abs(x) * 74) - z * 94 + x * 32,
       explosionZ:
@@ -48,6 +63,8 @@ const cubies = (() => {
       shrink: 0.8 - edgeWeight * 0.08,
     };
   });
+  // Remove the invisible center cubie
+  return allCubies.filter((c) => c.x !== 0 || c.y !== 0 || c.z !== 0);
 })();
 
 function Cubie({
@@ -57,48 +74,82 @@ function Cubie({
   cubie: (typeof cubies)[number];
   progress: MotionValue<number>;
 }) {
-  const baseX = cubie.x * CUBE_STEP;
-  const baseY = cubie.y * CUBE_STEP;
-  const baseZ = cubie.z * CUBE_STEP;
-  const visibilityBias = cubie.z * -0.008 + cubie.y * 0.004;
-  const explosionStart = Math.max(
-    0.006,
-    0.016 + (1 - cubie.edgeWeight) * 0.024 + visibilityBias,
-  );
-  const explosionMidpoint = Math.min(explosionStart + 0.19, 0.34);
-
   const x = useTransform(
     progress,
-    [0, explosionStart, explosionMidpoint, 1],
-    [baseX, baseX, baseX + cubie.explosionX * 0.52, baseX + cubie.explosionX],
+    [0, cubie.explosionStart, cubie.explosionMidpoint, 1],
+    [
+      cubie.baseX,
+      cubie.baseX,
+      cubie.baseX + cubie.explosionX * 0.52,
+      cubie.baseX + cubie.explosionX,
+    ],
   );
   const y = useTransform(
     progress,
-    [0, explosionStart, explosionMidpoint, 1],
-    [baseY, baseY, baseY + cubie.explosionY * 0.48, baseY + cubie.explosionY],
+    [0, cubie.explosionStart, cubie.explosionMidpoint, 1],
+    [
+      cubie.baseY,
+      cubie.baseY,
+      cubie.baseY + cubie.explosionY * 0.48,
+      cubie.baseY + cubie.explosionY,
+    ],
   );
   const z = useTransform(
     progress,
-    [0, explosionStart, explosionMidpoint, 1],
-    [baseZ, baseZ, baseZ + cubie.explosionZ * 0.52, baseZ + cubie.explosionZ],
+    [0, cubie.explosionStart, cubie.explosionMidpoint, 1],
+    [
+      cubie.baseZ,
+      cubie.baseZ,
+      cubie.baseZ + cubie.explosionZ * 0.52,
+      cubie.baseZ + cubie.explosionZ,
+    ],
   );
-  const rotateX = useTransform(progress, [explosionStart, 1], [0, cubie.spinX]);
-  const rotateY = useTransform(progress, [explosionStart, 1], [0, cubie.spinY]);
-  const rotateZ = useTransform(progress, [explosionStart, 1], [0, cubie.spinZ]);
-  const scale = useTransform(progress, [explosionStart, 1], [1, cubie.shrink]);
+  const rotateX = useTransform(
+    progress,
+    [cubie.explosionStart, 1],
+    [0, cubie.spinX],
+  );
+  const rotateY = useTransform(
+    progress,
+    [cubie.explosionStart, 1],
+    [0, cubie.spinY],
+  );
+  const rotateZ = useTransform(
+    progress,
+    [cubie.explosionStart, 1],
+    [0, cubie.spinZ],
+  );
+  const scale = useTransform(
+    progress,
+    [cubie.explosionStart, 1],
+    [1, cubie.shrink],
+  );
 
   return (
     <motion.div
       className={styles.cubie}
       style={{ x, y, z, rotateX, rotateY, rotateZ, scale }}
     >
-      {Object.entries(FACE_TRANSFORMS).map(([face, transform]) => (
-        <span
-          key={face}
-          className={`${styles.cubieFace} ${styles[face]}`}
-          style={{ transform } as CSSProperties}
-        />
-      ))}
+      {Object.entries(FACE_TRANSFORMS).map(([face, transform]) => {
+        // Only render faces that are visible (on the exterior)
+        const isVisible =
+          (face === "front" && cubie.z === 1) ||
+          (face === "back" && cubie.z === -1) ||
+          (face === "right" && cubie.x === 1) ||
+          (face === "left" && cubie.x === -1) ||
+          (face === "top" && cubie.y === -1) ||
+          (face === "bottom" && cubie.y === 1);
+
+        if (!isVisible) return null;
+
+        return (
+          <span
+            key={face}
+            className={`${styles.cubieFace} ${styles[face]}`}
+            style={{ transform } as CSSProperties}
+          />
+        );
+      })}
     </motion.div>
   );
 }
@@ -178,12 +229,7 @@ export default function HeroSection() {
     [0, 0.08, 0.14, 0.22, 0.34],
     [1, 0.94, 0.68, 0.28, 0.08],
   );
-  const cubeBlur = useTransform(
-    pageScrollYProgress,
-    [0, 0.08, 0.18, 0.3],
-    [0, 0.8, 2.4, 5.5],
-  );
-  const cubeFilter = useMotionTemplate`blur(${cubeBlur}px)`;
+  const isInView = useInView(sectionRef);
   const transitionFogOpacity = useTransform(
     pageScrollYProgress,
     [0.03, 0.08, 0.16, 0.26],
@@ -214,7 +260,10 @@ export default function HeroSection() {
       <div className={styles.backgroundLayer} aria-hidden="true">
         <motion.div
           className={styles.cubeVisual}
-          style={{ opacity: cubeOpacity, filter: cubeFilter }}
+          style={{
+            opacity: cubeOpacity,
+            display: isInView ? "block" : "none",
+          }}
         >
           <motion.div
             className={styles.cubeIntro}
@@ -332,7 +381,7 @@ export default function HeroSection() {
             >
               <div className={styles.profilePic}>
                 <Image
-                  src="https://framerusercontent.com/images/7xLqLqX0X6z4gYX9H6tQY.png"
+                  src="/assets/IMG_1191.JPG"
                   alt="Shweta Sharma"
                   width={112}
                   height={112}

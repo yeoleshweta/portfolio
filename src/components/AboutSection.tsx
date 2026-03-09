@@ -7,6 +7,8 @@ import {
   useScroll,
   useSpring,
   useTransform,
+  useMotionTemplate,
+  useMotionValue,
   type MotionValue,
 } from "framer-motion";
 import { useRef, type ReactNode } from "react";
@@ -66,17 +68,38 @@ const heartPixels = [
   [4, 5],
 ] as const;
 
-function HeartCube({
-  x,
-  y,
+const TOTAL_CUBES = 80;
+
+const tornadoCubesLogic = Array.from({ length: TOTAL_CUBES }).map((_, i) => {
+  const pseudoRandom1 = ((i * 13) % 100) / 100;
+  const pseudoRandom2 = ((i * 29) % 100) / 100;
+  const pseudoRandom3 = ((i * 47) % 100) / 100;
+
+  const yOffset = (pseudoRandom1 - 0.5) * 1200;
+  const normalizedY = (yOffset + 600) / 1200;
+  const baseRadius = 150 + (1 - normalizedY) * 500;
+  const radius = baseRadius + (pseudoRandom2 - 0.5) * 100;
+
+  const initialAngle = pseudoRandom3 * 360;
+  const speed = 2 + (1 - normalizedY) * 2;
+  const scale = 0.4 + pseudoRandom2 * 0.4;
+
+  // Assign a heart target to the first 27 cubes
+  const heartTarget = i < heartPixels.length ? heartPixels[i] : null;
+
+  return { id: i, yOffset, radius, initialAngle, speed, scale, heartTarget };
+});
+
+function TransitionCube({
+  cube,
   progress,
   reduceMotion,
 }: {
-  x: number;
-  y: number;
+  cube: (typeof tornadoCubesLogic)[0];
   progress: MotionValue<number>;
   reduceMotion: boolean;
 }) {
+<<<<<<< HEAD
   const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
   const spacing = isMobile ? 12 : 22;
   const xOffset = (x - 4) * spacing;
@@ -87,50 +110,197 @@ function HeartCube({
     progress,
     [0, 0.3],
     [xOffset * 3 + (Math.random() - 0.5) * explosionRange, xOffset],
-  );
-  const initialY = useTransform(
+=======
+  // Phase 1: Tornado (0.0 - 0.35)
+  // Phase 2: Assembly (0.35 - 0.5)
+  // Phase 3: Heart (0.5 - 0.85)
+
+  // Continuous rotation for the cyclone vibe
+  const angle = useTransform(
     progress,
+    [0, 1],
+    [cube.initialAngle, cube.initialAngle + cube.speed * 360],
+>>>>>>> v2
+  );
+
+  // Shrink orbit to zero during assembly
+  const tornadoRadius = useTransform(
+    progress,
+<<<<<<< HEAD
     [0, 0.3],
     [yOffset * 3 + (Math.random() - 0.5) * explosionRange, yOffset],
+=======
+    [0, 0.35, 0.5],
+    [cube.radius, cube.radius, 0],
+>>>>>>> v2
   );
-  const rotateX = useTransform(progress, [0, 0.3], [Math.random() * 360, 0]);
-  const rotateY = useTransform(progress, [0, 0.3], [Math.random() * 360, 0]);
-  const opacity = useTransform(progress, [0, 0.15, 0.38, 0.42], [0, 1, 1, 0]);
-  const scale = useTransform(progress, [0, 0.3, 0.42], [0.5, 1, 1.2]);
+
+  const xOrbit = useTransform(
+    [tornadoRadius, angle],
+    ([r, a]) => Math.cos((a as number) * (Math.PI / 180)) * (r as number),
+  );
+  const zOrbit = useTransform(
+    [tornadoRadius, angle],
+    ([r, a]) => Math.sin((a as number) * (Math.PI / 180)) * (r as number),
+  );
+
+  // Target heart coordinates
+  const heartX = cube.heartTarget ? (cube.heartTarget[0] - 4) * 24 : 0;
+  const heartY = cube.heartTarget ? (cube.heartTarget[1] - 2.5) * 24 : 0;
+
+  // Vertical drift transitions to heart Y
+  const y = useTransform(
+    progress,
+    [0, 0.35, 0.5],
+    [cube.yOffset + 100, cube.yOffset, heartY],
+  );
+
+  // Horizontal drift transitions to heart X
+  const xOffset = useTransform(progress, [0, 0.35, 0.5], [0, 0, heartX]);
+
+  // Rotations - cubes settle into flat faces as they hit the heart
+  const rotateX = useTransform(progress, [0.35, 0.5], [cube.initialAngle, 0]);
+  const rotateY = useTransform(
+    progress,
+    [0.35, 0.5],
+    [cube.initialAngle * 1.5, 0],
+  );
+
+  // Scale - cubes settle into a consistent size as they hit the heart
+  const finalScale = useTransform(progress, [0.35, 0.5], [cube.scale, 1.0]);
+
+  // Opacity & Color Blending
+  const opacity = useTransform(progress, [0, 0.1, 0.85, 0.95], [0, 1, 1, 0]);
+
+  // Non-heart cubes dissipate
+  const fillerFade = useTransform(progress, [0.35, 0.5], [1, 0]);
+  const finalOpacity = cube.heartTarget
+    ? opacity
+    : useTransform(
+        [opacity, fillerFade],
+        ([o, f]) => (o as number) * (f as number),
+      );
+
+  const colorBlend = useTransform(progress, [0.35, 0.5], [0, 1]);
+  const color = useTransform(
+    colorBlend,
+    [0, 1],
+    ["var(--color-lilac)", "var(--color-lilac)"],
+  );
+  const borderColor = useTransform(
+    colorBlend,
+    [0, 1],
+    ["rgba(0, 0, 0, 0.1)", "rgba(0, 0, 0, 0.2)"],
+  );
+
+  if (reduceMotion && cube.heartTarget) {
+    return (
+      <div
+        className={styles.heartCube}
+        style={{
+          left: `calc(50% + ${heartX}px)`,
+          top: `calc(50% + ${heartY}px)`,
+        }}
+      >
+        <span className={`${styles.heartCubeFace} ${styles.heartFront}`} />
+      </div>
+    );
+  }
+
+  if (reduceMotion && !cube.heartTarget) return null;
 
   return (
     <motion.div
       className={styles.heartCube}
-      style={
-        reduceMotion
-          ? {
-              left: `calc(50% + ${xOffset}px)`,
-              top: `calc(50% + ${yOffset}px)`,
-            }
-          : {
-              x: initialX,
-              y: initialY,
-              rotateX,
-              rotateY,
-              opacity,
-              scale,
-              left: "50%",
-              top: "50%",
-            }
-      }
+      style={{
+        x: useTransform(
+          [xOrbit, xOffset],
+          ([xo, xf]) => (xo as number) + (xf as number),
+        ),
+        y,
+        z: zOrbit,
+        rotateX,
+        rotateY,
+        opacity: finalOpacity,
+        scale: finalScale,
+        left: "50%",
+        top: "35%",
+      }}
     >
-      <span className={`${styles.heartCubeFace} ${styles.heartFront}`} />
-      <span className={`${styles.heartCubeFace} ${styles.heartBack}`} />
-      <span className={`${styles.heartCubeFace} ${styles.heartRight}`} />
-      <span className={`${styles.heartCubeFace} ${styles.heartLeft}`} />
-      <span className={`${styles.heartCubeFace} ${styles.heartTop}`} />
-      <span className={`${styles.heartCubeFace} ${styles.heartBottom}`} />
+      {[
+        styles.heartFront,
+        styles.heartBack,
+        styles.heartRight,
+        styles.heartLeft,
+        styles.heartTop,
+        styles.heartBottom,
+      ].map((faceClass) => (
+        <motion.span
+          key={faceClass}
+          className={`${styles.heartCubeFace} ${faceClass}`}
+          style={{ backgroundColor: color, borderColor }}
+        />
+      ))}
     </motion.div>
   );
 }
 
-function GalleryCard({ src, alt }: { src: string; alt: string }) {
+function GalleryCard({
+  src,
+  alt,
+  index,
+  total,
+  progress,
+  galleryRotation,
+}: {
+  src: string;
+  alt: string;
+  index: number;
+  total: number;
+  progress: MotionValue<number>;
+  galleryRotation: MotionValue<number>;
+}) {
+  const angleStep = 360 / total;
+  // Use useMotionValue to ensure 0 is correctly rendered as '0deg' in templates
+  const startAngle = useMotionValue(index * angleStep);
+  const radius = 1100; // Expanded radius to widen the cover across the screen
+
+  // Entry: Cards rise and fan out from the center depth
+  const entryY = useTransform(progress, [0.25, 0.45], [400, 0]);
+  const entryOpacity = useTransform(progress, [0.25, 0.4], [0, 1]);
+  // Dynamic radius: start from a visible 3D shape (600px) instead of a flat point
+  const currentRadius = useTransform(progress, [0.25, 0.5], [600, radius]);
+  // Current angle relative to the center camera
+  const currentAngle = useTransform(galleryRotation, (rot: number) => {
+    let a = (startAngle.get() + rot) % 360;
+    if (a > 180) a -= 360;
+    if (a < -180) a += 360;
+    return a;
+  });
+
+  // Highlight front cards and dim/fade back cards
+  // Highlight front cards (1.4x) and drastically shrink/dim back cards (0.5x)
+  const cardScale = useTransform(
+    currentAngle,
+    [-180, -60, 0, 60, 180],
+    [0.5, 0.7, 1.4, 0.7, 0.5],
+  );
+  const cardOpacity = useTransform(
+    currentAngle,
+    [-150, -90, 0, 90, 150],
+    [0, 0.6, 1, 0.6, 0],
+  );
+
+  // High-end adjustment: Stronger counter-rotate for wide 1100px radius
+  const faceForward = useTransform(currentAngle, (a: number) => -a * 0.85);
+
+  // Parallax: Shift image horizontally inside frame based on ring angle
+  const imageX = useTransform(currentAngle, [-60, 60], ["15%", "-15%"]);
+
+  const transform = useMotionTemplate`rotateY(${startAngle}deg) translateZ(${currentRadius}px) rotateY(${faceForward}deg) scale(${cardScale})`;
+
   return (
+<<<<<<< HEAD
     <div className={styles.galleryCard}>
       <Image
         fill
@@ -140,6 +310,40 @@ function GalleryCard({ src, alt }: { src: string; alt: string }) {
         className={styles.galleryImage}
       />
     </div>
+=======
+    <motion.div
+      className={styles.galleryCard}
+      style={{
+        y: entryY,
+        transform,
+        opacity: useTransform(
+          [entryOpacity, cardOpacity],
+          ([e, c]) => (e as number) * (c as number),
+        ),
+      }}
+    >
+      <div className={styles.cardImageInner}>
+        <motion.div
+          style={{
+            x: imageX,
+            width: "130%",
+            height: "100%",
+            position: "relative",
+            left: "-15%",
+          }}
+        >
+          <Image
+            fill
+            src={src}
+            alt={alt}
+            sizes="400px"
+            priority
+            className={styles.cardCover}
+          />
+        </motion.div>
+      </div>
+    </motion.div>
+>>>>>>> v2
   );
 }
 
@@ -176,13 +380,13 @@ function StageDebris({
               width: size,
               height: size,
               left: `calc(50% + ${xOrigin}px)`,
-              top: `calc(50% + ${yOrigin}px)`,
+              top: `calc(35% + ${yOrigin}px)`,
             }
           : {
               width: size,
               height: size,
               left: "50%",
-              top: "50%",
+              top: "35%",
               x,
               y,
               rotate,
@@ -214,10 +418,21 @@ export default function AboutSection() {
   );
   const titleY = useTransform(progress, [0, 0.18], [72, 0]);
   const titleOpacity = useTransform(progress, [0.06, 0.22], [0, 1]);
+  const galleryOpacity = useTransform(
+    progress,
+    [0.25, 0.45, 0.92, 0.98],
+    [0, 1, 1, 0],
+  );
+  // Exteneded rotation to show all images in the front focus
+  const galleryRotation = useTransform(progress, [0.3, 0.98], [0, -540]);
 
-  const galleryOpacity = useTransform(progress, [0.42, 0.52, 0.88], [0, 1, 1]);
-  // Start the track centered at first card, then scroll horizontally
-  const galleryX = useTransform(progress, [0.35, 1], ["0%", "-60%"]);
+  // Cinematic transformations: start from a visible depth to avoid the "flat" line feel
+  const galleryTilt = useTransform(progress, [0.25, 0.5], [45, 12]);
+  const galleryDepth = useTransform(progress, [0.25, 0.5], [-2000, -1100]);
+  const galleryY = useTransform(progress, [0.25, 0.5], [500, 400]);
+
+  // We double the images to create a denser, more professional ring with fewer gaps
+  const denseGallery = [...galleryImages, ...galleryImages];
 
   return (
     <section ref={sectionRef} className={styles.section}>
@@ -247,11 +462,10 @@ export default function AboutSection() {
 
           {/* Decorative floating heart pixels in the background */}
           <div className={styles.smallCubeField} aria-hidden="true">
-            {heartPixels.map(([x, y], index) => (
-              <HeartCube
-                key={`${x}-${y}-${index}`}
-                x={x}
-                y={y}
+            {tornadoCubesLogic.map((cube) => (
+              <TransitionCube
+                key={cube.id}
+                cube={cube}
                 progress={progress}
                 reduceMotion={reduceMotion}
               />
@@ -264,12 +478,29 @@ export default function AboutSection() {
               style={
                 reduceMotion
                   ? undefined
-                  : { opacity: galleryOpacity, x: galleryX }
+                  : {
+                      opacity: galleryOpacity,
+                      rotateY: galleryRotation,
+                      rotateX: galleryTilt, // Cinematic tilt
+                      translateZ: galleryDepth, // Depth calibration
+                      y: galleryY, // Anchored much lower to avoid header/heart overlap
+                      z: 10,
+                    }
               }
             >
-              {galleryImages.map((image) => (
-                <GalleryCard key={image.src} src={image.src} alt={image.alt} />
-              ))}
+              {denseGallery.map(
+                (image: { src: string; alt: string }, i: number) => (
+                  <GalleryCard
+                    key={`${image.src}-${i}`}
+                    src={image.src}
+                    alt={image.alt}
+                    index={i}
+                    total={denseGallery.length}
+                    progress={progress}
+                    galleryRotation={galleryRotation}
+                  />
+                ),
+              )}
             </motion.div>
           </div>
 

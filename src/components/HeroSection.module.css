@@ -159,6 +159,8 @@
   width: 0;
   height: 0;
   transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .cubeIntro {
@@ -222,8 +224,6 @@
 .bottom {
   background: linear-gradient(180deg, #e6dfda 0%, #ddd5cf 100%);
 }
-
-
 
 @media (max-width: 1400px) {
   .container {
@@ -299,8 +299,7 @@
     top: -58px;
     left: clamp(184px, 28vw, 430px);
   }
-
-  }
+}
 
 @media (max-width: 768px) {
   .hero {
@@ -370,4 +369,3 @@
     transform: scale(0.52);
   }
 }
-

@@ -1,19 +1,32 @@
 .section {
   width: 100%;
+<<<<<<< HEAD
   padding: 120px 24px 80px;
+=======
+  padding: 140px 48px 100px;
+>>>>>>> v2
   display: flex;
   justify-content: center;
   background-color: transparent;
   position: relative;
+<<<<<<< HEAD
   z-index: 10; /* Above the background cubes */
 }
 
 .container {
   max-width: 960px;
+=======
+  z-index: 10;
+}
+
+.container {
+  max-width: 1082px;
+>>>>>>> v2
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+<<<<<<< HEAD
   gap: 56px;
 }
 
@@ -34,11 +47,37 @@
   border-radius: 32px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+=======
+  gap: 64px;
+}
+
+.introText {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: clamp(18px, 2.2vw, 26px);
+  line-height: 1.65;
+  color: #303030;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  text-align: center;
+  margin: 0;
+  max-width: 860px;
+  padding: clamp(28px, 5vw, 52px) clamp(28px, 5vw, 52px);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+>>>>>>> v2
 }
 
 .highlight {
   font-weight: 700;
+<<<<<<< HEAD
   color: var(--color-text);
+=======
+  color: #1c1c1c;
+>>>>>>> v2
   position: relative;
 }
 
@@ -49,6 +88,7 @@
   left: 0;
   width: 100%;
   height: 2px;
+<<<<<<< HEAD
   background-color: var(--color-lilac);
   opacity: 0.3;
 }
@@ -75,6 +115,32 @@
   transform: translateY(-4px);
   border-color: rgba(0, 0, 0, 0.2);
   background: rgba(0, 0, 0, 0.05);
+=======
+  background-color: var(--color-accent);
+  opacity: 0.35;
+}
+
+.cardsLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 860px;
+}
+
+.expCard {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 16px;
+  padding: 28px 32px;
+  backdrop-filter: blur(12px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.expCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+>>>>>>> v2
 }
 
 .cardHeader {
@@ -85,14 +151,23 @@
 }
 
 .role {
+<<<<<<< HEAD
   font-family: var(--font-primary);
   font-size: 22px;
   font-weight: 500;
   color: var(--color-text);
+=======
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #303030;
+>>>>>>> v2
   margin: 0;
 }
 
 .period {
+<<<<<<< HEAD
   font-family: var(--font-secondary);
   font-size: 14px;
   color: var(--color-text-secondary);
@@ -115,10 +190,38 @@
 }
 
 /* View full link */
+=======
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8f8f8f;
+  letter-spacing: -0.02em;
+}
+
+.company {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 14px;
+  color: var(--color-accent);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px 0;
+}
+
+.description {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  letter-spacing: -0.02em;
+  color: #595959;
+  margin: 0;
+}
+
+>>>>>>> v2
 .viewLink {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+<<<<<<< HEAD
   font-family: var(--font-primary);
   font-size: 16px;
   font-weight: 500;
@@ -136,21 +239,56 @@
 .viewLink:hover {
   background: rgba(0, 0, 0, 0.06);
   border-color: var(--color-lilac);
+=======
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #303030;
+  padding: 12px 24px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+.viewLink:hover {
+  background: #edffe3;
+  border-color: rgba(11, 222, 102, 0.3);
+>>>>>>> v2
   transform: translateY(-2px);
 }
 
 .arrow {
+<<<<<<< HEAD
   transition: transform 0.3s ease;
   font-size: 18px;
+=======
+  transition: transform 0.25s ease;
+  font-size: 16px;
+>>>>>>> v2
 }
 
 .viewLink:hover .arrow {
   transform: translateX(4px);
 }
 
+<<<<<<< HEAD
 @media (max-width: 768px) {
   .section {
     padding: 80px 20px 60px;
+=======
+@media (max-width: 810px) {
+  .section {
+    padding: 100px 24px 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 80px 16px 64px;
+>>>>>>> v2
   }
 
   .cardHeader {
@@ -160,6 +298,10 @@
   }
 
   .expCard {
+<<<<<<< HEAD
     padding: 20px 24px;
+=======
+    padding: 20px 20px;
+>>>>>>> v2
   }
 }

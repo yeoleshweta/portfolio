@@ -108,6 +108,7 @@ export default function GestureProCaseStudy() {
         image="/assets/gesturepro-hero.png"
       />
 
+<<<<<<< HEAD
       <div
         style={{
           display: "flex",
@@ -159,6 +160,8 @@ export default function GestureProCaseStudy() {
         </a>
       </div>
 
+=======
+>>>>>>> v2
       <CaseStudyLayout sections={sections}>
         {/* ============================================ */}
         {/* SECTION 1: OVERVIEW                          */}
@@ -181,6 +184,66 @@ export default function GestureProCaseStudy() {
           <div
             style={{
               display: "flex",
+<<<<<<< HEAD
+=======
+              gap: "16px",
+              marginTop: "24px",
+              marginBottom: "32px",
+            }}
+          >
+            <a
+              href="https://gesturepro-dev.vercel.app/signin"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "12px 24px",
+                borderRadius: "100px",
+                background: "#8b5cf6",
+                color: "#ffffff",
+                fontWeight: 600,
+                textDecoration: "none",
+                transition: "transform 0.2s",
+              }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.transform = "scale(1.05)")
+              }
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            >
+              Live Demo →
+            </a>
+            <a
+              href="https://github.com/khushboohpatel/gesturepro"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "12px 24px",
+                borderRadius: "100px",
+                background: "rgba(0,0,0,0.05)",
+                color: "var(--color-text-primary)",
+                fontWeight: 600,
+                textDecoration: "none",
+                border: "1px solid rgba(0,0,0,0.1)",
+                transition: "transform 0.2s",
+              }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.transform = "scale(1.05)")
+              }
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            >
+              GitHub Repo →
+            </a>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+>>>>>>> v2
               flexWrap: "wrap",
               gap: "4px",
               marginTop: "24px",
