@@ -2,7 +2,6 @@
   position: relative;
   background: var(--color-background);
   color: var(--color-text);
-  overflow: clip;
   z-index: 20;
 }
 
@@ -34,11 +33,11 @@
   top: 0;
   height: 100vh;
   width: 100%;
+  padding-top: 4vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
 /* ── Section header ── */
@@ -70,9 +69,9 @@
   position: relative;
   width: 82%;
   max-width: 1100px;
-  height: 60vh;
-  min-height: 400px;
-  max-height: 600px;
+  height: 75vh;
+  min-height: 500px;
+  max-height: 750px;
 }
 
 /* ── Individual card - Enhanced Glassmorphism ── */
@@ -84,13 +83,11 @@
   height: 100%;
   border-radius: 22px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.98); /* Solid feel for the deck */
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(0, 0, 0, 0.08); /* Darker border for stack edges */
+  background: #ffffff; /* Solid white for maximum readability and premium feel */
+  border: 1px solid rgba(0, 0, 0, 0.12); /* Slightly firmer border */
   box-shadow:
-    0 -2px 10px rgba(0, 0, 0, 0.02),
-    /* Top shadow for stack separation */ 0 10px 40px rgba(0, 0, 0, 0.06);
+    0 -2px 10px rgba(0, 0, 0, 0.04),
+    0 10px 40px rgba(0, 0, 0, 0.1); /* Stronger shadow for solid cards */
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0;
@@ -107,6 +104,8 @@
   justify-content: center;
   padding: 48px 40px 48px 56px;
   gap: 16px;
+  background: #ffffff; /* Explicitly solid background to mask stacked cards */
+  z-index: 2;
 }
 
 .cardTitle {
@@ -161,7 +160,7 @@
   justify-content: center;
   padding: 32px 40px 32px 0;
   overflow: hidden;
-  background: transparent;
+  background: #ffffff; /* Solid background to match content area */
   container-type: size;
 }
 

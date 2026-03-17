@@ -98,7 +98,7 @@ function StackCard({
   const seg = 1 / total;
 
   // Transition zone: how much of a segment is used for in/out
-  const t = seg * 0.45;
+  const t = seg * 0.2; // Sharper transition to keep cards solid for a longer window
 
   // Key progress points
   const holdStart = index * seg; // this card enters center
@@ -110,45 +110,33 @@ function StackCard({
   const buildInputOutput = () => {
     const input: number[] = [];
     const yOut: number[] = [];
-    const sOut: number[] = [];
-    const oOut: number[] = [];
 
-    const stackOffset = index * 24; // Fixed pixel offset for consistent "bands" at the top
-    const entryY = 800; // Slide up from 800px below
+    const stackOffset = index * 20; // Reduced offset for better viewport fit
+    const entryY = 1200; 
 
     if (index === 0) {
-      // First card: enters from below, then stacks at the top
-      input.push(0, seg * 0.4, seg * 0.6, seg);
-      yOut.push(entryY, 0, 0, stackOffset);
-      oOut.push(0, 1, 1, 0.7);
-    } else if (index === total - 1) {
-      // Last card: enters, then stays
-      input.push(holdStart - t, holdStart, 1);
-      yOut.push(entryY, stackOffset, stackOffset);
-      oOut.push(0, 1, 1);
+      // First card stays at 0 until next card enters
+      input.push(0, holdEnd, seg * (index + 2)); 
+      yOut.push(0, 0, stackOffset);
     } else {
-      // Middle cards: enter, hold, then stack
-      input.push(Math.max(0, holdStart - t), holdStart, holdEnd - t, holdEnd);
-      yOut.push(entryY, stackOffset, stackOffset, stackOffset);
-      oOut.push(0, 1, 1, 0.7);
+      // Enter from below -> hold at 0 (center) -> move to stack
+      input.push(0, enterStart, holdStart, holdEnd, seg * (index + 2), 1);
+      yOut.push(entryY, entryY, 0, 0, stackOffset, stackOffset);
     }
 
-    return { input, yOut, oOut };
+    return { input, yOut };
   };
 
-  const { input, yOut, oOut } = buildInputOutput();
-
+  const { input, yOut } = buildInputOutput();
   const y = useTransform(scrollYProgress, input, yOut);
-  const opacity = useTransform(scrollYProgress, input, oOut);
-
-  // Content opacity: Only visible when card is focal/entering,
-  // fades out as the NEXT card starts its entry transition.
-  const contentOpacity = useTransform(
+  
+  // No opacity animation — cards are 100% opaque once they start entering
+  // to prevent ghosting while they slide up.
+  const opacity = useTransform(
     scrollYProgress,
-    index === total - 1
-      ? [holdStart - t, holdStart]
-      : [holdStart - t, holdStart, holdEnd - t, holdEnd],
-    index === total - 1 ? [0, 1] : [0, 1, 1, 0],
+    index === 0 ? [0, 0.01] : [enterStart, holdStart],
+    [1, 1],
+    { clamp: true }
   );
 
   return (
@@ -157,22 +145,25 @@ function StackCard({
       style={{
         y: useTransform(y, (v: number) => `${v}px`),
         opacity,
-        // Entering cards should appear ABOVE exiting ones
+        background: "#ffffff", 
         zIndex: index + 1,
       }}
     >
-      <motion.div
+      <div
         className={styles.cardContent}
-        style={{ opacity: contentOpacity }}
+        style={{ 
+          background: "#ffffff", 
+          zIndex: 2,
+        }}
       >
         <h3 className={styles.cardTitle}>{study.title}</h3>
         <p className={styles.cardDescription}>{study.description}</p>
         <Link href={study.href} className={styles.cardCta}>
           {study.cta}
         </Link>
-      </motion.div>
+      </div>
 
-      <div className={styles.cardImageContainer}>
+      <div className={styles.cardImageContainer} style={{ background: "#ffffff" }}>
         <div className={styles.cardImage}>
           <Image
             fill

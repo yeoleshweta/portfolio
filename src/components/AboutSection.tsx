@@ -11,7 +11,7 @@ import {
   useMotionValue,
   type MotionValue,
 } from "framer-motion";
-import { useRef, type ReactNode } from "react";
+import { useRef, useState, useEffect, type ReactNode } from "react";
 import styles from "./AboutSection.module.css";
 
 const galleryImages = [
@@ -206,7 +206,7 @@ function TransitionCube({
         opacity: finalOpacity,
         scale: finalScale,
         left: "50%",
-        top: "35%",
+        top: "40%",
       }}
     >
       {[
@@ -356,7 +356,7 @@ function StageDebris({
               width: size,
               height: size,
               left: "50%",
-              top: "35%",
+              top: "40%",
               x,
               y,
               rotate,
@@ -370,6 +370,8 @@ function StageDebris({
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion() ?? false;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -399,7 +401,7 @@ export default function AboutSection() {
   // Cinematic transformations: start from a visible depth to avoid the "flat" line feel
   const galleryTilt = useTransform(progress, [0.25, 0.5], [45, 12]);
   const galleryDepth = useTransform(progress, [0.25, 0.5], [-2000, -1100]);
-  const galleryY = useTransform(progress, [0.25, 0.5], [380, 260]);
+  const galleryY = useTransform(progress, [0.25, 0.5], [580, 460]);
 
   // We double the images to create a denser, more professional ring with fewer gaps
   const denseGallery = [...galleryImages, ...galleryImages];
@@ -425,14 +427,17 @@ export default function AboutSection() {
             </h2>
             <p className={styles.description}>
               I work hard and then I go find something that has nothing to do
-              with work. <br /> Slopes, cities, finish lines, ship decks —
-              whatever gets me out of my head and into the world.
+              with work. Whether it&apos;s on mountain slopes, in bustling
+              cities, at race finish lines, or on ship decks—anything that pulls
+              me out of my head and back into the world. It’s these moments of
+              unfiltered observation that keep my perspective fresh and my
+              research grounded.
             </p>
           </motion.div>
 
           {/* Decorative floating heart pixels in the background */}
           <div className={styles.smallCubeField} aria-hidden="true">
-            {tornadoCubesLogic.map((cube) => (
+            {mounted && tornadoCubesLogic.map((cube) => (
               <TransitionCube
                 key={cube.id}
                 cube={cube}

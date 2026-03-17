@@ -1,10 +1,8 @@
 import HeroSection from "@/components/HeroSection";
 import AboutMeSection from "@/components/AboutMeSection";
-import WorkExperience from "@/components/WorkExperience";
 import FeaturedWork from "@/components/FeaturedWork";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
-import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -14,7 +12,6 @@ export default function Home() {
       <FeaturedWork />
       <AboutSection />
       <ContactSection />
-      <Footer />
     </>
   );
 }
