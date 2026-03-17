@@ -46,10 +46,14 @@ function ContactBadge({
 }) {
   if (type === "linkedin") {
     return (
-      <svg viewBox="0 0 24 24" className={styles.contactSvg} aria-hidden="true">
+      <svg viewBox="0 0 71 69" className={styles.contactSvg} aria-hidden="true">
+        <rect x="1" y="1" width="69" height="67" rx="18" fill="#e7d6ff" />
         <path
-          d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-          fill="#0077b5"
+          d="M20 25.5C23.04 25.5 25.5 23.04 25.5 20C25.5 16.96 23.04 14.5 20 14.5C16.96 14.5 14.5 16.96 14.5 20C14.5 23.04 16.96 25.5 20 25.5ZM15.2 29.4H24.8V54.4H15.2V29.4ZM30.4 29.4H39.6V32.8H39.73C41.01 30.37 44.15 27.8 48.82 27.8C58.53 27.8 60.3 34.19 60.3 42.5V54.4H50.7V43.85C50.7 41.33 50.65 38.09 47.18 38.09C43.66 38.09 43.12 40.84 43.12 43.66V54.4H33.52V29.4H30.4Z"
+          fill="#3691ff"
+          stroke="#000"
+          strokeWidth="1.4"
+          strokeLinejoin="round"
         />
       </svg>
     );
@@ -57,10 +61,27 @@ function ContactBadge({
 
   if (type === "gmail") {
     return (
-      <svg viewBox="0 0 24 24" className={styles.contactSvg} aria-hidden="true">
+      <svg viewBox="0 0 71 69" className={styles.contactSvg} aria-hidden="true">
+        <rect x="1" y="1" width="69" height="67" rx="18" fill="#e7d6ff" />
         <path
-          d="M24 4.5v15c0 .85-.65 1.5-1.5 1.5H21V7.38l-9 6.62-9-6.62V21H1.5C.65 21 0 20.35 0 19.5v-15c0-.42.17-.8.45-1.1.28-.3.65-.4 1.05-.4L12 11l10.5-8c.4 0 .77.1 1.05.4.28.3.45.68.45 1.1z"
-          fill="#EA4335"
+          d="M14 23.5L35.5 39.8L57 23.5V48.5C57 51.26 54.76 53.5 52 53.5H19C16.24 53.5 14 51.26 14 48.5V23.5Z"
+          fill="#fff"
+          stroke="#000"
+          strokeWidth="1.4"
+        />
+        <path
+          d="M14 23.5L35.5 39.8L57 23.5"
+          fill="none"
+          stroke="#ea4335"
+          strokeWidth="6"
+        />
+        <path d="M14 23.5V48.5L27 38.8V28.9L14 23.5Z" fill="#c5221f" />
+        <path d="M57 23.5V48.5L44 38.8V28.9L57 23.5Z" fill="#4285f4" />
+        <path
+          d="M27 38.8L35.5 45.1L44 38.8"
+          fill="none"
+          stroke="#34a853"
+          strokeWidth="5.5"
         />
       </svg>
     );

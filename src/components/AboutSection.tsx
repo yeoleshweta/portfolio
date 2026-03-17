@@ -401,7 +401,7 @@ export default function AboutSection() {
   // Cinematic transformations: start from a visible depth to avoid the "flat" line feel
   const galleryTilt = useTransform(progress, [0.25, 0.5], [45, 12]);
   const galleryDepth = useTransform(progress, [0.25, 0.5], [-2000, -1100]);
-  const galleryY = useTransform(progress, [0.25, 0.5], [580, 460]);
+  const galleryY = useTransform(progress, [0.25, 0.5], [780, 640]);
 
   // We double the images to create a denser, more professional ring with fewer gaps
   const denseGallery = [...galleryImages, ...galleryImages];
@@ -426,12 +426,9 @@ export default function AboutSection() {
               <span className={styles.italic}>researching</span>
             </h2>
             <p className={styles.description}>
-              I work hard and then I go find something that has nothing to do
-              with work. Whether it&apos;s on mountain slopes, in bustling
-              cities, at race finish lines, or on ship decks—anything that pulls
-              me out of my head and back into the world. It’s these moments of
-              unfiltered observation that keep my perspective fresh and my
-              research grounded.
+              I work hard and then I go find something that has nothing to do with work.<br />
+              Slopes, cities, finish lines, ship decks —<br />
+              whatever gets me out of my head and into the world.
             </p>
           </motion.div>
 
