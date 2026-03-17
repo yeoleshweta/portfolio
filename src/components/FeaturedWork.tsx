@@ -95,7 +95,7 @@ function StackCard({
   scrollYProgress: MotionValue<number>;
   total: number;
 }) {
-  const seg = 1 / total;
+  const seg = 1 / (total + 1);
 
   // Transition zone: how much of a segment is used for in/out
   const t = seg * 0.2; // Sharper transition to keep cards solid for a longer window

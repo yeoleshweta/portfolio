@@ -128,7 +128,8 @@ function TransitionCube({
 
   // Target heart coordinates
   const heartX = cube.heartTarget ? (cube.heartTarget[0] - 4) * 24 : 0;
-  const heartY = cube.heartTarget ? (cube.heartTarget[1] - 2.5) * 24 : 0;
+  // Shift the heart center down by 5px as requested
+  const heartY = cube.heartTarget ? ((cube.heartTarget[1] - 2.5) * 24) + 5 : 0;
 
   // Vertical drift transitions to heart Y
   const y = useTransform(
@@ -206,7 +207,7 @@ function TransitionCube({
         opacity: finalOpacity,
         scale: finalScale,
         left: "50%",
-        top: "40%",
+        top: "30%",
       }}
     >
       {[
@@ -350,13 +351,13 @@ function StageDebris({
               width: size,
               height: size,
               left: `calc(50% + ${xOrigin}px)`,
-              top: `calc(35% + ${yOrigin}px)`,
+              top: `calc(25% + ${yOrigin}px)`,
             }
           : {
               width: size,
               height: size,
               left: "50%",
-              top: "40%",
+              top: "30%",
               x,
               y,
               rotate,
@@ -401,7 +402,7 @@ export default function AboutSection() {
   // Cinematic transformations: start from a visible depth to avoid the "flat" line feel
   const galleryTilt = useTransform(progress, [0.25, 0.5], [45, 12]);
   const galleryDepth = useTransform(progress, [0.25, 0.5], [-2000, -1100]);
-  const galleryY = useTransform(progress, [0.25, 0.5], [780, 640]);
+  const galleryY = useTransform(progress, [0.25, 0.5], [600, 440]);
 
   // We double the images to create a denser, more professional ring with fewer gaps
   const denseGallery = [...galleryImages, ...galleryImages];
@@ -427,8 +428,7 @@ export default function AboutSection() {
             </h2>
             <p className={styles.description}>
               I work hard and then I go find something that has nothing to do with work.<br />
-              Slopes, cities, finish lines, ship decks —<br />
-              whatever gets me out of my head and into the world.
+              Slopes, cities, finish lines, ship decks — whatever gets me out of my head and into the world.
             </p>
           </motion.div>
 

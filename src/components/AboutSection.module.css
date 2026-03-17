@@ -5,6 +5,7 @@
   isolation: isolate;
   /* Reduced to 400vh to remove extra blank space at the end */
   height: 400vh;
+  margin-top: 20vh;
   margin-bottom: 20vh;
 }
 
@@ -17,7 +18,7 @@
   position: sticky;
   top: 94px;
   height: calc(100svh - 94px);
-  overflow: hidden;
+  overflow: visible;
   display: block;
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
@@ -39,7 +40,7 @@
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  padding-top: 58px;
+  padding-top: 5vh;
   text-align: center;
 }
 
