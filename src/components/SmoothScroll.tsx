@@ -21,6 +21,10 @@ export default function SmoothScroll({
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,
+      prevent: (node: Element) => {
+        // Allow native scrolling inside the Klyro widget
+        return !!node.closest("#klyro-widget, .klyro-widget, [data-klyro]");
+      },
     });
 
     const handleScroll = () => ScrollTrigger.update();
