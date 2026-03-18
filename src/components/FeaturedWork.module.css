@@ -30,10 +30,10 @@
 /* ── Sticky viewport container ── */
 .stickyContainer {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: 94px;
+  height: calc(100vh - 94px);
   width: 100%;
-  padding-top: 4vh;
+  padding-top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -179,6 +179,11 @@
 
 /* ── Responsive ── */
 @media (max-width: 1200px) {
+  .stickyContainer {
+    top: 84px;
+    height: calc(100vh - 84px);
+  }
+
   .cardStack {
     width: 88%;
   }
@@ -201,6 +206,11 @@
 }
 
 @media (max-width: 810px) {
+  .stickyContainer {
+    top: 64px;
+    height: calc(100vh - 64px);
+  }
+
   .cardStack {
     width: 92%;
     height: 70vh;
