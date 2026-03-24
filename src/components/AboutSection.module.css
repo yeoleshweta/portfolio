@@ -5,7 +5,7 @@
   isolation: isolate;
   /* Reduced to 400vh to remove extra blank space at the end */
   height: 400vh;
-  margin-top: 20vh;
+  margin-top: 0;
   margin-bottom: 20vh;
 }
 

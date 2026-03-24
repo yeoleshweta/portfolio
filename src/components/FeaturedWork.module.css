@@ -1,273 +1,372 @@
+/*
+ * FeaturedWork.module.css — Analog Blueprint
+ * Philosophy: IBM Plex Serif · JetBrains Mono · Research-paper aesthetic
+ * Grid-paper texture, engineering corner marks, monospaced precision.
+ */
+
+/* ── Section wrapper ── */
 .section {
+  background: #f9f8f4;
   position: relative;
-  background: var(--color-background);
-  color: var(--color-text);
   z-index: 20;
+  padding: 96px 0 104px;
 }
 
-/* Very subtle ambient glow - reduced to show background clear */
+/* Grid-paper background */
 .section::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background:
-    radial-gradient(
-      ellipse at 20% 20%,
-      rgba(139, 105, 250, 0.04) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse at 80% 80%,
-      rgba(181, 155, 255, 0.02) 0%,
-      transparent 60%
-    );
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(124, 92, 191, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 92, 191, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
   pointer-events: none;
 }
 
-/* ── Sticky viewport container ── */
-.stickyContainer {
-  position: sticky;
-  top: 94px;
-  height: calc(100vh - 94px);
-  width: 100%;
-  padding-top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* ── Container ── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 1;
 }
 
-/* ── Section header ── */
+/* ── Header ── */
 .header {
-  z-index: 20;
-  text-align: center;
-  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+}
+
+.headerLeft {}
+
+.eyebrow {
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 11px;
+  color: #aaa;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
 .title {
-  font-family: var(--font-display);
-  font-size: 3.5rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: "IBM Plex Serif", Georgia, serif;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.05;
   color: #1a1a1a;
-  text-transform: none;
   margin: 0;
 }
 
-.italic {
-  font-family: var(--font-script);
+.titleItalic {
   font-style: italic;
-  font-weight: 400;
-  color: #444;
+  color: #7c5cbf;
+  font-weight: 300;
 }
 
-/* ── Card stack container ── */
-.cardStack {
-  position: relative;
-  width: 82%;
-  max-width: 1100px;
-  height: 75vh;
-  min-height: 500px;
-  max-height: 750px;
+.headerMeta {
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 11px;
+  color: #bbb;
+  text-align: right;
+  line-height: 1.9;
 }
 
-/* ── Individual card - Enhanced Glassmorphism ── */
-.card {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 22px;
-  overflow: hidden;
-  background: #ffffff; /* Solid white for maximum readability and premium feel */
-  border: 1px solid rgba(0, 0, 0, 0.12); /* Slightly firmer border */
-  box-shadow:
-    0 -2px 10px rgba(0, 0, 0, 0.04),
-    0 10px 40px rgba(0, 0, 0, 0.1); /* Stronger shadow for solid cards */
+.metaDash {
+  display: block;
+  margin-top: 2px;
+  letter-spacing: -1px;
+}
+
+/* ── Featured 2-col grid ── */
+.featuredGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
-  will-change: transform, opacity;
-  transition:
-    background 0.4s ease,
-    border-color 0.4s ease;
+  gap: 2px;
+  background: #e0ddd6;
+  border: 1px solid #e0ddd6;
+  border-radius: 6px 6px 0 0;
+  overflow: hidden;
 }
 
-/* ── Text content (left side) ── */
-.cardContent {
+.featuredCard {
+  position: relative;
+  z-index: 1;
+  padding: 44px 40px;
+  background: #ffffff;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.25s ease;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 48px 40px 48px 56px;
-  gap: 16px;
-  background: #ffffff; /* Explicitly solid background to mask stacked cards */
-  z-index: 2;
+}
+
+/* gap handles gutters — no manual border needed */
+
+.featuredCard:hover {
+  background: #f0ecff;
+}
+
+/* ── Engineering corner marks ── */
+.cornerTL,
+.cornerTR,
+.cornerBL,
+.cornerBR {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: #7c5cbf;
+  border-style: solid;
+  opacity: 0.25;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.featuredCard:hover .cornerTL,
+.featuredCard:hover .cornerTR,
+.featuredCard:hover .cornerBL,
+.featuredCard:hover .cornerBR {
+  opacity: 0.6;
+}
+
+.cornerTL { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+.cornerTR { top: 10px; right: 10px; border-width: 1px 1px 0 0; }
+.cornerBL { bottom: 10px; left: 10px; border-width: 0 0 1px 1px; }
+.cornerBR { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+/* ── Card content ── */
+.cardTag {
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.cardRef {
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 10px;
+  color: #7c5cbf;
+  margin-bottom: 20px;
+  display: block;
+  opacity: 0.7;
 }
 
 .cardTitle {
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 28px;
+  font-family: "IBM Plex Serif", Georgia, serif;
+  font-size: 24px;
   font-weight: 600;
-  line-height: 1.25;
-  color: var(--color-text);
-  margin: 0;
+  line-height: 1.3;
+  color: #1a1a1a;
+  margin: 0 0 14px;
 }
 
-.cardDescription {
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.65;
-  color: var(--color-text-secondary);
-  margin: 0;
-  max-width: 420px;
-}
-
-.cardCta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 12px;
-  padding: 10px 22px;
-  background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  color: var(--color-text);
-  font-family: "IBM Plex Sans", sans-serif;
+.cardDesc {
+  font-family: "IBM Plex Serif", Georgia, serif;
   font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all 0.25s ease;
-  width: fit-content;
-  cursor: pointer;
+  line-height: 1.75;
+  color: #666;
+  font-style: italic;
+  margin: 0;
+  flex: 1;
 }
 
-.cardCta:hover {
-  background: rgba(0, 0, 0, 0.03);
-  border-color: rgba(0, 0, 0, 0.2);
-  color: var(--color-accent);
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 20px;
 }
 
-/* ── Image (right side) ── */
-.cardImageContainer {
-  position: relative;
+.pill {
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  background: #f0ecff;
+  color: #7c5cbf;
+  border: 1px solid rgba(124, 92, 191, 0.2);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.featuredCard:hover .pill {
+  background: rgba(124, 92, 191, 0.12);
+}
+
+.cta {
+  margin-top: 24px;
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #7c5cbf;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 32px 40px 32px 0;
-  overflow: hidden;
-  background: #ffffff; /* Solid background to match content area */
-  container-type: size;
+  gap: 8px;
+  transition: gap 0.2s ease;
 }
 
-.cardImage {
+.featuredCard:hover .cta {
+  gap: 14px;
+}
+
+/* ── // more work divider ── */
+.divider {
   position: relative;
-  /* Make image a stable perfect square bounded by the container's smallest dimension */
-  width: 100cqmin;
-  height: 100cqmin;
-  max-width: 100%;
-  max-height: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 14px;
+  z-index: 2;
+  height: 1px;
+  background: #e0ddd6;
+  margin: 28px 0;
+}
+
+.divider::after {
+  content: "// more work";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 11px;
+  color: #bbb;
+  background: #f9f8f4;
+  padding: 0 16px;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+/* ── More projects 3-col grid ── */
+.moreGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: #e0ddd6;
+  border: 1px solid #e0ddd6;
+  border-radius: 0 0 6px 6px;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.03);
+}
+
+.miniCard {
+  padding: 22px 22px;
+  background: #ffffff;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.miniCard:hover {
+  background: #f0ecff;
+}
+
+/* gap + background handles all gutters */
+
+/* ── Mini card internals ── */
+.miniTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.miniIdx {
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 10px;
+  color: #ccc;
+}
+
+.miniEmoji {
+  font-size: 16px;
+}
+
+.miniTag {
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ccc;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.miniTitle {
+  font-family: "IBM Plex Serif", Georgia, serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.4;
+  margin: 0 0 6px;
+  transition: color 0.2s ease;
+}
+
+.miniCard:hover .miniTitle {
+  color: #7c5cbf;
+}
+
+.miniMetric {
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 10px;
+  color: #7c5cbf;
 }
 
 /* ── Responsive ── */
-@media (max-width: 1200px) {
-  .stickyContainer {
-    top: 84px;
-    height: calc(100vh - 84px);
-  }
-
-  .cardStack {
-    width: 88%;
-  }
-
-  .cardContent {
-    padding: 36px 28px 36px 40px;
-  }
-
-  .cardTitle {
-    font-size: 24px;
-  }
-
-  .cardDescription {
-    font-size: 14px;
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 32px;
   }
 
   .title {
-    font-size: 2.8rem;
+    font-size: 40px;
+  }
+
+  .featuredCard {
+    padding: 36px 32px;
   }
 }
 
-@media (max-width: 810px) {
-  .stickyContainer {
-    top: 64px;
-    height: calc(100vh - 64px);
+@media (max-width: 768px) {
+  .section {
+    padding: 64px 0 72px;
   }
 
-  .cardStack {
-    width: 92%;
-    height: 70vh;
-    max-height: 550px;
+  .container {
+    padding: 0 24px;
   }
 
-  .card {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 36px;
   }
 
-  .cardContent {
-    padding: 28px 24px 16px;
-    gap: 10px;
-  }
-
-  .cardTitle {
-    font-size: 20px;
-  }
-
-  .cardDescription {
-    font-size: 13px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .cardImageContainer {
-    padding: 0 20px 20px;
+  .headerMeta {
+    text-align: left;
   }
 
   .title {
-    font-size: 1.8rem;
+    font-size: 34px;
   }
-  .italic {
-    font-size: 2.4rem;
+
+  .featuredGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .moreGrid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (max-width: 480px) {
-  .cardStack {
-    width: 95%;
-    height: 65vh;
+  .moreGrid {
+    grid-template-columns: 1fr;
   }
 
-  .cardContent {
-    padding: 20px 20px 12px;
-  }
-
-  .cardTitle {
-    font-size: 18px;
-  }
-
-  .cardCta {
-    font-size: 13px;
-    padding: 8px 18px;
-  }
+  /* gap handles all gutters at small sizes too */
 }
