@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>More Project Section Ideas — Shweta</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f13; }
+
+  /* ─── TAB NAV ─── */
+  .tab-nav {
+    display: flex; gap: 12px; padding: 24px 40px 0;
+    flex-wrap: wrap; align-items: center;
+  }
+  .tab-nav span { font-size: 13px; color: #555; margin-right: 4px; }
+  .tab-btn {
+    padding: 10px 20px; border-radius: 24px; border: none;
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    transition: all 0.2s;
+    background: #1e1e28; color: #666;
+  }
+  .tab-btn.active { background: #a78bfa; color: #fff; }
+  .tab-desc { font-size: 12px; color: #444; padding: 10px 40px 0; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ═══════════════════════════════════════
+     OPTION D — SPOTLIGHT HERO + LIST
+  ═══════════════════════════════════════ */
+  #optD {
+    background: #f5f4f0;
+    padding: 64px 48px;
+  }
+  #optD .header { margin-bottom: 56px; }
+  #optD .header .eyebrow {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #aaa;
+  }
+  #optD .header h2 {
+    font-size: 46px; font-weight: 900; color: #111; margin-top: 8px;
+  }
+  #optD .header h2 em { color: #7c5cbf; font-weight: 400; font-style: italic; }
+
+  /* Big immersive featured cards stacked vertically with alternating layout */
+  .spotlight-card {
+    display: grid;
+    gap: 0;
+    border-radius: 28px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid transparent;
+  }
+  .spotlight-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 32px 64px rgba(0,0,0,0.12);
+  }
+  .spotlight-card.layout-left  { grid-template-columns: 1fr 1fr; }
+  .spotlight-card.layout-right { grid-template-columns: 1fr 1fr; direction: rtl; }
+  .spotlight-card.layout-right > * { direction: ltr; }
+
+  .spotlight-content {
+    padding: 52px 48px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    background: #fff;
+  }
+  .spotlight-visual {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 100px;
+    min-height: 300px;
+    position: relative;
+    overflow: hidden;
+  }
+  .spotlight-visual .big-num {
+    position: absolute; font-size: 140px; font-weight: 900;
+    opacity: 0.07; color: #fff; user-select: none;
+    bottom: -10px; right: 20px; line-height: 1;
+  }
+
+  .sc-tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
+  .sc-badge {
+    display: inline-block;
+    font-size: 11px; padding: 4px 12px; border-radius: 20px;
+    font-weight: 600; margin-bottom: 16px;
+  }
+  .spotlight-content h3 { font-size: 28px; font-weight: 800; line-height: 1.2; margin: 12px 0 14px; color: #111; }
+  .spotlight-content p { font-size: 14px; line-height: 1.75; color: #666; }
+  .sc-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .sc-pill {
+    font-size: 12px; padding: 5px 14px; border-radius: 20px;
+    background: #f0eeff; color: #7c5cbf; font-weight: 500;
+  }
+  .sc-cta { margin-top: 28px; font-size: 13px; font-weight: 700; color: #7c5cbf; display: flex; align-items: center; gap: 6px; }
+
+  /* Compact list */
+  .compact-divider {
+    display: flex; align-items: center; gap: 16px; margin: 40px 0 24px;
+  }
+  .compact-divider div { flex: 1; height: 1px; background: #ddd; }
+  .compact-divider span { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #aaa; }
+
+  .list-rows {}
+  .list-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+    color: inherit;
+  }
+  .list-row:last-child { border-bottom: none; }
+  .list-row:hover { background: #fff; }
+  .list-row-left { display: flex; align-items: center; gap: 16px; }
+  .list-num { font-size: 13px; color: #ccc; font-weight: 600; width: 24px; }
+  .list-emoji { font-size: 22px; width: 36px; text-align: center; }
+  .list-info h4 { font-size: 15px; font-weight: 700; color: #111; }
+  .list-info span { font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 1.5px; }
+  .list-metric { font-size: 13px; color: #7c5cbf; font-weight: 600; }
+  .list-arrow { font-size: 18px; color: #ccc; transition: all 0.2s; }
+  .list-row:hover .list-arrow { color: #7c5cbf; transform: translateX(4px); }
+
+  /* ═══════════════════════════════════════
+     OPTION E — HORIZONTAL SCROLL RIBBON
+  ═══════════════════════════════════════ */
+  #optE {
+    background: #0d0d14;
+    padding: 64px 0;
+    color: #fff;
+  }
+  #optE .e-header { padding: 0 48px 48px; }
+  #optE .e-header .eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #555; }
+  #optE .e-header h2 { font-size: 46px; font-weight: 900; margin-top: 8px; }
+  #optE .e-header h2 span { color: #a78bfa; }
+
+  /* Featured pinned above */
+  .e-featured {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; padding: 0 48px 40px;
+  }
+  .e-feat-card {
+    padding: 40px 36px; border-radius: 24px;
+    cursor: pointer; transition: all 0.3s;
+    position: relative; overflow: hidden;
+    text-decoration: none; color: #fff;
+  }
+  .e-feat-card.purple { background: #1e1530; border: 1.5px solid #3d2d6b; }
+  .e-feat-card.purple:hover { background: #7c5cbf; border-color: #7c5cbf; }
+  .e-feat-card.pink   { background: #1a0f14; border: 1.5px solid #5a1f35; }
+  .e-feat-card.pink:hover   { background: #bf5c8c; border-color: #bf5c8c; }
+
+  .e-feat-card .e-emoji-bg {
+    position: absolute; font-size: 90px; right: 20px; bottom: 10px;
+    opacity: 0.08; transition: opacity 0.3s; pointer-events: none;
+  }
+  .e-feat-card:hover .e-emoji-bg { opacity: 0.2; }
+
+  .e-feat-tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #a78bfa; margin-bottom: 14px; font-weight: 600; }
+  .e-feat-card.pink .e-feat-tag { color: #f9a8d4; }
+  .e-feat-card h3 { font-size: 22px; font-weight: 800; line-height: 1.3; margin-bottom: 12px; }
+  .e-feat-card p { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.6); }
+  .e-feat-cta { margin-top: 24px; font-size: 13px; font-weight: 700; color: #a78bfa; }
+  .e-feat-card.pink .e-feat-cta { color: #f9a8d4; }
+  .e-feat-card:hover .e-feat-cta { color: #fff; }
+
+  /* Horizontal scroll strip */
+  .e-scroll-label {
+    display: flex; align-items: center; gap: 16px;
+    padding: 0 48px; margin-bottom: 20px;
+  }
+  .e-scroll-label div { flex:1; height:1px; background:#1e1e2a; }
+  .e-scroll-label span { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #444; white-space: nowrap; }
+
+  .e-scroll-hint { padding: 0 48px 12px; font-size: 12px; color: #444; }
+
+  .e-ribbon {
+    display: flex; gap: 14px;
+    overflow-x: auto;
+    padding: 4px 48px 20px;
+    scrollbar-width: none;
+    cursor: grab;
+  }
+  .e-ribbon::-webkit-scrollbar { display: none; }
+
+  .e-mini {
+    flex: 0 0 240px;
+    background: #161620;
+    border: 1.5px solid #222;
+    border-radius: 18px;
+    padding: 24px 22px;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none; color: #fff;
+  }
+  .e-mini:hover { background: #fff; border-color: #fff; }
+  .e-mini .e-mini-emoji { font-size: 28px; margin-bottom: 12px; display: block; }
+  .e-mini .e-mini-tag { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #555; transition: color 0.25s; }
+  .e-mini:hover .e-mini-tag { color: #aaa; }
+  .e-mini h4 { font-size: 14px; font-weight: 700; color: #ccc; margin: 6px 0 8px; line-height: 1.4; transition: color 0.25s; }
+  .e-mini:hover h4 { color: #111; }
+  .e-mini .e-mini-metric { font-size: 12px; color: #444; transition: color 0.25s; }
+  .e-mini:hover .e-mini-metric { color: #777; }
+
+  /* ═══════════════════════════════════════
+     OPTION F — CATEGORISED TABS
+  ═══════════════════════════════════════ */
+  #optF {
+    background: #faf9fe;
+    padding: 64px 48px;
+  }
+  .f-header { margin-bottom: 48px; }
+  .f-header .eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #bbb; }
+  .f-header h2 { font-size: 44px; font-weight: 900; color: #111; margin-top: 8px; }
+  .f-header h2 em { color: #7c5cbf; font-style: italic; font-weight: 400; }
+
+  /* Category pills filter */
+  .f-filters {
+    display: flex; gap: 10px; margin-bottom: 36px; flex-wrap: wrap;
+  }
+  .f-filter {
+    padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600;
+    cursor: pointer; border: 1.5px solid #e5e0f0;
+    background: #fff; color: #888;
+    transition: all 0.2s;
+  }
+  .f-filter.active { background: #7c5cbf; border-color: #7c5cbf; color: #fff; }
+  .f-filter:hover:not(.active) { border-color: #7c5cbf; color: #7c5cbf; }
+
+  /* Featured pinned row (always visible) */
+  .f-featured-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-bottom: 20px;
+  }
+  .f-feat {
+    border-radius: 22px; padding: 36px 32px;
+    cursor: pointer; transition: all 0.3s;
+    border: 2px solid transparent; text-decoration: none; color: inherit;
+    position: relative; overflow: hidden;
+  }
+  .f-feat.one { background: #fff; border-color: #ebe8f5; }
+  .f-feat.two { background: #fff0f6; border-color: #fce7f3; }
+  .f-feat.one:hover { background: #7c5cbf; border-color: #7c5cbf; }
+  .f-feat.two:hover { background: #bf5c8c; border-color: #bf5c8c; }
+
+  .f-feat .f-emoji-bg {
+    position: absolute; font-size: 80px; right: 20px; bottom: 10px;
+    opacity: 0.06; pointer-events: none; transition: opacity 0.3s;
+  }
+  .f-feat:hover .f-emoji-bg { opacity: 0.18; }
+
+  .f-feat-label {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;
+  }
+  .f-feat-tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
+  .f-feat.one .f-feat-tag { color: #7c5cbf; }
+  .f-feat.two .f-feat-tag { color: #bf5c8c; }
+  .f-feat:hover .f-feat-tag { color: rgba(255,255,255,0.6); }
+
+  .f-star { font-size: 11px; padding: 3px 10px; border-radius: 16px; font-weight: 600; }
+  .f-feat.one .f-star { background: #ede9ff; color: #7c5cbf; }
+  .f-feat.two .f-star { background: #fce7f3; color: #bf5c8c; }
+  .f-feat:hover .f-star { background: rgba(255,255,255,0.15); color: #fff; }
+
+  .f-feat h3 { font-size: 22px; font-weight: 800; line-height: 1.3; margin-bottom: 10px; color: #111; transition: color 0.3s; }
+  .f-feat:hover h3 { color: #fff; }
+  .f-feat p { font-size: 13px; line-height: 1.65; color: #666; transition: color 0.3s; }
+  .f-feat:hover p { color: rgba(255,255,255,0.75); }
+  .f-feat-cta { margin-top: 22px; font-size: 13px; font-weight: 700; transition: color 0.3s; }
+  .f-feat.one .f-feat-cta { color: #7c5cbf; }
+  .f-feat.two .f-feat-cta { color: #bf5c8c; }
+  .f-feat:hover .f-feat-cta { color: #fff; }
+
+  /* Project grid (filterable) */
+  .f-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; margin-top: 4px;
+  }
+  .f-card {
+    border-radius: 16px; padding: 22px 20px;
+    cursor: pointer; transition: all 0.25s;
+    background: #fff; border: 1.5px solid #ebe8f5;
+    text-decoration: none; color: inherit;
+  }
+  .f-card:hover { background: #111; }
+  .f-card[data-cat="ux"] { border-left: 3px solid #7c5cbf; }
+  .f-card[data-cat="ai"]  { border-left: 3px solid #10b981; }
+  .f-card[data-cat="ds"]  { border-left: 3px solid #f59e0b; }
+  .f-card.hidden { display: none; }
+
+  .f-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .f-card-tag { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #bbb; transition: color 0.25s; }
+  .f-card:hover .f-card-tag { color: #555; }
+  .f-card-emoji { font-size: 18px; }
+  .f-card h4 { font-size: 14px; font-weight: 700; color: #111; line-height: 1.4; margin-bottom: 6px; transition: color 0.25s; }
+  .f-card:hover h4 { color: #fff; }
+  .f-card .f-metric { font-size: 12px; color: #aaa; transition: color 0.25s; }
+  .f-card:hover .f-metric { color: #666; }
+
+  /* Legend */
+  .f-legend {
+    display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .f-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #999; }
+  .f-dot { width: 10px; height: 10px; border-radius: 50%; }
+</style>
+</head>
+<body>
+
+<!-- Tab Nav -->
+<div class="tab-nav">
+  <span>More ideas:</span>
+  <button class="tab-btn active" onclick="showTab('D', this)">Option D · Spotlight + List</button>
+  <button class="tab-btn" onclick="showTab('E', this)">Option E · Horizontal Scroll</button>
+  <button class="tab-btn" onclick="showTab('F', this)">Option F · Category Filter</button>
+</div>
+<div class="tab-desc" id="tab-desc">Two cinematic hero cards side-by-side (alternating layout). Below them, the rest as a clean numbered list — elegant and editorial.</div>
+
+
+<!-- ══════════════════════════════════ OPTION D ══════════════════════════════════ -->
+<div id="optD" class="section active">
+  <div class="header">
+    <p class="eyebrow">Featured Work</p>
+    <h2>Work that <em>moved the needle.</em></h2>
+  </div>
+
+  <!-- Featured 1 — left image, right text -->
+  <div class="spotlight-card layout-left" style="border-color:#ebe8f5;">
+    <div class="spotlight-visual" style="background: linear-gradient(135deg, #ede9ff 0%, #c4b5fd 100%);">
+      <span style="font-size:90px">🏥</span>
+      <div class="big-num" style="color:#7c5cbf;">01</div>
+    </div>
+    <div class="spotlight-content">
+      <div>
+        <span class="sc-tag" style="color:#7c5cbf;">NLP & UX Research · ABIM</span>
+        <span class="sc-badge" style="background:#ede9ff; color:#7c5cbf; margin-left:10px;">⭐ Featured</span>
+        <h3>Measuring Patient-Centered Communication</h3>
+        <p>Building a scalable, rubric-grounded NLP pipeline that measures patient-centered communication behaviors across real clinical transcripts. Operationalized Calgary-Cambridge and NURSE frameworks into measurable constructs for ABIM.</p>
+        <div class="sc-pills">
+          <span class="sc-pill">985 conversations</span>
+          <span class="sc-pill">BERT classifier</span>
+          <span class="sc-pill">11 constructs</span>
+        </div>
+      </div>
+      <div class="sc-cta">View Case Study <span>→</span></div>
+    </div>
+  </div>
+
+  <!-- Featured 2 — right image, left text -->
+  <div class="spotlight-card layout-right" style="border-color:#fce7f3;">
+    <div class="spotlight-visual" style="background: linear-gradient(135deg, #fce7f3 0%, #f9a8d4 100%);">
+      <span style="font-size:90px">⚕️</span>
+      <div class="big-num" style="color:#bf5c8c;">02</div>
+    </div>
+    <div class="spotlight-content">
+      <div>
+        <span class="sc-tag" style="color:#bf5c8c;">Data Science & ML · ABIM</span>
+        <span class="sc-badge" style="background:#fce7f3; color:#bf5c8c; margin-left:10px;">⭐ Featured</span>
+        <h3>Healthcare Bias — NLP Detection</h3>
+        <p>ML pipelines surfacing implicit clinician bias at scale. Developed NLP models to analyze clinical notes and identify patterns of differential language use across patient demographics.</p>
+        <div class="sc-pills">
+          <span class="sc-pill" style="background:#fff0f6; color:#bf5c8c;">ClinicalBERT</span>
+          <span class="sc-pill" style="background:#fff0f6; color:#bf5c8c;">RoBERTa</span>
+          <span class="sc-pill" style="background:#fff0f6; color:#bf5c8c;">HIPAA-safe</span>
+        </div>
+      </div>
+      <div class="sc-cta" style="color:#bf5c8c;">View Case Study <span>→</span></div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="compact-divider">
+    <div></div>
+    <span>More Projects</span>
+    <div></div>
+  </div>
+
+  <!-- Numbered list -->
+  <div class="list-rows">
+    <a href="#" class="list-row">
+      <div class="list-row-left">
+        <span class="list-num">03</span>
+        <span class="list-emoji">🌱</span>
+        <div class="list-info">
+          <h4>PM Design Thinking @ John Deere</h4>
+          <span>UX Research · 12-week initiative</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:20px;">
+        <span class="list-metric">80% UX confidence lift</span>
+        <span class="list-arrow">→</span>
+      </div>
+    </a>
+    <a href="#" class="list-row">
+      <div class="list-row-left">
+        <span class="list-num">04</span>
+        <span class="list-emoji">📊</span>
+        <div class="list-info">
+          <h4>Enterprise Survey Logic & Analytics</h4>
+          <span>Product Design · John Deere</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:20px;">
+        <span class="list-metric">60% faster build time</span>
+        <span class="list-arrow">→</span>
+      </div>
+    </a>
+    <a href="#" class="list-row">
+      <div class="list-row-left">
+        <span class="list-num">05</span>
+        <span class="list-emoji">📖</span>
+        <div class="list-info">
+          <h4>Stories by Children</h4>
+          <span>UX Research & Design</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:20px;">
+        <span class="list-metric">50% → 85% task success</span>
+        <span class="list-arrow">→</span>
+      </div>
+    </a>
+    <a href="#" class="list-row">
+      <div class="list-row-left">
+        <span class="list-num">06</span>
+        <span class="list-emoji">🛍️</span>
+        <div class="list-info">
+          <h4>E-Commerce Personalization at Scale</h4>
+          <span>UX Personalization · Arcadia Group</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:20px;">
+        <span class="list-metric">11% conversion lift</span>
+        <span class="list-arrow">→</span>
+      </div>
+    </a>
+    <a href="#" class="list-row">
+      <div class="list-row-left">
+        <span class="list-num">07</span>
+        <span class="list-emoji">🤟</span>
+        <div class="list-info">
+          <h4>GesturePro — Sign Language Translation</h4>
+          <span>AI / Accessibility · Full-Stack</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:20px;">
+        <span class="list-metric">Real-time, zero hardware</span>
+        <span class="list-arrow">→</span>
+      </div>
+    </a>
+    <a href="#" class="list-row">
+      <div class="list-row-left">
+        <span class="list-num">08</span>
+        <span class="list-emoji">🔐</span>
+        <div class="list-info">
+          <h4>CryptoSecure: Smart Contract Security</h4>
+          <span>Blockchain / ML · Drexel Project</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:20px;">
+        <span class="list-metric">$10K audit → 30 seconds</span>
+        <span class="list-arrow">→</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════ OPTION E ══════════════════════════════════ -->
+<div id="optE" class="section">
+  <div class="e-header">
+    <p class="eyebrow">Featured Work</p>
+    <h2>Best of <span>my work.</span></h2>
+  </div>
+
+  <!-- Featured 2-col -->
+  <div class="e-featured">
+    <a href="#" class="e-feat-card purple">
+      <div class="e-emoji-bg">🏥</div>
+      <p class="e-feat-tag">NLP & UX Research · ABIM</p>
+      <h3>Measuring Patient-Centered Communication</h3>
+      <p>Scalable NLP pipeline measuring communication behaviors across 985 clinical transcripts, grounded in Calgary-Cambridge and NURSE frameworks.</p>
+      <div class="e-feat-cta">View Case Study →</div>
+    </a>
+    <a href="#" class="e-feat-card pink">
+      <div class="e-emoji-bg">⚕️</div>
+      <p class="e-feat-tag">Data Science & ML · ABIM</p>
+      <h3>Healthcare Bias — NLP Detection</h3>
+      <p>ClinicalBERT + RoBERTa ensemble surfacing implicit clinician bias across patient demographics at scale.</p>
+      <div class="e-feat-cta">View Case Study →</div>
+    </a>
+  </div>
+
+  <div class="e-scroll-label">
+    <div></div>
+    <span>Scroll to explore more →</span>
+    <div></div>
+  </div>
+  <p class="e-scroll-hint">← drag to scroll →</p>
+
+  <div class="e-ribbon" id="ribbon">
+    <a href="#" class="e-mini">
+      <span class="e-mini-emoji">🌱</span>
+      <p class="e-mini-tag">UX Research</p>
+      <h4>PM Design Thinking @ John Deere</h4>
+      <p class="e-mini-metric">80% UX confidence lift</p>
+    </a>
+    <a href="#" class="e-mini">
+      <span class="e-mini-emoji">📊</span>
+      <p class="e-mini-tag">Product Design</p>
+      <h4>Enterprise Survey Logic & Analytics</h4>
+      <p class="e-mini-metric">60% faster build time</p>
+    </a>
+    <a href="#" class="e-mini">
+      <span class="e-mini-emoji">📖</span>
+      <p class="e-mini-tag">UX Research & Design</p>
+      <h4>Stories by Children</h4>
+      <p class="e-mini-metric">50% → 85% task success</p>
+    </a>
+    <a href="#" class="e-mini">
+      <span class="e-mini-emoji">🛍️</span>
+      <p class="e-mini-tag">UX Personalization</p>
+      <h4>E-Commerce Personalization at Scale</h4>
+      <p class="e-mini-metric">11% conversion lift</p>
+    </a>
+    <a href="#" class="e-mini">
+      <span class="e-mini-emoji">🤟</span>
+      <p class="e-mini-tag">AI / Accessibility</p>
+      <h4>GesturePro — Sign Language Translation</h4>
+      <p class="e-mini-metric">Real-time, zero hardware</p>
+    </a>
+    <a href="#" class="e-mini">
+      <span class="e-mini-emoji">🔐</span>
+      <p class="e-mini-tag">Blockchain / ML</p>
+      <h4>CryptoSecure: Smart Contract Security</h4>
+      <p class="e-mini-metric">$10K audit → 30 seconds</p>
+    </a>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════ OPTION F ══════════════════════════════════ -->
+<div id="optF" class="section">
+  <div class="f-header">
+    <p class="eyebrow">Featured Work</p>
+    <h2>Work by <em>discipline.</em></h2>
+  </div>
+
+  <!-- Featured pinned -->
+  <div class="f-featured-row">
+    <a href="#" class="f-feat one">
+      <div class="f-emoji-bg">🏥</div>
+      <div class="f-feat-label">
+        <span class="f-feat-tag">NLP & UX Research</span>
+        <span class="f-star">⭐ Featured</span>
+      </div>
+      <h3>Measuring Patient-Centered Communication</h3>
+      <p>Scalable NLP pipeline grounded in Calgary-Cambridge and NURSE frameworks, built for ABIM across 985 clinical transcripts.</p>
+      <div class="f-feat-cta">View Case Study →</div>
+    </a>
+    <a href="#" class="f-feat two">
+      <div class="f-emoji-bg">⚕️</div>
+      <div class="f-feat-label">
+        <span class="f-feat-tag">Data Science & ML</span>
+        <span class="f-star">⭐ Featured</span>
+      </div>
+      <h3>Healthcare Bias — NLP Detection</h3>
+      <p>ML pipelines surfacing implicit clinician bias across patient demographics at scale using ClinicalBERT + RoBERTa.</p>
+      <div class="f-feat-cta">View Case Study →</div>
+    </a>
+  </div>
+
+  <!-- Filter pills -->
+  <div class="f-filters" style="margin-top:32px;">
+    <button class="f-filter active" onclick="filterCat('all', this)">All</button>
+    <button class="f-filter" onclick="filterCat('ux', this)">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#7c5cbf;margin-right:6px;"></span>UX Research
+    </button>
+    <button class="f-filter" onclick="filterCat('ai', this)">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;margin-right:6px;"></span>AI / ML
+    </button>
+    <button class="f-filter" onclick="filterCat('ds', this)">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:6px;"></span>Product Design
+    </button>
+  </div>
+
+  <!-- Grid -->
+  <div class="f-grid">
+    <a href="#" class="f-card" data-cat="ux">
+      <div class="f-card-top"><span class="f-card-tag">UX Research</span><span class="f-card-emoji">🌱</span></div>
+      <h4>PM Design Thinking @ John Deere</h4>
+      <p class="f-metric">80% UX confidence lift</p>
+    </a>
+    <a href="#" class="f-card" data-cat="ds">
+      <div class="f-card-top"><span class="f-card-tag">Product Design</span><span class="f-card-emoji">📊</span></div>
+      <h4>Enterprise Survey Logic & Analytics</h4>
+      <p class="f-metric">60% faster build time</p>
+    </a>
+    <a href="#" class="f-card" data-cat="ux">
+      <div class="f-card-top"><span class="f-card-tag">UX Research & Design</span><span class="f-card-emoji">📖</span></div>
+      <h4>Stories by Children</h4>
+      <p class="f-metric">50% → 85% task success</p>
+    </a>
+    <a href="#" class="f-card" data-cat="ux">
+      <div class="f-card-top"><span class="f-card-tag">UX Personalization</span><span class="f-card-emoji">🛍️</span></div>
+      <h4>E-Commerce Personalization at Scale</h4>
+      <p class="f-metric">11% conversion lift</p>
+    </a>
+    <a href="#" class="f-card" data-cat="ai">
+      <div class="f-card-top"><span class="f-card-tag">AI / Accessibility</span><span class="f-card-emoji">🤟</span></div>
+      <h4>GesturePro — Sign Language Translation</h4>
+      <p class="f-metric">Real-time, zero hardware</p>
+    </a>
+    <a href="#" class="f-card" data-cat="ai">
+      <div class="f-card-top"><span class="f-card-tag">Blockchain / ML</span><span class="f-card-emoji">🔐</span></div>
+      <h4>CryptoSecure: Smart Contract Security</h4>
+      <p class="f-metric">$10K audit → 30 seconds</p>
+    </a>
+  </div>
+</div>
+
+<script>
+  const tabDescs = {
+    D: "Two cinematic hero cards with alternating image/text layout (one left, one right). The remaining 6 projects become a clean numbered list — confident and editorial.",
+    E: "Featured 2-up pinned at top. The remaining projects live in a horizontally draggable ribbon — great for showcasing depth without overwhelming the page.",
+    F: "Featured 2-up at top. Below, a filterable grid with category pills (UX Research / AI·ML / Product Design) — great for showing range and letting recruiters self-sort."
+  };
+
+  function showTab(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('opt' + id).classList.add('active');
+    btn.classList.add('active');
+    document.getElementById('tab-desc').textContent = tabDescs[id];
+  }
+
+  function filterCat(cat, btn) {
+    document.querySelectorAll('.f-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.f-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  // Ribbon drag scroll
+  const ribbon = document.getElementById('ribbon');
+  if (ribbon) {
+    let isDown = false, startX, scrollLeft;
+    ribbon.addEventListener('mousedown', e => {
+      isDown = true; ribbon.style.cursor = 'grabbing';
+      startX = e.pageX - ribbon.offsetLeft;
+      scrollLeft = ribbon.scrollLeft;
+    });
+    ribbon.addEventListener('mouseleave', () => { isDown = false; ribbon.style.cursor = 'grab'; });
+    ribbon.addEventListener('mouseup', () => { isDown = false; ribbon.style.cursor = 'grab'; });
+    ribbon.addEventListener('mousemove', e => {
+      if (!isDown) return; e.preventDefault();
+      const x = e.pageX - ribbon.offsetLeft;
+      ribbon.scrollLeft = scrollLeft - (x - startX) * 1.5;
+    });
+  }
+</script>
+</body>
+</html>
