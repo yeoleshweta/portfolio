@@ -9,6 +9,8 @@ import {
   ContextCard,
   ResultsGrid,
   BaselineTargetMetrics,
+  SkillSpotlight,
+  SkillConstellation,
 } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
@@ -200,6 +202,12 @@ export default function StoriesByChildrenCaseStudy() {
           label="Overview"
           heading="60% of Users Never Reached a Story"
         >
+          <SkillConstellation
+            primary={["Information Architecture", "Usability Testing", "User Research with Families"]}
+            supporting={["Lean UX", "Rapid Prototyping"]}
+            emerging={["Design for Children", "Accessibility"]}
+          />
+
           <p>
             <a
               href="https://www.storiesbychildren.com/"
@@ -210,7 +218,7 @@ export default function StoriesByChildrenCaseStudy() {
               Stories by Children
             </a>{" "}
             is an online platform where young readers aged 6–12 discover stories
-            and budding writers aged 7–17 share original work. It's a space
+            and budding writers aged 7–17 share original work. It&apos;s a space
             families and educators rely on to nurture creativity — but the
             platform was quietly failing its users.
           </p>
@@ -247,7 +255,7 @@ export default function StoriesByChildrenCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="research"
-          label="Discovery"
+          label="The Craft"
           heading="Testing with Real Families"
         >
           <p>
@@ -257,6 +265,12 @@ export default function StoriesByChildrenCaseStudy() {
             natural dynamics of how children and adults collaborate when
             browsing and submitting content.
           </p>
+
+          <SkillSpotlight
+            skill="User Research with Children & Families"
+            description="Conducted sessions with real families, adapting methods for child participants (shorter sessions, visual prompts, parent co-participation)."
+            evidence="5 distinct insights each mapped directly to a design decision."
+          />
 
           <h3 style={{ marginTop: "48px" }}>Three Signals from Children</h3>
 
@@ -283,9 +297,9 @@ export default function StoriesByChildrenCaseStudy() {
           <h3>The Critical Parent Finding</h3>
           <p>
             Parents consistently broke down at the upload workflow. They
-            couldn't place their child's submission in the right section, didn't
+            couldn&apos;t place their child&apos;s submission in the right section, didn&apos;t
             understand the review process, and frequently abandoned the flow
-            entirely. This wasn't friction — it was a{" "}
+            entirely. This wasn&apos;t friction — it was a{" "}
             <strong>complete barrier to contribution</strong>.
           </p>
         </CaseStudySection>
@@ -306,6 +320,12 @@ export default function StoriesByChildrenCaseStudy() {
             section below maps each research finding directly to the interface
             decision it produced.
           </p>
+
+          <SkillSpotlight
+            skill="Information Architecture"
+            description="Restructured platform IA to reduce cognitive load for young users, simplifying navigation and making submission flows intuitive."
+            evidence="Task success 50% → 85%, navigation depth 4+ clicks → 1-2 clicks."
+          />
 
           <div style={{ marginTop: "48px" }}>
             <InsightToDesign
@@ -348,6 +368,12 @@ export default function StoriesByChildrenCaseStudy() {
               designDetail="Every story card and section header displays a colour-coded age badge, providing instant clarity without deep navigation."
             />
           </div>
+
+          <SkillSpotlight
+            skill="Rapid Prototyping"
+            description="Produced testable prototypes within 6-week constraint, enabling multiple rounds of validation with real users."
+            evidence="Two rapid Lean UX sprint cycles completed."
+          />
 
           <h3 style={{ marginTop: "48px" }}>
             The Platform Experience: Key Screens
@@ -396,6 +422,12 @@ export default function StoriesByChildrenCaseStudy() {
             50% to 85%.
           </p>
 
+          <SkillSpotlight
+            skill="Usability Testing"
+            description="Tested redesigned flows with target users (children + parents)."
+            evidence="50%→85% task success, verified across both audience segments."
+          />
+
           <BaselineTargetMetrics
             items={[
               {
@@ -425,7 +457,7 @@ export default function StoriesByChildrenCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="impact"
-          label="Outcomes"
+          label="The Evidence & Growth"
           heading="The Numbers After Launch"
         >
           <p>
@@ -465,6 +497,26 @@ export default function StoriesByChildrenCaseStudy() {
             includes multi-language support, educator-focused reading-level
             filters, peer feedback features, and enhanced accessibility.
           </p>
+
+          <div
+            style={{
+              marginTop: "48px",
+              padding: "32px",
+              background: "rgba(139, 105, 250, 0.04)",
+              borderRadius: "16px",
+              border: "1px solid rgba(139, 105, 250, 0.1)",
+            }}
+          >
+            <h4 style={{ margin: "0 0 12px 0", fontSize: "16px", color: "#8b69fa", fontWeight: 700 }}>
+              Key Growth Learnings
+            </h4>
+            <p style={{ fontSize: "15px", lineHeight: 1.7, margin: "0 0 8px 0" }}>
+              Designing for children requires fundamentally different IA thinking. Lean UX works when committed to real users, not just fast timelines.
+            </p>
+            <p style={{ fontSize: "14px", lineHeight: 1.6, margin: 0, color: "var(--color-text-secondary)", fontStyle: "italic" }}>
+              Insight-to-decision mapping makes design rationale transparent and defensible.
+            </p>
+          </div>
 
           <div
             style={{

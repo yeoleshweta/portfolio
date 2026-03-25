@@ -10,6 +10,8 @@ import {
   ResultsGrid,
   Blockquote,
   BaselineTargetMetrics,
+  SkillSpotlight,
+  SkillConstellation,
 } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
@@ -266,6 +268,12 @@ export default function ABIMCaseStudy() {
           label="Overview"
           heading="Why Communication Measurement Matters — and Why It's Hard"
         >
+          <SkillConstellation
+            primary={["NLP Pipeline Engineering", "Transformer Fine-Tuning (BERT)", "Rubric Design"]}
+            supporting={["Prompt Engineering", "LLM-Assisted Labeling", "Data Curation"]}
+            emerging={["Research Ethics & AI Governance", "PHI De-identification"]}
+          />
+
           <p>
             The{" "}
             <a
@@ -346,7 +354,7 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="methodology"
-          label="Approach"
+          label="The Craft"
           heading="From Rubric to Scalable Classifier"
         >
           <p>
@@ -357,6 +365,12 @@ export default function ABIMCaseStudy() {
             ground truth realism and reduce &quot;too-clean&quot; synthetic
             behavior patterns.
           </p>
+
+          <SkillSpotlight
+            skill="Rubric Design"
+            description="Translated two clinical communication frameworks into construct-level scoring rubrics with inclusion/exclusion criteria and borderline examples."
+            evidence="11 distinct construct rubrics reducing subjective interpretation."
+          />
 
           <h3 style={{ marginTop: "48px" }}>The Pipeline</h3>
           <p>
@@ -420,6 +434,12 @@ export default function ABIMCaseStudy() {
           </p>
 
           <DatasetTable />
+
+          <SkillSpotlight
+            skill="Data Curation & Source Evaluation"
+            description="Evaluated 4 transcript corpora across realism, domain coverage, and labeling implications. Made strategic call to anchor on real-encounter data."
+            evidence="Dataset sources table; simulated→real pivot decision documented."
+          />
 
           <h3 style={{ marginTop: "48px" }}>Key Methodological Decisions</h3>
 
@@ -491,6 +511,24 @@ export default function ABIMCaseStudy() {
               </motion.div>
             ))}
           </div>
+
+          <SkillSpotlight
+            skill="Prompt Engineering for Measurement"
+            description="Designed prompts that function as measurement instruments, not generation prompts. Each included rubric, boundary conditions, and required structured output."
+            evidence="Scalable labeling of 985 conversations with construct-level precision."
+          />
+
+          <SkillSpotlight
+            skill="LLM-Assisted Labeling at Scale"
+            description="Used LLMs as scalable annotators constrained by rubric-grounded prompts."
+            evidence="985 conversations × 11 constructs labeled, replacing months of manual work."
+          />
+
+          <SkillSpotlight
+            skill="Transformer Fine-Tuning (BERT)"
+            description="Fine-tuned BERT encoder for per-construct classification with probability outputs."
+            evidence="Near-zero inference cost replacing expensive LLM API calls."
+          />
         </CaseStudySection>
 
         {/* ============================================ */}
@@ -498,7 +536,7 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="results"
-          label="Outcomes"
+          label="The Evidence"
           heading="What We Built and Learned"
         >
           <p>
@@ -655,7 +693,7 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="governance"
-          label="Ethics & Governance"
+          label="The Growth"
           heading="What We Recommend Not Doing"
         >
           <p>
@@ -668,6 +706,12 @@ export default function ABIMCaseStudy() {
             </strong>
             . These governance constraints shaped our entire framing.
           </p>
+
+          <SkillSpotlight
+            skill="PHI De-identification"
+            description="Implemented NER-style PHI masking before scaling to real clinical transcripts."
+            evidence="Pipeline processes real clinical data while maintaining HIPAA compliance."
+          />
 
           <div
             style={{
@@ -763,6 +807,26 @@ export default function ABIMCaseStudy() {
                 </p>
               </motion.div>
             ))}
+          </div>
+
+          <div
+            style={{
+              marginTop: "48px",
+              padding: "32px",
+              background: "rgba(139, 105, 250, 0.04)",
+              borderRadius: "16px",
+              border: "1px solid rgba(139, 105, 250, 0.1)",
+            }}
+          >
+            <h4 style={{ margin: "0 0 12px 0", fontSize: "16px", color: "#8b69fa", fontWeight: 700 }}>
+              What I&apos;d Do Differently
+            </h4>
+            <p style={{ fontSize: "15px", lineHeight: 1.7, margin: "0 0 12px 0" }}>
+              Build human validation sets earlier. The rubric IS the product, not the classifier.
+            </p>
+            <p style={{ fontSize: "14px", lineHeight: 1.6, margin: 0, color: "var(--color-text-secondary)", fontStyle: "italic" }}>
+              Evolved thinking: &quot;The rubric IS the product, not the classifier&quot; — weeks of rubric iteration paid off more than any model tuning.
+            </p>
           </div>
 
           <div

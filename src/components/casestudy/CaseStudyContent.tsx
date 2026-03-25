@@ -108,7 +108,7 @@ export interface PersonaProps {
 export function PersonaCardActual({
   name = "Rajesh",
   role = "The Product Manager",
-  photoSrc = "/rajesh_portrait_hd.png",
+  photoSrc = "/assets/rajesh_portrait.png",
   demographics = [
     "38 yrs. old",
     "4 Years as product manager",
@@ -1096,3 +1096,91 @@ export function WorkflowComparison() {
     </div>
   );
 }
+
+/* ─── Skill Spotlight ─── */
+export function SkillSpotlight({
+  skill,
+  description,
+  evidence,
+}: {
+  skill: string;
+  description: string;
+  evidence: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -12 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className={styles.skillSpotlight}
+    >
+      <span className={styles.skillSpotlightLabel}>Skill Spotlight</span>
+      <h4 className={styles.skillSpotlightTitle}>{skill}</h4>
+      <p className={styles.skillSpotlightBody}>{description}</p>
+      <p className={styles.skillSpotlightEvidence}>Evidence: {evidence}</p>
+    </motion.div>
+  );
+}
+
+/* ─── Skill Constellation ─── */
+export function SkillConstellation({
+  primary,
+  supporting,
+  emerging,
+}: {
+  primary: string[];
+  supporting: string[];
+  emerging: string[];
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className={styles.skillConstellation}
+    >
+      <h3 className={styles.skillConstellationTitle}>Skill Constellation</h3>
+      <div className={styles.skillConstellationGrid}>
+        <div className={styles.skillConstellationColumn}>
+          <h4 className={`${styles.skillConstellationColumnTitle} ${styles.primary}`}>
+            Primary
+          </h4>
+          <div>
+            {primary.map((s) => (
+              <span key={s} className={`${styles.skillPill} ${styles.primary}`}>
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className={styles.skillConstellationColumn}>
+          <h4 className={`${styles.skillConstellationColumnTitle} ${styles.supporting}`}>
+            Supporting
+          </h4>
+          <div>
+            {supporting.map((s) => (
+              <span key={s} className={`${styles.skillPill} ${styles.supporting}`}>
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className={styles.skillConstellationColumn}>
+          <h4 className={`${styles.skillConstellationColumnTitle} ${styles.emerging}`}>
+            Emerging
+          </h4>
+          <div>
+            {emerging.map((s) => (
+              <span key={s} className={`${styles.skillPill} ${styles.emerging}`}>
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+

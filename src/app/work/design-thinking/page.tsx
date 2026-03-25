@@ -13,6 +13,8 @@ import {
   InteractiveBarChart,
   Blockquote,
   PersonaCardActual,
+  SkillSpotlight,
+  SkillConstellation,
 } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
@@ -43,6 +45,12 @@ export default function DesignThinkingCaseStudy() {
         label="The Starting Point"
         heading="A Systems Problem Nobody Was Naming"
       >
+        <SkillConstellation
+          primary={["Contextual Inquiry", "Workshop Facilitation", "Organizational Change Management"]}
+          supporting={["Persona Development", "Affinity Mapping", "Usability Testing (SUS)"]}
+          emerging={["Stakeholder Mapping", "Co-creation Methods"]}
+        />
+
         <p>
           At John Deere, Product Managers are the connective tissue between
           users, engineering, and business strategy across a 250+ product
@@ -56,17 +64,23 @@ export default function DesignThinkingCaseStudy() {
           title="The Challenge"
           text="Equip PMs with UX frameworks and collaborative workflows so they can confidently lead user-centred design, moving from ad-hoc practices to systematic execution."
         />
+
+        <SkillSpotlight
+          skill="Stakeholder Mapping"
+          description="Mapped full ecosystem of PMs, UX, Engineering, and Leadership to understand information flow breakdowns and highest-leverage intervention points."
+          evidence="Identified 3 macro-clusters of friction through cross-functional mapping."
+        />
       </CaseStudySection>
 
       {/* --- IMMEDIATE IMPACT (Moved UP for punchiness) --- */}
       <CaseStudySection
         id="impact"
-        label="Outcomes"
+        label="The Evidence"
         heading="Measurable Cultural Shift"
       >
         <p style={{ marginBottom: "32px" }}>
           Before diving into the methodology, here is the tangible impact of
-          deploying the "PM-UX Playbook" pilot to a 50-person cohort over 4
+          deploying the &quot;PM-UX Playbook&quot; pilot to a 50-person cohort over 4
           weeks:
         </p>
 
@@ -103,7 +117,7 @@ export default function DesignThinkingCaseStudy() {
       {/* --- METHODOLOGY CAROUSEL --- */}
       <CaseStudySection
         id="discover"
-        label="Methodology"
+        label="The Craft"
         heading="Double Diamond Framework"
       >
         <p>
@@ -155,6 +169,12 @@ export default function DesignThinkingCaseStudy() {
             },
           ]}
         />
+
+        <SkillSpotlight
+          skill="Contextual Inquiry"
+          description="Conducted 15 contextual interviews AND shadowed real planning meetings. Observation in context surfaced friction points interview questions alone miss."
+          evidence='"Contextual research reveals what surveys cannot" became core learning.'
+        />
       </CaseStudySection>
 
       {/* --- DEFINE: PERSONA & FINDINGS --- */}
@@ -189,20 +209,32 @@ export default function DesignThinkingCaseStudy() {
 
         <h3>Rajesh, Senior Product Manager</h3>
         <p>
-          Research synthesised into "Rajesh," capturing the composite behaviours
+          Research synthesised into &quot;Rajesh,&quot; capturing the composite behaviours
           and frustrations of our target PMs. Identifying his true baseline was
           critical: they needed collaboration templates, not UX encyclopedias.
         </p>
 
+        <SkillSpotlight
+          skill="Persona Development"
+          description="Synthesized interview data into 'Rajesh' persona with quantified baseline scores."
+          evidence="Persona directly shaped solution design — templates over education."
+        />
+
         <PersonaCardActual />
 
         <div style={{ maxWidth: "500px", margin: "0 auto" }}>
-          <h4>Rajesh's Baseline Proficiency</h4>
+          <h4>Rajesh&apos;s Baseline Proficiency</h4>
           <PersonaProgress label="Research Interpretation" value={20} />
           <PersonaProgress label="Design Critique" value={15} />
           <PersonaProgress label="UX Vocabulary" value={30} />
           <PersonaProgress label="User Empathy" value={45} />
         </div>
+
+        <SkillSpotlight
+          skill="Affinity Mapping"
+          description="Clustered raw interview data into 3 macro-themes, enabling convergence on root causes rather than symptoms."
+          evidence="3 clusters directly mapped to 3 of the 4 solution concepts."
+        />
       </CaseStudySection>
 
       {/* --- DEVELOP: SOLUTIONS --- */}
@@ -216,6 +248,12 @@ export default function DesignThinkingCaseStudy() {
           four highly feasible, high-impact concepts designed to integrate into
           existing workflows.
         </p>
+
+        <SkillSpotlight
+          skill="Workshop Facilitation & Co-creation"
+          description="Designed and facilitated 2 co-creation workshops generating 40+ ideas, then led convergence to 4 feasible solutions."
+          evidence="40+ ideas → 4 high-impact concepts in 2 sessions."
+        />
 
         <div
           style={{
@@ -311,14 +349,20 @@ export default function DesignThinkingCaseStudy() {
         </p>
         <ul>
           <li>
-            <strong>Simplified Navigation:</strong> Merged "Learn" and
-            "Templates" into a workflow-staged "Resources" hub.
+            <strong>Simplified Navigation:</strong> Merged &quot;Learn&quot; and
+            &quot;Templates&quot; into a workflow-staged &quot;Resources&quot; hub.
           </li>
           <li>
-            <strong>Contextual Prompts:</strong> Added "Use this when..." tips
+            <strong>Contextual Prompts:</strong> Added &quot;Use this when...&quot; tips
             to all UX Playbooks.
           </li>
         </ul>
+
+        <SkillSpotlight
+          skill="Usability Testing & SUS Scoring"
+          description="Tested during actual planning workshops, not lab settings. SUS 78 validated usability; qualitative feedback drove the 'contextual timing' iteration."
+          evidence='SUS 78 + "Now I know WHEN to use this" insight → Resources restructure.'
+        />
 
         <Blockquote
           text="Now I know when to use this, not just that it exists."
@@ -329,7 +373,7 @@ export default function DesignThinkingCaseStudy() {
       {/* --- LEARNINGS --- */}
       <CaseStudySection
         id="learnings"
-        label="Reflections"
+        label="The Growth"
         heading="Key Learnings & Next Steps"
       >
         <h3>What Worked</h3>
@@ -369,7 +413,7 @@ export default function DesignThinkingCaseStudy() {
 
         <p>
           The community forum is still active. The Buddy-Up programme is in its
-          third cohort. And the phrase "What does the research say?" is now
+          third cohort. And the phrase &quot;What does the research say?&quot; is now
           heard in sprint planning meetings across the organisation.
         </p>
       </CaseStudySection>

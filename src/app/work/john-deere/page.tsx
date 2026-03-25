@@ -10,6 +10,8 @@ import {
   ExpandableSurveyRow,
   BaselineTargetMetrics,
   WorkflowComparison,
+  SkillSpotlight,
+  SkillConstellation,
 } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
@@ -40,17 +42,23 @@ export default function JohnDeereCaseStudy() {
           label="Overview"
           heading="The 2-Hour Survey Tax"
         >
+          <SkillConstellation
+            primary={["Interaction Design", "User Research", "Information Architecture"]}
+            supporting={["Inline Logic Design", "Design Systems"]}
+            emerging={["Enterprise UX", "Self-Serve Platform Design"]}
+          />
+
           <p>
-            John Deere's 250+ products all need user feedback. But building a
+            John Deere&apos;s 250+ products all need user feedback. But building a
             single survey took <strong>~120 minutes</strong> of back-and-forth
             between a Product Manager and an engineer — filing tickets,
             reviewing builds, requesting changes. For an organisation that needs
-            feedback constantly, this wasn't just inefficient. It was a
+            feedback constantly, this wasn&apos;t just inefficient. It was a
             bottleneck slowing down product decisions across the entire company.
           </p>
           <p>
             <strong>I was asked to fix it.</strong> Before touching a pixel, I
-            set three baseline metrics with the product owner so we'd know
+            set three baseline metrics with the product owner so we&apos;d know
             whether we actually succeeded:
           </p>
 
@@ -76,6 +84,12 @@ export default function JohnDeereCaseStudy() {
               },
             ]}
           />
+
+          <SkillSpotlight
+            skill="Metric-Driven Design"
+            description="Set explicit success criteria with the product owner before starting design. Baseline metrics became the benchmark for every design decision."
+            evidence="3 measurable targets defined pre-design; all exceeded post-launch."
+          />
         </CaseStudySection>
 
         {/* ============================================ */}
@@ -83,7 +97,7 @@ export default function JohnDeereCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="ux-story"
-          label="Research → Design"
+          label="The Craft"
           heading="How UX Research Reshaped the Entire Workflow"
         >
           <p>
@@ -91,11 +105,18 @@ export default function JohnDeereCaseStudy() {
             owners, engineers, and UX researchers — everyone who touched a
             survey. The finding that changed the entire project came from
             observing users building <strong>branching logic</strong>: they had
-            to save their question, switch to a separate "Logic Rules" tab,
+            to save their question, switch to a separate &quot;Logic Rules&quot; tab,
             manually look up question IDs, and write conditional rules by hand.
             This cognitively heavy process led to a{" "}
             <strong>60% drop-off rate</strong> when building complex surveys.
           </p>
+
+          <SkillSpotlight
+            skill="Contextual User Research"
+            description="Conducted 45-min semi-structured interviews AND observed real survey-building sessions. Observation uncovered the branching logic pain point that interview questions alone missed."
+            evidence="60% drop-off rate at branching logic identified through task observation."
+          />
+
           <p>
             <strong>The Solution:</strong> I fundamentally restructured the
             mental model. By introducing an <strong>Inline Branching UI</strong>{" "}
@@ -104,6 +125,12 @@ export default function JohnDeereCaseStudy() {
           </p>
 
           <WorkflowComparison />
+
+          <SkillSpotlight
+            skill="Inline Logic Design"
+            description="Replaced disconnected tab-switching workflow with contextual inline branching directly on the question card, eliminating the need to memorize question IDs."
+            evidence="Hesitation around branching dropped to zero in Round 2 testing."
+          />
 
           <p style={{ marginTop: "48px" }}>
             This single design decision eliminated the biggest usability
@@ -137,6 +164,12 @@ export default function JohnDeereCaseStudy() {
             surveys. No separate reports page. No context switch.
           </p>
 
+          <SkillSpotlight
+            skill="Analytics-in-Context Design"
+            description="Eliminated the CSV→Excel→Email pipeline by embedding interactive analytics directly within the survey management table."
+            evidence="Insights accessible in one click, not a multi-step export workflow."
+          />
+
           <div style={{ marginTop: "48px", marginBottom: "48px" }}>
             <ExpandableSurveyRow />
           </div>
@@ -147,7 +180,7 @@ export default function JohnDeereCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="impact"
-          label="Outcomes"
+          label="The Evidence & Growth"
           heading="Every Baseline Target Was Exceeded"
         >
           <p>
@@ -189,9 +222,15 @@ export default function JohnDeereCaseStudy() {
             author="Product Manager, Pilot Participant"
           />
 
+          <SkillSpotlight
+            skill="Enterprise UX & Self-Serve Design"
+            description="Transformed a tool requiring engineering support into a fully self-serve platform, eliminating dependency entirely."
+            evidence="100% self-serve adoption; pilot success led to funding for advanced features."
+          />
+
           <h3>What Came Next</h3>
           <p>
-            The pilot's success led directly to funding for Multi-Language
+            The pilot&apos;s success led directly to funding for Multi-Language
             Support, Advanced Cross-Tabulation Analytics, a permanent Template
             Library, and full CRM integrations. A tool meant to solve a 2-hour
             bottleneck became the foundation for how John Deere listens to its

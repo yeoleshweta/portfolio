@@ -9,6 +9,8 @@ import {
   ContextCard,
   ResultsGrid,
   Blockquote,
+  SkillSpotlight,
+  SkillConstellation,
 } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
@@ -127,14 +129,20 @@ export default function PersonalizationCaseStudy() {
           label="Overview"
           heading="Designing Conversion Strategies for Wallis"
         >
+          <SkillConstellation
+            primary={["Behavioral Segmentation", "A/B Testing & Experimentation", "Real-Time Personalization"]}
+            supporting={["Funnel Diagnostics", "Campaign Mirroring", "Statistical Rigor"]}
+            emerging={["Ethical Persuasion Design", "Audience Empathy"]}
+          />
+
           <p>
             The project focused on bridging the gap between high-volume
             marketing and generic website experiences. For Wallis, the challenge
-            wasn't a lack of traffic; it was that a vast number of shoppers saw
+            wasn&apos;t a lack of traffic; it was that a vast number of shoppers saw
             exactly the same experience, leading to significant revenue leakage.
           </p>
           <p>
-            As a Personalization Specialist embedded within Qubit's London team,
+            As a Personalization Specialist embedded within Qubit&apos;s London team,
             I designed and implemented real-time behavioral interventions for
             the Wallis website, turning generic sessions into contextually
             relevant journeys.
@@ -161,7 +169,7 @@ export default function PersonalizationCaseStudy() {
 
         <CaseStudySection
           id="diagnosis"
-          label="The Diagnosis"
+          label="The Tension"
           heading="What the Data Revealed"
         >
           <p>
@@ -170,15 +178,21 @@ export default function PersonalizationCaseStudy() {
             sources of conversion loss.
           </p>
 
+          <SkillSpotlight
+            skill="Funnel Diagnostics"
+            description="Mapped end-to-end behavioral data to identify the three highest-impact friction zones in the conversion funnel."
+            evidence="Diagnosed 3 friction patterns — disconnected journeys, dead ends, and one-size-fits-all — that accounted for majority of revenue leakage."
+          />
+
           <div style={{ marginTop: "40px" }}>
             <h3 style={{ fontSize: "20px", marginBottom: "16px" }}>
               1. The Disconnected Journey
             </h3>
             <p>
               Email campaigns drove massive spikes, but the website remained
-              "unaware" of why the visitor was there. We found that discount
+              &quot;unaware&quot; of why the visitor was there. We found that discount
               code usage was significantly lower than open rates because the
-              site failed to remind customers of the offers they'd clicked on.
+              site failed to remind customers of the offers they&apos;d clicked on.
             </p>
 
             <h3
@@ -193,7 +207,7 @@ export default function PersonalizationCaseStudy() {
             <p>
               Empty bags and zero-results search pages functioned as exits.
               Instead of recovering the session, the site simply displayed a
-              "Sorry" message, abandoning thousands of daily visitors at the
+              &quot;Sorry&quot; message, abandoning thousands of daily visitors at the
               point of intent.
             </p>
 
@@ -218,7 +232,7 @@ export default function PersonalizationCaseStudy() {
 
         <CaseStudySection
           id="framework"
-          label="The Framework"
+          label="The Craft"
           heading="Building a Systematic Approach"
         >
           <p>
@@ -227,6 +241,12 @@ export default function PersonalizationCaseStudy() {
             allowed us to deploy interventions systematically with speed and
             rigour.
           </p>
+
+          <SkillSpotlight
+            skill="Behavioral Segmentation"
+            description="Designed audience segments from behavioral signals, not just demographics. Real-time triggers responded to in-session actions."
+            evidence="Geo-specific social proof, threshold nudges, and history-aware personalization."
+          />
 
           <div style={{ marginTop: "40px" }}>
             <FrameworkLayer
@@ -274,6 +294,12 @@ export default function PersonalizationCaseStudy() {
               ]}
             />
           </div>
+
+          <SkillSpotlight
+            skill="Real-Time Personalization"
+            description="Built and deployed interventions that responded to in-session behavior — not pre-defined user segments."
+            evidence="Four-layer framework deployed across all key funnels."
+          />
         </CaseStudySection>
 
         <CaseStudySection
@@ -282,7 +308,7 @@ export default function PersonalizationCaseStudy() {
           heading="Rigorous Execution"
         >
           <p>
-            Implementation wasn't just about UI changes—it was about{" "}
+            Implementation wasn&apos;t just about UI changes—it was about{" "}
             <strong>statistical rigour</strong>. We introduced 10% blank-ad
             control groups (placebos) to calculate true incremental ROI, moving
             from correlation to causation.
@@ -292,11 +318,17 @@ export default function PersonalizationCaseStudy() {
             promotional calendar, ensuring creative was always aligned with the
             trade plan.
           </p>
+
+          <SkillSpotlight
+            skill="A/B Testing & Statistical Rigor"
+            description="Implemented 10% blank-ad control groups (placebos) to isolate true incremental lift from confounds."
+            evidence="Shifted measurement from correlation to causation for every intervention."
+          />
         </CaseStudySection>
 
         <CaseStudySection
           id="results"
-          label="Results"
+          label="The Evidence"
           heading="Measuring the Lift"
         >
           <ResultsGrid
@@ -337,7 +369,7 @@ export default function PersonalizationCaseStudy() {
 
         <CaseStudySection
           id="reflections"
-          label="Reflections"
+          label="The Growth"
           heading="Key Learnings"
         >
           <div
@@ -414,12 +446,12 @@ export default function PersonalizationCaseStudy() {
               The Audience Lesson
             </h4>
             <p style={{ fontSize: "15px", lineHeight: 1.7, margin: 0 }}>
-              This project taught me that personalization isn't just about
-              adding more—it's about adding the right thing. For various
-              segments, particularly less digitally native users, "good
-              personalization" meant restraint and orientation. It shifted my
+              This project taught me that personalization isn&apos;t just about
+              adding more—it&apos;s about adding the right thing. For various
+              segments, particularly less digitally native users, &quot;good
+              personalization&quot; meant restraint and orientation. It shifted my
               perspective from extracting value to genuinely helping the user,
-              making "Is this better for the person?" my primary design filter.
+              making &quot;Is this better for the person?&quot; my primary design filter.
             </p>
           </div>
 

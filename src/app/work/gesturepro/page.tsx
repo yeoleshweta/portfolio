@@ -9,6 +9,8 @@ import {
   ContextCard,
   ResultsGrid,
   BaselineTargetMetrics,
+  SkillSpotlight,
+  SkillConstellation,
 } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
@@ -117,6 +119,12 @@ export default function GestureProCaseStudy() {
           label="Overview"
           heading="Breaking the Communication Barrier"
         >
+          <SkillConstellation
+            primary={["Computer Vision (MediaPipe)", "ML Model Training (TensorFlow)", "Full-Stack Engineering"]}
+            supporting={["Real-Time Inference", "Docker Containerization"]}
+            emerging={["Accessibility Engineering", "Open-Source Development"]}
+          />
+
           <p>
             <strong>GesturePro</strong> is an interactive sign language
             translator that empowers hearing-impaired and aphonic individuals by
@@ -228,7 +236,7 @@ export default function GestureProCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="architecture"
-          label="System Design"
+          label="The Craft"
           heading="Full-Stack AI Architecture"
         >
           <p>
@@ -238,6 +246,12 @@ export default function GestureProCaseStudy() {
             recognition. The entire system is containerized with Docker for
             consistent deployment.
           </p>
+
+          <SkillSpotlight
+            skill="Three-Tier System Design"
+            description="Architected full-stack system separating real-time frontend, API backend, and ML inference pipeline into independently deployable services."
+            evidence="Docker Compose orchestration with health checks across 3 services."
+          />
 
           <div
             style={{
@@ -270,6 +284,12 @@ export default function GestureProCaseStudy() {
               description="Hand landmark detection via MediaPipe, processed training data, Jupyter notebooks for experimentation, and saved models for inference."
             />
           </div>
+
+          <SkillSpotlight
+            skill="Computer Vision Pipeline (MediaPipe)"
+            description="Implemented MediaPipe hand landmark detection extracting 21 key points per frame, creating skeletal hand representations for ML classification."
+            evidence="Real-time 21-landmark tracking powering gesture recognition at webcam speed."
+          />
 
           <h3 style={{ marginTop: "48px" }}>Project Structure</h3>
           <div
@@ -346,6 +366,12 @@ export default function GestureProCaseStudy() {
             The platform combines real-time computer vision with a clean,
             accessible interface to create a seamless translation experience.
           </p>
+
+          <SkillSpotlight
+            skill="ML Model Training (TensorFlow)"
+            description="Trained TensorFlow classifier on MediaPipe landmark data to recognize ASL gestures with real-time inference capability."
+            evidence="Working real-time gesture → text translation pipeline."
+          />
 
           <div
             style={{
@@ -428,7 +454,7 @@ export default function GestureProCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="impact"
-          label="Impact & Vision"
+          label="The Evidence & Growth"
           heading="Accessibility Through Technology"
         >
           <p>
@@ -465,6 +491,12 @@ export default function GestureProCaseStudy() {
                   "Fully open-source on GitHub for community contribution and extension.",
               },
             ]}
+          />
+
+          <SkillSpotlight
+            skill="Accessibility-First Engineering"
+            description="Built an accessible-by-default platform — zero cost, zero hardware, browser-only deployment democratizing ASL translation."
+            evidence="Open-source, zero-hardware-cost solution deployed on Vercel."
           />
 
           <h3 style={{ marginTop: "48px" }}>Future Roadmap</h3>

@@ -8,6 +8,8 @@ import {
   ContextCard,
   ResultsGrid,
   Blockquote,
+  SkillSpotlight,
+  SkillConstellation,
 } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
@@ -61,6 +63,11 @@ export default function CryptoSecureCaseStudy() {
           label="Overview"
           heading="Making Blockchain Security Accessible to Every Developer on the TON Network"
         >
+          <SkillConstellation
+            primary={["Prompt Engineering for Security", "Dual-Layer Analysis Architecture", "Developer-Centric UX"]}
+            supporting={["Static Analysis", "LLM Integration (GPT-4o)", "React Frontend"]}
+            emerging={["Blockchain Security", "Adversarial Thinking"]}
+          />
           <div
             style={{
               display: "flex",
@@ -189,6 +196,12 @@ export default function CryptoSecureCaseStudy() {
             CryptoSecure to eliminate that choice.
           </p>
           <Blockquote text="Smart contract vulnerabilities aren't just technical bugs. They're real money at risk. A reentrancy flaw in a DeFi contract doesn't just cause an error — it lets someone drain the entire liquidity pool. The stakes aren't theoretical." />
+
+          <SkillSpotlight
+            skill="Problem Framing"
+            description="Identified underserved market gap: individual and student developers on TON who need audit-grade security but can't afford $10K+ audits."
+            evidence="14,995 vulnerabilities across 1,640 contracts; no free TON-native tool existed."
+          />
         </CaseStudySection>
 
         <CaseStudySection
@@ -237,7 +250,7 @@ export default function CryptoSecureCaseStudy() {
 
         <CaseStudySection
           id="contribution"
-          label="My Contribution"
+          label="The Craft"
           heading="Owning the Engine & Interface"
         >
           <p>
@@ -371,6 +384,12 @@ export default function CryptoSecureCaseStudy() {
             vulnerabilities but can hallucinate or miss deterministic issues.
             Together, they're more reliable than either alone.
           </p>
+
+          <SkillSpotlight
+            skill="Dual-Layer Analysis Architecture"
+            description="Combined deterministic static analysis with GPT-4o semantic reasoning. Neither alone is sufficient — together they catch both known patterns and novel logic flaws."
+            evidence="8+ vulnerability categories detected; handles both deterministic and emergent issues."
+          />
 
           <h4 style={{ margin: "24px 0 16px" }}>
             The vulnerability categories the engine detects:
@@ -662,6 +681,12 @@ export default function CryptoSecureCaseStudy() {
             Hacker Mode does the same for smart contract security.
           </p>
 
+          <SkillSpotlight
+            skill="Adversarial Thinking (Hacker Mode)"
+            description="Designed prompt engineering to generate step-by-step exploit narratives, transforming abstract vulnerability reports into concrete threat models."
+            evidence="Developers understand WHY a flaw is dangerous, not just that it exists."
+          />
+
           <h3 style={{ marginTop: "32px", marginBottom: "16px" }}>
             Frontend Contributions
           </h3>
@@ -677,7 +702,7 @@ export default function CryptoSecureCaseStudy() {
 
         <CaseStudySection
           id="design"
-          label="Design"
+          label="Design Craft"
           heading="The Design Decisions That Mattered"
         >
           <div
@@ -757,6 +782,12 @@ export default function CryptoSecureCaseStudy() {
               </p>
             </div>
           </div>
+
+          <SkillSpotlight
+            skill="Developer-Centric UX"
+            description="Every design decision served developer velocity: plain English explanations, working code fixes, interactive diff viewer, and shareable security scores."
+            evidence="Four distinct design principles each grounded in developer workflow research."
+          />
 
           <Blockquote text="The best security tool is one that makes developers better at security — not just one that catches their mistakes. If a developer uses CryptoSecure ten times and starts writing more secure code on the eleventh, that's a bigger win than catching ten bugs." />
         </CaseStudySection>
@@ -1167,7 +1198,7 @@ export default function CryptoSecureCaseStudy() {
 
         <CaseStudySection
           id="impact"
-          label="Impact & Results"
+          label="The Evidence"
           heading="What We Compressed"
         >
           <p>
@@ -1217,7 +1248,7 @@ export default function CryptoSecureCaseStudy() {
 
         <CaseStudySection
           id="learnings"
-          label="What I Learned"
+          label="The Growth"
           heading="Reflections & Next Steps"
         >
           <div
@@ -1268,6 +1299,12 @@ export default function CryptoSecureCaseStudy() {
                 output.
               </p>
             </div>
+
+            <SkillSpotlight
+              skill="UX-Shaped ML Output"
+              description="Applied 8 years of UX thinking to ML interface design: severity hierarchy, progressive disclosure, and visual scoring transformed raw analysis into actionable developer experience."
+              evidence="Severity hierarchy, diff viewer, and score dashboard — all UX patterns applied to ML."
+            />
           </div>
 
           <h3>What's Next</h3>

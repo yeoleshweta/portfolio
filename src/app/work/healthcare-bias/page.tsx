@@ -9,6 +9,8 @@ import {
   ContextCard,
   ResultsGrid,
   Blockquote,
+  SkillSpotlight,
+  SkillConstellation,
 } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
@@ -175,6 +177,12 @@ export default function HealthcareBiasCaseStudy() {
           label="Overview"
           heading="Building Machine Learning Pipelines to Surface What Clinicians Can't See at Scale"
         >
+          <SkillConstellation
+            primary={["NLP Pipeline Design", "Gold-Standard Annotation", "LLM Evaluation"]}
+            supporting={["Transformer Fine-Tuning (ClinicalBERT, RoBERTa)", "Synthetic Data Generation"]}
+            emerging={["Ethics in AI", "HIPAA Compliance", "Bias Taxonomy Design"]}
+          />
+
           <p>
             The American Board of Internal Medicine certifies over 300,000
             physicians. Part of their mission involves evaluating how physicians
@@ -184,7 +192,7 @@ export default function HealthcareBiasCaseStudy() {
           </p>
           <p>
             The challenge is that these biases are nearly invisible at an
-            individual level. It's only by analyzing thousands of records across
+            individual level. It&apos;s only by analyzing thousands of records across
             hundreds of clinicians that patterns emerge. I built a system to
             detect these patterns reliably, automatically, and at scale.
           </p>
@@ -236,7 +244,7 @@ export default function HealthcareBiasCaseStudy() {
 
         <CaseStudySection
           id="problem"
-          label="Problem Space"
+          label="The Tension"
           heading="Why This Project Exists"
         >
           <p>
@@ -251,7 +259,7 @@ export default function HealthcareBiasCaseStudy() {
 
         <CaseStudySection
           id="research"
-          label="The Research"
+          label="The Craft"
           heading="What I Built and Why"
         >
           <h3>Experiment 1: NLP Bias Detection</h3>
@@ -259,6 +267,13 @@ export default function HealthcareBiasCaseStudy() {
             We defined a 4-label classification framework developed iteratively
             with domain experts and validated against clinical literature.
           </p>
+
+          <SkillSpotlight
+            skill="Bias Taxonomy Design"
+            description="Created domain-specific 4-label framework operationalizing abstract bias concepts into measurable text signals."
+            evidence="Categories not found in existing NLP bias benchmarks."
+          />
+
           <BiasTaxonomyTable />
 
           <h3 style={{ marginTop: "48px" }}>
@@ -271,6 +286,12 @@ export default function HealthcareBiasCaseStudy() {
             ClinicalBERT excelled with dense medical terminology, while RoBERTa
             provided consistent robustness.
           </p>
+
+          <SkillSpotlight
+            skill="Gold-Standard Annotation Protocol"
+            description="Built annotation guidelines with inclusion/exclusion criteria, borderline examples, and inter-annotator agreement measures."
+            evidence="Protocol designed for reproducibility by future researchers."
+          />
 
           <h3 style={{ marginTop: "48px" }}>
             Experiment 2: Communication Behaviour Detection
@@ -294,6 +315,12 @@ export default function HealthcareBiasCaseStudy() {
             complexities.
           </p>
 
+          <SkillSpotlight
+            skill="LLM Evaluation"
+            description="Systematically evaluated LLM outputs against human gold-standard labels, measuring category-specific failure modes."
+            evidence="Quantified accuracy revealing where automated labeling fails."
+          />
+
           <h3 style={{ marginTop: "48px" }}>
             Experiment 4: Synthetic Data Engineering
           </h3>
@@ -302,6 +329,12 @@ export default function HealthcareBiasCaseStudy() {
             synthetic data loop creating high-quality dialogues for training
             without touching real PHI.
           </p>
+
+          <SkillSpotlight
+            skill="Synthetic Data Generation"
+            description="Engineered synthetic clinical transcripts to augment scarce training data."
+            evidence="Addressed class imbalance without touching real PHI."
+          />
         </CaseStudySection>
 
         <CaseStudySection
@@ -309,6 +342,12 @@ export default function HealthcareBiasCaseStudy() {
           label="Technical Architecture"
           heading="The Interconnected Infrastructure"
         >
+          <SkillSpotlight
+            skill="Ensemble Model Architecture"
+            description="Combined domain-specific ClinicalBERT with general-purpose RoBERTa."
+            evidence="4-experiment design isolating detection, behavior, LLM quality, data."
+          />
+
           <div
             style={{
               display: "flex",
@@ -368,7 +407,7 @@ export default function HealthcareBiasCaseStudy() {
 
         <CaseStudySection
           id="results"
-          label="Outcomes"
+          label="The Evidence"
           heading="Evidence-Based Impact"
         >
           <ResultsGrid
@@ -402,7 +441,7 @@ export default function HealthcareBiasCaseStudy() {
 
         <CaseStudySection
           id="reflections"
-          label="Reflections"
+          label="The Growth"
           heading="Key Learnings"
         >
           <p>
