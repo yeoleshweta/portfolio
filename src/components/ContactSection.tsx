@@ -27,7 +27,7 @@ function PhysicsTile({
 }: {
   children: React.ReactNode;
   className?: string;
-  containerRef: RefObject<HTMLDivElement>;
+  containerRef: RefObject<HTMLDivElement | null>;
 }) {
   const elRef  = useRef<HTMLDivElement>(null);
   const x      = useMotionValue(0);
