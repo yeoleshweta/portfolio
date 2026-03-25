@@ -27,7 +27,6 @@ const featuredProjects = [
 const moreProjects = [
   {
     idx: "03",
-    emoji: "🧬",
     tag: "Data Science & ML",
     title: "Healthcare Bias — NLP Detection",
     metric: "4-label bias framework",
@@ -35,7 +34,6 @@ const moreProjects = [
   },
   {
     idx: "04",
-    emoji: "📖",
     tag: "UX Research & Design",
     title: "Stories by Children",
     metric: "50% → 85% task success",
@@ -43,7 +41,6 @@ const moreProjects = [
   },
   {
     idx: "05",
-    emoji: "🛍️",
     tag: "UX Personalization",
     title: "E-Commerce Personalization at Scale",
     metric: "11% conversion lift",
@@ -51,7 +48,6 @@ const moreProjects = [
   },
   {
     idx: "06",
-    emoji: "📊",
     tag: "Product Design",
     title: "Enterprise Survey Logic & Analytics",
     metric: "60% faster build time",
@@ -59,7 +55,6 @@ const moreProjects = [
   },
   {
     idx: "07",
-    emoji: "🤟",
     tag: "AI / Accessibility",
     title: "GesturePro — Sign Language Translation",
     metric: "Real-time, zero hardware",
@@ -67,7 +62,6 @@ const moreProjects = [
   },
   {
     idx: "08",
-    emoji: "🔐",
     tag: "Blockchain / ML",
     title: "CryptoSecure: Smart Contract Security",
     metric: "$10k audit → 30 seconds",
@@ -101,11 +95,6 @@ export default function FeaturedWork() {
         <div className={styles.featuredGrid}>
           {featuredProjects.map((p) => (
             <Link key={p.href} href={p.href} className={styles.featuredCard}>
-              <span className={styles.cornerTL} />
-              <span className={styles.cornerTR} />
-              <span className={styles.cornerBL} />
-              <span className={styles.cornerBR} />
-
               <span className={styles.cardTag}>{p.tag}</span>
               <span className={styles.cardRef}>[ref: {p.ref}]</span>
               <h3 className={styles.cardTitle}>{p.title}</h3>
@@ -131,7 +120,6 @@ export default function FeaturedWork() {
             <Link key={p.href} href={p.href} className={styles.miniCard}>
               <div className={styles.miniTop}>
                 <span className={styles.miniIdx}>{p.idx}</span>
-                <span className={styles.miniEmoji}>{p.emoji}</span>
               </div>
               <span className={styles.miniTag}>{p.tag}</span>
               <h4 className={styles.miniTitle}>{p.title}</h4>

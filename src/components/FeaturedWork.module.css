@@ -1,12 +1,12 @@
 /*
- * FeaturedWork.module.css — Analog Blueprint
- * Philosophy: IBM Plex Serif · JetBrains Mono · Research-paper aesthetic
- * Grid-paper texture, engineering corner marks, monospaced precision.
+ * FeaturedWork.module.css — Analog Blueprint layout
+ * Fonts + colors aligned to portfolio design system.
+ * Layout, grid, corner marks, grid-paper texture: unchanged.
  */
 
 /* ── Section wrapper ── */
 .section {
-  background: #f9f8f4;
+  background: #f2f2f2;
   position: relative;
   z-index: 20;
   padding: 96px 0 104px;
@@ -19,8 +19,8 @@
   inset: 0;
   z-index: 0;
   background-image:
-    linear-gradient(rgba(124, 92, 191, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124, 92, 191, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(139, 105, 250, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 105, 250, 0.05) 1px, transparent 1px);
   background-size: 32px 32px;
   pointer-events: none;
 }
@@ -42,36 +42,42 @@
   margin-bottom: 48px;
 }
 
-.headerLeft {}
 
 .eyebrow {
-  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 11px;
-  color: #aaa;
+  font-weight: 700;
+  color: #555;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 10px;
 }
 
 .title {
-  font-family: "IBM Plex Serif", Georgia, serif;
+  font-family: var(--font-display);
   font-size: 48px;
-  font-weight: 600;
+  font-weight: 900;
   line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
   color: #1a1a1a;
   margin: 0;
 }
 
 .titleItalic {
+  font-family: var(--font-script);
   font-style: italic;
-  color: #7c5cbf;
-  font-weight: 300;
+  font-weight: 400;
+  color: var(--color-lilac);
+  text-transform: none;
+  letter-spacing: -0.04em;
 }
 
 .headerMeta {
-  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 11px;
-  color: #bbb;
+  font-weight: 500;
+  color: #666;
   text-align: right;
   line-height: 1.9;
 }
@@ -87,15 +93,15 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2px;
-  background: #e0ddd6;
-  border: 1px solid #e0ddd6;
+  background: #e8e8e8;
+  border: 1px solid #e8e8e8;
   border-radius: 6px 6px 0 0;
   overflow: hidden;
 }
 
 .featuredCard {
   position: relative;
-  z-index: 1;
+  z-index: 50;
   padding: 44px 40px;
   background: #ffffff;
   text-decoration: none;
@@ -103,12 +109,12 @@
   transition: background 0.25s ease;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
-/* gap handles gutters — no manual border needed */
-
 .featuredCard:hover {
-  background: #f0ecff;
+  background: rgba(139, 105, 250, 0.04);
 }
 
 /* ── Engineering corner marks ── */
@@ -119,7 +125,7 @@
   position: absolute;
   width: 12px;
   height: 12px;
-  border-color: #7c5cbf;
+  border-color: #8b69fa;
   border-style: solid;
   opacity: 0.25;
   transition: opacity 0.25s ease;
@@ -140,39 +146,41 @@
 
 /* ── Card content ── */
 .cardTag {
-  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 10px;
+  font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #aaa;
+  color: #555;
   margin-bottom: 6px;
   display: block;
 }
 
 .cardRef {
-  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 10px;
-  color: #7c5cbf;
+  font-weight: 500;
+  color: #8b69fa;
   margin-bottom: 20px;
   display: block;
-  opacity: 0.7;
 }
 
 .cardTitle {
-  font-family: "IBM Plex Serif", Georgia, serif;
+  font-family: var(--font-display);
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 800;
   line-height: 1.3;
+  letter-spacing: -0.03em;
   color: #1a1a1a;
   margin: 0 0 14px;
 }
 
 .cardDesc {
-  font-family: "IBM Plex Serif", Georgia, serif;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 14px;
   line-height: 1.75;
-  color: #666;
-  font-style: italic;
+  color: #595959;
+  font-weight: 400;
   margin: 0;
   flex: 1;
 }
@@ -185,27 +193,29 @@
 }
 
 .pill {
-  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 10px;
+  font-weight: 700;
   padding: 3px 10px;
   border-radius: 3px;
-  background: #f0ecff;
-  color: #7c5cbf;
-  border: 1px solid rgba(124, 92, 191, 0.2);
-  transition: background 0.2s ease, color 0.2s ease;
+  background: rgba(139, 105, 250, 0.08);
+  color: #8b69fa;
+  border: 1px solid rgba(139, 105, 250, 0.2);
+  transition: background 0.2s ease;
 }
 
 .featuredCard:hover .pill {
-  background: rgba(124, 92, 191, 0.12);
+  background: rgba(139, 105, 250, 0.14);
 }
 
 .cta {
   margin-top: 24px;
-  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 11px;
+  font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #7c5cbf;
+  color: #8b69fa;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -221,7 +231,7 @@
   position: relative;
   z-index: 2;
   height: 1px;
-  background: #e0ddd6;
+  background: #e8e8e8;
   margin: 28px 0;
 }
 
@@ -231,12 +241,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 11px;
-  color: #bbb;
-  background: #f9f8f4;
+  font-weight: 700;
+  color: #666;
+  background: #f2f2f2;
   padding: 0 16px;
   letter-spacing: 2px;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
@@ -245,27 +257,27 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
-  background: #e0ddd6;
-  border: 1px solid #e0ddd6;
+  background: #e8e8e8;
+  border: 1px solid #e8e8e8;
   border-radius: 0 0 6px 6px;
   overflow: hidden;
 }
 
 .miniCard {
-  padding: 22px 22px;
+  padding: 22px;
   background: #ffffff;
   text-decoration: none;
   color: inherit;
   transition: background 0.2s ease;
   position: relative;
-  z-index: 1;
+  z-index: 50;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .miniCard:hover {
-  background: #f0ecff;
+  background: rgba(139, 105, 250, 0.04);
 }
-
-/* gap + background handles all gutters */
 
 /* ── Mini card internals ── */
 .miniTop {
@@ -276,29 +288,28 @@
 }
 
 .miniIdx {
-  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 10px;
-  color: #ccc;
-}
-
-.miniEmoji {
-  font-size: 16px;
+  font-weight: 700;
+  color: #777;
 }
 
 .miniTag {
-  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 9px;
+  font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #ccc;
+  color: #666;
   margin-bottom: 6px;
   display: block;
 }
 
 .miniTitle {
-  font-family: "IBM Plex Serif", Georgia, serif;
+  font-family: var(--font-display);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: #1a1a1a;
   line-height: 1.4;
   margin: 0 0 6px;
@@ -306,13 +317,14 @@
 }
 
 .miniCard:hover .miniTitle {
-  color: #7c5cbf;
+  color: #8b69fa;
 }
 
 .miniMetric {
-  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 10px;
-  color: #7c5cbf;
+  font-weight: 700;
+  color: #8b69fa;
 }
 
 /* ── Responsive ── */
@@ -367,6 +379,4 @@
   .moreGrid {
     grid-template-columns: 1fr;
   }
-
-  /* gap handles all gutters at small sizes too */
 }

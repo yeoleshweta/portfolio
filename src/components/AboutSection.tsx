@@ -128,8 +128,8 @@ function TransitionCube({
 
   // Target heart coordinates
   const heartX = cube.heartTarget ? (cube.heartTarget[0] - 4) * 24 : 0;
-  // Shift the heart center down by 5px as requested
-  const heartY = cube.heartTarget ? ((cube.heartTarget[1] - 2.5) * 24) + 5 : 0;
+  // Heart Y matches exactly the pixel row height so the top edge starts at 0
+  const heartY = cube.heartTarget ? (cube.heartTarget[1] * 24) : 0;
 
   // Vertical drift transitions to heart Y
   const y = useTransform(
@@ -182,7 +182,7 @@ function TransitionCube({
         className={styles.heartCube}
         style={{
           left: `calc(50% + ${heartX}px)`,
-          top: `calc(50% + ${heartY}px)`,
+          top: `${heartY}px`,
         }}
       >
         <span className={`${styles.heartCubeFace} ${styles.heartFront}`} />
@@ -207,7 +207,7 @@ function TransitionCube({
         opacity: finalOpacity,
         scale: finalScale,
         left: "50%",
-        top: "30%",
+        top: 0,
       }}
     >
       {[
@@ -426,23 +426,21 @@ export default function AboutSection() {
               When I&apos;m not{" "}
               <span className={styles.italic}>researching</span>
             </h2>
-            <p className={styles.description}>
+            <p className={styles.description} style={{ margin: 0 }}>
               I work hard and then I go find something that has nothing to do with work.<br />
               Slopes, cities, finish lines, ship decks — whatever gets me out of my head and into the world.
             </p>
+            <div className={styles.smallCubeField} style={{ position: "relative", inset: "auto", height: 0, width: "100%", marginTop: "-19px" }} aria-hidden="true">
+              {mounted && tornadoCubesLogic.map((cube) => (
+                <TransitionCube
+                  key={cube.id}
+                  cube={cube}
+                  progress={progress}
+                  reduceMotion={reduceMotion}
+                />
+              ))}
+            </div>
           </motion.div>
-
-          {/* Decorative floating heart pixels in the background */}
-          <div className={styles.smallCubeField} aria-hidden="true">
-            {mounted && tornadoCubesLogic.map((cube) => (
-              <TransitionCube
-                key={cube.id}
-                cube={cube}
-                progress={progress}
-                reduceMotion={reduceMotion}
-              />
-            ))}
-          </div>
 
           <div className={styles.carouselContainer}>
             <motion.div
