@@ -388,10 +388,11 @@ export default function HeroSection() {
                 />
               </div>
               <p className={styles.description}>
-                Hi! I&apos;m <strong>Shweta Sharma</strong>, a UX Researcher
-                &amp; AI/ML Grad Student at Drexel — I design experiences people
-                actually want to use, and lately, I&apos;ve been teaching
-                machines to help.
+                Hi, I&apos;m <strong>Shweta</strong> — a UX Researcher and AI/ML
+                grad with a Drexel degree and an obsession with the &apos;why&apos;
+                behind human behavior and the &apos;how&apos; behind intelligent
+                systems. I spend my time connecting those two dots into
+                experiences people actually love.
               </p>
             </motion.div>
           </motion.div>
