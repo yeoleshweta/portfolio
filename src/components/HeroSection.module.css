@@ -52,7 +52,7 @@
   min-height: calc(100vh - 94px);
   padding: clamp(116px, 9vw, 176px) clamp(48px, 3vw, 64px) 88px;
   display: grid;
-  grid-template-columns: minmax(0, 1.06fr) minmax(460px, 0.94fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(420px, 0.75fr);
   align-items: center;
   gap: 8px;
 }
@@ -112,7 +112,7 @@
 
 .bioContainer {
   margin-top: 42px;
-  max-width: 900px;
+  max-width: 1000px;
 }
 
 .bioInner {
@@ -139,7 +139,7 @@
 }
 
 .description {
-  font-size: clamp(20px, 1.4vw, 26px);
+  font-size: clamp(18px, 1.25vw, 24px);
   line-height: 1.5;
   letter-spacing: -0.02em;
   color: #333;
@@ -227,7 +227,7 @@
 
 @media (max-width: 1400px) {
   .container {
-    grid-template-columns: minmax(0, 1fr) minmax(420px, 0.92fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(380px, 0.85fr);
     padding-top: 104px;
   }
 
@@ -366,7 +366,7 @@
   }
 
   .description {
-    font-size: 19px;
+    font-size: 17px;
     line-height: 1.5;
   }
 
@@ -404,6 +404,6 @@
   }
 
   .description {
-    font-size: 17px;
+    font-size: 15px;
   }
 }
