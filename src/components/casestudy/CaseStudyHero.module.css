@@ -88,6 +88,10 @@
   perspective: 1200px;
 }
 
+.smallMockup {
+  max-width: 720px;
+}
+
 .mockup {
   width: 100%;
   height: auto;

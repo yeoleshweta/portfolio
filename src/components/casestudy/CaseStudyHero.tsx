@@ -13,6 +13,7 @@ interface CaseStudyHeroProps {
   image?: string;
   isVideo?: boolean;
   videoUrl?: string;
+  isSmallImage?: boolean;
 }
 
 export default function CaseStudyHero({
@@ -24,6 +25,7 @@ export default function CaseStudyHero({
   image,
   isVideo = false,
   videoUrl,
+  isSmallImage = false,
 }: CaseStudyHeroProps) {
   return (
     <section className={styles.hero}>
@@ -70,7 +72,7 @@ export default function CaseStudyHero({
         initial={{ opacity: 0, scale: 0.9, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={styles.mockupContainer}
+        className={`${styles.mockupContainer} ${isSmallImage ? styles.smallMockup : ""}`}
       >
         {isVideo && videoUrl ? (
           <div className={styles.laptopMockup}>

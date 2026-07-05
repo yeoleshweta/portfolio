@@ -19,13 +19,9 @@ import {
 
 const sections = [
   { id: "overview", label: "Overview" },
-  { id: "background", label: "Background" },
-  { id: "process", label: "The Process" },
-  { id: "research", label: "Research" },
-  { id: "insights", label: "Insights" },
+  { id: "research", label: "Research & Insights" },
   { id: "solutions", label: "Solutions" },
-  { id: "validation", label: "Validation" },
-  { id: "results", label: "Results" },
+  { id: "results", label: "Validation & Results" },
 ];
 
 export default function DesignThinkingCaseStudy() {
@@ -38,13 +34,14 @@ export default function DesignThinkingCaseStudy() {
         team="2 UX Researchers · 1 Tech Lead · 1 PM"
         timeline="12 Weeks"
         image="/assets/DesignThinking.jpg"
+        isSmallImage={true}
       />
 
-      {/* --- OVERVIEW --- */}
+      {/* --- OVERVIEW & BACKGROUND --- */}
       <CaseStudySection
         id="overview"
         label="Overview"
-        heading="Product Managers with UX & Design Thinking"
+        heading="A Systems Problem Nobody Was Naming"
       >
         <SkillConstellation
           primary={[
@@ -87,7 +84,7 @@ export default function DesignThinkingCaseStudy() {
           </table>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px", marginTop: "32px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px", margin: "32px 0" }}>
           <div>
             <h3>What this was</h3>
             <p>
@@ -105,14 +102,10 @@ export default function DesignThinkingCaseStudy() {
             </p>
           </div>
         </div>
-      </CaseStudySection>
 
-      {/* --- BACKGROUND --- */}
-      <CaseStudySection
-        id="background"
-        label="Background"
-        heading="A Systems Problem Nobody Was Naming"
-      >
+        <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
+
+        <h3>Background</h3>
         <p>
           John Deere manages a portfolio of 250+ products. Product Managers sit
           at the center of everything — bridging user needs, engineering constraints,
@@ -129,14 +122,10 @@ export default function DesignThinkingCaseStudy() {
           title="The Real Realization"
           text="Nobody was naming this as a systems problem. It looked like individual skill gaps. It wasn't."
         />
-      </CaseStudySection>
 
-      {/* --- THE PROCESS --- */}
-      <CaseStudySection
-        id="process"
-        label="The Process"
-        heading="Diverging and Converging to Drive Culture Change"
-      >
+        <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
+
+        <h3>The Process</h3>
         <p>
           This engagement followed the <strong>Double Diamond framework</strong> — diverging
           to understand the full problem space before converging on solutions — augmented
@@ -205,10 +194,10 @@ export default function DesignThinkingCaseStudy() {
         />
       </CaseStudySection>
 
-      {/* --- RESEARCH --- */}
+      {/* --- RESEARCH & INSIGHTS --- */}
       <CaseStudySection
         id="research"
-        label="Research"
+        label="Research & Insights"
         heading="Understanding the Shape of the Problem"
       >
         <p>
@@ -249,14 +238,10 @@ export default function DesignThinkingCaseStudy() {
           description="Shadowed real backlog refinement sessions to observe implicit pain points rather than relying solely on self-reported survey answers."
           evidence="Surfaced critical timing and coordination challenges that surveys missed."
         />
-      </CaseStudySection>
 
-      {/* --- INSIGHTS --- */}
-      <CaseStudySection
-        id="insights"
-        label="Insights"
-        heading="Gathering Insights & What the Research Revealed"
-      >
+        <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
+
+        <h3>Gathering Insights</h3>
         <p>
           After fieldwork, my teammate and I ran <strong>affinity mapping in Miro</strong> to
           cluster raw observations into themes. We moved from 100+ individual data points
@@ -266,19 +251,19 @@ export default function DesignThinkingCaseStudy() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "24px", margin: "24px 0" }}>
           <div style={{ background: "var(--color-bg-card)", padding: "24px", borderRadius: "12px", border: "1px solid var(--color-border)" }}>
             <h4 style={{ margin: "0 0 8px 0" }}>1. Language Gap</h4>
-            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)" }}>
+            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)", lineHeight: "1.4" }}>
               PMs and UX teams didn't share a vocabulary, making collaboration clunky and inconsistent.
             </p>
           </div>
           <div style={{ background: "var(--color-bg-card)", padding: "24px", borderRadius: "12px", border: "1px solid var(--color-border)" }}>
             <h4 style={{ margin: "0 0 8px 0" }}>2. Timing Gap</h4>
-            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)" }}>
+            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)", lineHeight: "1.4" }}>
               Research outputs reached PMs after key decisions were made, reducing their practical utility.
             </p>
           </div>
           <div style={{ background: "var(--color-bg-card)", padding: "24px", borderRadius: "12px", border: "1px solid var(--color-border)" }}>
             <h4 style={{ margin: "0 0 8px 0" }}>3. Support Gap</h4>
-            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)" }}>
+            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)", lineHeight: "1.4" }}>
               PMs had no peer community, no templates, no pathway to grow at the UX/PM intersection.
             </p>
           </div>
@@ -314,11 +299,6 @@ export default function DesignThinkingCaseStudy() {
             </div>
           </div>
         </div>
-
-        <p>
-          This turned subjective research into a ranked, defensible list — something Engineering
-          and Product leadership could act on without second-guessing the methodology.
-        </p>
 
         <h3 style={{ marginTop: "40px" }}>What the Research Revealed</h3>
         <p>
@@ -458,12 +438,13 @@ export default function DesignThinkingCaseStudy() {
         />
       </CaseStudySection>
 
-      {/* --- VALIDATION --- */}
+      {/* --- VALIDATION & RESULTS --- */}
       <CaseStudySection
-        id="validation"
-        label="Validation"
-        heading="Validating the Designs"
+        id="results"
+        label="Validation & Results"
+        heading="Testing, Launching & Measurable Impact"
       >
+        <h3>Validating the Designs</h3>
         <p>
           Rather than lab-based usability testing, I tested during <strong>actual monthly planning
           workshops</strong> — the real context where the tools would be used.
@@ -516,14 +497,9 @@ export default function DesignThinkingCaseStudy() {
           description="Conducted testing of the Playbook inside active PM planning sessions, combining quantitative SUS and qualitative observation."
           evidence="Achieved SUS score of 78 and restructured navigation into workflow stages."
         />
-      </CaseStudySection>
 
-      {/* --- RESULTS --- */}
-      <CaseStudySection
-        id="results"
-        label="Results"
-        heading="Results & Takeaways"
-      >
+        <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
+
         <h3>Delivery</h3>
         <p>
           The PM-UX Playbook launched to a pilot cohort of <strong>50 PMs over 4 weeks</strong>.
