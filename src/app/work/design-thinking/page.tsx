@@ -7,7 +7,6 @@ import {
   CaseStudySection,
   ContextCard,
   ResultsGrid,
-  CaseStudyImage,
   PersonaProgress,
   DoubleDiamondCarousel,
   InteractiveBarChart,
@@ -33,8 +32,6 @@ export default function DesignThinkingCaseStudy() {
         role="Lead UX Consultant"
         team="2 UX Researchers · 1 Tech Lead · 1 PM"
         timeline="12 Weeks"
-        image="/assets/DesignThinking.jpg"
-        isSmallImage={true}
       />
 
       {/* --- OVERVIEW & BACKGROUND --- */}
@@ -69,7 +66,6 @@ export default function DesignThinkingCaseStudy() {
                 <td style={{ padding: "12px 0", textAlign: "right" }}>Lead UX Consultant</td>
               </tr>
               <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-                <td style={{ padding: "12px 0", fontWeight: "bold" }}>Team</td>
                 <td style={{ padding: "12px 0", textAlign: "right" }}>2 UX Researchers · 1 Tech Lead · 1 PM</td>
               </tr>
               <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
@@ -205,28 +201,17 @@ export default function DesignThinkingCaseStudy() {
           problem — not the assumed one.
         </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: "32px", alignItems: "center", margin: "24px 0" }}>
-          <div>
-            <h3>What I did</h3>
-            <p>
-              I conducted <strong>15 contextual interviews</strong> with mid-to-senior Product
-              Managers across different product lines. Interviews alone weren't enough
-              — I also <strong>shadowed real planning meetings and backlog refinement sessions</strong>.
-            </p>
-            <p>
-              Alongside interviews, I ran <strong>stakeholder mapping</strong> across PMs, UX,
-              Engineering, and Leadership to understand where information was flowing, where
-              it was breaking down, and which nodes had the most influence over the system.
-            </p>
-          </div>
-          <div>
-            <CaseStudyImage
-              src="/assets/1x1.png"
-              alt="Contextual Shadowing Sessions"
-              caption="[Placeholder Image] Shadowing PM planning meetings and backlog refinement sessions."
-            />
-          </div>
-        </div>
+        <h3>What I did</h3>
+        <p>
+          I conducted <strong>15 contextual interviews</strong> with mid-to-senior Product
+          Managers across different product lines. Interviews alone weren't enough
+          — I also <strong>shadowed real planning meetings and backlog refinement sessions</strong>.
+        </p>
+        <p>
+          Alongside interviews, I ran <strong>stakeholder mapping</strong> across PMs, UX,
+          Engineering, and Leadership to understand where information was flowing, where
+          it was breaking down, and which nodes had the most influence over the system.
+        </p>
 
         <ContextCard
           title="Why This Mattered"
@@ -268,12 +253,6 @@ export default function DesignThinkingCaseStudy() {
             </p>
           </div>
         </div>
-
-        <CaseStudyImage
-          src="/assets/1x1.png"
-          alt="Affinity Mapping in Miro"
-          caption="[Placeholder Image] Clustered observations from contextual inquiry to reveal systemic alignment gaps."
-        />
 
         <h3 style={{ marginTop: "40px" }}>The Severity Framework</h3>
         <p>
@@ -418,19 +397,6 @@ export default function DesignThinkingCaseStudy() {
           Each solution was explicitly traceable back to a finding from research. The Playbook addressed the language gap. The Forum addressed the support gap. Timing was addressed by embedding touchpoints <em>into</em> existing workflows rather than creating new ones.
         </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginTop: "32px" }}>
-          <CaseStudyImage
-            src="/assets/aUPlkh0IoNtafdCvbQjivxXT4hY.webp"
-            alt="Design Thinking Conceptual Process"
-            caption="Strategizing UX integration into the Product Management lifecycle."
-          />
-          <CaseStudyImage
-            src="/assets/2uthT7OtMnIEGFrcGYTGbSq8iyQ.webp"
-            alt="Collaborative Action Map"
-            caption="Transforming ad-hoc decisions into a structured, trackable UX collaboration network."
-          />
-        </div>
-
         <SkillSpotlight
           skill="Workshop Facilitation & Co-creation"
           description="Designed and facilitated co-creation workshops using Value x Effort matrix with cross-functional PM-UX-Tech cohorts."
@@ -450,24 +416,13 @@ export default function DesignThinkingCaseStudy() {
           workshops</strong> — the real context where the tools would be used.
         </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: "32px", alignItems: "center", margin: "24px 0" }}>
-          <div>
-            <p><strong>What we tested:</strong> The PM-UX Playbook prototype (navigation, contextual prompts, template accessibility)</p>
-            <p><strong>Method:</strong> Moderated observation during live planning sessions + post-session SUS scoring</p>
-            
-            <div style={{ background: "var(--color-bg-card)", padding: "20px", borderRadius: "12px", margin: "20px 0", borderLeft: "4px solid var(--color-accent)", borderRight: "1px solid var(--color-border)", borderTop: "1px solid var(--color-border)", borderBottom: "1px solid var(--color-border)" }}>
-              <h4 style={{ margin: 0, fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--color-text-secondary)" }}>System Usability Scale (SUS)</h4>
-              <p style={{ fontSize: "32px", fontWeight: "bold", margin: "8px 0 4px 0", color: "var(--color-accent)", fontFamily: "var(--font-display)" }}>78 / 100</p>
-              <p style={{ fontSize: "13px", margin: 0, color: "var(--color-text-secondary)", lineHeight: "1.4" }}>Scores above 68 are considered good. A score of 78 validates baseline usability as excellent.</p>
-            </div>
-          </div>
-          <div>
-            <CaseStudyImage
-              src="/assets/1x1.png"
-              alt="Before vs. After Navigation Structure"
-              caption="[Placeholder Image] Refined navigation based on workflow stages rather than static content types."
-            />
-          </div>
+        <p><strong>What we tested:</strong> The PM-UX Playbook prototype (navigation, contextual prompts, template accessibility)</p>
+        <p><strong>Method:</strong> Moderated observation during live planning sessions + post-session SUS scoring</p>
+        
+        <div style={{ background: "var(--color-bg-card)", padding: "20px", borderRadius: "12px", margin: "20px 0", borderLeft: "4px solid var(--color-accent)", borderRight: "1px solid var(--color-border)", borderTop: "1px solid var(--color-border)", borderBottom: "1px solid var(--color-border)", maxWidth: "500px" }}>
+          <h4 style={{ margin: 0, fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--color-text-secondary)" }}>System Usability Scale (SUS)</h4>
+          <p style={{ fontSize: "32px", fontWeight: "bold", margin: "8px 0 4px 0", color: "var(--color-accent)", fontFamily: "var(--font-display)" }}>78 / 100</p>
+          <p style={{ fontSize: "13px", margin: 0, color: "var(--color-text-secondary)", lineHeight: "1.4" }}>Scores above 68 are considered good. A score of 78 validates baseline usability as excellent.</p>
         </div>
 
         <Blockquote
