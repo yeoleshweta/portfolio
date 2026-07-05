@@ -64,8 +64,6 @@ export default function DesignThinkingCaseStudy() {
           <p>
             I was brought in as Lead UX Consultant on a team of two UX researchers, a Tech Lead, and a PM. Our mandate was broad: close the gap between Product Management and UX across one of the world's largest equipment manufacturers.
           </p>
-
-          <h3 style={{ marginTop: "32px" }}>What We Found</h3>
           <p>
             What we found wasn't what anyone expected. The problem wasn't skill. PMs at John Deere were experienced, motivated, and genuinely user-empathetic. The problem was structural and they had no shared vocabulary with UX, no lightweight templates that fit their pace, and no peer community to learn from.
           </p>
