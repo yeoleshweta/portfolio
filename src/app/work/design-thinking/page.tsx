@@ -54,33 +54,6 @@ export default function DesignThinkingCaseStudy() {
           emerging={["Stakeholder Mapping", "Co-creation Methods"]}
         />
 
-        <div style={{ marginTop: "32px", marginBottom: "32px" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", margin: "24px 0" }}>
-            <tbody>
-              <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-                <td style={{ padding: "12px 0", fontWeight: "bold" }}>Company</td>
-                <td style={{ padding: "12px 0", textAlign: "right" }}>John Deere</td>
-              </tr>
-              <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-                <td style={{ padding: "12px 0", fontWeight: "bold" }}>Role</td>
-                <td style={{ padding: "12px 0", textAlign: "right" }}>Lead UX Consultant</td>
-              </tr>
-              <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-                <td style={{ padding: "12px 0", fontWeight: "bold" }}>Team</td>
-                <td style={{ padding: "12px 0", textAlign: "right" }}>2 UX Researchers · 1 Tech Lead · 1 PM</td>
-              </tr>
-              <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-                <td style={{ padding: "12px 0", fontWeight: "bold" }}>Timeline</td>
-                <td style={{ padding: "12px 0", textAlign: "right" }}>12 Weeks</td>
-              </tr>
-              <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-                <td style={{ padding: "12px 0", fontWeight: "bold" }}>Type</td>
-                <td style={{ padding: "12px 0", textAlign: "right" }}>Organizational UX Research · Culture Change</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
         <div style={{ margin: "40px 0" }}>
           <h3>Overview</h3>
           <p>
