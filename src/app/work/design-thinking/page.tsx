@@ -24,6 +24,110 @@ const sections = [
   { id: "results", label: "Validation & Results" },
 ];
 
+function DoubleDiamondDiagram() {
+  return (
+    <div style={{ margin: "48px 0", background: "#fdfdfd", padding: "40px 24px", borderRadius: "16px", border: "1px solid var(--color-border)", overflowX: "auto" }}>
+      <svg viewBox="0 0 1000 380" width="100%" height="auto" style={{ minWidth: "850px", display: "block" }}>
+        <defs>
+          <linearGradient id="discoverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#e2f5f1" />
+            <stop offset="100%" stopColor="#bde7e0" />
+          </linearGradient>
+          <linearGradient id="defineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#009688" />
+            <stop offset="100%" stopColor="#00675b" />
+          </linearGradient>
+          <linearGradient id="developGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ffedea" />
+            <stop offset="100%" stopColor="#ffdbd3" />
+          </linearGradient>
+          <linearGradient id="deliverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#e07765" />
+            <stop offset="100%" stopColor="#b34937" />
+          </linearGradient>
+          
+          <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+            <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#000000" floodOpacity="0.06" />
+          </filter>
+        </defs>
+
+        <text x="260" y="25" textAnchor="middle" fill="#00675b" fontSize="11" fontWeight="700" letterSpacing="0.08em" fontFamily="var(--font-primary)">PROBLEM SPACE · DESIGN THE RIGHT THING</text>
+        <text x="600" y="25" textAnchor="middle" fill="#b34937" fontSize="11" fontWeight="700" letterSpacing="0.08em" fontFamily="var(--font-primary)">SOLUTION SPACE · DESIGN THINGS RIGHT</text>
+
+        <g filter="url(#shadow)">
+          <circle cx="50" cy="110" r="26" fill="#e8f5f3" stroke="#bfe7e0" strokeWidth="1" />
+          <text x="50" y="108" textAnchor="middle" fill="#1c5249" fontSize="9.5" fontWeight="700" fontFamily="var(--font-primary)">Stake-</text>
+          <text x="50" y="119" textAnchor="middle" fill="#1c5249" fontSize="9.5" fontWeight="700" fontFamily="var(--font-primary)">holders</text>
+          
+          <circle cx="104" cy="110" r="26" fill="#ffedea" stroke="#ffd9d1" strokeWidth="1" />
+          <text x="104" y="113" textAnchor="middle" fill="#802e21" fontSize="9.5" fontWeight="700" fontFamily="var(--font-primary)">Customers</text>
+        </g>
+        <text x="77" y="152" textAnchor="middle" fill="#6c7a7e" fontSize="9" fontWeight="600" fontFamily="var(--font-primary)">Inputs feed research</text>
+        
+        <path d="M 134 110 L 152 110" stroke="#a0afb3" strokeWidth="1.5" fill="none" />
+        <polygon points="152,107 158,110 152,113" fill="#a0afb3" />
+
+        <g filter="url(#shadow)">
+          <polygon points="164,110 264,30 264,190" fill="url(#discoverGrad)" stroke="#bde7e0" strokeWidth="0.5" />
+          <text x="222" y="115" textAnchor="middle" fill="#004d40" fontSize="17" fontWeight="800" fontFamily="var(--font-display)">Discover</text>
+          
+          <polygon points="264,30 364,110 264,190" fill="url(#defineGrad)" />
+          <text x="306" y="115" textAnchor="middle" fill="#ffffff" fontSize="17" fontWeight="800" fontFamily="var(--font-display)">Define</text>
+        </g>
+        <text x="214" y="212" textAnchor="middle" fill="#404c4f" fontSize="10.5" fontWeight="600" fontFamily="var(--font-primary)">Explore needs & opportunities</text>
+        <text x="314" y="212" textAnchor="middle" fill="#404c4f" fontSize="10.5" fontWeight="600" fontFamily="var(--font-primary)">Prioritize & frame the problem</text>
+
+        <line x1="432" x2="432" y1="40" y2="180" stroke="#78888c" strokeWidth="1" strokeDasharray="3 3" />
+        <circle cx="432" cy="40" r="4" fill="#505c60" />
+        <rect x="402" y="98" width="60" height="24" rx="4" fill="#ffffff" stroke="#78888c" strokeWidth="1" />
+        <text x="432" y="108" textAnchor="middle" fill="#404c4f" fontSize="7.5" fontWeight="700" letterSpacing="0.04em" fontFamily="var(--font-primary)">INTERNAL</text>
+        <text x="432" y="116" textAnchor="middle" fill="#404c4f" fontSize="7.5" fontWeight="700" letterSpacing="0.04em" fontFamily="var(--font-primary)">GATE</text>
+
+        <g filter="url(#shadow)">
+          <polygon points="500,110 600,30 600,190" fill="url(#developGrad)" stroke="#ffdbd3" strokeWidth="0.5" />
+          <text x="558" y="115" textAnchor="middle" fill="#802e21" fontSize="17" fontWeight="800" fontFamily="var(--font-display)">Develop</text>
+          
+          <polygon points="600,30 700,110 600,190" fill="url(#deliverGrad)" />
+          <text x="642" y="115" textAnchor="middle" fill="#ffffff" fontSize="17" fontWeight="800" fontFamily="var(--font-display)">Deliver</text>
+        </g>
+        <text x="550" y="212" textAnchor="middle" fill="#404c4f" fontSize="10.5" fontWeight="600" fontFamily="var(--font-primary)">Sprint, prototype & test</text>
+        <text x="650" y="212" textAnchor="middle" fill="#404c4f" fontSize="10.5" fontWeight="600" fontFamily="var(--font-primary)">Build, QA & launch the MVP</text>
+
+        <path d="M 708 110 L 726 110" stroke="#a0afb3" strokeWidth="1.5" fill="none" />
+        <polygon points="726,107 732,110 726,113" fill="#a0afb3" />
+
+        <g filter="url(#shadow)">
+          <rect x="738" y="75" width="112" height="70" rx="8" fill="#f5f7f8" stroke="#d5dcde" strokeWidth="1" />
+          <text x="794" y="93" textAnchor="middle" fill="#1d2629" fontSize="9.5" fontWeight="700" fontFamily="var(--font-primary)">Support &</text>
+          <text x="794" y="105" textAnchor="middle" fill="#1d2629" fontSize="9.5" fontWeight="700" fontFamily="var(--font-primary)">Knowledge</text>
+          <text x="794" y="121" textAnchor="middle" fill="#606d71" fontSize="8" fontWeight="600" fontFamily="var(--font-primary)">Docs & enablement for</text>
+          <text x="794" y="131" textAnchor="middle" fill="#606d71" fontSize="8" fontWeight="600" fontFamily="var(--font-primary)">lasting adoption</text>
+        </g>
+
+        <g>
+          <circle cx="403" cy="256" r="16" fill="#758285" />
+          <text x="403" y="259" textAnchor="middle" fill="#ffffff" fontSize="9" fontWeight="700" fontFamily="var(--font-primary)">PM</text>
+          
+          <circle cx="432" cy="256" r="16" fill="#1b7a70" />
+          <text x="432" y="259" textAnchor="middle" fill="#ffffff" fontSize="9" fontWeight="700" fontFamily="var(--font-primary)">UX</text>
+          
+          <circle cx="461" cy="256" r="16" fill="#d26b59" />
+          <text x="461" y="259" textAnchor="middle" fill="#ffffff" fontSize="9" fontWeight="700" fontFamily="var(--font-primary)">Tech</text>
+
+          <text x="432" y="288" textAnchor="middle" fill="#505c60" fontSize="10" fontWeight="600" fontFamily="var(--font-primary)">Cross-functional pod runs the sprint & feasibility calls</text>
+        </g>
+
+        <path d="M 800 152 Q 800 326 432 326 T 77 152" fill="none" stroke="#78888c" strokeWidth="1.5" />
+        <polygon points="73,158 77,148 81,158" fill="#78888c" />
+
+        <rect x="362" y="316" width="140" height="20" rx="10" fill="#ffffff" stroke="#78888c" strokeWidth="1" />
+        <text x="432" y="329" textAnchor="middle" fill="#1c2527" fontSize="9" fontWeight="700" fontFamily="var(--font-primary)">Adoption · Value · Speed</text>
+        <text x="432" y="352" textAnchor="middle" fill="#505c60" fontSize="9.5" fontWeight="600" fontFamily="var(--font-primary)">Continuous feedback loop ➔ fuels the next Discovery (&quot;UX Mastery&quot;)</text>
+      </svg>
+    </div>
+  );
+}
+
 export default function DesignThinkingCaseStudy() {
   return (
     <CaseStudyLayout sections={sections}>
@@ -79,6 +183,8 @@ export default function DesignThinkingCaseStudy() {
         <p>
           This engagement followed the <strong>Double Diamond framework</strong> diverging to understand the full problem space before converging on solutions augmented with contextual inquiry and collaborative co-creation methods.
         </p>
+
+        <DoubleDiamondDiagram />
 
         <CaseStudyImage
           src="/assets/survey.jpg"
