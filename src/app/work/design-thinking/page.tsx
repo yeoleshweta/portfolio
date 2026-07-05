@@ -211,12 +211,6 @@ export default function DesignThinkingCaseStudy() {
 
         <DoubleDiamondDiagram />
 
-        <CaseStudyImage
-          src="/assets/survey.jpg"
-          alt="Framing the Problem diagram"
-          caption="Framing the Problem: Mapping user lenses, forming statement drafts, and refining to structural infrastructure rather than individual education."
-        />
-
         <DoubleDiamondCarousel
           stages={[
             {
