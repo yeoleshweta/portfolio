@@ -17,6 +17,181 @@ import {
   SkillConstellation,
 } from "@/components/casestudy/CaseStudyContent";
 
+function FramingTheProblem() {
+  return (
+    <div style={{
+      margin: "48px 0",
+      background: "#fafbfd",
+      padding: "48px 36px",
+      borderRadius: "20px",
+      border: "1px solid #e1e8ed",
+      fontFamily: "var(--font-primary)",
+      color: "#1c252c",
+      boxShadow: "0 10px 30px rgba(0,0,0,0.02)"
+    }}>
+      {/* Top Breadcrumb */}
+      <span style={{
+        fontSize: "11px",
+        fontWeight: "700",
+        textTransform: "uppercase",
+        letterSpacing: "0.1em",
+        color: "var(--color-accent)",
+        display: "block",
+        marginBottom: "8px"
+      }}>
+        JOHN DEERE · DISCOVER → DEFINE
+      </span>
+
+      {/* Main Heading */}
+      <h2 style={{
+        fontFamily: "var(--font-display)",
+        fontSize: "32px",
+        fontWeight: "800",
+        color: "#111",
+        margin: "0 0 40px 0",
+        letterSpacing: "-0.01em"
+      }}>
+        Framing the Problem
+      </h2>
+
+      {/* Grid container with left vertical line indicator */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "40px", position: "relative" }}>
+        
+        {/* Step 1 */}
+        <div style={{ display: "flex", gap: "24px", alignItems: "flex-start", position: "relative" }}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "32px",
+            height: "32px",
+            borderRadius: "50%",
+            background: "#1b7a70",
+            color: "#fff",
+            fontSize: "14px",
+            fontWeight: "700",
+            flexShrink: 0
+          }}>1</div>
+          
+          <div style={{ flex: 1 }}>
+            <h4 style={{ margin: "4px 0 16px 0", fontSize: "16px", fontWeight: "700" }}>Identify — three lenses</h4>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px" }}>
+              <div style={{ background: "#f3fbf9", border: "1px stroke #bfe7e0", padding: "16px", borderRadius: "10px" }}>
+                <strong style={{ fontSize: "12px", color: "#1c5249", textTransform: "uppercase", display: "block", marginBottom: "6px" }}>User</strong>
+                <p style={{ margin: 0, fontSize: "13.5px", lineHeight: "1.4", color: "#3c4d4a" }}>PMs across 250+ product lines.</p>
+              </div>
+              <div style={{ background: "#f3fbf9", border: "1px stroke #bfe7e0", padding: "16px", borderRadius: "10px" }}>
+                <strong style={{ fontSize: "12px", color: "#1c5249", textTransform: "uppercase", display: "block", marginBottom: "6px" }}>Need</strong>
+                <p style={{ margin: 0, fontSize: "13.5px", lineHeight: "1.4", color: "#3c4d4a" }}>User insight at hand while they plan and decide.</p>
+              </div>
+              <div style={{ background: "#f3fbf9", border: "1px stroke #bfe7e0", padding: "16px", borderRadius: "10px" }}>
+                <strong style={{ fontSize: "12px", color: "#1c5249", textTransform: "uppercase", display: "block", marginBottom: "6px" }}>Goal</strong>
+                <p style={{ margin: 0, fontSize: "13.5px", lineHeight: "1.4", color: "#3c4d4a" }}>Focus on the right thing to build, not every feature.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Step 2 */}
+        <div style={{ display: "flex", gap: "24px", alignItems: "flex-start" }}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "32px",
+            height: "32px",
+            borderRadius: "50%",
+            background: "#1c252c",
+            color: "#fff",
+            fontSize: "14px",
+            fontWeight: "700",
+            flexShrink: 0
+          }}>2</div>
+          
+          <div style={{ flex: 1 }}>
+            <h4 style={{ margin: "4px 0 16px 0", fontSize: "16px", fontWeight: "700" }}>Form the statement</h4>
+            <div style={{
+              background: "#111820",
+              color: "#ffffff",
+              padding: "20px 24px",
+              borderRadius: "12px",
+              fontSize: "15px",
+              lineHeight: "1.6"
+            }}>
+              PMs need <strong>user insight built into how they already work</strong> so they can <strong>focus on building the right thing, not every possible feature.</strong>
+            </div>
+          </div>
+        </div>
+
+        {/* Step 3 */}
+        <div style={{ display: "flex", gap: "24px", alignItems: "flex-start" }}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "32px",
+            height: "32px",
+            borderRadius: "50%",
+            background: "#d26b59",
+            color: "#fff",
+            fontSize: "14px",
+            fontWeight: "700",
+            flexShrink: 0
+          }}>3</div>
+          
+          <div style={{ flex: 1 }}>
+            <h4 style={{ margin: "4px 0 16px 0", fontSize: "16px", fontWeight: "700" }}>Refine to the root cause</h4>
+            <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1.3fr 1fr", gap: "16px", alignItems: "stretch" }}>
+              <div style={{ background: "#fff5f4", border: "1px solid #ffe3df", padding: "16px", borderRadius: "10px" }}>
+                <strong style={{ fontSize: "11px", color: "#802e21", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>Draft 1</strong>
+                <p style={{ margin: "0 0 6px 0", fontSize: "13.5px", fontWeight: "600" }}>PMs lack UX skills.</p>
+                <span style={{ fontSize: "12px", color: "#a85446" }}>→ blames individuals</span>
+              </div>
+              
+              <div style={{ background: "#fff5f4", border: "1px solid #ffe3df", padding: "16px", borderRadius: "10px" }}>
+                <strong style={{ fontSize: "11px", color: "#802e21", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>Draft 2</strong>
+                <p style={{ margin: "0 0 6px 0", fontSize: "13.5px", fontWeight: "600", lineHeight: "1.3" }}>A systems problem: language, timing & support gaps.</p>
+                <span style={{ fontSize: "12px", color: "#a85446" }}>→ structural, not personal</span>
+              </div>
+              
+              <div style={{
+                background: "#d26b59",
+                color: "#fff",
+                padding: "16px",
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center"
+              }}>
+                <strong style={{ fontSize: "11px", textTransform: "uppercase", opacity: 0.8, display: "block", marginBottom: "4px" }}>Locked</strong>
+                <p style={{ margin: 0, fontSize: "14px", fontWeight: "700", lineHeight: "1.3" }}>Infrastructure, not education.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Final Statement Box */}
+        <div style={{
+          marginTop: "16px",
+          background: "#f4fbf9",
+          borderLeft: "4px solid #1b7a70",
+          borderRadius: "4px 12px 12px 4px",
+          padding: "24px",
+          borderTop: "1px solid #e1ebec",
+          borderRight: "1px solid #e1ebec",
+          borderBottom: "1px solid #e1ebec"
+        }}>
+          <strong style={{ fontSize: "11px", color: "#1b7a70", textTransform: "uppercase", display: "block", marginBottom: "8px", letterSpacing: "0.05em" }}>Final Problem Statement</strong>
+          <p style={{ margin: 0, fontSize: "16px", lineHeight: "1.7", color: "#222" }}>
+            John Deere&apos;s Product Managers don&apos;t need UX <span style={{ textDecoration: "line-through", color: "#888" }}>training</span> — they need <strong>UX infrastructure</strong>: shared frameworks and touchpoints built into the workflows they already use, so user insight shapes decisions and effort goes to <strong>building the right thing</strong>, not every possible feature.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
 const sections = [
   { id: "overview", label: "Overview" },
   { id: "research", label: "Research & Insights" },
@@ -271,6 +446,15 @@ export default function DesignThinkingCaseStudy() {
         <Blockquote
           text="Key principle from my process framework: UX Researchers are recruited back at the Deliver phase — not just to test, but to validate that the solution still maps to the original research findings."
         />
+
+        <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
+
+        <h3>Framing the Problem</h3>
+        <p>
+          Problem Framing sits at the transition from Discover → Define. Before any solution work began, I needed a locked, shared understanding of what we were actually solving and for whom.
+        </p>
+
+        <FramingTheProblem />
       </CaseStudySection>
 
       {/* --- RESEARCH & INSIGHTS --- */}
