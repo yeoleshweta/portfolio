@@ -9,7 +9,6 @@ import {
   ResultsGrid,
   CaseStudyImage,
   PersonaProgress,
-  DoubleDiamondCarousel,
   InteractiveBarChart,
   Blockquote,
   PersonaCardActual,
@@ -210,51 +209,6 @@ export default function DesignThinkingCaseStudy() {
         </p>
 
         <DoubleDiamondDiagram />
-
-        <DoubleDiamondCarousel
-          stages={[
-            {
-              label: "Discover (Diverge)",
-              title: "Going Wide",
-              activities: [
-                "15 contextual interviews with mid-to-senior PMs",
-                "Shadowed planning meetings & backlog refinements",
-                "Stakeholder mapping across PMs, UX, Eng, Leadership",
-                "Affinity mapping in Miro (3 macro-clusters emerged)",
-              ],
-            },
-            {
-              label: "Define (Converge)",
-              title: "Converging on the Core",
-              activities: [
-                "Synthesised 'Rajesh, the PM' persona",
-                "Mapped end-to-end experience journey",
-                "Identified 3 critical friction points",
-                "Reframed: PMs want to collaborate, not become UX experts",
-              ],
-            },
-            {
-              label: "Develop (Diverge)",
-              title: "Co-Creating Solutions",
-              activities: [
-                "2 co-creation workshops (Crazy 8s + Storyboarding)",
-                "40+ ideas generated, 4 solutions selected",
-                "Prototyped 'Product & UX Playbook' portal",
-                "Restructured to use existing tools (SharePoint, Slack, Jira)",
-              ],
-            },
-            {
-              label: "Deliver (Converge)",
-              title: "Testing & Launching",
-              activities: [
-                "Usability testing with 5 PMs in real workflow contexts",
-                "SUS Score: 78 (above 68 benchmark)",
-                "MVP pilot with 50-person PM cohort for 4 weeks",
-                "Organic growth: 120 forum threads started in month one",
-              ],
-            },
-          ]}
-        />
 
         <h3 style={{ marginTop: "40px" }}>Role Responsibilities Across the Diamond</h3>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", margin: "24px 0" }}>
