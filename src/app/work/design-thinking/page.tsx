@@ -26,8 +26,18 @@ const sections = [
 
 function DoubleDiamondDiagram() {
   return (
-    <div style={{ margin: "48px 0", background: "#fdfdfd", padding: "40px 24px", borderRadius: "16px", border: "1px solid var(--color-border)", overflowX: "auto" }}>
-      <svg viewBox="0 0 1000 380" width="100%" height="auto" style={{ minWidth: "850px", display: "block" }}>
+    <div style={{
+      margin: "48px 0",
+      background: "#fdfdfd",
+      padding: "40px 24px",
+      borderRadius: "16px",
+      border: "1px solid var(--color-border)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      overflowX: "auto"
+    }}>
+      <svg viewBox="0 0 880 380" width="100%" height="auto" style={{ minWidth: "850px", display: "block" }}>
         <defs>
           <linearGradient id="discoverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#e2f5f1" />
@@ -74,8 +84,16 @@ function DoubleDiamondDiagram() {
           <polygon points="264,30 364,110 264,190" fill="url(#defineGrad)" />
           <text x="306" y="115" textAnchor="middle" fill="#ffffff" fontSize="17" fontWeight="800" fontFamily="var(--font-display)">Define</text>
         </g>
-        <text x="214" y="212" textAnchor="middle" fill="#404c4f" fontSize="10.5" fontWeight="600" fontFamily="var(--font-primary)">Explore needs & opportunities</text>
-        <text x="314" y="212" textAnchor="middle" fill="#404c4f" fontSize="10.5" fontWeight="600" fontFamily="var(--font-primary)">Prioritize & frame the problem</text>
+
+        {/* Multi-line labels to prevent overlaps */}
+        <text x="214" y="210" textAnchor="middle" fill="#404c4f" fontSize="9.5" fontWeight="600" fontFamily="var(--font-primary)">
+          <tspan x="214" dy="0">Explore needs</tspan>
+          <tspan x="214" dy="13">&amp; opportunities</tspan>
+        </text>
+        <text x="314" y="210" textAnchor="middle" fill="#404c4f" fontSize="9.5" fontWeight="600" fontFamily="var(--font-primary)">
+          <tspan x="314" dy="0">Prioritize &amp; frame</tspan>
+          <tspan x="314" dy="13">the problem</tspan>
+        </text>
 
         <line x1="432" x2="432" y1="40" y2="180" stroke="#78888c" strokeWidth="1" strokeDasharray="3 3" />
         <circle cx="432" cy="40" r="4" fill="#505c60" />
@@ -90,8 +108,15 @@ function DoubleDiamondDiagram() {
           <polygon points="600,30 700,110 600,190" fill="url(#deliverGrad)" />
           <text x="642" y="115" textAnchor="middle" fill="#ffffff" fontSize="17" fontWeight="800" fontFamily="var(--font-display)">Deliver</text>
         </g>
-        <text x="550" y="212" textAnchor="middle" fill="#404c4f" fontSize="10.5" fontWeight="600" fontFamily="var(--font-primary)">Sprint, prototype & test</text>
-        <text x="650" y="212" textAnchor="middle" fill="#404c4f" fontSize="10.5" fontWeight="600" fontFamily="var(--font-primary)">Build, QA & launch the MVP</text>
+        
+        <text x="550" y="210" textAnchor="middle" fill="#404c4f" fontSize="9.5" fontWeight="600" fontFamily="var(--font-primary)">
+          <tspan x="550" dy="0">Sprint, prototype</tspan>
+          <tspan x="550" dy="13">&amp; test</tspan>
+        </text>
+        <text x="650" y="210" textAnchor="middle" fill="#404c4f" fontSize="9.5" fontWeight="600" fontFamily="var(--font-primary)">
+          <tspan x="650" dy="0">Build, QA &amp;</tspan>
+          <tspan x="650" dy="13">launch the MVP</tspan>
+        </text>
 
         <path d="M 708 110 L 726 110" stroke="#a0afb3" strokeWidth="1.5" fill="none" />
         <polygon points="726,107 732,110 726,113" fill="#a0afb3" />
