@@ -66,6 +66,7 @@ export default function DesignThinkingCaseStudy() {
                 <td style={{ padding: "12px 0", textAlign: "right" }}>Lead UX Consultant</td>
               </tr>
               <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
+                <td style={{ padding: "12px 0", fontWeight: "bold" }}>Team</td>
                 <td style={{ padding: "12px 0", textAlign: "right" }}>2 UX Researchers · 1 Tech Lead · 1 PM</td>
               </tr>
               <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
@@ -80,43 +81,42 @@ export default function DesignThinkingCaseStudy() {
           </table>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px", margin: "32px 0" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: "48px", margin: "40px 0", alignItems: "start" }}>
           <div>
-            <h3>What this was</h3>
+            <h3>How the Problem Came to Be</h3>
             <p>
-              A 12-week embedded research and design engagement to understand why
-              Product Managers at John Deere were making feature decisions without UX
-              input — and build the systems to change that.
+              In a massive enterprise like John Deere managing 250+ products, Product Managers are constantly under intense pressure to deliver features quickly. They sit at the high-stakes intersection of user needs, engineering timelines, and commercial strategy.
             </p>
-          </div>
-          <div>
-            <h3>What I specifically did</h3>
             <p>
-              Led end-to-end research (contextual interviews, shadowing, affinity mapping),
-              facilitated co-creation workshops, synthesized findings into a prioritized
-              solution roadmap, and oversaw usability testing of the final deliverables.
+              But when we looked closely at the day-to-day workflow, we found PMs routinely struggling to make the right product decisions. It wasn't from a lack of user empathy or drive. It was a failure of infrastructure:
+            </p>
+            <ul style={{ paddingLeft: "20px", marginBottom: "24px" }}>
+              <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
+                <strong>Lost Insights:</strong> Valuable UX research findings were delivered in heavy slide decks, which got read once and then buried in drive folders, never to be seen again.
+              </li>
+              <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
+                <strong>Lagging Feedback:</strong> Usability validation reports were arriving after development decisions had already been locked and coded.
+              </li>
+              <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
+                <strong>Isolated Design:</strong> Cut off from active design alignment, PMs were forced to guess—designing screen flows in spreadsheets and defining user interactions in isolation.
+              </li>
+            </ul>
+          </div>
+
+          <div style={{ background: "var(--color-bg-card)", padding: "28px", borderRadius: "16px", border: "1px solid var(--color-border)" }}>
+            <h4 style={{ marginTop: 0, marginBottom: "16px", fontSize: "16px", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--color-text-secondary)" }}>At a Glance</h4>
+            <p style={{ fontSize: "15px", lineHeight: "1.6", marginBottom: "16px" }}>
+              <strong>The Project:</strong> A 12-week embedded research and organizational design initiative to bridge the gap between Product Management and UX, establishing repeatable frameworks for user-centered decision making.
+            </p>
+            <p style={{ fontSize: "15px", lineHeight: "1.6", marginBottom: "0" }}>
+              <strong>What I Did:</strong> Led end-to-end contextual research (shadowing planning meetings, PM interviews), facilitated cross-functional co-creation workshops, designed the PM-UX Playbook, and validated it through usability testing.
             </p>
           </div>
         </div>
 
-        <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
-
-        <h3>Background</h3>
-        <p>
-          John Deere manages a portfolio of 250+ products. Product Managers sit
-          at the center of everything — bridging user needs, engineering constraints,
-          and business strategy. But when I started observing the system, something was off.
-        </p>
-        <p>
-          Research findings were living in slide decks no one revisited. Usability
-          results were arriving after development decisions had already been made.
-          And PMs were routinely solving UX problems in isolation — not because
-          they didn't care, but because they had no shared framework to work from.
-        </p>
-
         <ContextCard
-          title="The Real Realization"
-          text="Nobody was naming this as a systems problem. It looked like individual skill gaps. It wasn't."
+          title="The Systems Trap"
+          text="It was easy to mistake this friction for individual skill gaps, but it was structural. PMs were making assumption-driven decisions because they had no shared language, no mutual workflows, and no light-weight templates that fit into the actual speed of their workday."
         />
 
         <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
