@@ -81,43 +81,25 @@ export default function DesignThinkingCaseStudy() {
           </table>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: "48px", margin: "40px 0", alignItems: "start" }}>
-          <div>
-            <h3>How the Problem Came to Be</h3>
-            <p>
-              In a massive enterprise like John Deere managing 250+ products, Product Managers are constantly under intense pressure to deliver features quickly. They sit at the high-stakes intersection of user needs, engineering timelines, and commercial strategy.
-            </p>
-            <p>
-              But when we looked closely at the day-to-day workflow, we found PMs routinely struggling to make the right product decisions. It wasn't from a lack of user empathy or drive. It was a failure of infrastructure:
-            </p>
-            <ul style={{ paddingLeft: "20px", marginBottom: "24px" }}>
-              <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
-                <strong>Lost Insights:</strong> Valuable UX research findings were delivered in heavy slide decks, which got read once and then buried in drive folders, never to be seen again.
-              </li>
-              <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
-                <strong>Lagging Feedback:</strong> Usability validation reports were arriving after development decisions had already been locked and coded.
-              </li>
-              <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
-                <strong>Isolated Design:</strong> Cut off from active design alignment, PMs were forced to guess—designing screen flows in spreadsheets and defining user interactions in isolation.
-              </li>
-            </ul>
-          </div>
+        <div style={{ margin: "40px 0" }}>
+          <h3>Overview</h3>
+          <p>
+            John Deere manages a portfolio of 250+ products, with Product Managers sitting at the intersection of user needs, engineering timelines, and commercial strategy. The goal of this project was to understand why PMs were consistently making assumption-driven decisions and design a system that gave them the infrastructure to do better.
+          </p>
 
-          <div style={{ background: "var(--color-bg-card)", padding: "28px", borderRadius: "16px", border: "1px solid var(--color-border)" }}>
-            <h4 style={{ marginTop: 0, marginBottom: "16px", fontSize: "16px", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--color-text-secondary)" }}>At a Glance</h4>
-            <p style={{ fontSize: "15px", lineHeight: "1.6", marginBottom: "16px" }}>
-              <strong>The Project:</strong> A 12-week embedded research and organizational design initiative to bridge the gap between Product Management and UX, establishing repeatable frameworks for user-centered decision making.
-            </p>
-            <p style={{ fontSize: "15px", lineHeight: "1.6", marginBottom: "0" }}>
-              <strong>What I Did:</strong> Led end-to-end contextual research (shadowing planning meetings, PM interviews), facilitated cross-functional co-creation workshops, designed the PM-UX Playbook, and validated it through usability testing.
-            </p>
-          </div>
+          <h3 style={{ marginTop: "32px" }}>Background</h3>
+          <p>
+            I was brought in as Lead UX Consultant on a team of two UX researchers, a Tech Lead, and a PM. Our mandate was broad: close the gap between Product Management and UX across one of the world's largest equipment manufacturers.
+          </p>
+
+          <h3 style={{ marginTop: "32px" }}>What We Found</h3>
+          <p>
+            What we found wasn't what anyone expected. The problem wasn't skill. PMs at John Deere were experienced, motivated, and genuinely user-empathetic. The problem was structural and they had no shared vocabulary with UX, no lightweight templates that fit their pace, and no peer community to learn from.
+          </p>
+          <p>
+            Research reports were being delivered in 40-slide decks after key decisions had already been locked. Insights were getting buried. PMs were filling the gaps themselves, designing interaction flows in spreadsheets and making calls from intuition not because they wanted to, but because the system left them no other choice.
+          </p>
         </div>
-
-        <ContextCard
-          title="The Systems Trap"
-          text="It was easy to mistake this friction for individual skill gaps, but it was structural. PMs were making assumption-driven decisions because they had no shared language, no mutual workflows, and no light-weight templates that fit into the actual speed of their workday."
-        />
 
         <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
 
