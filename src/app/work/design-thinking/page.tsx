@@ -40,20 +40,6 @@ export default function DesignThinkingCaseStudy() {
         label="Overview"
         heading="A Systems Problem Nobody Was Naming"
       >
-        <SkillConstellation
-          primary={[
-            "Contextual Inquiry",
-            "Workshop Facilitation",
-            "Organizational Change Management",
-          ]}
-          supporting={[
-            "Persona Development",
-            "Affinity Mapping",
-            "Usability Testing (SUS)",
-          ]}
-          emerging={["Stakeholder Mapping", "Co-creation Methods"]}
-        />
-
         <div style={{ margin: "40px 0" }}>
           <h3>Overview</h3>
           <p>
@@ -73,6 +59,20 @@ export default function DesignThinkingCaseStudy() {
             Research reports were being delivered in 40-slide decks after key decisions had already been locked. Insights were getting buried. PMs were filling the gaps themselves, designing interaction flows in spreadsheets and making calls from intuition not because they wanted to, but because the system left them no other choice.
           </p>
         </div>
+
+        <SkillConstellation
+          primary={[
+            "Contextual Inquiry",
+            "Workshop Facilitation",
+            "Organizational Change Management",
+          ]}
+          supporting={[
+            "Persona Development",
+            "Affinity Mapping",
+            "Usability Testing (SUS)",
+          ]}
+          emerging={["Stakeholder Mapping", "Co-creation Methods"]}
+        />
 
         <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
 
