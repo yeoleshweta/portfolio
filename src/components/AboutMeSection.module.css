@@ -83,12 +83,14 @@
 }
 
 .paragraph {
+  font-family: var(--font-primary);
   font-size: 1.25rem;
   line-height: 1.8;
   margin-bottom: 1.5rem;
-  color: #1a1a1a;
+  color: #333;
   max-width: 800px;
-  font-weight: 500;
+  font-weight: 400;
+  letter-spacing: -0.02em;
   text-align: center;
 }
 
