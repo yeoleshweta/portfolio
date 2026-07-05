@@ -40,25 +40,10 @@ export default function DesignThinkingCaseStudy() {
         label="Overview"
         heading="A Systems Problem Nobody Was Naming"
       >
-        <div style={{ margin: "40px 0" }}>
-          <h3>Overview</h3>
-          <p>
-            John Deere manages a portfolio of 250+ products, with Product Managers sitting at the intersection of user needs, engineering timelines, and commercial strategy. The goal of this project was to understand why PMs were consistently making assumption-driven decisions and design a system that gave them the infrastructure to do better.
-          </p>
-
-          <h3 style={{ marginTop: "32px" }}>Background</h3>
-          <p>
-            I was brought in as Lead UX Consultant on a team of two UX researchers, a Tech Lead, and a PM. Our mandate was broad: close the gap between Product Management and UX across one of the world's largest equipment manufacturers.
-          </p>
-
-          <h3 style={{ marginTop: "32px" }}>What We Found</h3>
-          <p>
-            What we found wasn't what anyone expected. The problem wasn't skill. PMs at John Deere were experienced, motivated, and genuinely user-empathetic. The problem was structural and they had no shared vocabulary with UX, no lightweight templates that fit their pace, and no peer community to learn from.
-          </p>
-          <p>
-            Research reports were being delivered in 40-slide decks after key decisions had already been locked. Insights were getting buried. PMs were filling the gaps themselves, designing interaction flows in spreadsheets and making calls from intuition not because they wanted to, but because the system left them no other choice.
-          </p>
-        </div>
+        <h3>Overview</h3>
+        <p>
+          John Deere manages a portfolio of 250+ products, with Product Managers sitting at the intersection of user needs, engineering timelines, and commercial strategy. The goal of this project was to understand why PMs were consistently making assumption-driven decisions and design a system that gave them the infrastructure to do better.
+        </p>
 
         <SkillConstellation
           primary={[
@@ -73,6 +58,21 @@ export default function DesignThinkingCaseStudy() {
           ]}
           emerging={["Stakeholder Mapping", "Co-creation Methods"]}
         />
+
+        <div style={{ marginTop: "40px", marginBottom: "40px" }}>
+          <h3>Background</h3>
+          <p>
+            I was brought in as Lead UX Consultant on a team of two UX researchers, a Tech Lead, and a PM. Our mandate was broad: close the gap between Product Management and UX across one of the world's largest equipment manufacturers.
+          </p>
+
+          <h3 style={{ marginTop: "32px" }}>What We Found</h3>
+          <p>
+            What we found wasn't what anyone expected. The problem wasn't skill. PMs at John Deere were experienced, motivated, and genuinely user-empathetic. The problem was structural and they had no shared vocabulary with UX, no lightweight templates that fit their pace, and no peer community to learn from.
+          </p>
+          <p>
+            Research reports were being delivered in 40-slide decks after key decisions had already been locked. Insights were getting buried. PMs were filling the gaps themselves, designing interaction flows in spreadsheets and making calls from intuition not because they wanted to, but because the system left them no other choice.
+          </p>
+        </div>
 
         <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
 
