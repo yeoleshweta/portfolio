@@ -210,27 +210,11 @@ export default function DesignThinkingCaseStudy() {
 
         <DoubleDiamondDiagram />
 
-        <h3 style={{ marginTop: "40px" }}>Role Responsibilities Across the Diamond</h3>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", margin: "24px 0" }}>
-          <div>
-            <p><strong>UX Lead (me):</strong> Active across all four phases — leading discovery, owning synthesis, facilitating design workshops, reviewing delivery</p>
-            <p><strong>UX Researcher:</strong> Heavy in Discover and re-engaged at Deliver for usability validation</p>
-          </div>
-          <div>
-            <p><strong>PM:</strong> Engaged from Define onward — critical for scoping and feasibility</p>
-            <p><strong>Tech Lead:</strong> Joined at Design phase to assess technical constraints before commitments were made</p>
-          </div>
-        </div>
-
-        <Blockquote
-          text="Key principle from my process framework: UX Researchers are recruited back at the Deliver phase — not just to test, but to validate that the solution still maps to the original research findings."
-        />
-
         <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
 
         <h3>Framing the Problem</h3>
         <p>
-          Problem Framing sits at the transition from Discover &rarr; Define. Before any solution work began, I needed a locked, shared understanding of what we were actually solving &mdash; and for whom.
+          Problem Framing sits at the transition from Discover &rarr; Define. Before any solution work began, I needed a locked, shared understanding of what we were actually solving and for whom.
         </p>
 
         <CaseStudyImage
