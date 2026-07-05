@@ -5,11 +5,9 @@ import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
 import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
 import {
   CaseStudySection,
-  ContextCard,
   ResultsGrid,
   CaseStudyImage,
   PersonaProgress,
-  InteractiveBarChart,
   Blockquote,
   PersonaCardActual,
   SkillSpotlight,
@@ -228,117 +226,33 @@ export default function DesignThinkingCaseStudy() {
       <CaseStudySection
         id="research"
         label="Research & Insights"
-        heading="Understanding the Shape of the Problem"
+        heading="Gathering Insights"
       >
         <p>
-          Before any solution work, I needed to understand the actual shape of the
-          problem — not the assumed one.
+          To understand the actual shape of the problem, I conducted 15 contextual interviews
+          and shadowed planning meetings across John Deere&apos;s product lines. We clustered
+          raw observations into thematic areas using Miro to identify critical friction points.
         </p>
 
-        <h3>What I did</h3>
-        <p>
-          I conducted <strong>15 contextual interviews</strong> with mid-to-senior Product
-          Managers across different product lines. Interviews alone weren't enough
-          — I also <strong>shadowed real planning meetings and backlog refinement sessions</strong>.
-        </p>
-        <p>
-          Alongside interviews, I ran <strong>stakeholder mapping</strong> across PMs, UX,
-          Engineering, and Leadership to understand where information was flowing, where
-          it was breaking down, and which nodes had the most influence over the system.
-        </p>
-
-        <ContextCard
-          title="Why This Mattered"
-          text="Surveys and interviews had been run before at John Deere. They hadn't produced change. I hypothesized that the gap was between reported behavior and actual behavior — and shadowing confirmed it. PMs are articulate professionals; in interviews they describe the polished version of their work. In context, you see the friction points they've normalized."
-        />
-
-        <SkillSpotlight
-          skill="Contextual Inquiry"
-          description="Shadowed real backlog refinement sessions to observe implicit pain points rather than relying solely on self-reported survey answers."
-          evidence="Surfaced critical timing and coordination challenges that surveys missed."
+        <CaseStudyImage
+          src="/assets/gathering-insights.png"
+          alt="Affinity mapping of research observations in Miro"
+          caption="Gathering Insights: Mapping 100+ raw observations from PM interviews and shadowing sessions into thematic clusters (Confusion, Reaction, Improvement, Current Status)."
         />
 
         <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
 
-        <h3>Gathering Insights</h3>
+        <h3>Insights &amp; Prioritisation Formula</h3>
         <p>
-          After fieldwork, my teammate and I ran <strong>affinity mapping in Miro</strong> to
-          cluster raw observations into themes. We moved from 100+ individual data points
-          to <strong>3 macro-clusters of friction:</strong>
+          To transition from qualitative insights to a structured prioritisation model, I plugged our
+          research findings into a core hypothesis formula, defining clear outcomes, target users,
+          benefits, and feature priorities alongside measurable UX metrics.
         </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "24px", margin: "24px 0" }}>
-          <div style={{ background: "var(--color-bg-card)", padding: "24px", borderRadius: "12px", border: "1px solid var(--color-border)" }}>
-            <h4 style={{ margin: "0 0 8px 0" }}>1. Language Gap</h4>
-            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)", lineHeight: "1.4" }}>
-              PMs and UX teams didn't share a vocabulary, making collaboration clunky and inconsistent.
-            </p>
-          </div>
-          <div style={{ background: "var(--color-bg-card)", padding: "24px", borderRadius: "12px", border: "1px solid var(--color-border)" }}>
-            <h4 style={{ margin: "0 0 8px 0" }}>2. Timing Gap</h4>
-            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)", lineHeight: "1.4" }}>
-              Research outputs reached PMs after key decisions were made, reducing their practical utility.
-            </p>
-          </div>
-          <div style={{ background: "var(--color-bg-card)", padding: "24px", borderRadius: "12px", border: "1px solid var(--color-border)" }}>
-            <h4 style={{ margin: "0 0 8px 0" }}>3. Support Gap</h4>
-            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)", lineHeight: "1.4" }}>
-              PMs had no peer community, no templates, no pathway to grow at the UX/PM intersection.
-            </p>
-          </div>
-        </div>
-
-        <h3 style={{ marginTop: "40px" }}>The Severity Framework</h3>
-        <p>
-          To move from <em>observations</em> to <em>priorities</em>, I applied a severity framework to each identified issue:
-        </p>
-
-        <div style={{ background: "var(--color-bg-card)", padding: "32px", borderRadius: "12px", textAlign: "center", border: "1px solid var(--color-border)", margin: "24px 0" }}>
-          <code style={{ fontSize: "18px", fontWeight: "bold", color: "var(--color-accent)" }}>
-            Severity Score = Task Criticality × Impact × Frequency
-          </code>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px", marginTop: "24px", fontSize: "14px" }}>
-            <div>
-              <strong>Task Criticality</strong>
-              <p style={{ color: "var(--color-text-secondary)", margin: "4px 0 0" }}>How important is this to the PM's core job? (1–5)</p>
-            </div>
-            <div>
-              <strong>Impact</strong>
-              <p style={{ color: "var(--color-text-secondary)", margin: "4px 0 0" }}>How much does this friction affect their output? (1–5)</p>
-            </div>
-            <div>
-              <strong>Frequency (%)</strong>
-              <p style={{ color: "var(--color-text-secondary)", margin: "4px 0 0" }}>How often does it appear across participants?</p>
-            </div>
-          </div>
-        </div>
-
-        <h3 style={{ marginTop: "40px" }}>What the Research Revealed</h3>
-        <p>
-          Across 15 interviews, the findings were consistent and cross-cutting — these weren't
-          individual struggles, they were structural:
-        </p>
-
-        <InteractiveBarChart
-          data={[
-            { label: "No shared UX language", value: 90, color: "#8b69fa" },
-            { label: "Research arrived too late", value: 80, color: "#9f85f8" },
-            { label: "PMs solving UX problems alone", value: 75, color: "#b4a1f7" },
-            { label: "Low confidence interpreting/critiquing research", value: 65, color: "#c8bdf5" },
-            { label: "No career pathway at intersection", value: 55, color: "#ddd8f4" },
-          ]}
-        />
-
-        <p style={{ marginTop: "24px" }}>
-          The data pointed toward one root cause: <strong>PMs didn't need UX education — they
-          needed UX infrastructure.</strong> Frameworks, templates, and touchpoints that fit
-          inside the workflows they already had.
-        </p>
-
-        <SkillSpotlight
-          skill="Affinity Mapping"
-          description="Synthesized 100+ observational data points into macro friction clusters, helping align stakeholders on structural patterns."
-          evidence="The clusters directly formed the foundation of our solution roadmaps."
+        <CaseStudyImage
+          src="/assets/hypothesis-formula.png"
+          alt="Prioritisation and hypothesis formula flowchart"
+          caption="Insights plugged into a formula: Outlining the hypothesis (Outcome, User, Benefit, Feature) and the core metrics used to measure success (DAU/MAU, Retention Rate, Session Length)."
         />
       </CaseStudySection>
 
