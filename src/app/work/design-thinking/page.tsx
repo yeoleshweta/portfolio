@@ -7,6 +7,7 @@ import {
   CaseStudySection,
   ContextCard,
   ResultsGrid,
+  CaseStudyImage,
   PersonaProgress,
   DoubleDiamondCarousel,
   InteractiveBarChart,
@@ -76,10 +77,14 @@ export default function DesignThinkingCaseStudy() {
 
         <h3>The Process</h3>
         <p>
-          This engagement followed the <strong>Double Diamond framework</strong> — diverging
-          to understand the full problem space before converging on solutions — augmented
-          with contextual inquiry and collaborative co-creation methods.
+          This engagement followed the <strong>Double Diamond framework</strong> diverging to understand the full problem space before converging on solutions augmented with contextual inquiry and collaborative co-creation methods.
         </p>
+
+        <CaseStudyImage
+          src="/assets/survey.jpg"
+          alt="Framing the Problem diagram"
+          caption="Framing the Problem: Mapping user lenses, forming statement drafts, and refining to structural infrastructure rather than individual education."
+        />
 
         <DoubleDiamondCarousel
           stages={[
