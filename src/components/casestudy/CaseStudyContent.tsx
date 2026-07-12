@@ -1184,3 +1184,93 @@ export function SkillConstellation({
   );
 }
 
+export function UXEnablementImpact() {
+  const barData = [
+    { label: "Org directly upskilled", value: 14 },
+    { label: "Buddy-Up retention", value: 83 },
+    { label: "Forum participation", value: 50 },
+    { label: "Tool adoption", value: 100 },
+    { label: "NPS score", value: 86 },
+  ];
+
+  return (
+    <div className={styles.impactContainer}>
+      <div className={styles.impactHeader}>
+        <span className={styles.impactSub}>JOHN DEERE · UX ENABLEMENT PROGRAMME · 12 WEEKS</span>
+        <h3 className={styles.impactTitle}>Impact at a Glance</h3>
+      </div>
+
+      {/* Hero row */}
+      <div className={styles.heroRow}>
+        <div className={`${styles.heroCard} ${styles.heroCardAccent}`}>
+          <span className={styles.cardLabel}>Programme NPS</span>
+          <span className={styles.cardValue}>86</span>
+          <span className={styles.cardSub}>Post-programme survey</span>
+          <span className={styles.cardBenchmark}>World-class · benchmark &gt;70</span>
+        </div>
+        <div className={styles.heroCard}>
+          <span className={styles.cardLabel}>Tool Adoption</span>
+          <span className={styles.cardValue}>100%</span>
+          <span className={styles.cardSub}>PMs using Figma, Mural &amp; DeereUX (from zero)</span>
+          <span className={styles.cardTagGreen}>&uarr; from 0%</span>
+        </div>
+        <div className={styles.heroCard}>
+          <span className={styles.cardLabel}>Workshops Delivered</span>
+          <span className={styles.cardValue}>50</span>
+          <span className={styles.cardSub}>4+ per week across 12 weeks</span>
+          <span className={styles.cardTagGreen}>28 PMs upskilled</span>
+        </div>
+      </div>
+
+      {/* Secondary row */}
+      <div className={styles.secondaryRow}>
+        <div className={styles.statCard}>
+          <span className={styles.statLabel}>Buddy-Up Retention</span>
+          <span className={styles.statValue}>83%</span>
+          <span className={styles.statSub}>10 of 12 pairs continued beyond the pilot</span>
+        </div>
+        <div className={styles.statCard}>
+          <span className={styles.statLabel}>Forum Threads</span>
+          <span className={styles.statValue}>120</span>
+          <span className={styles.statSub}>In month one, at 30/week organically</span>
+        </div>
+        <div className={styles.statCard}>
+          <span className={styles.statLabel}>Monthly Forum Activity</span>
+          <span className={styles.statValue}>50%</span>
+          <span className={styles.statSub}>Active participation rate across 40 members</span>
+        </div>
+        <div className={styles.statCard}>
+          <span className={styles.statLabel}>Collaboration Demand</span>
+          <span className={styles.statValue}>3&times;</span>
+          <span className={styles.statSub}>New team requests/month post-programme</span>
+        </div>
+      </div>
+
+      {/* Reach chart */}
+      <div className={styles.reachSection}>
+        <h4 className={styles.reachTitle}>Programme Reach</h4>
+        <div className={styles.reachChart}>
+          {barData.map((item, i) => (
+            <div key={i} className={styles.reachRow}>
+              <span className={styles.reachLabel}>{item.label}</span>
+              <div className={styles.reachTrack}>
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${item.value}%` }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1, delay: i * 0.1, ease: "easeOut" }}
+                  className={styles.reachFill}
+                />
+              </div>
+              <span className={styles.reachValue}>
+                {item.label === "NPS score" ? item.value : `${item.value}%`}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+

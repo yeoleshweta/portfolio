@@ -5,11 +5,11 @@ import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
 import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
 import {
   CaseStudySection,
-  ResultsGrid,
   CaseStudyImage,
   Blockquote,
   SkillSpotlight,
   SkillConstellation,
+  UXEnablementImpact,
 } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
@@ -386,30 +386,7 @@ export default function DesignThinkingCaseStudy() {
         </p>
 
         <h3 style={{ marginTop: "40px" }}>Impact</h3>
-        <ResultsGrid
-          items={[
-            {
-              value: "80%",
-              label: "UX Confidence",
-              description: "Participants felt more confident interpreting research deliverables.",
-            },
-            {
-              value: "25%",
-              label: "Feature Spec Speed",
-              description: "Faster average time to complete specifications.",
-            },
-            {
-              value: "120",
-              label: "Forum Threads",
-              description: "Threads started in month one, growing organically and unsolicited.",
-            },
-            {
-              value: "10/12",
-              label: "Buddy-Up Retention",
-              description: "Pairs voluntarily continued collaborating beyond the pilot.",
-            },
-          ]}
-        />
+        <UXEnablementImpact />
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px", marginTop: "40px" }}>
           <div>

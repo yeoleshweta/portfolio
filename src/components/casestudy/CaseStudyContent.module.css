@@ -1091,3 +1091,245 @@
   color: #f59e0b;
   border: 1px solid rgba(245, 158, 11, 0.15);
 }
+
+/* UX Enablement Impact Dashboard */
+.impactContainer {
+  margin: 48px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.impactHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.impactSub {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.impactTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.heroRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.heroCard {
+  background: var(--color-bg-card, #f8f9fa);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+}
+
+.heroCardAccent {
+  background: var(--color-text, #1a1c20);
+  border-color: var(--color-text, #1a1c20);
+  color: var(--color-bg, #ffffff);
+}
+
+.cardLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.heroCardAccent .cardLabel {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cardValue {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-text);
+}
+
+.heroCardAccent .cardValue {
+  color: var(--color-bg, #ffffff);
+}
+
+.cardSub {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.heroCardAccent .cardSub {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cardBenchmark {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cardTagGreen {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  margin-top: 4px;
+}
+
+.secondaryRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.statCard {
+  background: var(--color-bg-card, #f8f9fa);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+}
+
+.statLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.statValue {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+.statSub {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.reachSection {
+  background: var(--color-bg-card, #f8f9fa);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reachTitle {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.reachChart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reachRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.reachLabel {
+  width: 160px;
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.reachTrack {
+  flex-grow: 1;
+  height: 8px;
+  background: var(--color-border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.reachFill {
+  height: 100%;
+  border-radius: 99px;
+  background: var(--color-text, #1a1c20);
+}
+
+.reachValue {
+  width: 40px;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .heroRow {
+    grid-template-columns: 1fr;
+  }
+  .secondaryRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .reachRow {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .reachTrack {
+    width: 100%;
+    order: 3;
+    margin-top: 4px;
+  }
+  .reachValue {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .secondaryRow {
+    grid-template-columns: 1fr;
+  }
+  .reachLabel {
+    width: auto;
+  }
+}
