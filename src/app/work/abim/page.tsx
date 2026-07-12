@@ -27,28 +27,7 @@ const sections = [
   { id: "impact", label: "10. Impact & Presentation" },
 ];
 
-/* ─────── Presentation Guidance Callout ─────── */
-function PresentationGuidance({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      style={{
-        background: "rgba(139, 105, 250, 0.05)",
-        borderLeft: "4px solid #8b69fa",
-        padding: "18px 24px",
-        borderRadius: "0 12px 12px 0",
-        margin: "24px 0",
-        fontSize: "14.5px",
-        lineHeight: 1.6,
-        color: "var(--color-text)",
-      }}
-    >
-      <span style={{ fontSize: "11px", fontWeight: 800, color: "#8b69fa", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: "8px" }}>
-        Presentation Guidance
-      </span>
-      <div style={{ fontStyle: "italic" }}>{children}</div>
-    </div>
-  );
-}
+
 
 
 
@@ -1055,9 +1034,6 @@ export default function ABIMCaseStudy() {
           id="taxonomy"
           label="2. Study Design"
         >
-          <PresentationGuidance>
-            Say: &quot;This is a mixed-methods study. The qual work (rubric design, framework selection, expert annotation) served the quant work. It was instrument design, not independent inquiry. The primary output is quantitative: reliability metrics, classifier performance, and behavioral frequency profiles.&quot;
-          </PresentationGuidance>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>2.1 Study Type: Mixed Methods, Quantitative Primary</h3>
           <p>
@@ -1096,9 +1072,6 @@ export default function ABIMCaseStudy() {
           </p>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>2.2 Industry-Standard Methods Used</h3>
-          <PresentationGuidance>
-            Present these tables explicitly. Walk through each method and explain why it was the right choice.
-          </PresentationGuidance>
 
           <h4 style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-text-secondary)", textTransform: "uppercase", marginTop: "24px", marginBottom: "12px" }}>Qualitative Methods Map</h4>
           <div style={{ overflowX: "auto", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
@@ -1203,9 +1176,6 @@ export default function ABIMCaseStudy() {
             </table>
           </div>
 
-          <PresentationGuidance>
-            Say: &quot;The core deliverable is a measurement instrument: 11 operationalized rubrics that define what good physician communication looks like in observable, text-detectable behavioral terms. That is what UX researchers do when they design surveys, behavioral coding schemes, or usability scales. The classifier is the delivery mechanism. The rubric is the research artifact.&quot;
-          </PresentationGuidance>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>3.1 Framework Selection</h3>
           <p>
@@ -1231,9 +1201,6 @@ export default function ABIMCaseStudy() {
           id="pipeline"
           label="3. Data Pipeline"
         >
-          <PresentationGuidance>
-            Highlight: &quot;My primary contribution was the data pipeline: architecture, source selection, labeling strategy, and label schema design.&quot;
-          </PresentationGuidance>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>4.1 The Five-Phase Pipeline</h3>
           <p>
@@ -1302,9 +1269,6 @@ export default function ABIMCaseStudy() {
             <strong>Why this was a construct validity decision:</strong> Synthetic conversations contain overly explicit behavioral markers that real encounters lack. A model trained on synthetic data learns a distribution that does not generalize to actual clinical settings: a measurement validity problem, not a model problem.
           </p>
 
-          <PresentationGuidance>
-            Say: &quot;Source selection was not just &apos;find data.&apos; It was a construct validity decision.&quot;
-          </PresentationGuidance>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>4.3 LLM-Assisted Labeling Strategy</h3>
           <ul style={{ paddingLeft: "20px", marginBottom: "24px" }}>
@@ -1314,9 +1278,6 @@ export default function ABIMCaseStudy() {
             <li style={{ marginBottom: "8px" }}><strong>Per-construct model selection</strong>: Qwen vs. Llama evaluated separately per construct.</li>
           </ul>
 
-          <PresentationGuidance>
-            Say: &quot;The prompts were not generation prompts: they were measurement instruments. Each one encoded the full rubric: what counts, what does not count, and what to do with ambiguous cases.&quot;
-          </PresentationGuidance>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>4.4 Label Schema (9 Prefix Families)</h3>
           <p>
@@ -1509,9 +1470,6 @@ export default function ABIMCaseStudy() {
             />
           </div>
 
-          <PresentationGuidance>
-            Say: &quot;Governance was not a legal afterthought: it was a measurement design constraint. When you know the output will never be used for high-stakes decisions, that changes what kind of precision you need, how you format the output, and what you put in the user interface.&quot;
-          </PresentationGuidance>
         </CaseStudySection>
 
         {/* ============================================ */}
@@ -1521,9 +1479,6 @@ export default function ABIMCaseStudy() {
           id="role"
           label="8. Shweta's Role"
         >
-          <PresentationGuidance>
-            Be explicit about your individual contribution in an interview. Hiring managers need to know what YOU did, not what the team did. Use this section to make that clear.
-          </PresentationGuidance>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>What I Owned</h3>
           <p>
