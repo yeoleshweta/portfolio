@@ -262,7 +262,6 @@ export default function DesignThinkingCaseStudy() {
         id="solutions"
         heading="Prioritisation & Persona"
       >
-        <h3>Prioritisation</h3>
         <p>
           I categorized findings into Epics not just for our team's use, but to give Product and
           Engineering leadership visibility into what needed fixing and in what order.
