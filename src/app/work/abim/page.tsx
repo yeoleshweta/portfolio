@@ -954,28 +954,58 @@ export default function ABIMCaseStudy() {
               </thead>
               <tbody>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>Medical Knowledge</td>
-                  <td style={{ padding: "12px 16px", color: "#11a961", fontWeight: 600 }}>✅ Rigorously tested (board exams)</td>
+                  <td style={{ padding: "14px 16px", fontWeight: 600, color: "var(--color-text)" }}>Medical Knowledge</td>
+                  <td style={{ padding: "14px 16px" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(16, 185, 129, 0.06)", border: "1px solid rgba(16, 185, 129, 0.15)", borderRadius: "20px", padding: "4px 10px", fontSize: "12px", color: "#10b981", fontWeight: 700 }}>
+                      <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981" }} />
+                      Rigorously tested (board exams)
+                    </div>
+                  </td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>Patient Care &amp; Procedural Skills</td>
-                  <td style={{ padding: "12px 16px", color: "#d97706", fontWeight: 600 }}>⚠️ Partially measured</td>
+                  <td style={{ padding: "14px 16px", fontWeight: 600, color: "var(--color-text)" }}>Patient Care &amp; Procedural Skills</td>
+                  <td style={{ padding: "14px 16px" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(245, 158, 11, 0.06)", border: "1px solid rgba(245, 158, 11, 0.15)", borderRadius: "20px", padding: "4px 10px", fontSize: "12px", color: "#d97706", fontWeight: 700 }}>
+                      <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#d97706" }} />
+                      Partially measured
+                    </div>
+                  </td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>Practice-Based Learning &amp; Improvement</td>
-                  <td style={{ padding: "12px 16px", color: "#d97706", fontWeight: 600 }}>⚠️ Self-reported</td>
+                  <td style={{ padding: "14px 16px", fontWeight: 600, color: "var(--color-text)" }}>Practice-Based Learning &amp; Improvement</td>
+                  <td style={{ padding: "14px 16px" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(245, 158, 11, 0.06)", border: "1px solid rgba(245, 158, 11, 0.15)", borderRadius: "20px", padding: "4px 10px", fontSize: "12px", color: "#d97706", fontWeight: 700 }}>
+                      <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#d97706" }} />
+                      Self-reported
+                    </div>
+                  </td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>Systems-Based Practice</td>
-                  <td style={{ padding: "12px 16px", color: "#d97706", fontWeight: 600 }}>⚠️ Self-reported</td>
+                  <td style={{ padding: "14px 16px", fontWeight: 600, color: "var(--color-text)" }}>Systems-Based Practice</td>
+                  <td style={{ padding: "14px 16px" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(245, 158, 11, 0.06)", border: "1px solid rgba(245, 158, 11, 0.15)", borderRadius: "20px", padding: "4px 10px", fontSize: "12px", color: "#d97706", fontWeight: 700 }}>
+                      <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#d97706" }} />
+                      Self-reported
+                    </div>
+                  </td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>Interpersonal &amp; Communication Skills</td>
-                  <td style={{ padding: "12px 16px", color: "#dc3545", fontWeight: 600 }}>❌ Almost never measured at scale</td>
+                  <td style={{ padding: "14px 16px", fontWeight: 600, color: "var(--color-text)" }}>Interpersonal &amp; Communication Skills</td>
+                  <td style={{ padding: "14px 16px" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(239, 68, 68, 0.06)", border: "1px solid rgba(239, 68, 68, 0.15)", borderRadius: "20px", padding: "4px 10px", fontSize: "12px", color: "#ef4444", fontWeight: 700 }}>
+                      <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444" }} />
+                      Almost never measured at scale
+                    </div>
+                  </td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>Professionalism</td>
-                  <td style={{ padding: "12px 16px", color: "#dc3545", fontWeight: 600 }}>❌ Almost never measured at scale</td>
+                  <td style={{ padding: "14px 16px", fontWeight: 600, color: "var(--color-text)" }}>Professionalism</td>
+                  <td style={{ padding: "14px 16px" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(239, 68, 68, 0.06)", border: "1px solid rgba(239, 68, 68, 0.15)", borderRadius: "20px", padding: "4px 10px", fontSize: "12px", color: "#ef4444", fontWeight: 700 }}>
+                      <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444" }} />
+                      Almost never measured at scale
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
