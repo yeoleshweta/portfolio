@@ -898,9 +898,7 @@ export default function ABIMCaseStudy() {
           <p style={{ fontSize: "16px", lineHeight: 1.6 }}>
             Physicians are rigorously tested on medical knowledge, but the communication skills that shape patient outcomes? Almost never measured at scale. At ABIM, I spent six months closing that gap: translating two validated clinical communication frameworks into 11 operationalized rubrics, then building and validating a scalable NLP pipeline that applies them reliably across 985 physician conversations.
           </p>
-          <p>
-            This is a measurement design project. The classifier is the delivery mechanism. The rubric is the research.
-          </p>
+
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", margin: "24px 0", textAlign: "center" }}>
             <div style={{ padding: "20px", background: "rgba(139,105,250,0.03)", borderRadius: "12px", border: "1px solid rgba(139,105,250,0.08)" }}>
