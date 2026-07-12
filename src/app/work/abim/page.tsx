@@ -1032,7 +1032,6 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="taxonomy"
-          label="2. Study Design"
         >
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>2.1 Study Type: Mixed Methods, Quantitative Primary</h3>
@@ -1199,7 +1198,6 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="pipeline"
-          label="3. Data Pipeline"
         >
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>4.1 The Five-Phase Pipeline</h3>
@@ -1291,7 +1289,6 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="metrics"
-          label="4. Quantitative Metrics"
         >
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>5.1 Inter-Rater Reliability (IRR)</h3>
           <p>
@@ -1328,7 +1325,6 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="errors"
-          label="5. Error Analysis"
         >
           <p>
             A qualitative and quantitative breakdown of Type I (False Positive) and Type II (False Negative) errors across the communication constructs.
@@ -1342,7 +1338,6 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="deidentification"
-          label="6. De-Identification"
         >
           <p>
             Named Entity Recognition detects Protected Health Information spans, classifies them by type, and masks them before any transcript enters the labeling pipeline.
@@ -1363,7 +1358,6 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="governance"
-          label="7. Validity &amp; Governance"
         >
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>7.1 Types of Validity Addressed</h3>
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
@@ -1477,7 +1471,6 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="role"
-          label="8. Shweta's Role"
         >
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>What I Owned</h3>
@@ -1506,7 +1499,6 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="limitations"
-          label="9. Limitations"
         >
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>Acknowledged Gaps</h3>
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
@@ -1551,7 +1543,6 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="impact"
-          label="10. Impact &amp; Presentation"
         >
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>What the Project Produced</h3>
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
