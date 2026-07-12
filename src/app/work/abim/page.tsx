@@ -893,7 +893,6 @@ export default function ABIMCaseStudy() {
         {/* ============================================ */}
         <CaseStudySection
           id="overview"
-          label="Overview"
         >
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "24px" }}>Overview</h3>
           <p style={{ fontSize: "16px", lineHeight: 1.6 }}>
