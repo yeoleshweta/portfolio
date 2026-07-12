@@ -1142,39 +1142,6 @@ export default function ABIMCaseStudy() {
             </table>
           </div>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>2.3 Why This Is UX Research</h3>
-          <p>
-            The parallel to traditional user experience research is direct:
-          </p>
-          <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
-              <thead>
-                <tr style={{ background: "rgba(0,0,0,0.02)", textAlign: "left" }}>
-                  <th style={{ padding: "12px 16px", fontWeight: 700 }}>Traditional UXR</th>
-                  <th style={{ padding: "12px 16px", fontWeight: 700 }}>This Study</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px" }}>Survey instrument design (scale items, anchors, pilot testing)</td>
-                  <td style={{ padding: "12px 16px" }}>Rubric operationalization (construct definitions, inclusion/exclusion criteria, borderline examples)</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px" }}>Inter-rater reliability for coding schemes</td>
-                  <td style={{ padding: "12px 16px" }}>LLM-human IRR per construct</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px" }}>Validated scales (SUS, SUPR-Q, NPS)</td>
-                  <td style={{ padding: "12px 16px" }}>Calgary-Cambridge + NURSE (clinical communication equivalents)</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px" }}>Behavioral observation coding</td>
-                  <td style={{ padding: "12px 16px" }}>Transcript-based presence/absence coding</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>3.1 Framework Selection</h3>
           <p>
