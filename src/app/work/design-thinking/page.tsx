@@ -167,7 +167,10 @@ export default function DesignThinkingCaseStudy() {
       >
         <h3>Overview</h3>
         <p>
-          John Deere manages a portfolio of 250+ products, with Product Managers sitting at the intersection of user needs, engineering timelines, and commercial strategy. The goal of this project was to understand why PMs were consistently making assumption-driven decisions and design a system that gave them the infrastructure to do better.
+          John Deere India runs 250+ internal products. Most don&apos;t have a dedicated UX professional. Some teams could afford to hire for it most couldn&apos;t. So Product Managers absorbed the gap, running their own research, designing their own flows, and making calls from intuition. Not by choice. Because the system left them no alternative.
+        </p>
+        <p>
+          This was a qualitative exploratory research study using contextual inquiry and co-design methods. The goal: understand exactly where that system was breaking down, and design a pathway to fix it.
         </p>
 
         <SkillConstellation
@@ -187,13 +190,16 @@ export default function DesignThinkingCaseStudy() {
         <div style={{ marginTop: "40px", marginBottom: "40px" }}>
           <h3>Background</h3>
           <p>
-            I was brought in as Lead UX Consultant on a team of two UX researchers, a Tech Lead, and a PM. Our mandate was broad: close the gap between Product Management and UX across one of the world's largest equipment manufacturers.
+            I was part of John Deere&apos;s Strategy &amp; Transformation team a cross-functional pod of product coaches, agile coaches, and UX coaches. My role was UX Advocate: the person PMs came to when they had a research question and no researcher to ask.
           </p>
           <p>
-            What we found wasn't what anyone expected. The problem wasn't skill. PMs at John Deere were experienced, motivated, and genuinely user-empathetic. The problem was structural and they had no shared vocabulary with UX, no lightweight templates that fit their pace, and no peer community to learn from.
+            The structural reality was stark. Across 250 internal products, UX coverage was uneven by design. Teams with budget hired UX professionals. Teams without handed the work to their PMs who were already managing specs, stakeholders, planning ceremonies, and commercial priorities. Layering research and synthesis on top was unsustainable, and the quality of product decisions showed it.
           </p>
           <p>
-            Research reports were being delivered in 40-slide decks after key decisions had already been locked. Insights were getting buried. PMs were filling the gaps themselves, designing interaction flows in spreadsheets and making calls from intuition not because they wanted to, but because the system left them no other choice.
+            My mandate was two-pronged. First, bridge the gap and provide ad hoc UX support to teams with no dedicated UX resource. Second, build UX literacy like running workshops, advocate for research, and shift how PMs approached user-centred decision-making over time.
+          </p>
+          <p>
+            This study was one of the qualitative research initiatives I led to answer one question: what are PMs actually struggling with, and what would genuinely help them? Not assumptions. Evidence.
           </p>
         </div>
 
