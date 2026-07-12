@@ -1014,9 +1014,7 @@ export default function ABIMCaseStudy() {
           <p>
             The result is a massive verification gap: physicians are certified via examination but assumed capable of proper human interaction. The only existing measure, patient satisfaction surveys, is rare, self-selected, and indirect.
           </p>
-          <p>
-            <strong>The problem in numbers:</strong> Expert human grading of communication tops out at ~50 conversations per week. Rater bias, drift, and order effects make even gold-standard human rating inconsistent, leaving trainees with limited, sporadic communication feedback.
-          </p>
+
 
           <Blockquote
             text="Key phrase to use: &quot;We certify doctors via exam but assume they are capable of proper human interaction. This project tried to make that assumption testable.&quot;"
