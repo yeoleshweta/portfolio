@@ -405,9 +405,7 @@ export default function DesignThinkingCaseStudy() {
           </li>
         </ul>
 
-        <p style={{ marginTop: "64px", fontStyle: "italic", textAlign: "center", color: "var(--color-text-secondary)" }}>
-          Lead UX Consultant · John Deere · 12 Weeks
-        </p>
+
       </CaseStudySection>
     </CaseStudyLayout>
   );
