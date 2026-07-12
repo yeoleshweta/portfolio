@@ -1195,10 +1195,7 @@ export function UXEnablementImpact() {
 
   return (
     <div className={styles.impactContainer}>
-      <div className={styles.impactHeader}>
-        <span className={styles.impactSub}>JOHN DEERE · UX ENABLEMENT PROGRAMME · 12 WEEKS</span>
-        <h3 className={styles.impactTitle}>Impact at a Glance</h3>
-      </div>
+
 
       {/* Hero row */}
       <div className={styles.heroRow}>
