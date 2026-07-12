@@ -263,22 +263,21 @@ export default function DesignThinkingCaseStudy() {
         heading="Prioritisation & Persona"
       >
         <p>
-          I categorized findings into Epics not just for our team's use, but to give Product and
-          Engineering leadership visibility into what needed fixing and in what order.
+          I categorised findings into initiative areas to give leadership visibility into what to address first and why.
         </p>
         <p>
           <strong>Prioritisation criteria:</strong>
         </p>
         <ul>
-          <li>Severity score (from the framework above)</li>
-          <li>Effort to implement (UX + Engineering)</li>
-          <li>Dependencies between solutions</li>
+          <li>Severity score (frequency &times; impact on PM decision quality)</li>
+          <li>Effort to implement (facilitation + coordination complexity)</li>
+          <li>Dependencies between initiatives</li>
         </ul>
         <p>
-          From this, we established that the <strong>PM-UX Playbook</strong> was the highest-priority
-          first delivery, highest severity score, moderate engineering lift, and foundational to
-          everything else. The Buddy-Up programme and Community Forum were sequenced to follow,
-          since they depended on the Playbook existing first.
+          From this, <strong>Tool Enablement (Figma, Mural, DeereUX)</strong> was established as the highest priority with highest severity score, fastest to implement, and foundational to everything else. PMs needed working tools before a peer community or buddy system would be useful.
+        </p>
+        <p>
+          The Buddy-Up Programme and Community Forum were sequenced to follow, since both depended on PMs having a shared toolset and common language first.
         </p>
 
         <h3 style={{ marginTop: "40px" }}>Narrowing the Scope: Meet Rajesh</h3>
