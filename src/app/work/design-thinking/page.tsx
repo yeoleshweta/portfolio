@@ -260,7 +260,6 @@ export default function DesignThinkingCaseStudy() {
       {/* --- SOLUTIONS --- */}
       <CaseStudySection
         id="solutions"
-        label="Prioritisation & Persona"
         heading="Prioritisation & Persona"
       >
         <h3>Prioritisation</h3>
