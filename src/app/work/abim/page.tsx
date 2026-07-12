@@ -54,7 +54,7 @@ function PresentationGuidance({ children }: { children: React.ReactNode }) {
 function QuickReferenceCard() {
   const details = [
     { label: "Organization", value: "American Board of Internal Medicine (ABIM)" },
-    { label: "Role", value: "Data Scientist Co-op (Shweta: Data & Labels)" },
+    { label: "Role", value: "Innovation Analyst (Data & Research Focused)" },
     { label: "Team", value: "I/O Psychologists, Data Scientist, AI/ML Engineer" },
     { label: "Duration", value: "6 months Co-op" },
     { label: "Research type", value: "Mixed Methods (Quantitative Primary)" },
@@ -919,7 +919,7 @@ export default function ABIMCaseStudy() {
       <CaseStudyHero
         title="From Frameworks to F1 Scores: Designing a Scalable Communication Assessment System"
         category="NLP &amp; UX Research"
-        role="Data Scientist Co-op (Shweta: Data &amp; Labels)"
+        role="Innovation Analyst (Data &amp; Research Focused)"
         team="I/O Psychologists, Data Scientist, and AI/ML Engineer"
         timeline="Co-Op (6 months)"
       />
@@ -1582,7 +1582,7 @@ export default function ABIMCaseStudy() {
         <CaseStudySection
           id="role"
           label="8. Shweta's Role"
-          heading="Section 7: Shweta's Role (Data &amp; Labels Ownership)"
+          heading="Section 7: Shweta's Role (Data &amp; Research Ownership)"
         >
           <PresentationGuidance>
             Be explicit about your individual contribution in an interview. Hiring managers need to know what YOU did, not what the team did. Use this section to make that clear.
@@ -1590,7 +1590,7 @@ export default function ABIMCaseStudy() {
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>7.1 What You Owned</h3>
           <p>
-            As the Data Scientist Co-op, I primary owned the data pipeline and labeling architecture:
+            As the Innovation Analyst (Data &amp; Research Focused), I primarily owned the data pipeline and labeling architecture:
           </p>
           <ol style={{ paddingLeft: "20px", marginBottom: "24px" }}>
             <li style={{ marginBottom: "12px" }}><strong>Dataset architecture decisions:</strong> Evaluating 4 transcript sources, structuring the corpus around real vs. simulated data, making the case for VHA 4C as the realism anchor.</li>
