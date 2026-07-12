@@ -30,14 +30,16 @@ export default function CaseStudyHero({
   return (
     <section className={styles.hero}>
       <div className={styles.header}>
-        <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className={styles.category}
-        >
-          {category}
-        </motion.span>
+        {category && (
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className={styles.category}
+          >
+            {category}
+          </motion.span>
+        )}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

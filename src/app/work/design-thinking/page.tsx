@@ -7,9 +7,9 @@ import {
   CaseStudySection,
   CaseStudyImage,
   Blockquote,
-  SkillSpotlight,
   SkillConstellation,
   UXEnablementImpact,
+  SUSTestTable,
 } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
@@ -153,9 +153,9 @@ export default function DesignThinkingCaseStudy() {
     <CaseStudyLayout sections={sections}>
       <CaseStudyHero
         title="No UX, No Problem? A Qualitative Study into How Product Managers Navigate UX Without UX Support"
-        category="Embedding a UX culture inside a 250+ product portfolio at John Deere"
-        role="Lead UX Consultant"
-        team="2 UX Researchers · 1 Tech Lead · 1 PM"
+        category=""
+        role="UX Advocate & Researcher · Strategy & Transformation"
+        team="Strategy & Transformation Team · UX Coaches · Product Coaches · Agile Coaches"
         timeline="12 Weeks"
       />
 
@@ -220,7 +220,7 @@ export default function DesignThinkingCaseStudy() {
         <CaseStudyImage
           src="/assets/problem-framing.png"
           alt="Framing the Problem diagram"
-          caption="Framing the Problem: Mapping user lenses, forming statement drafts, and refining to structural infrastructure rather than individual education."
+          caption="Framing the Problem: Mapping user lenses, forming statement drafts, and refining structural infrastructure for team-wide UX support."
         />
       </CaseStudySection>
 
@@ -254,7 +254,7 @@ export default function DesignThinkingCaseStudy() {
         <CaseStudyImage
           src="/assets/hypothesis-formula.png"
           alt="Prioritisation and hypothesis formula flowchart"
-          caption="Insights plugged into a formula: Outlining the hypothesis (Outcome, User, Benefit, Feature) and the core metrics used to measure success (DAU/MAU, Retention Rate, Session Length)."
+          caption="Insights plugged into a formula: Outlining the hypothesis (Outcome, User, Benefit, Feature) and the core metrics used to measure success: Workshop attendance rate, Tool adoption rate (% of PMs independently using Figma/Mural post-session), NPS from post-programme survey, Buddy-Up retention beyond pilot, and inbound collaboration requests per month."
         />
       </CaseStudySection>
 
@@ -309,41 +309,23 @@ export default function DesignThinkingCaseStudy() {
       >
         <h3>Validating the Designs</h3>
         <p>
-          I tested the PM-UX Playbook prototype inside actual monthly planning workshops the real context where the tools would be used, not a lab.
-        </p>
-
-        <div style={{ background: "var(--color-bg-card)", padding: "20px", borderRadius: "12px", margin: "20px 0", borderLeft: "4px solid var(--color-accent)", borderRight: "1px solid var(--color-border)", borderTop: "1px solid var(--color-border)", borderBottom: "1px solid var(--color-border)", maxWidth: "500px" }}>
-          <h4 style={{ margin: 0, fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--color-text-secondary)" }}>System Usability Scale (SUS)</h4>
-          <p style={{ fontSize: "32px", fontWeight: "bold", margin: "8px 0 4px 0", color: "var(--color-accent)", fontFamily: "var(--font-display)" }}>78 / 100</p>
-          <p style={{ fontSize: "13px", margin: 0, color: "var(--color-text-secondary)", lineHeight: "1.4" }}>Scores above 68 are considered good. A score of 78 validates baseline usability as excellent.</p>
-        </div>
-
-        <p>
-          <strong>Scenario:</strong> Participants were asked to locate a research template and apply it to a live brief they were currently working on.
+          I ran a before/after SUS test with PMs inside their actual planning sessions (the real context, not a lab) specifically measuring confidence and ease of using Figma&apos;s Fuel Design System to sketch solutions independently.
         </p>
         <p>
-          <strong>What I observed:</strong> 9 of 11 participants navigated to the &quot;Templates&quot; section but stalled when deciding which template applied to their current stage. The navigation was organized by content type, but PMs think in terms of where they are in the process not what category of resource they need.
+          <strong>Method:</strong> Moderated observation during live planning sessions + SUS scoring before and after the onboarding intervention, across 11 participants.
+        </p>
+
+        <SUSTestTable />
+
+        <p>
+          A score below 68 indicates usability issues. Starting at 52, PMs found Figma inaccessible without support. After structured onboarding, the score rose to 78 (a +26 point improvement), crossing from poor into excellent.
         </p>
         <p>
-          This single observation drove the most important design change: we restructured the entire Resources hub from content categories to workflow stages.
+          <strong>What I observed:</strong> 9 of 11 participants completed the task independently after onboarding. The 2 who stalled hit the same friction point: locating the right component for their use case without knowing Figma terminology.
         </p>
-
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", margin: "24px 0" }}>
-          <div style={{ background: "var(--color-bg-card)", padding: "20px", borderRadius: "12px", border: "1px solid var(--color-border)" }}>
-            <strong style={{ color: "var(--color-text-secondary)", fontSize: "12px", textTransform: "uppercase" }}>Before</strong>
-            <p style={{ margin: "8px 0 0", fontSize: "15px", fontWeight: "600", lineHeight: "1.4" }}>Navigation organized by content type (Learn / Templates / Examples)</p>
-          </div>
-          <div style={{ background: "var(--color-bg-card)", padding: "20px", borderRadius: "12px", border: "1px solid var(--color-accent)" }}>
-            <strong style={{ color: "var(--color-accent)", fontSize: "12px", textTransform: "uppercase" }}>After (Iterated)</strong>
-            <p style={{ margin: "8px 0 0", fontSize: "15px", fontWeight: "600", lineHeight: "1.4" }}>Navigation organized by workflow stage (Scoping / Research / Spec Writing / Review)</p>
-          </div>
-        </div>
-
-        <SkillSpotlight
-          skill="Usability Testing & SUS Scoring"
-          description="Conducted testing of the Playbook inside active PM planning sessions, combining quantitative SUS and qualitative observation."
-          evidence="Achieved SUS score of 78 and restructured navigation into workflow stages."
-        />
+        <p>
+          <strong>Change that followed:</strong> We added a use-case index to the Fuel Design System onboarding guide, mapping common PM tasks to relevant components, so PMs could find what they needed without needing to think like a designer.
+        </p>
 
         <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
 

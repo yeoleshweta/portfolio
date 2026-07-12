@@ -1273,4 +1273,33 @@ export function UXEnablementImpact() {
   );
 }
 
+export function SUSTestTable() {
+  return (
+    <div className={styles.susTableContainer}>
+      <table className={styles.susTable}>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Before</th>
+            <th>After</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SUS Score</strong></td>
+            <td><span className={`${styles.susScoreValue} ${styles.susScoreBefore}`}>52</span></td>
+            <td><span className={`${styles.susScoreValue} ${styles.susScoreAfter}`}>78</span></td>
+          </tr>
+          <tr>
+            <td><strong>Usability Rating</strong></td>
+            <td><span className={styles.susRatingBefore}>Below threshold</span></td>
+            <td><span className={styles.susRatingAfter}>Excellent</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+
 
