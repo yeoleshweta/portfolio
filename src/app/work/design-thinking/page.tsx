@@ -391,9 +391,18 @@ export default function DesignThinkingCaseStudy() {
 
         <h3 style={{ marginTop: "40px" }}>Next Steps</h3>
         <ul style={{ paddingLeft: "20px" }}>
-          <li style={{ marginBottom: "8px", lineHeight: "1.4" }}><strong>Scale & Personalise:</strong> Role-based learning tracks for data-driven PMs vs. platform PMs</li>
-          <li style={{ marginBottom: "8px", lineHeight: "1.4" }}><strong>Measure Downstream ROI:</strong> Connect UX literacy improvements to business metrics (conversion lift, support ticket reduction)</li>
-          <li style={{ marginBottom: "8px", lineHeight: "1.4" }}><strong>Extend to Product Ops:</strong> Fold in analytics playbooks and A/B testing frameworks</li>
+          <li style={{ marginBottom: "8px", lineHeight: "1.4" }}>
+            <strong>Scale Coverage:</strong> Expand the programme to the remaining 86% of product teams not reached in the pilot.
+          </li>
+          <li style={{ marginBottom: "8px", lineHeight: "1.4" }}>
+            <strong>Quarterly Tracking:</strong> Track UX literacy quarterly by running a pulse survey every 3 months to see if adoption is holding.
+          </li>
+          <li style={{ marginBottom: "8px", lineHeight: "1.4" }}>
+            <strong>Link to Outcomes:</strong> Close the ROI loop by mapping tool usage to product outcomes to prove downstream impact.
+          </li>
+          <li style={{ marginBottom: "8px", lineHeight: "1.4" }}>
+            <strong>Buddy-Up Support:</strong> Formalise Buddy-Up to track structured goals and check-ins to build on the 83% who continued voluntarily.
+          </li>
         </ul>
 
         <p style={{ marginTop: "64px", fontStyle: "italic", textAlign: "center", color: "var(--color-text-secondary)" }}>
