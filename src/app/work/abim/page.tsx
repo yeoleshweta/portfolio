@@ -15,7 +15,7 @@ import {
 } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
-  { id: "challenge", label: "1. The Challenge" },
+  { id: "overview", label: "Overview" },
   { id: "taxonomy", label: "2. Study Design" },
   { id: "pipeline", label: "3. Data Pipeline" },
   { id: "metrics", label: "4. Quantitative Metrics" },
@@ -50,33 +50,7 @@ function PresentationGuidance({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ─────── Quick Reference Card ─────── */
-function QuickReferenceCard() {
-  const details = [
-    { label: "Organization", value: "American Board of Internal Medicine (ABIM)" },
-    { label: "My Role", value: "Innovation Analyst (Data & Research Focused)" },
-    { label: "Team", value: "I/O Psychologists, Data Scientist, AI/ML Engineer" },
-    { label: "Duration", value: "6 months Co-op" },
-    { label: "Research Type", value: "Mixed Methods (Quantitative Primary)" },
-    { label: "Scale", value: "~985 conversations, 11 constructs, 12 AI-detectable skills" },
-  ];
 
-  return (
-    <div style={{ background: "rgba(139, 105, 250, 0.02)", border: "1px solid rgba(139, 105, 250, 0.08)", borderRadius: "16px", padding: "24px", marginBottom: "40px" }}>
-      <h3 style={{ margin: "0 0 16px 0", fontSize: "16px", fontWeight: 800, color: "#8b69fa", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-        Quick Reference Card
-      </h3>
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-        {details.map((d) => (
-          <div key={d.label} style={{ display: "grid", gridTemplateColumns: "180px 1fr", gap: "16px", fontSize: "14px", borderBottom: "1px solid rgba(0,0,0,0.04)", paddingBottom: "8px" }}>
-            <span style={{ fontWeight: 700, color: "var(--color-text-secondary)" }}>{d.label}</span>
-            <span style={{ color: "var(--color-text)" }}>{d.value}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 /* ─────── Dataset Source Table ─────── */
 function DatasetTable() {
@@ -915,22 +889,14 @@ export default function ABIMCaseStudy() {
 
       <CaseStudyLayout sections={sections}>
         {/* ============================================ */}
-        {/* SECTION 1: THE CHALLENGE                     */}
+        {/* SECTION 1: OVERVIEW                          */}
         {/* ============================================ */}
         <CaseStudySection
-          id="challenge"
-          label="1. The Challenge"
+          id="overview"
+          label="Overview"
         >
-          <SkillConstellation
-            primary={["NLP Pipeline Engineering", "Transformer Fine-Tuning (BERT)", "Rubric Design"]}
-            supporting={["Prompt Engineering", "LLM-Assisted Labeling", "Data Curation"]}
-            emerging={["Research Ethics & AI Governance", "PHI De-identification"]}
-          />
-
-          <QuickReferenceCard />
-
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "24px" }}>Overview</h3>
-          <p>
+          <p style={{ fontSize: "16px", lineHeight: 1.6 }}>
             Physicians are rigorously tested on medical knowledge, but the communication skills that shape patient outcomes? Almost never measured at scale. At ABIM, I spent six months closing that gap: translating two validated clinical communication frameworks into 11 operationalized rubrics, then building and validating a scalable NLP pipeline that applies them reliably across 985 physician conversations.
           </p>
           <p>
@@ -955,6 +921,12 @@ export default function ABIMCaseStudy() {
               <div style={{ fontSize: "11px", color: "var(--color-text-secondary)", marginTop: "4px" }}>Label prefix families in the schema</div>
             </div>
           </div>
+
+          <SkillConstellation
+            primary={["NLP Pipeline Engineering", "Transformer Fine-Tuning (BERT)", "Rubric Design"]}
+            supporting={["Prompt Engineering", "LLM-Assisted Labeling", "Data Curation"]}
+            emerging={["Research Ethics & AI Governance", "PHI De-identification"]}
+          />
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>Background</h3>
           <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "16px 0 8px 0" }}>Who is ABIM?</h4>
