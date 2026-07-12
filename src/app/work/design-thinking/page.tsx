@@ -163,7 +163,7 @@ export default function DesignThinkingCaseStudy() {
       <CaseStudySection
         id="overview"
       >
-        <h3>Overview</h3>
+        <h3 style={{ color: "#8b69fa", textShadow: "0 0 10px rgba(139, 105, 250, 0.4)", fontWeight: 800 }}>Overview</h3>
         <p>
           John Deere India runs 250+ internal products. Most don&apos;t have a dedicated UX professional. Some teams could afford to hire for it most couldn&apos;t. So Product Managers absorbed the gap, running their own research, designing their own flows, and making calls from intuition. Not by choice. Because the system left them no alternative.
         </p>
@@ -186,7 +186,7 @@ export default function DesignThinkingCaseStudy() {
         />
 
         <div style={{ marginTop: "40px", marginBottom: "40px" }}>
-          <h3>Background</h3>
+          <h3 style={{ color: "#8b69fa", textShadow: "0 0 10px rgba(139, 105, 250, 0.4)", fontWeight: 800 }}>Background</h3>
           <p>
             I was part of John Deere&apos;s Strategy &amp; Transformation team a cross-functional pod of product coaches, agile coaches, and UX coaches. My role was UX Advocate: the person PMs came to when they had a research question and no researcher to ask.
           </p>
@@ -203,7 +203,7 @@ export default function DesignThinkingCaseStudy() {
 
         <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
 
-        <h3>The Process</h3>
+        <h3 style={{ color: "#8b69fa", textShadow: "0 0 10px rgba(139, 105, 250, 0.4)", fontWeight: 800 }}>The Process</h3>
         <p>
           This engagement followed the <strong>Double Diamond framework</strong> diverging to understand the full problem space before converging on solutions augmented with contextual inquiry and collaborative co-creation methods.
         </p>
@@ -322,7 +322,7 @@ export default function DesignThinkingCaseStudy() {
 
         <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
 
-        <h3>Delivery</h3>
+        <h3 style={{ color: "#8b69fa", textShadow: "0 0 10px rgba(139, 105, 250, 0.4)", fontWeight: 800 }}>Delivery</h3>
         <p>
           The research pointed to one clear truth: PMs didn&apos;t need more documentation. They needed access to the right tools, the confidence to use them, and a community to learn alongside.
         </p>
@@ -362,7 +362,7 @@ export default function DesignThinkingCaseStudy() {
         <UXEnablementImpact />
 
 
-        <h3 style={{ marginTop: "40px" }}>Next Steps</h3>
+        <h3 style={{ marginTop: "40px", color: "#8b69fa", textShadow: "0 0 10px rgba(139, 105, 250, 0.4)", fontWeight: 800 }}>Next Steps</h3>
         <ul style={{ paddingLeft: "20px" }}>
           <li style={{ marginBottom: "8px", lineHeight: "1.4" }}>
             <strong>Scale Coverage:</strong> Expand the programme to the remaining 86% of product teams not reached in the pilot.
