@@ -14,12 +14,12 @@ const featuredProjects = [
     href: "/work/abim",
   },
   {
-    title: "PM Design Thinking @ John Deere",
+    title: "No UX, No Problem? A Qualitative Study into How Product Managers Navigate UX Without UX Support",
     tag: "UX Research",
     ref: "John-Deere · fig. 02",
     description:
-      "Led product design thinking workshops and UX research sprints inside a Fortune 500 enterprise. Embedded mixed-methods research into the PM workflow to validate product decisions and reduce assumption-driven development.",
-    pills: ["80%_ux_confidence_lift", "design_thinking", "enterprise_ux"],
+      "A qualitative study into how Product Managers at John Deere navigate product design and UX decisions without dedicated support. Co-designed a systemic programme scaling UX literacy and tool adoption.",
+    pills: ["100%_tool_adoption", "86_nps", "83%_buddy_retention"],
     href: "/work/design-thinking",
   },
 ] as const;
