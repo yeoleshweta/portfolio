@@ -388,36 +388,6 @@ export default function DesignThinkingCaseStudy() {
         <h3 style={{ marginTop: "40px" }}>Impact</h3>
         <UXEnablementImpact />
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px", marginTop: "40px" }}>
-          <div>
-            <h3>What Worked</h3>
-            <ul style={{ paddingLeft: "20px" }}>
-              <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
-                <strong>Embedded learning beats standalone training.</strong> PMs have time for a 5-minute module between meetings, not a 2-hour workshop. Every solution had to fit existing workflows, not create new ones.
-              </li>
-              <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
-                <strong>Community drives adoption faster than mandates.</strong> The forum scaled because PMs shared real wins with peers who understood their context. No campaign required.
-              </li>
-              <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
-                <strong>Contextual research reveals what surveys cannot.</strong> Shadowing PMs in active planning meetings surfaced friction that interview questions alone would never have found because PMs had normalized it.
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3>What I'd Do Differently</h3>
-            <ul style={{ paddingLeft: "20px" }}>
-              <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
-                <strong>Start stakeholder mapping earlier.</strong> I mapped the ecosystem during Discover, but involving Engineering and Leadership in the synthesis phase, not just the findings readout, would have accelerated buy-in.
-              </li>
-              <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
-                <strong>Quantify the severity framework in real time.</strong> I scored issues after fieldwork. Scoring during synthesis sessions with the team would have made prioritisation faster and more collaborative.
-              </li>
-              <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
-                <strong>Plan for the Deliver phase in Discovery.</strong> The UX review process at delivery was reactive. Building a formal QA checkpoint into the process from the start would have reduced late-stage rework.
-              </li>
-            </ul>
-          </div>
-        </div>
 
         <h3 style={{ marginTop: "40px" }}>Next Steps</h3>
         <ul style={{ paddingLeft: "20px" }}>
