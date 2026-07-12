@@ -300,10 +300,7 @@ export default function DesignThinkingCaseStudy() {
       {/* --- VALIDATION & RESULTS --- */}
       <CaseStudySection
         id="results"
-        label="Validation & Results"
-        heading="Testing, Launching & Measurable Impact"
       >
-        <h3>Validating the Designs</h3>
         <p>
           I ran a before/after SUS test with PMs inside their actual planning sessions (the real context, not a lab) specifically measuring confidence and ease of using Figma&apos;s Fuel Design System to sketch solutions independently.
         </p>

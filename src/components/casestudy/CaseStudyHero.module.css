@@ -38,13 +38,10 @@
   font-size: clamp(32px, 5vw, 54px);
   line-height: 1.2;
   font-weight: 800;
-  color: #ffffff;
+  color: #8b69fa;
   margin-bottom: 32px;
   letter-spacing: -0.015em;
-  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.85) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 15px rgba(139, 105, 250, 0.6), 0 0 30px rgba(139, 105, 250, 0.3);
 }
 
 .meta {

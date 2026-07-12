@@ -22,7 +22,7 @@
   font-size: 48px;
   line-height: 1.2;
   margin-bottom: 32px;
-  color: var(--color-text);
+  color: #7952f5;
 }
 
 .content {
@@ -37,7 +37,7 @@
 
 .content h3 {
   font-size: 28px;
-  color: var(--color-text);
+  color: #7952f5;
   margin: 48px 0 24px;
 }
 
