@@ -168,6 +168,9 @@ export default function DesignThinkingCaseStudy() {
           John Deere India runs 250+ internal products. Most don&apos;t have a dedicated UX professional. Some teams could afford to hire for it most couldn&apos;t. So Product Managers absorbed the gap, running their own research, designing their own flows, and making calls from intuition. Not by choice. Because the system left them no alternative.
         </p>
         <p>
+          The challenge wasn&apos;t convincing PMs that UX mattered, they knew it did. The challenge was designing support that fit into a workflow already stretched beyond capacity. Any solution that added friction would be abandoned. It had to be faster than doing nothing.
+        </p>
+        <p>
           This was a qualitative exploratory research study using contextual inquiry and co-design methods. The goal: understand exactly where that system was breaking down, and design a pathway to fix it.
         </p>
 
@@ -201,6 +204,10 @@ export default function DesignThinkingCaseStudy() {
           </p>
         </div>
 
+        <p style={{ margin: "24px 0", padding: "16px", background: "var(--color-bg-card)", borderLeft: "4px solid var(--color-accent)", borderRadius: "0 8px 8px 0" }}>
+          <strong>Research Question:</strong> What structural barriers prevent Product Managers from making user-centred decisions, and what interventions would realistically fit their existing workflow?
+        </p>
+
         <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
 
         <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>The Process</h3>
@@ -222,6 +229,10 @@ export default function DesignThinkingCaseStudy() {
           alt="Framing the Problem diagram"
           caption="Framing the Problem: Mapping user lenses, forming statement drafts, and refining structural infrastructure for team-wide UX support."
         />
+
+        <p style={{ margin: "24px 0", padding: "16px", background: "var(--color-bg-card)", borderLeft: "4px solid var(--color-accent)", borderRadius: "0 8px 8px 0" }}>
+          <strong>Problem Statement:</strong> Product Managers at John Deere India are making assumption-driven product decisions not because they lack empathy or motivation, but because the organisation has no lightweight, accessible UX infrastructure built for their pace and context. The gap is structural, not individual.
+        </p>
       </CaseStudySection>
 
       {/* --- RESEARCH & INSIGHTS --- */}
@@ -230,9 +241,16 @@ export default function DesignThinkingCaseStudy() {
         heading="Gathering Insights"
       >
         <p>
-          To understand the actual shape of the problem, I conducted 15 contextual interviews
-          and shadowed planning meetings across John Deere&apos;s product lines. We clustered
-          raw observations into thematic areas using Miro to identify critical friction points.
+          To understand the actual shape of the problem, I conducted 15 contextual interviews and shadowed planning meetings across John Deere&apos;s product lines.
+        </p>
+        <p>
+          Participants were selected across product lines to capture variation in team size, UX resource availability, and product maturity. I deliberately included both PMs who had some prior UX exposure and those who had none, in order to understand whether the gap was a skill problem or a systems problem. It was consistently the latter.
+        </p>
+        <p>
+          I chose contextual inquiry over surveys or focus groups deliberately. Surveys would have told me what PMs thought they needed. Shadowing told me what they actually did, and the gap between those two things turned out to be the entire finding: PMs consistently reported feeling &apos;fine&apos; in interviews but visibly struggled when observed making live decisions.
+        </p>
+        <p>
+          We clustered raw observations into thematic areas using Miro to identify critical friction points.
         </p>
 
         <CaseStudyImage
@@ -240,6 +258,32 @@ export default function DesignThinkingCaseStudy() {
           alt="Affinity mapping of research observations in Miro"
           caption="Gathering Insights: Mapping 100+ raw observations from PM interviews and shadowing sessions into thematic clusters (Confusion, Reaction, Improvement, Current Status)."
         />
+
+        <p style={{ marginTop: "24px" }}>
+          Three themes dominated the synthesis wall regardless of product line, team size, or PM experience level: <strong>access</strong> (no tools, no templates, no entry points), <strong>timing</strong> (research arriving after decisions were made), and <strong>isolation</strong> (no peer community to ask or learn from). These three themes directly shaped the three delivery streams: Tool Enablement, Buddy-Up, and Community Forum, with one response per theme.
+        </p>
+
+        <div style={{ marginTop: "32px", marginBottom: "32px" }}>
+          <h4 style={{ marginBottom: "16px", color: "var(--color-text)", fontWeight: 700 }}>Key Research Findings</h4>
+          
+          <div style={{ marginBottom: "24px" }}>
+            <strong>Finding 1: Research arrived too late to influence decisions.</strong>
+            <Blockquote text="By the time I get a research deck, the roadmap is locked. I read it, I learn something useful, and I file it away." author="PM, Platform Products (paraphrased)" />
+            <p style={{ fontSize: "14px", marginTop: "4px", color: "var(--color-text-secondary)" }}>80% of participants described a version of this experience.</p>
+          </div>
+
+          <div style={{ marginBottom: "24px" }}>
+            <strong>Finding 2: PMs were making UX decisions alone and knew it was wrong.</strong>
+            <Blockquote text="I designed that entire flow in a spreadsheet. I knew it wasn't right but there was no one else." author="PM, Internal Tools (paraphrased)" />
+            <p style={{ fontSize: "14px", marginTop: "4px", color: "var(--color-text-secondary)" }}>73% had built personal workarounds to fill the UX gap.</p>
+          </div>
+
+          <div style={{ marginBottom: "24px" }}>
+            <strong>Finding 3: The problem wasn't motivation: it was infrastructure.</strong>
+            <Blockquote text="I'd do the research if I knew how. I'd use the tools if someone showed me once." author="PM, P&C Team (paraphrased)" />
+            <p style={{ fontSize: "14px", marginTop: "4px", color: "var(--color-text-secondary)" }}>53% had never received structured UX onboarding despite being responsible for user-facing decisions.</p>
+          </div>
+        </div>
 
         <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
 
@@ -307,6 +351,9 @@ export default function DesignThinkingCaseStudy() {
         <p>
           <strong>Method:</strong> Moderated observation during live planning sessions + SUS scoring before and after the onboarding intervention, across 11 participants.
         </p>
+        <p>
+          The pre-test score of 52 was captured during the first session, where PMs were given a specific task in Figma with no prior instruction, measuring first-contact friction rather than baseline familiarity. The post-test score of 78 was captured after three structured onboarding sessions covering the same task context.
+        </p>
 
         <SUSTestTable />
 
@@ -360,6 +407,15 @@ export default function DesignThinkingCaseStudy() {
 
         <h3 style={{ marginTop: "40px" }}>Impact</h3>
         <UXEnablementImpact />
+
+        <p style={{ marginTop: "24px" }}>
+          The original research question asked what structural barriers existed and what interventions would realistically fit PM workflows. The 86 NPS, 100% tool adoption, and 3&times;/month organic collaboration demand collectively suggest the structural gap was real and the intervention fit. The fact that no formal handoff was needed, and that the community sustained itself, is the strongest signal that the solution was designed for the system, not imposed on it.
+        </p>
+
+        <h3 style={{ marginTop: "40px", color: "#8b69fa", fontWeight: 800 }}>Limitations</h3>
+        <p>
+          This study measured adoption and sentiment, not downstream product quality. Whether tool usage translated into better product decisions for end users remains unmeasured (that is the next research question). Additionally, with 15 participants across a 250+ product portfolio, the findings reflect P&C team patterns and may not generalise to all product lines.
+        </p>
 
 
         <h3 style={{ marginTop: "40px", color: "#8b69fa", fontWeight: 800 }}>Next Steps</h3>
