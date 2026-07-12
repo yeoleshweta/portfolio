@@ -24,7 +24,7 @@ const sections = [
   { id: "governance", label: "7. Validity & Governance" },
   { id: "role", label: "8. Shweta's Role" },
   { id: "limitations", label: "9. Limitations" },
-  { id: "impact", label: "10. Impact & Presentation" },
+  { id: "impact", label: "10. Impact" },
 ];
 
 
@@ -1465,44 +1465,7 @@ export default function ABIMCaseStudy() {
             <li style={{ marginBottom: "8px" }}>Run bias audit across demographics, cultural backgrounds, and data sources.</li>
           </ol>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "48px" }}>Presentation Guide</h3>
-          <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "16px 0 8px 0" }}>Three-Sentence Opening</h4>
-          <p style={{ fontStyle: "italic", background: "rgba(139, 105, 250, 0.02)", padding: "16px", borderRadius: "8px", borderLeft: "4px solid #8b69fa" }}>
-            &quot;This project sits at the intersection of measurement design and NLP. ABIM certifies thousands of physicians every year on their medical knowledge: but the communication competencies that matter just as much to patient outcomes are almost never measured objectively at scale. I spent six months designing and building the measurement infrastructure that could change that.&quot;
-          </p>
 
-          <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "24px 0 8px 0" }}>Answers to the Hardest Interview Questions</h4>
-          <div style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop: "16px" }}>
-            <div>
-              <strong style={{ display: "block", color: "var(--color-text)", fontSize: "15px" }}>Q: &quot;Is this UX research or data science?&quot;</strong>
-              <p style={{ margin: "4px 0 0 0", color: "var(--color-text-secondary)", fontSize: "14px", lineHeight: 1.5 }}>
-                &quot;It is both: but the UXR framing is the right primary one. The core deliverable is a measurement instrument: 11 rubrics that operationalize what good physician communication looks like in observable, text-detectable terms. Instrument design is UX research work. The classifier is the delivery mechanism.&quot;
-              </p>
-            </div>
-            <div>
-              <strong style={{ display: "block", color: "var(--color-text)", fontSize: "15px" }}>Q: &quot;What is your specific contribution?&quot;</strong>
-              <p style={{ margin: "4px 0 0 0", color: "var(--color-text-secondary)", fontSize: "14px", lineHeight: 1.5 }}>
-                &quot;Data pipeline and label architecture. I owned dataset composition, labeling strategy, the label schema design, and the simulated-to-real pivot rationale. My contribution was everything between: turning validated rubrics into a scalable labeling infrastructure.&quot;
-              </p>
-            </div>
-            <div>
-              <strong style={{ display: "block", color: "var(--color-text)", fontSize: "15px" }}>Q: &quot;Why LLMs as annotators? Aren&apos;t they unreliable?&quot;</strong>
-              <p style={{ margin: "4px 0 0 0", color: "var(--color-text-secondary)", fontSize: "14px", lineHeight: 1.5 }}>
-                &quot;LLMs as annotators produce silver-grade labels, not gold. The rubric-grounded prompts constrain the LLM&apos;s interpretation space, which improves reliability. We validated against seed labels and ran IRR to quantify the gap. The pipeline doesn&apos;t trust LLM labels blindly: it routes low-confidence labels for human review.&quot;
-              </p>
-            </div>
-            <div>
-              <strong style={{ display: "block", color: "var(--color-text)", fontSize: "15px" }}>Q: &quot;What metrics did you use to evaluate the pipeline?&quot;</strong>
-              <p style={{ margin: "4px 0 0 0", color: "var(--color-text-secondary)", fontSize: "14px", lineHeight: 1.5 }}>
-                &quot;Per-construct Precision, Recall, and F1: not aggregate accuracy, which is misleading for sparse, imbalanced labels. Macro-F1 as the headline metric. Cohen&apos;s &kappa; for inter-rater reliability between LLM and human graders. Expected Calibration Error and Brier Score for confidence calibration: because in a formative feedback system, knowing when the model is uncertain is as important as when it is right.&quot;
-              </p>
-            </div>
-          </div>
-
-          <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "24px 0 8px 0" }}>Closing Line</h4>
-          <p style={{ fontStyle: "italic", background: "rgba(139, 105, 250, 0.02)", padding: "16px", borderRadius: "8px", borderLeft: "4px solid #8b69fa" }}>
-            &quot;The rubric IS the product, not the classifier.&quot;
-          </p>
         </CaseStudySection>
       </CaseStudyLayout>
     </main>
