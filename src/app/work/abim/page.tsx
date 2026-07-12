@@ -1443,12 +1443,7 @@ export default function ABIMCaseStudy() {
             </table>
           </div>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>Three Things I&apos;d Do Differently</h3>
-          <ol style={{ paddingLeft: "20px", fontSize: "14px", lineHeight: 1.6 }}>
-            <li style={{ marginBottom: "12px" }}><strong>Build the human validation set first:</strong> Double-code 100–150 conversations in month one to calculate construct baseline Cohen&apos;s &kappa; before running the model.</li>
-            <li style={{ marginBottom: "12px" }}><strong>Report construct difficulty explicitly:</strong> Differentiate between linguistically explicit constructs (such as NURSE Name) and implicit ones (such as NURSE Explore): that distinction is as valuable as the F1 score.</li>
-            <li style={{ marginBottom: "12px" }}><strong>Run feedback UX research in parallel:</strong> Test whether physicians actually interpret and reflect on the score probabilities and rationales in their everyday workflow.</li>
-          </ol>
+
         </CaseStudySection>
 
         {/* ============================================ */}
