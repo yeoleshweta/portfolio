@@ -37,7 +37,7 @@
 
 .content h3 {
   font-size: 28px;
-  color: #7952f5;
+  color: var(--color-text);
   margin: 48px 0 24px;
 }
 
