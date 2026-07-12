@@ -1070,7 +1070,7 @@ export default function ABIMCaseStudy() {
             <strong>Why qual enables quant here:</strong> The rubric design phase is the equivalent of instrument design in survey research: it is qual work, but its purpose is to enable the quant phase.
           </p>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>2.2 Industry-Standard Methods Used</h3>
+
 
           <h4 style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-text-secondary)", textTransform: "uppercase", marginTop: "24px", marginBottom: "12px" }}>Qualitative Methods Map</h4>
           <div style={{ overflowX: "auto", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
