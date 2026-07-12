@@ -162,7 +162,6 @@ export default function DesignThinkingCaseStudy() {
       {/* --- OVERVIEW & BACKGROUND --- */}
       <CaseStudySection
         id="overview"
-        label="Overview"
       >
         <h3>Overview</h3>
         <p>
