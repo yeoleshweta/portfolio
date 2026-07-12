@@ -917,7 +917,7 @@ export default function ABIMCaseStudy() {
   return (
     <main>
       <CaseStudyHero
-        title="Measuring Physician Communication at Scale"
+        title="From Frameworks to F1 Scores: Designing a Scalable Communication Assessment System"
         category="NLP &amp; UX Research"
         role="Data Scientist Co-op (Shweta: Data &amp; Labels)"
         team="I/O Psychologists, Data Scientist, and AI/ML Engineer"

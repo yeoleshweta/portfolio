@@ -5,7 +5,7 @@ import styles from "./FeaturedWork.module.css";
 
 const featuredProjects = [
   {
-    title: "Measuring Patient-Centered Communication",
+    title: "From Frameworks to F1 Scores: Designing a Scalable Communication Assessment System",
     tag: "NLP & UX Research",
     ref: "ABIM-2025 · fig. 01",
     description:
