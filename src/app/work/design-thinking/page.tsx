@@ -7,9 +7,7 @@ import {
   CaseStudySection,
   ResultsGrid,
   CaseStudyImage,
-  PersonaProgress,
   Blockquote,
-  PersonaCardActual,
   SkillSpotlight,
   SkillConstellation,
 } from "@/components/casestudy/CaseStudyContent";
@@ -154,7 +152,7 @@ export default function DesignThinkingCaseStudy() {
   return (
     <CaseStudyLayout sections={sections}>
       <CaseStudyHero
-        title="Product Managers with UX & Design Thinking"
+        title="No UX, No Problem? A Qualitative Study into How Product Managers Navigate UX Without UX Support"
         category="Embedding a UX culture inside a 250+ product portfolio at John Deere"
         role="Lead UX Consultant"
         team="2 UX Researchers · 1 Tech Lead · 1 PM"
@@ -292,15 +290,11 @@ export default function DesignThinkingCaseStudy() {
           Rajesh wasn't built to be decorative. He was built to anchor every solution decision.
         </p>
 
-        <PersonaCardActual />
-
-        <div style={{ maxWidth: "500px", margin: "32px auto" }}>
-          <h4 style={{ textAlign: "center", marginBottom: "16px" }}>Rajesh&apos;s Baseline Proficiency</h4>
-          <PersonaProgress label="Research Interpretation" value={20} />
-          <PersonaProgress label="Design Critique" value={15} />
-          <PersonaProgress label="UX Vocabulary" value={30} />
-          <PersonaProgress label="User Empathy" value={45} />
-        </div>
+        <CaseStudyImage
+          src="/assets/rajesh_persona.png"
+          alt="Persona Card: Rajesh, The Product Manager"
+          caption="Meet Rajesh: A composite persona built from behavioral patterns, demographics, and key pain points gathered across 15 interviews."
+        />
       </CaseStudySection>
 
       {/* --- VALIDATION & RESULTS --- */}
@@ -311,28 +305,23 @@ export default function DesignThinkingCaseStudy() {
       >
         <h3>Validating the Designs</h3>
         <p>
-          Rather than lab-based usability testing, I tested during <strong>actual monthly planning
-          workshops</strong>, the real context where the tools would be used.
+          I tested the PM-UX Playbook prototype inside actual monthly planning workshops the real context where the tools would be used, not a lab.
         </p>
 
-        <p><strong>What we tested:</strong> The PM-UX Playbook prototype (navigation, contextual prompts, template accessibility)</p>
-        <p><strong>Method:</strong> Moderated observation during live planning sessions + post-session SUS scoring</p>
-        
         <div style={{ background: "var(--color-bg-card)", padding: "20px", borderRadius: "12px", margin: "20px 0", borderLeft: "4px solid var(--color-accent)", borderRight: "1px solid var(--color-border)", borderTop: "1px solid var(--color-border)", borderBottom: "1px solid var(--color-border)", maxWidth: "500px" }}>
           <h4 style={{ margin: 0, fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--color-text-secondary)" }}>System Usability Scale (SUS)</h4>
           <p style={{ fontSize: "32px", fontWeight: "bold", margin: "8px 0 4px 0", color: "var(--color-accent)", fontFamily: "var(--font-display)" }}>78 / 100</p>
           <p style={{ fontSize: "13px", margin: 0, color: "var(--color-text-secondary)", lineHeight: "1.4" }}>Scores above 68 are considered good. A score of 78 validates baseline usability as excellent.</p>
         </div>
 
-        <Blockquote
-          text="Now I know when to use this, not just that it exists."
-          author="PM Participant, Round 2 Usability Testing"
-        />
-
         <p>
-          That single insight drove the most important design change: we merged the &quot;Learn&quot;
-          and &quot;Templates&quot; sections into a single <strong>workflow-staged &quot;Resources&quot; hub</strong>,
-          organized by when in the PM process you'd reach for it, not by content category.
+          <strong>Scenario:</strong> Participants were asked to locate a research template and apply it to a live brief they were currently working on.
+        </p>
+        <p>
+          <strong>What I observed:</strong> 9 of 11 participants navigated to the &quot;Templates&quot; section but stalled when deciding which template applied to their current stage. The navigation was organized by content type, but PMs think in terms of where they are in the process not what category of resource they need.
+        </p>
+        <p>
+          This single observation drove the most important design change: we restructured the entire Resources hub from content categories to workflow stages.
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", margin: "24px 0" }}>
