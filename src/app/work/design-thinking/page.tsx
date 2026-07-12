@@ -227,7 +227,6 @@ export default function DesignThinkingCaseStudy() {
       {/* --- RESEARCH & INSIGHTS --- */}
       <CaseStudySection
         id="research"
-        label="Research & Insights"
         heading="Gathering Insights"
       >
         <p>
