@@ -24,7 +24,7 @@ const sections = [
   { id: "governance", label: "7. Validity & Governance" },
   { id: "role", label: "8. Shweta's Role" },
   { id: "limitations", label: "9. Limitations" },
-  { id: "guide", label: "10. Presentation Guide" },
+  { id: "impact", label: "10. Impact & Presentation" },
 ];
 
 /* ─────── Presentation Guidance Callout ─────── */
@@ -54,14 +54,11 @@ function PresentationGuidance({ children }: { children: React.ReactNode }) {
 function QuickReferenceCard() {
   const details = [
     { label: "Organization", value: "American Board of Internal Medicine (ABIM)" },
-    { label: "Role", value: "Innovation Analyst (Data & Research Focused)" },
+    { label: "My Role", value: "Innovation Analyst (Data & Research Focused)" },
     { label: "Team", value: "I/O Psychologists, Data Scientist, AI/ML Engineer" },
     { label: "Duration", value: "6 months Co-op" },
-    { label: "Research type", value: "Mixed Methods (Quantitative Primary)" },
-    { label: "Quant methods", value: "Content Analysis at Scale, Inter-Rater Reliability (IRR), Classifier Performance Evaluation (Precision/Recall/F1), Calibration Metrics (ECE, Brier), Construct Frequency Analysis, Slice-Based Fairness Analysis" },
-    { label: "Qual methods", value: "Expert Framework Operationalization, Behavioral Coding Scheme Design, Exemplar Annotation, Thematic Synthesis" },
-    { label: "Scale", value: "~985 conversations, 11 active constructs, 12 AI-detectable skills, 16 nuanced skills identified" },
-    { label: "Core question", value: "Can AI-driven pattern recognition achieve the same nuance and accuracy as expert human evaluation of clinical communication?" },
+    { label: "Research Type", value: "Mixed Methods (Quantitative Primary)" },
+    { label: "Scale", value: "~985 conversations, 11 constructs, 12 AI-detectable skills" },
   ];
 
   return (
@@ -85,28 +82,24 @@ function QuickReferenceCard() {
 function DatasetTable() {
   const datasets = [
     {
-      source: "ACI-BENCH",
-      type: "Mixed simulation / role-play",
-      contribution: "Benchmark-style transcripts with clinical documentation behaviors",
-      note: "Can introduce dictation language that confounds Calgary constructs",
-    },
-    {
       source: "VHA 4C Lineage",
       type: "Real recorded encounters",
-      contribution: "Real-world primary care dynamics and patient context clues",
-      note: "Strongest realism anchor; supports patient-centered measurement framing",
+      contribution: "Primary realism anchor: real-world primary care dynamics",
+    },
+    {
+      source: "ACI-BENCH",
+      type: "Mixed simulation / role-play",
+      contribution: "Benchmark-style transcripts",
     },
     {
       source: "OSCE Simulated Interviews",
-      type: "Simulated (audio + transcripts)",
-      contribution: "High-quality respiratory-focus transcripts, domain-labeled",
-      note: "Good for NER and general NLP; limited vs real-world nuance",
+      type: "Simulated",
+      contribution: "High-quality respiratory-focus transcripts; domain labels",
     },
     {
       source: "PriMock57",
       type: "Simulated mock primary care",
-      contribution: "Multi-artifact dataset (audio, transcripts, notes, eval)",
-      note: "Useful for benchmarking communication-to-note pipelines",
+      contribution: "Multi-artifact benchmarking",
     },
   ];
 
@@ -125,13 +118,12 @@ function DatasetTable() {
       }}
     >
       <div style={{ overflowX: "auto", width: "100%" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px", minWidth: "600px" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px", minWidth: "500px" }}>
           <thead>
             <tr style={{ background: "rgba(0,0,0,0.03)", textAlign: "left" }}>
               <th style={{ padding: "14px 18px", fontWeight: 700 }}>Source</th>
-              <th style={{ padding: "14px 18px", fontWeight: 700 }}>Real vs Simulated</th>
+              <th style={{ padding: "14px 18px", fontWeight: 700 }}>Type</th>
               <th style={{ padding: "14px 18px", fontWeight: 700 }}>Contribution</th>
-              <th style={{ padding: "14px 18px", fontWeight: 700 }}>Labeling Implication</th>
             </tr>
           </thead>
           <tbody>
@@ -146,9 +138,6 @@ function DatasetTable() {
                 <td style={{ padding: "14px 18px", fontWeight: 600, minWidth: 120 }}>{d.source}</td>
                 <td style={{ padding: "14px 18px" }}>{d.type}</td>
                 <td style={{ padding: "14px 18px" }}>{d.contribution}</td>
-                <td style={{ padding: "14px 18px", color: "var(--color-text-secondary)", fontStyle: "italic" }}>
-                  {d.note}
-                </td>
               </tr>
             ))}
           </tbody>
@@ -918,9 +907,9 @@ export default function ABIMCaseStudy() {
     <main>
       <CaseStudyHero
         title="From Frameworks to F1 Scores: Designing a Scalable Communication Assessment System"
-        category="NLP &amp; UX Research"
+        category="Quantitative UX Research · Measurement Design · Instrument Validation"
         role="Innovation Analyst (Data &amp; Research Focused)"
-        team="I/O Psychologists, Data Scientist, and AI/ML Engineer"
+        team="I/O Psychologists · Data Scientist · AI/ML Engineer"
         timeline="Co-Op (6 months)"
       />
 
@@ -931,7 +920,7 @@ export default function ABIMCaseStudy() {
         <CaseStudySection
           id="challenge"
           label="1. The Challenge"
-          heading="Section 1: The Research Problem (Why This Study Exists)"
+          heading="Section 1: The Challenge"
         >
           <SkillConstellation
             primary={["NLP Pipeline Engineering", "Transformer Fine-Tuning (BERT)", "Rubric Design"]}
@@ -941,13 +930,64 @@ export default function ABIMCaseStudy() {
 
           <QuickReferenceCard />
 
-          <PresentationGuidance>
-            Start here before showing any slides or data. This is your hook. Say: &quot;Physicians are certified on medical knowledge, but the other five ACGME competencies, especially how they communicate with patients, are almost never measured rigorously. That is the gap this project tried to close.&quot;
-          </PresentationGuidance>
-
-          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>1.1 The Verification Gap in Medicine</h3>
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "24px" }}>Overview</h3>
           <p>
-            The American Board of Internal Medicine (ABIM) certifies physicians across six core competency domains. While medical knowledge is rigorously tested via formal board examinations, patient interaction is rarely measured at scale:
+            Physicians are rigorously tested on medical knowledge, but the communication skills that shape patient outcomes? Almost never measured at scale. At ABIM, I spent six months closing that gap: translating two validated clinical communication frameworks into 11 operationalized rubrics, then building and validating a scalable NLP pipeline that applies them reliably across 985 physician conversations.
+          </p>
+          <p>
+            This is a measurement design project. The classifier is the delivery mechanism. The rubric is the research.
+          </p>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", margin: "24px 0", textAlign: "center" }}>
+            <div style={{ padding: "20px", background: "rgba(139,105,250,0.03)", borderRadius: "12px", border: "1px solid rgba(139,105,250,0.08)" }}>
+              <div style={{ fontSize: "24px", fontWeight: 900, color: "#8b69fa" }}>985</div>
+              <div style={{ fontSize: "11px", color: "var(--color-text-secondary)", marginTop: "4px" }}>Clinical transcripts labeled</div>
+            </div>
+            <div style={{ padding: "20px", background: "rgba(139,105,250,0.03)", borderRadius: "12px", border: "1px solid rgba(139,105,250,0.08)" }}>
+              <div style={{ fontSize: "24px", fontWeight: 900, color: "#8b69fa" }}>11</div>
+              <div style={{ fontSize: "11px", color: "var(--color-text-secondary)", marginTop: "4px" }}>Behavioral constructs operationalized</div>
+            </div>
+            <div style={{ padding: "20px", background: "rgba(139,105,250,0.03)", borderRadius: "12px", border: "1px solid rgba(139,105,250,0.08)" }}>
+              <div style={{ fontSize: "24px", fontWeight: 900, color: "#8b69fa" }}>12</div>
+              <div style={{ fontSize: "11px", color: "var(--color-text-secondary)", marginTop: "4px" }}>AI-detectable communication skills</div>
+            </div>
+            <div style={{ padding: "20px", background: "rgba(139,105,250,0.03)", borderRadius: "12px", border: "1px solid rgba(139,105,250,0.08)" }}>
+              <div style={{ fontSize: "24px", fontWeight: 900, color: "#8b69fa" }}>9</div>
+              <div style={{ fontSize: "11px", color: "var(--color-text-secondary)", marginTop: "4px" }}>Label prefix families in the schema</div>
+            </div>
+          </div>
+
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>Background</h3>
+          <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "16px 0 8px 0" }}>Who is ABIM?</h4>
+          <p>
+            The American Board of Internal Medicine is one of the largest physician certification bodies in the United States. ABIM certifies internists and subspecialists, assessing whether physicians meet the standards required to practice safely and competently. Certification covers six ACGME core competency domains: Medical Knowledge, Patient Care, Practice-Based Learning, Systems-Based Practice, Interpersonal &amp; Communication Skills, and Professionalism.
+          </p>
+          <p>
+            Of those six, five are assessed. One, communication, is not.
+          </p>
+
+          <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "24px 0 8px 0" }}>The Problem ABIM Was Sitting On</h4>
+          <p>
+            ABIM had a measurement gap hiding in plain sight. Board exams rigorously test medical knowledge. But Interpersonal &amp; Communication Skills and Professionalism, the competencies most directly tied to patient experience, treatment adherence, and health outcomes, had no scalable measurement infrastructure.
+          </p>
+          <p>
+            The existing method was human rating: trained raters reviewing clinical transcripts using validated frameworks like Calgary-Cambridge. It worked at small scale. It did not scale. Manual review tops out at roughly 50 conversations per week, and even that comes with well-documented reliability problems: rater bias, rater drift, and order effects that mean two trained raters reviewing the same conversation will score it differently.
+          </p>
+
+          <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "24px 0 8px 0" }}>What Brought This Project to Life</h4>
+          <p>
+            ABIM&apos;s Innovation team was exploring whether NLP could bridge the gap, automating the reliable detection of communication behaviors across transcripts at scale. The project they handed me was not &quot;build a classifier.&quot; It was a bigger, harder question:
+          </p>
+          <p style={{ fontStyle: "italic", paddingLeft: "16px", borderLeft: "3px solid #8b69fa", margin: "16px 0" }}>
+            &quot;Can AI-driven pattern recognition achieve the same nuance and accuracy as expert human evaluation of clinical communication?&quot;
+          </p>
+          <p>
+            To answer that question seriously, we needed more than a model. We needed a measurement instrument: a set of operationalized rubrics that define, precisely and reproducibly, what good physician communication looks like in text. That became my primary contribution.
+          </p>
+
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>1.1 The Verification Gap in Medicine</h3>
+          <p>
+            ABIM certifies physicians across six core competency domains. While medical knowledge is rigorously tested via formal board examinations, patient interaction is rarely measured at scale:
           </p>
 
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
@@ -988,11 +1028,10 @@ export default function ABIMCaseStudy() {
           </div>
 
           <p>
-            The result is a <strong>massive verification gap</strong>: physicians are certified via examination but assumed to be capable of proper human interaction. The only existing measure of communication quality (patient satisfaction surveys) is rare, self-selected, and indirect.
+            The result is a massive verification gap: physicians are certified via examination but assumed capable of proper human interaction. The only existing measure, patient satisfaction surveys, is rare, self-selected, and indirect.
           </p>
-
-          <p style={{ margin: "20px 0", padding: "16px", background: "var(--color-bg-card)", borderLeft: "4px solid var(--color-accent)", borderRadius: "0 8px 8px 0" }}>
-            <strong>The Problem in Numbers:</strong> Expert human grading of communication is the gold standard but tops out at ~50 conversations per week. Rater bias, drift, and order effects make even gold standard human rating inconsistent, leaving trainees with limited, sporadic communication feedback.
+          <p>
+            <strong>The problem in numbers:</strong> Expert human grading of communication tops out at ~50 conversations per week. Rater bias, drift, and order effects make even gold-standard human rating inconsistent, leaving trainees with limited, sporadic communication feedback.
           </p>
 
           <Blockquote
@@ -1000,37 +1039,20 @@ export default function ABIMCaseStudy() {
           />
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>1.2 Why Communication is Hard to Measure</h3>
-          <PresentationGuidance>
-            This is where you establish that this is not just a technology problem: it is a measurement design problem. Frame it that way explicitly.
-          </PresentationGuidance>
-
           <p>
             Communication quality is difficult to quantify because:
           </p>
-          <ol style={{ paddingLeft: "20px", marginBottom: "24px" }}>
+          <ul style={{ paddingLeft: "20px", marginBottom: "24px" }}>
             <li style={{ marginBottom: "8px" }}><strong>Construct subjectivity:</strong> Concepts like empathy, rapport, and shared decision-making are expressed in many different linguistic forms and interpreted differently by different raters.</li>
             <li style={{ marginBottom: "8px" }}><strong>Context dependency:</strong> What counts as good communication in a routine encounter differs from what is required in serious illness discussions or cross-cultural consultations.</li>
             <li style={{ marginBottom: "8px" }}><strong>Invisibility of non-verbal behavior:</strong> Body language, eye contact, and tone are not present in transcripts, creating an inherent measurement gap.</li>
             <li style={{ marginBottom: "8px" }}><strong>Scale bottleneck:</strong> Manual expert review cannot scale beyond ~50 conversations/week without unacceptable quality degradation.</li>
-          </ol>
-
-          <p>
-            <strong>The existing approach (human raters using validated frameworks) has documented reliability problems:</strong>
-          </p>
-          <ul style={{ paddingLeft: "20px", marginBottom: "24px" }}>
-            <li style={{ marginBottom: "8px" }}>Rater bias: individual raters apply frameworks inconsistently.</li>
-            <li style={{ marginBottom: "8px" }}>Rater drift: standards shift over time within the same rater.</li>
-            <li style={{ marginBottom: "8px" }}>Order effects: ratings are influenced by what was rated immediately before.</li>
           </ul>
-
-          <PresentationGuidance>
-            These are psychometric problems: reliability and validity issues, not just a technology gap. This frames you as someone who thinks about measurement quality, not just model performance.
-          </PresentationGuidance>
+          <p>
+            The existing approach (human raters using validated frameworks) has documented reliability problems: rater bias, rater drift, and order effects. These are <strong>psychometric problems</strong>, reliability and validity issues, not just a technology gap.
+          </p>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>1.3 The Research Question</h3>
-          <PresentationGuidance>
-            Say this explicitly when you reach it. Hiring managers expect a clear research question. If you do not state it, they will wonder if you had one.
-          </PresentationGuidance>
           <p style={{ fontSize: "18px", fontWeight: 600, color: "var(--color-accent)", margin: "24px 0" }}>
             &quot;Can AI-driven pattern recognition achieve the same level of nuance and accuracy as human expert evaluation of clinical communication?&quot;
           </p>
@@ -1045,12 +1067,12 @@ export default function ABIMCaseStudy() {
         </CaseStudySection>
 
         {/* ============================================ */}
-        {/* SECTION 2: STUDY DESIGN & TAXONOMY           */}
+        {/* SECTION 2: STUDY DESIGN                      */}
         {/* ============================================ */}
         <CaseStudySection
           id="taxonomy"
           label="2. Study Design"
-          heading="Section 2: Methodological Framework &amp; Section 3: Rubric Design"
+          heading="Section 2: Study Design &amp; Section 3: The Instrument"
         >
           <PresentationGuidance>
             Say: &quot;This is a mixed-methods study. The qual work (rubric design, framework selection, expert annotation) served the quant work. It was instrument design, not independent inquiry. The primary output is quantitative: reliability metrics, classifier performance, and behavioral frequency profiles.&quot;
@@ -1058,7 +1080,7 @@ export default function ABIMCaseStudy() {
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>2.1 Study Type: Mixed Methods, Quantitative Primary</h3>
           <p>
-            The two-strand structure represents an enabling qualitative strand feeding into a primary quantitative strand:
+            The study used a two-strand structure (an enabling qualitative strand feeding into a primary quantitative strand):
           </p>
 
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
@@ -1089,12 +1111,12 @@ export default function ABIMCaseStudy() {
           </div>
 
           <p>
-            <strong>Why qual enables quant here:</strong> You cannot run a valid quantitative behavioral analysis without first operationalizing what you are measuring. The rubric design phase is the equivalent of instrument design in survey research: it is qual work, but its purpose is to enable the quant phase.
+            <strong>Why qual enables quant here:</strong> The rubric design phase is the equivalent of instrument design in survey research: it is qual work, but its purpose is to enable the quant phase.
           </p>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>2.2 Industry-Standard Methods Used</h3>
           <PresentationGuidance>
-            Present these tables explicitly. It shows methodological fluency. Walk through each method and explain why it was the right choice.
+            Present these tables explicitly. Walk through each method and explain why it was the right choice.
           </PresentationGuidance>
 
           <h4 style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-text-secondary)", textTransform: "uppercase", marginTop: "24px", marginBottom: "12px" }}>Qualitative Methods Map</h4>
@@ -1104,29 +1126,29 @@ export default function ABIMCaseStudy() {
                 <tr style={{ background: "rgba(0,0,0,0.02)", textAlign: "left" }}>
                   <th style={{ padding: "12px 16px", fontWeight: 700 }}>Method</th>
                   <th style={{ padding: "12px 16px", fontWeight: 700 }}>Where It Was Used</th>
-                  <th style={{ padding: "12px 16px", fontWeight: 700 }}>Industry Reference</th>
+                  <th style={{ padding: "12px 16px", fontWeight: 700 }}>Reference</th>
                 </tr>
               </thead>
               <tbody>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Expert Framework Operationalization</td>
-                  <td style={{ padding: "12px 16px" }}>Translating Calgary-Cambridge &amp; NURSE from abstract descriptions into behavioral checklists</td>
-                  <td style={{ padding: "12px 16px" }}>Equivalent to scale development in psychometrics (DeVellis, 2016)</td>
+                  <td style={{ padding: "12px 16px" }}>Translating Calgary-Cambridge &amp; NURSE into behavioral checklists</td>
+                  <td style={{ padding: "12px 16px" }}>DeVellis (2016) (scale development in psychometrics)</td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Thematic Synthesis</td>
-                  <td style={{ padding: "12px 16px" }}>Synthesizing 5 frameworks to 16 nuanced skills and 12 AI-detectable skills</td>
-                  <td style={{ padding: "12px 16px" }}>Thomas &amp; Harden (2008) (systematic synthesis of qualitative evidence)</td>
+                  <td style={{ padding: "12px 16px" }}>Synthesizing 5 frameworks to 16 nuanced skills, 12 AI-detectable</td>
+                  <td style={{ padding: "12px 16px" }}>Thomas &amp; Harden (2008)</td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Behavioral Coding Scheme Design</td>
-                  <td style={{ padding: "12px 16px" }}>Creating presence/absence checklists per construct, specifying verbal markers</td>
-                  <td style={{ padding: "12px 16px" }}>Behavioral coding in observational research (Bakeman &amp; Gottman, 1997)</td>
+                  <td style={{ padding: "12px 16px" }}>Creating presence/absence checklists per construct</td>
+                  <td style={{ padding: "12px 16px" }}>Bakeman &amp; Gottman (1997)</td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Exemplar Annotation (Few-Shot Grounding)</td>
                   <td style={{ padding: "12px 16px" }}>Manually coding 8–10 representative conversations per construct as seed labels</td>
-                  <td style={{ padding: "12px 16px" }}>Think-aloud / expert annotation protocol</td>
+                  <td style={{ padding: "12px 16px" }}>Expert annotation protocol</td>
                 </tr>
               </tbody>
             </table>
@@ -1139,39 +1161,38 @@ export default function ABIMCaseStudy() {
                 <tr style={{ background: "rgba(0,0,0,0.02)", textAlign: "left" }}>
                   <th style={{ padding: "12px 16px", fontWeight: 700 }}>Method</th>
                   <th style={{ padding: "12px 16px", fontWeight: 700 }}>Where It Was Used</th>
-                  <th style={{ padding: "12px 16px", fontWeight: 700 }}>Industry Reference</th>
+                  <th style={{ padding: "12px 16px", fontWeight: 700 }}>Reference</th>
                 </tr>
               </thead>
               <tbody>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Content Analysis at Scale</td>
-                  <td style={{ padding: "12px 16px" }}>Labeling ~985 conversations for presence/absence using LLM annotators constrained by prompts</td>
-                  <td style={{ padding: "12px 16px" }}>Krippendorff (2004) (systematic content analysis)</td>
+                  <td style={{ padding: "12px 16px" }}>Labeling ~985 conversations using LLM annotators constrained by rubric prompts</td>
+                  <td style={{ padding: "12px 16px" }}>Krippendorff (2004)</td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Inter-Rater Reliability (IRR)</td>
-                  <td style={{ padding: "12px 16px" }}>Measuring agreement between human graders and LLM labels (Cohen&apos;s &kappa; / percentage agreement)</td>
-                  <td style={{ padding: "12px 16px" }}>Landis &amp; Koch (1977) (kappa interpretation benchmarks)</td>
+                  <td style={{ padding: "12px 16px" }}>Agreement between human graders and LLM labels (Cohen&apos;s &kappa;)</td>
+                  <td style={{ padding: "12px 16px" }}>Landis &amp; Koch (1977)</td>
+                </tr>
+                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>Classifier Performance Evaluation</td>
+                  <td style={{ padding: "12px 16px" }}>Precision, Recall, F1; Macro-F1 as headline metric</td>
+                  <td style={{ padding: "12px 16px" }}>Standard imbalanced classification evaluation</td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Calibration Analysis</td>
-                  <td style={{ padding: "12px 16px" }}>ECE (Expected Calibration Error) and Brier Score metrics evaluation</td>
-                  <td style={{ padding: "12px 16px" }}>Niculescu-Mizil &amp; Caruana (2005) (calibration in ML)</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>Slice-Based Fairness Analysis</td>
-                  <td style={{ padding: "12px 16px" }}>Evaluating per-construct F1 across encounter types, simulated vs. real data</td>
-                  <td style={{ padding: "12px 16px" }}>Fairness-aware ML evaluation (Barocas et al., 2019)</td>
+                  <td style={{ padding: "12px 16px" }}>Expected Calibration Error (ECE) and Brier Score evaluation</td>
+                  <td style={{ padding: "12px 16px" }}>Niculescu-Mizil &amp; Caruana (2005)</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>2.3 Why This is UX Research</h3>
-          <PresentationGuidance>
-            Be ready to defend this framing. You may be asked: &quot;Is this really UXR or is it NLP engineering?&quot; Here is your answer: &quot;The core deliverable of this project is a measurement instrument: 11 operationalized rubrics that define what &apos;good&apos; physician communication looks like in observable, text-detectable behavioral terms. That is what UX researchers do when they design surveys, behavioral coding schemes, or usability scales. The classifier is the delivery mechanism. The rubric is the research artifact.&quot;
-          </PresentationGuidance>
-
+          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>2.3 Why This Is UX Research</h3>
+          <p>
+            The parallel to traditional user experience research is direct:
+          </p>
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
               <thead>
@@ -1201,26 +1222,25 @@ export default function ABIMCaseStudy() {
             </table>
           </div>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>3.1 Framework Selection</h3>
           <PresentationGuidance>
-            Lead with the decision, then the rationale. Don&apos;t just list frameworks: explain why you chose these two and what you ruled out. That shows research judgment.
+            Say: &quot;The core deliverable is a measurement instrument: 11 operationalized rubrics that define what good physician communication looks like in observable, text-detectable behavioral terms. That is what UX researchers do when they design surveys, behavioral coding schemes, or usability scales. The classifier is the delivery mechanism. The rubric is the research artifact.&quot;
           </PresentationGuidance>
+
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>3.1 Framework Selection</h3>
+          <p>
+            Five frameworks were evaluated. Two were selected as primary:
+          </p>
 
           <FrameworkTaxonomy />
 
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>3.2 From 16 Skills to 12 AI-Detectable Constructs</h3>
           <p>
-            <strong>Why CCG + NURSE specifically:</strong>
+            Framework synthesis identified 16 nuanced medical communication skills. 4 were excluded as non-text-detectable:
           </p>
-          <ul style={{ paddingLeft: "20px", marginBottom: "24px" }}>
-            <li style={{ marginBottom: "8px" }}><strong>Strong structural integration:</strong> NURSE empathy micro-skills have natural placeholders within Calgary-Cambridge&apos;s Phase IV (Building the Relationship). They are designed to work together.</li>
-            <li style={{ marginBottom: "8px" }}><strong>Maximum skill coverage:</strong> CCG alone accounts for the largest number of the 12 AI-detectable skills.</li>
-            <li style={{ marginBottom: "8px" }}><strong>Complete coverage together:</strong> CCG + NURSE together account for all 12 target skills with no gaps.</li>
-            <li style={{ marginBottom: "8px" }}><strong>Evidence base:</strong> Both frameworks are validated, peer-reviewed, and widely used in clinical communication training.</li>
-          </ul>
 
-          <PresentationGuidance>
-            Say: &quot;We did not pick the most popular frameworks: we picked the frameworks that together gave us the best coverage of our 12 target skills, with the strongest integration and the highest text-detectability. That was a deliberate design decision.&quot;
-          </PresentationGuidance>
+          <p>
+            <strong>Why CCG + NURSE specifically:</strong> Together they cover all 12 AI-detectable skills with no gaps, have strong structural integration (NURSE empathy moves sit naturally inside CCG Phase IV), and are both validated, peer-reviewed, and widely used in clinical communication training.
+          </p>
         </CaseStudySection>
 
         {/* ============================================ */}
@@ -1229,15 +1249,15 @@ export default function ABIMCaseStudy() {
         <CaseStudySection
           id="pipeline"
           label="3. Data Pipeline"
-          heading="Section 4: From Rubric to Labels at Scale (Pipeline Design)"
+          heading="Section 4: Data Pipeline"
         >
           <PresentationGuidance>
-            In presenting this section, be explicit: &quot;My specific contribution was the data pipeline: the architecture, source selection, labeling strategy, and label schema design. I will walk you through the decisions and the rationale behind each.&quot;
+            Highlight: &quot;My primary contribution was the data pipeline: architecture, source selection, labeling strategy, and label schema design.&quot;
           </PresentationGuidance>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>4.1 The Five-Phase Pipeline</h3>
           <p>
-            To scale measurement reliably, we constructed an end-to-end labeling and model training pipeline. Each phase acts as a strict quality gate, preventing error propagation and construct drift:
+            Each phase acts as a quality gate, preventing error propagation and construct drift:
           </p>
 
           <div
@@ -1260,7 +1280,7 @@ export default function ABIMCaseStudy() {
             <PipelineStepCard
               step="2"
               label="Real Transcript Pivot"
-              description="VHA 4C anchor + ACI-BENCH, OSCE, PriMock57 supplements. ~985 conversations."
+              description="VHA 4C anchor + ACI-BENCH, OSCE, PriMock57. ~985 conversations."
               gate="construct validity"
               color="#8b5cf6"
               index={1}
@@ -1291,69 +1311,38 @@ export default function ABIMCaseStudy() {
             />
           </div>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>4.2 Phase 1: Synthetic Data Bootstrap</h3>
+          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>4.2 The Pivot to Real Clinical Transcripts</h3>
           <p>
-            <strong>Original plan:</strong> Use HuggingFace &quot;ChatNote-style&quot; synthetic doctor-patient dataset + Label Studio manual annotation.
-          </p>
-          <p>
-            <strong>Why it was a reasonable starting point:</strong>
-          </p>
-          <ul style={{ paddingLeft: "20px", marginBottom: "24px" }}>
-            <li style={{ marginBottom: "8px" }}>Synthetic data is clean, structured, and accessible.</li>
-            <li style={{ marginBottom: "8px" }}>Label Studio provides a controlled annotation environment.</li>
-            <li style={{ marginBottom: "8px" }}>Low barrier to begin testing rubric operationalization.</li>
-          </ul>
-          <p>
-            <strong>Why it was insufficient as a primary corpus:</strong>
-          </p>
-          <ul style={{ paddingLeft: "20px", marginBottom: "24px" }}>
-            <li style={{ marginBottom: "8px" }}>Synthetic conversations contain overly explicit behavioral markers that real encounters lack.</li>
-            <li style={{ marginBottom: "8px" }}>Distribution shift risk: a model trained on synthetic data learns a distribution that does not generalize to real clinical settings.</li>
-            <li style={{ marginBottom: "8px" }}>Model collapse risk (Shumailov et al., Nature 2024): recursive use of synthetic data degrades distributional tails: the nuanced, ambiguous cases that matter most for communication assessment.</li>
-          </ul>
-
-          <PresentationGuidance>
-            Say: &quot;The synthetic data phase was useful for rubric testing. But for measurement validity: for the system to produce scores that mean something about real clinical encounters: we needed real conversations.&quot;
-          </PresentationGuidance>
-
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>4.3 Phase 2: The Pivot to Real Clinical Transcripts</h3>
-          <p>
-            We anchored the corpus on real clinician-patient conversations, using simulated transcripts only as a supplement:
+            Initial work used synthetic data. We made a deliberate pivot toward real clinical encounters as the primary corpus anchor:
           </p>
 
           <DatasetTable />
 
-          <PresentationGuidance>
-            Say: &quot;Source selection was not just &apos;find data.&apos; It was a construct validity decision. If the data distribution does not match the population we are trying to measure, the rubric scores do not generalize. Anchoring on VHA 4C real encounters was a measurement quality decision.&quot;
-          </PresentationGuidance>
-
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>4.4 Phase 3: LLM-Assisted Labeling at Scale</h3>
           <p>
-            <strong>Method: Content Analysis at Scale (Quantitative Content Analysis)</strong>
-          </p>
-          <p>
-            We used ~8–10 exemplar conversations manually curated per construct for few-shot grounding. Rubric-grounded prompts encoded the full rubric, specifying inclusion criteria, exclusion criteria, and required structured reasoning output. Per-construct model selection between Qwen and Llama was evaluated separately to maximize accuracy. We labeled one construct at a time to prevent cross-construct contamination.
+            <strong>Why this was a construct validity decision:</strong> Synthetic conversations contain overly explicit behavioral markers that real encounters lack. A model trained on synthetic data learns a distribution that does not generalize to actual clinical settings: a measurement validity problem, not a model problem.
           </p>
 
           <PresentationGuidance>
-            Say: &quot;The prompts were not generation prompts: they were measurement instruments. Each one encoded the full rubric: what counts, what does not count, and what to do with ambiguous cases. Prompt engineering here was equivalent to finalizing a survey question: the wording changes what you are measuring.&quot;
+            Say: &quot;Source selection was not just &apos;find data.&apos; It was a construct validity decision.&quot;
           </PresentationGuidance>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>4.6 Phase 5: Downstream Model Training</h3>
-          <p>
-            Communication behaviors co-occur in real encounters (a single physician turn can contain NURSE Naming, CCG Signposting, and Clinical Reasoning simultaneously). Downstream models output class probabilities to preserve uncertainty and support formative feedback rather than deterministic binary decisions, accompanied by audit-friendly rationale text.
-          </p>
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>4.3 LLM-Assisted Labeling Strategy</h3>
+          <ul style={{ paddingLeft: "20px", marginBottom: "24px" }}>
+            <li style={{ marginBottom: "8px" }}><strong>8–10 exemplar conversations</strong> manually curated per construct for few-shot grounding.</li>
+            <li style={{ marginBottom: "8px" }}><strong>Rubric-grounded prompts</strong> encoded the full rubric: inclusion criteria, exclusion criteria, structured reasoning output.</li>
+            <li style={{ marginBottom: "8px" }}><strong>One construct at a time</strong>: prevents cross-construct contamination.</li>
+            <li style={{ marginBottom: "8px" }}><strong>Per-construct model selection</strong>: Qwen vs. Llama evaluated separately per construct.</li>
+          </ul>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>Label Ontology (9 Prefix Families)</h3>
-          <p>
-            Every behavioral label maps upward: transcript label to ACGME competency domain, and finally to Milestones developmental level. The schema is modular and composable.
-          </p>
+          <PresentationGuidance>
+            Say: &quot;The prompts were not generation prompts: they were measurement instruments. Each one encoded the full rubric: what counts, what does not count, and what to do with ambiguous cases.&quot;
+          </PresentationGuidance>
 
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>4.4 Label Schema (9 Prefix Families)</h3>
+          <p>
+            Every behavioral label maps upward: transcript label to ACGME competency domain, and finally to Milestones developmental level.
+          </p>
           <LabelOntology />
-
-          <PresentationGuidance>
-            Say: &quot;The label schema was designed to be modular and composable. Each behavioral label maps upward to an ACGME competency domain and a Milestones developmental level. So from a single transcript label, you can aggregate to an encounter quality score, then to a competency profile, then to a Milestones level. That is the measurement architecture.&quot;
-          </PresentationGuidance>
         </CaseStudySection>
 
         {/* ============================================ */}
@@ -1362,58 +1351,36 @@ export default function ABIMCaseStudy() {
         <CaseStudySection
           id="metrics"
           label="4. Quantitative Metrics"
-          heading="Section 5: Measurement Quality Metrics (Performance &amp; IRR)"
+          heading="Section 5: Quantitative Results"
         >
-          <PresentationGuidance>
-            Say: &quot;The validity of the entire pipeline comes down to these numbers. I will walk through each metric, what it measures, and what a good result looks like: because reporting the right metrics is as important as the metrics themselves.&quot;
-          </PresentationGuidance>
-
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>5.1 Inter-Rater Reliability (IRR)</h3>
           <p>
-            <strong>Method: Cohen&apos;s &kappa; / Percentage Agreement (Quantitative)</strong>
-          </p>
-          <p>
-            We measured the degree of agreement between human expert graders and LLM labels (controlling for chance agreement). Cohen&apos;s &kappa; was computed per construct against Landis &amp; Koch (1977) benchmark bands:
+            Cohen&apos;s &kappa; computed per construct against Landis &amp; Koch (1977) benchmark bands:
           </p>
 
           <IRRChart />
 
-          <PresentationGuidance>
-            Say: &quot;IRR varied by construct: which is expected and meaningful. Constructs with explicit linguistic markers (such as NURSE Naming: directly labeling a patient&apos;s emotion using specific words) showed higher agreement. Constructs requiring inference from implicit behavior (such as NURSE Exploring: detecting open-ended emotional inquiry) showed lower agreement. That pattern is itself a research finding: it tells us which constructs are text-detectable and which require additional signal.&quot;
-          </PresentationGuidance>
+          <p style={{ marginTop: "16px", fontSize: "14px" }}>
+            <strong>The pattern is itself a finding:</strong> Constructs with explicit linguistic markers (such as NURSE: Naming: directly labeling a patient&apos;s emotion) showed higher agreement. Constructs requiring inference from implicit behavior (such as NURSE: Explore: detecting open-ended emotional inquiry) showed lower agreement. That tells us which behaviors are text-detectable and which require additional signal.
+          </p>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "48px" }}>5.2 Classifier Performance</h3>
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "48px" }}>5.2 Classifier Performance (BERT: Per Construct)</h3>
           <p>
-            Because communication behaviors are sparse and imbalanced in clinical transcripts, aggregate accuracy is highly misleading. Macro-F1 serves as our primary headline metric:
+            Macro-F1 is the headline metric: it averages F1 across all constructs without weighting by class frequency, the right choice for an imbalanced label space.
           </p>
 
           <ClassifierPerformanceChart />
 
-          <PresentationGuidance>
-            Say: &quot;The Macro-F1 is the headline metric: it averages F1 across all constructs without weighting by class frequency, which is the right choice for an imbalanced label space. Beneath it, per-construct results tell a more nuanced story: Build Rapport and NURSE: Name were most reliably detected because they have explicit verbal markers. NURSE: Explore was the most challenging: and that is informative, because it tells us something about the limits of text-only measurement for that behavior.&quot;
-          </PresentationGuidance>
-
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "48px" }}>5.3 Calibration Metrics</h3>
           <p>
-            A model that says &quot;75% confident&quot; should be right 75% of the time. Expected Calibration Error (ECE) and Brier Score evaluate model probability reliability:
+            A model that says &quot;75% confident&quot; should be right 75% of the time.
           </p>
 
           <CalibrationVisual />
 
-          <PresentationGuidance>
-            Say: &quot;A calibrated model does not just get the right answer: it knows when it is uncertain. For formative physician feedback, a well-calibrated confidence score tells the system whether to auto-accept a label or route it for human review. That is the human-in-the-loop design.&quot;
-          </PresentationGuidance>
-
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "48px" }}>5.4 Slice-Based Fairness Analysis</h3>
-          <p>
-            <strong>Method: Stratified Evaluation (Quantitative)</strong>
+          <p style={{ marginTop: "20px" }}>
+            <strong>Why calibration enables formative feedback:</strong> Calibration scores power a tiered routing system: high confidence labels are auto-accepted, mid confidence are flagged for human review, low confidence are routed to expert review. The model knows when it is uncertain. That is the human-in-the-loop design.
           </p>
-          <p>
-            Evaluating per-construct F1 across encounter types, simulated vs. real data. Real encounters (VHA 4C) present significantly noisier turn boundaries and implicit communication cues compared to simulated corpuses (OSCE, PriMock57).
-          </p>
-          <PresentationGuidance>
-            Say: &quot;Slice-based evaluation across simulated vs. real data is on the roadmap as a critical next step. We documented the concern explicitly: it would be irresponsible to claim the pipeline generalizes to real clinical encounters without testing that claim separately.&quot;
-          </PresentationGuidance>
         </CaseStudySection>
 
         {/* ============================================ */}
@@ -1422,10 +1389,10 @@ export default function ABIMCaseStudy() {
         <CaseStudySection
           id="errors"
           label="5. Error Analysis"
-          heading="False Positive &amp; False Negative Analysis"
+          heading="Section 5.4 Error Analysis"
         >
           <p>
-            A qualitative and quantitative breakdown of Type I (False Positive) and Type II (False Negative) errors across the communication constructs. Audit audits were conducted to map failure modes and improve prompt grounding.
+            A qualitative and quantitative breakdown of Type I (False Positive) and Type II (False Negative) errors across the communication constructs.
           </p>
 
           <ConfusionMatrixAndErrorChart />
@@ -1437,17 +1404,20 @@ export default function ABIMCaseStudy() {
         <CaseStudySection
           id="deidentification"
           label="6. De-Identification"
-          heading="Section 4.5 PHI De-Identification (How NER Works)"
+          heading="Section 6: PHI De-Identification"
         >
           <p>
-            Named Entity Recognition detects Protected Health Information spans, classifies them by type, and masks them before any transcript enters the labeling pipeline. Standard: i2b2/UTHealth 2014 de-identification corpus.
+            Named Entity Recognition detects Protected Health Information spans, classifies them by type, and masks them before any transcript enters the labeling pipeline.
+          </p>
+          <p>
+            <strong>Standard:</strong> i2b2/UTHealth 2014 de-identification corpus (HIPAA-compliant)
           </p>
 
           <NERDeIdentificationFlow />
 
-          <PresentationGuidance>
-            Frame it as a research ethics decision, not just a legal one. Say: &quot;De-identification was built into the pipeline architecture from the start, not added as an afterthought. That reflects a governance-first design philosophy: which shaped everything from how we framed the outputs to what claims we would and would not make.&quot;
-          </PresentationGuidance>
+          <p style={{ marginTop: "20px" }}>
+            De-identification was built into the pipeline architecture from the start, not added as an afterthought. That reflects a governance-first design philosophy that shaped everything from output format to what claims the team would and would not make.
+          </p>
         </CaseStudySection>
 
         {/* ============================================ */}
@@ -1456,13 +1426,9 @@ export default function ABIMCaseStudy() {
         <CaseStudySection
           id="governance"
           label="7. Validity &amp; Governance"
-          heading="Section 6: Measurement Validity &amp; Governance"
+          heading="Section 7: Validity &amp; Governance"
         >
-          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>6.1 Types of Validity Addressed</h3>
-          <p>
-            We established content validity and construct validity before building the model. Most NLP projects build first, then ask whether they measured the right thing. We did it in the right order:
-          </p>
-
+          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>7.1 Types of Validity Addressed</h3>
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
               <thead>
@@ -1475,33 +1441,29 @@ export default function ABIMCaseStudy() {
               <tbody>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Content Validity</td>
-                  <td style={{ padding: "12px 16px" }}>Using peer-reviewed clinical communication guides (CCG, NURSE) validated in past healthcare studies.</td>
+                  <td style={{ padding: "12px 16px" }}>Using peer-reviewed clinical communication frameworks (CCG, NURSE) validated in healthcare studies.</td>
                   <td style={{ padding: "12px 16px" }}>Published framework citations, ABMS/ACGME literature adoption.</td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Construct Validity</td>
-                  <td style={{ padding: "12px 16px" }}>Developing 11 operationalized rubrics with explicit inclusion/exclusion checklist points before running labels.</td>
-                  <td style={{ padding: "12px 16px" }}>Checklists, borderline examples, and prompt-grounding documentation.</td>
+                  <td style={{ padding: "12px 16px" }}>11 operationalized rubrics with explicit inclusion/exclusion checklists before any labels were run.</td>
+                  <td style={{ padding: "12px 16px" }}>Checklists, borderline examples, prompt-grounding documentation.</td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Face Validity</td>
-                  <td style={{ padding: "12px 16px" }}>I/O Psychologists and clinical educators reviewed the checklist items against communication standards.</td>
+                  <td style={{ padding: "12px 16px" }}>I/O Psychologists and clinical educators reviewed checklist items against communication standards.</td>
                   <td style={{ padding: "12px 16px" }}>Adjudication and feedback records.</td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Criterion Validity</td>
-                  <td style={{ padding: "12px 16px" }}>Comparing automated scores against OSCE panel grades and patient satisfaction outcome metrics (In Progress).</td>
-                  <td style={{ padding: "12px 16px" }}>Criterion-matching dataset roadmap.</td>
+                  <td style={{ padding: "12px 16px" }}>Comparing automated scores against OSCE panel grades and patient satisfaction metrics.</td>
+                  <td style={{ padding: "12px 16px" }}>In progress: criterion-matching dataset roadmap.</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>6.2 Known Threats to Validity</h3>
-          <p>
-            Be direct about these. Honesty here builds credibility:
-          </p>
-
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>7.2 Known Threats to Validity</h3>
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
               <thead>
@@ -1514,7 +1476,7 @@ export default function ABIMCaseStudy() {
               <tbody>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Label Noise Propagation</td>
-                  <td style={{ padding: "12px 16px" }}>LLM labels are not gold standard; errors propagate from LLM to SLM training.</td>
+                  <td style={{ padding: "12px 16px" }}>LLM labels are not gold standard; errors propagate to SLM training.</td>
                   <td style={{ padding: "12px 16px" }}>Seed label anchoring, entropy filtering, human review tier.</td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
@@ -1524,16 +1486,16 @@ export default function ABIMCaseStudy() {
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Small Gold Set</td>
-                  <td style={{ padding: "12px 16px" }}>Manual annotation used 8–10 exemplars per construct (sufficient for grounding, not formal ICC).</td>
-                  <td style={{ padding: "12px 16px" }}>Expanding gold set is primary recommendation for next co-op.</td>
+                  <td style={{ padding: "12px 16px" }}>8–10 exemplars per construct (sufficient for grounding, not formal ICC).</td>
+                  <td style={{ padding: "12px 16px" }}>Expanding gold set is primary recommendation for next phase.</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>6.3 Governance Framing (Built In From the Start)</h3>
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>7.3 Governance: Built In From the Start</h3>
           <p>
-            ACGME explicitly warns that Milestones are an educational, formative assessment tool and were not designed for high-stakes external decisions. Automation can introduce false precision and bias, which shaped our formative-use framing:
+            ACGME explicitly states that Milestones are formative educational tools, not designed for high-stakes external decisions. Every output format, framing choice, and constraint was shaped by this:
           </p>
 
           <div
@@ -1572,7 +1534,7 @@ export default function ABIMCaseStudy() {
           </div>
 
           <PresentationGuidance>
-            Say: &quot;Governance was not a legal afterthought: it was a measurement design constraint. When you know the output will never be used for high-stakes decisions, that changes what kind of precision you need, how you format the output, and what you put in the user interface. We designed for formative feedback from the beginning.&quot;
+            Say: &quot;Governance was not a legal afterthought: it was a measurement design constraint. When you know the output will never be used for high-stakes decisions, that changes what kind of precision you need, how you format the output, and what you put in the user interface.&quot;
           </PresentationGuidance>
         </CaseStudySection>
 
@@ -1582,35 +1544,30 @@ export default function ABIMCaseStudy() {
         <CaseStudySection
           id="role"
           label="8. Shweta's Role"
-          heading="Section 7: Shweta's Role (Data &amp; Research Ownership)"
+          heading="Section 8: My Role"
         >
           <PresentationGuidance>
             Be explicit about your individual contribution in an interview. Hiring managers need to know what YOU did, not what the team did. Use this section to make that clear.
           </PresentationGuidance>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>7.1 What You Owned</h3>
+          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>What I Owned</h3>
           <p>
-            As the Innovation Analyst (Data &amp; Research Focused), I primarily owned the data pipeline and labeling architecture:
+            As Innovation Analyst (Data &amp; Research Focused), I owned the data pipeline and labeling architecture:
           </p>
-          <ol style={{ paddingLeft: "20px", marginBottom: "24px" }}>
-            <li style={{ marginBottom: "12px" }}><strong>Dataset architecture decisions:</strong> Evaluating 4 transcript sources, structuring the corpus around real vs. simulated data, making the case for VHA 4C as the realism anchor.</li>
-            <li style={{ marginBottom: "12px" }}><strong>Label schema design:</strong> The 9-prefix labeling ontology (`cc_`, `nurse_`, `sh_`, `sp_`, `cr_`, `ml_`, `exam_`, `comp_`, `ksao_`) with full alignment.</li>
+          <ul style={{ paddingLeft: "20px", marginBottom: "24px" }}>
+            <li style={{ marginBottom: "12px" }}><strong>Dataset architecture:</strong> Evaluating 4 transcript sources, structuring the corpus around real vs. simulated data, making the case for VHA 4C as the realism anchor.</li>
+            <li style={{ marginBottom: "12px" }}><strong>Label schema design:</strong> The 9-prefix labeling ontology with full ACGME competency alignment.</li>
             <li style={{ marginBottom: "12px" }}><strong>LLM labeling strategy:</strong> The one-construct-at-a-time protocol, per-construct model selection (Qwen vs. Llama), exemplar conversation selection criteria.</li>
-            <li style={{ marginBottom: "12px" }}><strong>CSV schema architecture:</strong> The 5-section schema covering keys, outcomes, features, competency alignment, and weak-label covariates.</li>
-            <li style={{ marginBottom: "12px" }}><strong>Simulated to real pivot documentation:</strong> Capturing and communicating the rationale for the pivot with specific failure modes identified (distribution shift, model collapse).</li>
-          </ol>
+            <li style={{ marginBottom: "12px" }}><strong>CSV schema architecture:</strong> 5-section schema covering keys, outcomes, features, competency alignment, and weak-label covariates.</li>
+            <li style={{ marginBottom: "12px" }}><strong>Simulated to real pivot documentation:</strong> Capturing the rationale with specific failure modes identified (distribution shift, model collapse).</li>
+          </ul>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>7.2 How to Narrate Your Contribution</h3>
-          <p style={{ fontStyle: "italic", background: "rgba(139, 105, 250, 0.02)", padding: "16px", borderRadius: "8px", borderLeft: "4px solid #8b69fa" }}>
-            &quot;My primary contribution was the data pipeline and label architecture. That means I was responsible for deciding which conversations we labeled and how: the dataset composition across four sources, the decision to anchor on real clinical encounters rather than synthetic data, and the label schema that maps every behavioral indicator upward to an ACGME competency domain and Milestones level. I also owned the LLM labeling strategy: specifically the protocol of labeling one construct at a time to prevent cross-construct contamination, and per-construct model selection between Qwen and Llama. The pipeline architecture I designed produces not just a binary label, but a structured output with the specific verbal evidence and confidence score so any human reviewer can audit the reasoning.&quot;
-          </p>
-
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>7.3 The Decision That Shows Research Judgment</h3>
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>The Decision That Shows Research Judgment</h3>
           <p>
             <strong>The simulated to real pivot:</strong>
           </p>
           <p style={{ fontStyle: "italic", background: "rgba(139, 105, 250, 0.02)", padding: "16px", borderRadius: "8px", borderLeft: "4px solid #8b69fa" }}>
-            &quot;The original plan was to use synthetic ChatNote-style transcripts. I pushed for pivoting toward real clinical encounters: specifically VHA 4C: as the primary data anchor. The argument was construct validity: if the model learns to detect communication behaviors from synthetic conversations that are cleaner and more explicit than real encounters, the scores it produces won&apos;t generalize to actual clinical settings. That is not a model problem: it is a measurement validity problem. The pivot was a research quality decision.&quot;
+            &quot;The original plan was to use synthetic ChatNote-style transcripts. I pushed for pivoting toward real clinical encounters (VHA 4C) as the primary data anchor, because if the model learns to detect communication behaviors from synthetic conversations that are cleaner and more explicit than real encounters, the scores it produces won&apos;t generalize to actual clinical settings. That is not a model problem. It is a measurement validity problem. The pivot was a research quality decision.&quot;
           </p>
         </CaseStudySection>
 
@@ -1620,13 +1577,9 @@ export default function ABIMCaseStudy() {
         <CaseStudySection
           id="limitations"
           label="9. Limitations"
-          heading="Section 8: Honest Assessment &amp; Section 9: What Was Built"
+          heading="Section 9: Limitations &amp; What I'd Do Differently"
         >
-          <PresentationGuidance>
-            Say this before presenting limitations: &quot;I want to be honest about where this study has gaps: because overclaiming from a system that is used to give feedback to physicians is exactly the kind of false precision ACGME warns against.&quot;
-          </PresentationGuidance>
-
-          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>8.1 Gaps Acknowledged</h3>
+          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>Acknowledged Gaps</h3>
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
               <thead>
@@ -1639,31 +1592,40 @@ export default function ABIMCaseStudy() {
               <tbody>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>No Gold-Standard Validation</td>
-                  <td style={{ padding: "12px 16px" }}>Pipeline not compared against carefully calibrated human rating panel or OSCE scores.</td>
+                  <td style={{ padding: "12px 16px" }}>Pipeline not compared against a calibrated human rating panel or OSCE scores.</td>
                   <td style={{ padding: "12px 16px" }}>Cannot claim criterion validity: only content and construct validity.</td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>SHARE Framework Scoped Out</td>
                   <td style={{ padding: "12px 16px" }}>Time constraints prevented implementing shared decision-making labeling.</td>
-                  <td style={{ padding: "12px 16px" }}>4 constructs unmeasured that would complete the picture.</td>
+                  <td style={{ padding: "12px 16px" }}>4 constructs unmeasured.</td>
                 </tr>
                 <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Small Exemplar Set</td>
-                  <td style={{ padding: "12px 16px" }}>8–10 conversations per construct is enough for grounding, not for formal ICC.</td>
+                  <td style={{ padding: "12px 16px" }}>8–10 conversations per construct is enough for grounding, not formal ICC.</td>
                   <td style={{ padding: "12px 16px" }}>Agreement statistics are preliminary, not definitive.</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>8.2 What I&apos;d Do Differently</h3>
-          <ul style={{ paddingLeft: "20px", fontSize: "14px", lineHeight: 1.6 }}>
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>Three Things I&apos;d Do Differently</h3>
+          <ol style={{ paddingLeft: "20px", fontSize: "14px", lineHeight: 1.6 }}>
             <li style={{ marginBottom: "12px" }}><strong>Build the human validation set first:</strong> Double-code 100–150 conversations in month one to calculate construct baseline Cohen&apos;s &kappa; before running the model.</li>
-            <li style={{ marginBottom: "12px" }}><strong>Report construct difficulty explicitly:</strong> Differentiate between linguistically explicit constructs (such as NURSE Name) and implicit ones (such as NURSE Explore).</li>
+            <li style={{ marginBottom: "12px" }}><strong>Report construct difficulty explicitly:</strong> Differentiate between linguistically explicit constructs (such as NURSE Name) and implicit ones (such as NURSE Explore): that distinction is as valuable as the F1 score.</li>
             <li style={{ marginBottom: "12px" }}><strong>Run feedback UX research in parallel:</strong> Test whether physicians actually interpret and reflect on the score probabilities and rationales in their everyday workflow.</li>
-          </ul>
+          </ol>
+        </CaseStudySection>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>9.1 What the Project Produced</h3>
+        {/* ============================================ */}
+        {/* SECTION 10: IMPACT                           */}
+        {/* ============================================ */}
+        <CaseStudySection
+          id="impact"
+          label="10. Impact &amp; Presentation"
+          heading="Section 10: Impact &amp; Presentation Guide"
+        >
+          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>What the Project Produced</h3>
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
               <thead>
@@ -1685,108 +1647,46 @@ export default function ABIMCaseStudy() {
                   <td style={{ padding: "12px 16px", fontWeight: 600 }}>Reusable Pipeline Framework</td>
                   <td style={{ padding: "12px 16px" }}>End-to-end framework (rubric to seed labels to LLM annotation to SLM training).</td>
                 </tr>
+                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>Label Schema</td>
+                  <td style={{ padding: "12px 16px" }}>9-prefix ontology mapping every label to ACGME competency domain and Milestones level.</td>
+                </tr>
               </tbody>
             </table>
           </div>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>9.3 What Future Co-Ops Should Do Next</h3>
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>Recommended Next Steps</h3>
           <ol style={{ paddingLeft: "20px", fontSize: "14px", lineHeight: 1.6 }}>
-            <li style={{ marginBottom: "8px" }}>Expand gold standard dataset (100+ double-coded conversations).</li>
-            <li style={{ marginBottom: "8px" }}>Reintegrate SHARE framework for shared decision-making.</li>
-            <li style={{ marginBottom: "8px" }}>Conduct the feedback UX study (how physicians interpret the rationale text).</li>
-            <li style={{ marginBottom: "8px" }}>Run bias audit across demographics and sources.</li>
+            <li style={{ marginBottom: "8px" }}>Expand gold standard dataset (100+ double-coded conversations for formal ICC).</li>
+            <li style={{ marginBottom: "8px" }}>Reintegrate SHARE framework for shared decision-making constructs.</li>
+            <li style={{ marginBottom: "8px" }}>Conduct the feedback UX study: how physicians interpret probability-based formative feedback.</li>
+            <li style={{ marginBottom: "8px" }}>Run bias audit across demographics, cultural backgrounds, and data sources.</li>
           </ol>
-        </CaseStudySection>
 
-        {/* ============================================ */}
-        {/* SECTION 10: PRESENTATION GUIDE               */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="guide"
-          label="10. Presentation Guide"
-          heading="Section 10: How to Walk Through This Case Study (Presentation Script)"
-        >
-          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>10.1 The Three-Sentence Opening</h3>
+          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "48px" }}>Presentation Guide</h3>
+          <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "16px 0 8px 0" }}>Three-Sentence Opening</h4>
           <p style={{ fontStyle: "italic", background: "rgba(139, 105, 250, 0.02)", padding: "16px", borderRadius: "8px", borderLeft: "4px solid #8b69fa" }}>
             &quot;This project sits at the intersection of measurement design and NLP. ABIM certifies thousands of physicians every year on their medical knowledge: but the communication competencies that matter just as much to patient outcomes are almost never measured objectively at scale. I spent six months designing and building the measurement infrastructure that could change that.&quot;
           </p>
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>10.2 Slide-by-Slide Walkthrough Flow</h3>
-          <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
-              <thead>
-                <tr style={{ background: "rgba(0,0,0,0.02)", textAlign: "left" }}>
-                  <th style={{ padding: "12px 16px", fontWeight: 700 }}>Step</th>
-                  <th style={{ padding: "12px 16px", fontWeight: 700 }}>Content</th>
-                  <th style={{ padding: "12px 16px", fontWeight: 700 }}>Time</th>
-                  <th style={{ padding: "12px 16px", fontWeight: 700 }}>Key Line</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>1</td>
-                  <td style={{ padding: "12px 16px" }}>The verification gap</td>
-                  <td style={{ padding: "12px 16px" }}>2 min</td>
-                  <td style={{ padding: "12px 16px", fontStyle: "italic" }}>&quot;We certify doctors via exam but assume they communicate well.&quot;</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>2</td>
-                  <td style={{ padding: "12px 16px" }}>Why communication is hard to measure</td>
-                  <td style={{ padding: "12px 16px" }}>1.5 min</td>
-                  <td style={{ padding: "12px 16px", fontStyle: "italic" }}>&quot;It is a psychometric problem, not just a technology problem.&quot;</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>3</td>
-                  <td style={{ padding: "12px 16px" }}>Research question</td>
-                  <td style={{ padding: "12px 16px" }}>30 sec</td>
-                  <td style={{ padding: "12px 16px", fontStyle: "italic" }}>Verbatim statement</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>4</td>
-                  <td style={{ padding: "12px 16px" }}>Study type: mixed methods, quant primary</td>
-                  <td style={{ padding: "12px 16px" }}>1 min</td>
-                  <td style={{ padding: "12px 16px", fontStyle: "italic" }}>&quot;The qual phase was instrument design. The quant phase was the study.&quot;</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>5</td>
-                  <td style={{ padding: "12px 16px" }}>Framework selection: why CCG + NURSE</td>
-                  <td style={{ padding: "12px 16px" }}>2 min</td>
-                  <td style={{ padding: "12px 16px", fontStyle: "italic" }}>&quot;We picked framework coverage with highest text-detectability.&quot;</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>6</td>
-                  <td style={{ padding: "12px 16px" }}>Data pipeline: your contribution</td>
-                  <td style={{ padding: "12px 16px" }}>3 min</td>
-                  <td style={{ padding: "12px 16px", fontStyle: "italic" }}>&quot;Source selection was a construct validity decision.&quot;</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>7</td>
-                  <td style={{ padding: "12px 16px" }}>Results: IRR + F1 + Calibration</td>
-                  <td style={{ padding: "12px 16px" }}>3 min</td>
-                  <td style={{ padding: "12px 16px", fontStyle: "italic" }}>&quot;Report per-construct, not aggregate. Aggregate masks failures.&quot;</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>10.3 Answers to the Hardest Interview Questions</h3>
+          <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "24px 0 8px 0" }}>Answers to the Hardest Interview Questions</h4>
           <div style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop: "16px" }}>
             <div>
               <strong style={{ display: "block", color: "var(--color-text)", fontSize: "15px" }}>Q: &quot;Is this UX research or data science?&quot;</strong>
               <p style={{ margin: "4px 0 0 0", color: "var(--color-text-secondary)", fontSize: "14px", lineHeight: 1.5 }}>
-                &quot;It is both: but the UX research framing is the right primary one. The core deliverable is a measurement instrument: 11 rubrics that operationalize what good physician communication looks like in observable, text-detectable terms. Instrument design is UX research work. The classifier is the delivery mechanism.&quot;
+                &quot;It is both: but the UXR framing is the right primary one. The core deliverable is a measurement instrument: 11 rubrics that operationalize what good physician communication looks like in observable, text-detectable terms. Instrument design is UX research work. The classifier is the delivery mechanism.&quot;
               </p>
             </div>
             <div>
               <strong style={{ display: "block", color: "var(--color-text)", fontSize: "15px" }}>Q: &quot;What is your specific contribution?&quot;</strong>
               <p style={{ margin: "4px 0 0 0", color: "var(--color-text-secondary)", fontSize: "14px", lineHeight: 1.5 }}>
-                &quot;Data pipeline and label architecture. I owned dataset composition, labeling strategy, the label schema design, and the simulated to real pivot rationale. My contribution was everything between: turning validated rubrics into a scalable labeling infrastructure.&quot;
+                &quot;Data pipeline and label architecture. I owned dataset composition, labeling strategy, the label schema design, and the simulated-to-real pivot rationale. My contribution was everything between: turning validated rubrics into a scalable labeling infrastructure.&quot;
               </p>
             </div>
             <div>
               <strong style={{ display: "block", color: "var(--color-text)", fontSize: "15px" }}>Q: &quot;Why LLMs as annotators? Aren&apos;t they unreliable?&quot;</strong>
               <p style={{ margin: "4px 0 0 0", color: "var(--color-text-secondary)", fontSize: "14px", lineHeight: 1.5 }}>
-                &quot;LLMs as annotators produce silver-grade labels: not gold. The rubric-grounded prompts constrain the LLM&apos;s interpretation space, which improves reliability. We validated against seed labels and ran IRR to quantify the gap. The pipeline doesn&apos;t trust LLM labels blindly: it routes low-confidence labels for human review.&quot;
+                &quot;LLMs as annotators produce silver-grade labels, not gold. The rubric-grounded prompts constrain the LLM&apos;s interpretation space, which improves reliability. We validated against seed labels and ran IRR to quantify the gap. The pipeline doesn&apos;t trust LLM labels blindly: it routes low-confidence labels for human review.&quot;
               </p>
             </div>
             <div>
@@ -1796,6 +1696,11 @@ export default function ABIMCaseStudy() {
               </p>
             </div>
           </div>
+
+          <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "24px 0 8px 0" }}>Closing Line</h4>
+          <p style={{ fontStyle: "italic", background: "rgba(139, 105, 250, 0.02)", padding: "16px", borderRadius: "8px", borderLeft: "4px solid #8b69fa" }}>
+            &quot;The rubric IS the product, not the classifier.&quot;
+          </p>
         </CaseStudySection>
       </CaseStudyLayout>
     </main>
