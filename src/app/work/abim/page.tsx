@@ -351,57 +351,7 @@ function PipelineStepCard({
   );
 }
 
-/* ─────── Label Ontology 9 Prefix Families ─────── */
-function LabelOntology() {
-  const families = [
-    { prefix: "cc_", name: "Calgary–Cambridge", desc: "Interview structure, 6 steps" },
-    { prefix: "nurse_", name: "NURSE", desc: "Empathy micro-skills" },
-    { prefix: "sh_", name: "SHARE", desc: "Shared decision-making (reference)" },
-    { prefix: "sp_", name: "SPIKES", desc: "Bad news delivery (reference)" },
-    { prefix: "cr_", name: "Clinical Reasoning", desc: "Diagnostic parsimony, stop rules" },
-    { prefix: "ml_", name: "McLaughlin", desc: "Teach-back, closing confirmation" },
-    { prefix: "exam_", name: "Physical Exam", desc: "Exam quality indicators" },
-    { prefix: "comp_", name: "ABMS/ACGME Competency", desc: "Domain scores 1–5" },
-    { prefix: "ksao_", name: "KSAO", desc: "Knowledge, Skills, Abilities, Other" },
-  ];
 
-  return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", marginTop: "24px" }}>
-      {families.map((f) => (
-        <div
-          key={f.prefix}
-          style={{
-            background: "#ffffff",
-            borderRadius: "12px",
-            border: "1px solid rgba(0,0,0,0.05)",
-            padding: "20px",
-            display: "flex",
-            alignItems: "flex-start",
-            gap: "14px",
-          }}
-        >
-          <div
-            style={{
-              background: "rgba(139, 105, 250, 0.08)",
-              color: "#8b69fa",
-              fontWeight: 800,
-              fontSize: "12px",
-              padding: "6px 10px",
-              borderRadius: "6px",
-              fontFamily: "monospace",
-            }}
-          >
-            {f.prefix}
-          </div>
-          <div>
-            <h4 style={{ margin: "0 0 4px 0", fontSize: "14px", fontWeight: 700 }}>{f.name}</h4>
-            <p style={{ margin: 0, fontSize: "12px", color: "var(--color-text-secondary)" }}>{f.desc}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 /* ─────── Classifier Performance Bar Chart ─────── */
 function ClassifierPerformanceChart() {
@@ -1244,11 +1194,7 @@ export default function ABIMCaseStudy() {
           </ul>
 
 
-          <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>4.4 Label Schema (9 Prefix Families)</h3>
-          <p>
-            Every behavioral label maps upward: transcript label to ACGME competency domain, and finally to Milestones developmental level.
-          </p>
-          <LabelOntology />
+
         </CaseStudySection>
 
         {/* ============================================ */}
