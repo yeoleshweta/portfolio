@@ -929,31 +929,17 @@ export default function ABIMCaseStudy() {
           />
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>Background</h3>
-          <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "16px 0 8px 0" }}>Who is ABIM?</h4>
           <p>
-            The American Board of Internal Medicine is one of the largest physician certification bodies in the United States. ABIM certifies internists and subspecialists, assessing whether physicians meet the standards required to practice safely and competently. Certification covers six ACGME core competency domains: Medical Knowledge, Patient Care, Practice-Based Learning, Systems-Based Practice, Interpersonal &amp; Communication Skills, and Professionalism.
+            Medicine is changing fast. Ambient listening tools transcribe encounters in real time. AI scribes write clinical notes from spoken conversation. Telemedicine has moved care into video calls and async messaging. More physician-patient conversations are being captured than ever before, but the ability to measure what happens in them has not kept pace.
           </p>
           <p>
-            Of those six, five are assessed. One, communication, is not.
-          </p>
-
-          <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "24px 0 8px 0" }}>The Problem ABIM Was Sitting On</h4>
-          <p>
-            ABIM had a measurement gap hiding in plain sight. Board exams rigorously test medical knowledge. But Interpersonal &amp; Communication Skills and Professionalism, the competencies most directly tied to patient experience, treatment adherence, and health outcomes, had no scalable measurement infrastructure.
+            Of all the competencies that determine patient outcomes, communication has the broadest reach: whether a patient understands their diagnosis, follows through on treatment, or feels safe enough to return. It almost always comes down to how the physician communicated. ACGME names Interpersonal and Communication Skills as a core competency alongside Medical Knowledge. Yet medical knowledge gets board exams and communication gets assumptions.
           </p>
           <p>
-            The existing method was human rating: trained raters reviewing clinical transcripts using validated frameworks like Calgary-Cambridge. It worked at small scale. It did not scale. Manual review tops out at roughly 50 conversations per week, and even that comes with well-documented reliability problems: rater bias, rater drift, and order effects that mean two trained raters reviewing the same conversation will score it differently.
-          </p>
-
-          <h4 style={{ fontSize: "16px", fontWeight: 700, margin: "24px 0 8px 0" }}>What Brought This Project to Life</h4>
-          <p>
-            ABIM&apos;s Innovation team was exploring whether NLP could bridge the gap, automating the reliable detection of communication behaviors across transcripts at scale. The project they handed me was not &quot;build a classifier.&quot; It was a bigger, harder question:
-          </p>
-          <p style={{ fontStyle: "italic", paddingLeft: "16px", borderLeft: "3px solid #8b69fa", margin: "16px 0" }}>
-            &quot;Can AI-driven pattern recognition achieve the same nuance and accuracy as expert human evaluation of clinical communication?&quot;
+            The existing approach is such where trained human raters reviewing transcripts tops out at ~50 conversations per week, with documented reliability problems: rater bias, rater drift, order effects. As transcript volume grows, the gap between what exists and what can be evaluated widens.
           </p>
           <p>
-            To answer that question seriously, we needed more than a model. We needed a measurement instrument: a set of operationalized rubrics that define, precisely and reproducibly, what good physician communication looks like in text. That became my primary contribution.
+            ABIM&apos;s Innovation team brought the question: can AI detect communication behaviors at scale without losing the measurement quality that makes the output meaningful? We reframed it immediately. This wasn&apos;t a model problem: it was a measurement design problem. The rubric, not the classifier, was the answer.
           </p>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>1.1 The Verification Gap in Medicine</h3>
