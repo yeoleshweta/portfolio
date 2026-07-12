@@ -922,7 +922,6 @@ export default function ABIMCaseStudy() {
         role="Data Scientist Co-op (Shweta: Data &amp; Labels)"
         team="I/O Psychologists, Data Scientist, and AI/ML Engineer"
         timeline="Co-Op (6 months)"
-        image="/assets/personalization.jpg"
       />
 
       <CaseStudyLayout sections={sections}>
