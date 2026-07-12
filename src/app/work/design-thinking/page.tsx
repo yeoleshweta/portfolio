@@ -351,13 +351,38 @@ export default function DesignThinkingCaseStudy() {
 
         <h3>Delivery</h3>
         <p>
-          The PM-UX Playbook launched to a pilot cohort of <strong>50 PMs over 4 weeks</strong>.
-          The Buddy-Up Programme and Community Forum followed in subsequent sprints.
+          The research pointed to one clear truth: PMs didn&apos;t need more documentation. They needed access to the right tools, the confidence to use them, and a community to learn alongside.
         </p>
+
+        <h4 style={{ marginTop: "24px" }}>Tool Enablement</h4>
         <p>
-          I conducted a <strong>UX review of each front-end implementation ticket</strong> before
-          it went live, checking fidelity to the tested designs and flagging regressions before
-          users saw them.
+          I introduced PMs to the infrastructure that already existed but wasn&apos;t reaching them. This meant hands-on workshops, 1:1 sessions, and drop-in clinics covering:
+        </p>
+        <ul style={{ marginTop: "12px", marginBottom: "24px" }}>
+          <li style={{ marginBottom: "8px" }}>
+            <strong>Fuel Design System (Figma):</strong> so PMs could prototype and test ideas quickly without waiting for a designer
+          </li>
+          <li style={{ marginBottom: "8px" }}>
+            <strong>Mural templates:</strong> structured brainstorming frameworks they could run themselves
+          </li>
+          <li style={{ marginBottom: "8px" }}>
+            <strong>DeereUX website:</strong> the internal source of truth for branding, typography, and design decisions, making it easier to justify design choices with evidence rather than instinct
+          </li>
+        </ul>
+
+        <h4 style={{ marginTop: "24px" }}>Buddy-Up Programme</h4>
+        <p>
+          PMs were paired with UX coaches or peer PMs depending on their need: some needed structured guidance, others just a thinking partner. 10 of 12 pairs continued collaborating beyond the pilot voluntarily.
+        </p>
+
+        <h4 style={{ marginTop: "24px" }}>Community Forum (MS Teams)</h4>
+        <p>
+          A dedicated shared space with monthly structured meetings gave PMs a place to ask questions, share wins, and get peer critique on decisions. It seeded itself to 120 threads started in the first month, entirely organically.
+        </p>
+
+        <h3 style={{ marginTop: "40px" }}>What happened after 12 weeks</h3>
+        <p>
+          There was no formal handoff because none was needed. By the end of the engagement, PMs across teams were proactively reaching out to the P&C team for UX collaboration. The appetite kept growing as literacy increased, which was exactly the point.
         </p>
 
         <h3 style={{ marginTop: "40px" }}>Impact</h3>
