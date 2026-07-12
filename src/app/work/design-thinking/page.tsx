@@ -17,7 +17,7 @@ import {
 const sections = [
   { id: "overview", label: "Overview" },
   { id: "research", label: "Research & Insights" },
-  { id: "solutions", label: "Solutions" },
+  { id: "solutions", label: "Prioritisation & Persona" },
   { id: "results", label: "Validation & Results" },
 ];
 
@@ -259,12 +259,12 @@ export default function DesignThinkingCaseStudy() {
       {/* --- SOLUTIONS --- */}
       <CaseStudySection
         id="solutions"
-        label="Solutions"
-        heading="Prioritisation, Persona & Concepts"
+        label="Prioritisation & Persona"
+        heading="Prioritisation & Persona"
       >
         <h3>Prioritisation</h3>
         <p>
-          I categorized findings into Epics — not just for our team's use, but to give Product and
+          I categorized findings into Epics not just for our team's use, but to give Product and
           Engineering leadership visibility into what needed fixing and in what order.
         </p>
         <p>
@@ -277,7 +277,7 @@ export default function DesignThinkingCaseStudy() {
         </ul>
         <p>
           From this, we established that the <strong>PM-UX Playbook</strong> was the highest-priority
-          first delivery — highest severity score, moderate engineering lift, and foundational to
+          first delivery, highest severity score, moderate engineering lift, and foundational to
           everything else. The Buddy-Up programme and Community Forum were sequenced to follow,
           since they depended on the Playbook existing first.
         </p>
@@ -285,16 +285,12 @@ export default function DesignThinkingCaseStudy() {
         <h3 style={{ marginTop: "40px" }}>Narrowing the Scope: Meet Rajesh</h3>
         <p>
           With the problem defined and priorities set, I synthesized the research into <strong>&quot;Rajesh&quot;
-          — a composite persona</strong> built from behavioral patterns and direct quotes across the
+          , a composite persona</strong> built from behavioral patterns and direct quotes across the
           15 interviews.
         </p>
         <p>
-          Rajesh wasn't built to be decorative. He was built to anchor every solution decision:
+          Rajesh wasn't built to be decorative. He was built to anchor every solution decision.
         </p>
-
-        <Blockquote
-          text="If Rajesh can use this in the 5 minutes between his standup and his backlog review, it belongs in the solution. If he needs a 2-hour workshop, it doesn't."
-        />
 
         <PersonaCardActual />
 
@@ -305,51 +301,6 @@ export default function DesignThinkingCaseStudy() {
           <PersonaProgress label="UX Vocabulary" value={30} />
           <PersonaProgress label="User Empathy" value={45} />
         </div>
-
-        <h3 style={{ marginTop: "40px" }}>Ideation — Four Solutions from Co-Creation</h3>
-        <p>
-          I designed and facilitated <strong>two co-creation workshops</strong> with PMs, UX leads,
-          and stakeholders. The format was structured divergence followed by hard convergence: we
-          generated <strong>40+ ideas</strong> and then evaluated them on a <strong>Value × Effort matrix</strong>
-          against Rajesh's constraints. Four concepts survived:
-        </p>
-
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", margin: "24px 0" }}>
-          <div style={{ background: "var(--color-bg-card)", padding: "24px", borderRadius: "12px", border: "1px solid var(--color-border)" }}>
-            <h4 style={{ margin: "0 0 8px 0" }}>1. PM-UX Playbook</h4>
-            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)", lineHeight: "1.4" }}>
-              Template-driven heuristic guides embedded in existing PM workflows (Jira, Confluence). Not a training course — a &quot;use this when you're in this situation&quot; reference.
-            </p>
-          </div>
-          <div style={{ background: "var(--color-bg-card)", padding: "24px", borderRadius: "12px", border: "1px solid var(--color-border)" }}>
-            <h4 style={{ margin: "0 0 8px 0" }}>2. Buddy-Up Programme</h4>
-            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)", lineHeight: "1.4" }}>
-              Quarterly UX/PM collaboration pairs. Structured to match PMs with a UX counterpart based on their current product area, not random assignment.
-            </p>
-          </div>
-          <div style={{ background: "var(--color-bg-card)", padding: "24px", borderRadius: "12px", border: "1px solid var(--color-border)" }}>
-            <h4 style={{ margin: "0 0 8px 0" }}>3. Community Forum</h4>
-            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)", lineHeight: "1.4" }}>
-              Internal platform for sharing templates, real wins, and peer Q&A. Designed to spread adoption organically rather than through mandate.
-            </p>
-          </div>
-          <div style={{ background: "var(--color-bg-card)", padding: "24px", borderRadius: "12px", border: "1px solid var(--color-border)" }}>
-            <h4 style={{ margin: "0 0 8px 0" }}>4. Micro-Learning Modules</h4>
-            <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)", lineHeight: "1.4" }}>
-              5-minute UX concept drops via Slack and Jira integrations — meeting PMs where they already are, not pulling them out of their flow.
-            </p>
-          </div>
-        </div>
-
-        <p>
-          Each solution was explicitly traceable back to a finding from research. The Playbook addressed the language gap. The Forum addressed the support gap. Timing was addressed by embedding touchpoints <em>into</em> existing workflows rather than creating new ones.
-        </p>
-
-        <SkillSpotlight
-          skill="Workshop Facilitation & Co-creation"
-          description="Designed and facilitated co-creation workshops using Value x Effort matrix with cross-functional PM-UX-Tech cohorts."
-          evidence="Co-created and launched 4 solutions directly mapped to structural research insights."
-        />
       </CaseStudySection>
 
       {/* --- VALIDATION & RESULTS --- */}
@@ -361,7 +312,7 @@ export default function DesignThinkingCaseStudy() {
         <h3>Validating the Designs</h3>
         <p>
           Rather than lab-based usability testing, I tested during <strong>actual monthly planning
-          workshops</strong> — the real context where the tools would be used.
+          workshops</strong>, the real context where the tools would be used.
         </p>
 
         <p><strong>What we tested:</strong> The PM-UX Playbook prototype (navigation, contextual prompts, template accessibility)</p>
@@ -381,7 +332,7 @@ export default function DesignThinkingCaseStudy() {
         <p>
           That single insight drove the most important design change: we merged the &quot;Learn&quot;
           and &quot;Templates&quot; sections into a single <strong>workflow-staged &quot;Resources&quot; hub</strong>,
-          organized by when in the PM process you'd reach for it — not by content category.
+          organized by when in the PM process you'd reach for it, not by content category.
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", margin: "24px 0" }}>
@@ -451,7 +402,7 @@ export default function DesignThinkingCaseStudy() {
                 <strong>Community drives adoption faster than mandates.</strong> The forum scaled because PMs shared real wins with peers who understood their context. No campaign required.
               </li>
               <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
-                <strong>Contextual research reveals what surveys cannot.</strong> Shadowing PMs in actual planning meetings surfaced friction that interview questions alone would never have found — because PMs had normalized it.
+                <strong>Contextual research reveals what surveys cannot.</strong> Shadowing PMs in active planning meetings surfaced friction that interview questions alone would never have found because PMs had normalized it.
               </li>
             </ul>
           </div>
@@ -459,7 +410,7 @@ export default function DesignThinkingCaseStudy() {
             <h3>What I'd Do Differently</h3>
             <ul style={{ paddingLeft: "20px" }}>
               <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
-                <strong>Start stakeholder mapping earlier.</strong> I mapped the ecosystem during Discover, but involving Engineering and Leadership in the synthesis phase — not just the findings readout — would have accelerated buy-in.
+                <strong>Start stakeholder mapping earlier.</strong> I mapped the ecosystem during Discover, but involving Engineering and Leadership in the synthesis phase, not just the findings readout, would have accelerated buy-in.
               </li>
               <li style={{ marginBottom: "12px", lineHeight: "1.5" }}>
                 <strong>Quantify the severity framework in real time.</strong> I scored issues after fieldwork. Scoring during synthesis sessions with the team would have made prioritisation faster and more collaborative.
