@@ -163,7 +163,6 @@ export default function DesignThinkingCaseStudy() {
       <CaseStudySection
         id="overview"
         label="Overview"
-        heading="A Systems Problem Nobody Was Naming"
       >
         <h3>Overview</h3>
         <p>
