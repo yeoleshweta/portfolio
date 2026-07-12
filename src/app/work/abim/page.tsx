@@ -1457,36 +1457,6 @@ export default function ABIMCaseStudy() {
         <CaseStudySection
           id="impact"
         >
-          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>What the Project Produced</h3>
-          <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
-              <thead>
-                <tr style={{ background: "rgba(0,0,0,0.02)", textAlign: "left" }}>
-                  <th style={{ padding: "12px 16px", fontWeight: 700 }}>Deliverable</th>
-                  <th style={{ padding: "12px 16px", fontWeight: 700 }}>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>11 Operationalized Rubrics</td>
-                  <td style={{ padding: "12px 16px" }}>Calgary-Cambridge (6) + NURSE (5): each with inclusion/exclusion criteria, behavioral indicators, borderline examples.</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>Labeled Corpus</td>
-                  <td style={{ padding: "12px 16px" }}>~985 conversations with construct-level behavioral labels.</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>Reusable Pipeline Framework</td>
-                  <td style={{ padding: "12px 16px" }}>End-to-end framework (rubric to seed labels to LLM annotation to SLM training).</td>
-                </tr>
-                <tr style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <td style={{ padding: "12px 16px", fontWeight: 600 }}>Label Schema</td>
-                  <td style={{ padding: "12px 16px" }}>9-prefix ontology mapping every label to ACGME competency domain and Milestones level.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>Recommended Next Steps</h3>
           <ol style={{ paddingLeft: "20px", fontSize: "14px", lineHeight: 1.6 }}>
             <li style={{ marginBottom: "8px" }}>Expand gold standard dataset (100+ double-coded conversations for formal ICC).</li>
