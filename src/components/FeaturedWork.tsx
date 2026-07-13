@@ -48,9 +48,9 @@ const moreProjects = [
   },
   {
     idx: "06",
-    tag: "Product Design",
-    title: "Enterprise Survey Logic & Analytics",
-    metric: "60% faster build time",
+    tag: "Quantitative UXR",
+    title: "When Did Better Actually Mean Better? A Longitudinal Usability Study",
+    metric: "SUS Score: 60 → 85.6 (+25.6)",
     href: "/work/john-deere",
   },
   {
