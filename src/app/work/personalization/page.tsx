@@ -20,34 +20,30 @@ function VariantSelector() {
   const variants = {
     A: {
       title: "Variant A (Control)",
-      desc: "Original Topshop header search. Minimal contrast, plain text input without a clear boundary. Underperformed in discoverability and engagement.",
+      desc: "Control: The original Topshop header design. No border around the search field, and standard 'Search' placeholder text. Users struggled to identify it as an interactive input.",
       border: "none",
-      placeholder: "type here",
-      placeholderColor: "#b5b0a3",
+      placeholder: "Search",
       isWinner: false
     },
     B: {
-      title: "Variant B (Visual Affordance)",
-      desc: "Added a clean, solid border around the search input. Solved the discoverability issue by signaling a clear interactive field boundary.",
-      border: "1px solid var(--color-text)",
-      placeholder: "type here",
-      placeholderColor: "#b5b0a3",
+      title: "Variant B (Descriptive Copy Only)",
+      desc: "Descriptive copy only: Replaced the standard placeholder with action-oriented copy, but kept the borderless input. While copy helped, the lack of visual boundaries still limited engagement.",
+      border: "none",
+      placeholder: "Search for items",
       isWinner: false
     },
     C: {
-      title: "Variant C (Affordance Copy)",
-      desc: "Updated the placeholder text from 'type here' to a more action-oriented prompt. Increased discoverability slightly by clarifying intent.",
-      border: "none",
-      placeholder: "Search products...",
-      placeholderColor: "var(--color-text-secondary)",
+      title: "Variant C (Descriptive Copy + Border)",
+      desc: "Descriptive framing: plain-language action copy that clarifies what the field does without adding length. Border adds input affordance.",
+      border: "1px solid var(--color-text)",
+      placeholder: "Search for items",
       isWinner: false
     },
     D: {
-      title: "Variant D (Combined Treatment)",
-      desc: "Combined the solid border with the updated 'Search products...' action placeholder. This winning treatment resolved both discoverability and copy affordance issues.",
-      border: "1px solid var(--color-accent)",
-      placeholder: "Search products...",
-      placeholderColor: "var(--color-text-secondary)",
+      title: "Variant D (Winner — Border + Concise Copy)",
+      desc: "Minimal copy with the border treatment: the visible field boundary alone carried the affordance, and concise copy kept the header clean. The winning design — rolled out sitewide after reaching significance.",
+      border: "1px solid var(--color-text)",
+      placeholder: "Search",
       isWinner: true
     }
   };
@@ -55,78 +51,93 @@ function VariantSelector() {
   const v = variants[activeVariant as keyof typeof variants];
 
   return (
-    <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "40px", borderRadius: "16px", margin: "32px 0" }}>
-      {/* Tabs */}
-      <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid var(--color-border)", marginBottom: "32px", overflowX: "auto", paddingBottom: "12px" }}>
-        {Object.keys(variants).map((key) => (
-          <button
-            key={key}
-            onClick={() => setActiveVariant(key)}
-            style={{
-              padding: "8px 16px",
-              borderRadius: "20px",
-              border: activeVariant === key ? "1px solid var(--color-text)" : "1px solid transparent",
-              background: activeVariant === key ? "var(--color-text)" : "transparent",
-              color: activeVariant === key ? "var(--color-surface)" : "var(--color-text-secondary)",
-              fontWeight: 600,
-              fontSize: "14px",
-              cursor: "pointer",
-            }}
-          >
-            Variant {key}
-          </button>
-        ))}
+    <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", borderRadius: "16px", overflow: "hidden", margin: "32px 0", boxShadow: "0 4px 20px rgba(0,0,0,0.02)" }}>
+      {/* Tabs - Horizontal equal-width columns */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", borderBottom: "1px solid var(--color-border)", background: "rgba(0,0,0,0.01)" }}>
+        {Object.keys(variants).map((key) => {
+          const isActive = activeVariant === key;
+          return (
+            <button
+              key={key}
+              onClick={() => setActiveVariant(key)}
+              style={{
+                padding: "20px 8px",
+                border: "none",
+                borderBottom: isActive ? "3px solid var(--color-text)" : "3px solid transparent",
+                background: "transparent",
+                color: isActive ? "var(--color-text)" : "var(--color-text-secondary)",
+                fontWeight: isActive ? 700 : 500,
+                fontSize: "14px",
+                cursor: "pointer",
+                textAlign: "center",
+                transition: "all 0.2s ease"
+              }}
+            >
+              Variant {key}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Mock Browser/Header Preview */}
-      <div style={{ background: "var(--color-bg)", borderRadius: "12px", border: "1px solid var(--color-border)", overflow: "hidden", marginBottom: "24px" }}>
-        {/* Browser Top Bar */}
-        <div style={{ background: "rgba(0,0,0,0.03)", padding: "10px 16px", display: "flex", gap: "6px", borderBottom: "1px solid var(--color-border)" }}>
-          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#ff5f56" }} />
-          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#ffbd2e" }} />
-          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#27c93f" }} />
-        </div>
+      {/* Main Content Area */}
+      <div style={{ padding: "40px" }}>
+        {/* Mock Browser/Header Preview */}
+        <div style={{ background: "var(--color-bg)", borderRadius: "12px", border: "1px solid var(--color-border)", overflow: "hidden", marginBottom: "32px" }}>
+          {/* Browser Top Bar */}
+          <div style={{ background: "rgba(0,0,0,0.03)", padding: "10px 16px", display: "flex", gap: "6px", borderBottom: "1px solid var(--color-border)" }}>
+            <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#ff5f56" }} />
+            <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#ffbd2e" }} />
+            <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#27c93f" }} />
+          </div>
 
-        {/* Mock Site Header */}
-        <div style={{ background: "#ffffff", padding: "24px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", minHeight: "80px", flexWrap: "wrap", gap: "16px" }}>
-          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "16px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text)" }}>RETAILER</div>
-          
-          {/* Search Field */}
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            padding: "8px 14px",
-            background: "#fff",
-            borderRadius: "4px",
-            border: v.border === "none" ? "none" : v.border,
-            width: "300px",
-            justifyContent: "space-between",
-            transition: "all 0.3s ease",
-            boxShadow: v.border === "none" ? "none" : "0 2px 8px rgba(0,0,0,0.02)"
-          }}>
-            <span style={{ fontSize: "13.5px", color: v.placeholderColor, transition: "all 0.3s ease" }}>{v.placeholder}</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={v.placeholderColor} strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          {/* Mock Header */}
+          <div style={{ background: "#ffffff", padding: "24px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", minHeight: "80px", borderBottom: "1px solid rgba(0,0,0,0.04)" }}>
+            <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "16px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text)" }}>RETAILER</div>
+            
+            {/* Search Input Field */}
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              padding: "8px 14px",
+              background: "#fff",
+              borderRadius: "0px", // Topshop input was sharp-cornered
+              border: v.border === "none" ? "none" : v.border,
+              width: "280px",
+              justifyContent: "space-between",
+              transition: "all 0.2s ease"
+            }}>
+              <span style={{ fontSize: "13.5px", color: "var(--color-text-secondary)" }}>{v.placeholder}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+          </div>
+
+          {/* Simulated Webpage Context (Three wireframe cards) */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", padding: "24px 32px", background: "#ffffff" }}>
+            <div style={{ height: "80px", background: "rgba(0,0,0,0.02)", borderRadius: "4px", border: "1px dashed rgba(0,0,0,0.05)" }}></div>
+            <div style={{ height: "80px", background: "rgba(0,0,0,0.02)", borderRadius: "4px", border: "1px dashed rgba(0,0,0,0.05)" }}></div>
+            <div style={{ height: "80px", background: "rgba(0,0,0,0.02)", borderRadius: "4px", border: "1px dashed rgba(0,0,0,0.05)" }}></div>
           </div>
         </div>
-      </div>
 
-      {/* Variant Details */}
-      <div>
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-          <h4 style={{ margin: 0, fontSize: "18px", fontWeight: 700 }}>{v.title}</h4>
+        {/* Variant Info Details */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "16px" }}>
+          <h4 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "var(--color-text)" }}>{v.title}</h4>
+          
+          <p style={{ margin: 0, fontSize: "15px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
+            {v.desc}
+          </p>
+
           {v.isWinner && (
-            <span style={{ background: "rgba(139, 105, 250, 0.15)", color: "var(--color-accent)", padding: "4px 10px", borderRadius: "20px", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>
-              WINNER · +5.8% CONVERSION LIFT
-            </span>
+            <div style={{ display: "inline-block", background: "var(--color-text)", color: "var(--color-surface)", padding: "8px 16px", borderRadius: "4px", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "12px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
+              WINNER · +5.8% CONVERSIONS
+            </div>
           )}
         </div>
-        <p style={{ marginTop: "12px", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
-          {v.desc}
-        </p>
       </div>
 
-      <div style={{ fontSize: "12.5px", color: "var(--color-text-secondary)", fontStyle: "italic", marginTop: "24px", borderTop: "1px solid var(--color-border)", paddingTop: "16px" }}>
-        Illustrative reconstruction of the test cells — not actual Topshop UI. Traffic split evenly across all cells; run to statistical significance before rollout.
+      {/* Footer Caption */}
+      <div style={{ background: "rgba(0,0,0,0.015)", padding: "16px 40px", borderTop: "1px solid var(--color-border)", fontSize: "12px", color: "var(--color-text-secondary)", fontFamily: "JetBrains Mono, monospace" }}>
+        Illustrative reconstruction of the test cells – not actual Topshop UI. Traffic split evenly across all cells; run to statistical significance before rollout.
       </div>
     </div>
   );
