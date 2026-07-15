@@ -8,12 +8,12 @@ import { CaseStudySection, Blockquote } from "@/components/casestudy/CaseStudyCo
 const sections = [
   { id: "overview", label: "Overview" },
   { id: "background", label: "Background" },
-  { id: "problem", label: "01 · The Research Problem" },
-  { id: "design", label: "02 · Study Design" },
-  { id: "results", label: "03 · Results" },
-  { id: "qualitative", label: "04 · Qualitative Findings" },
-  { id: "org-context", label: "05 · Organizational Context" },
-  { id: "impact", label: "06 · Impact" },
+  { id: "problem", label: "01: The Research Problem" },
+  { id: "design", label: "02: Study Design" },
+  { id: "results", label: "03: Results" },
+  { id: "qualitative", label: "04: Qualitative Findings" },
+  { id: "org-context", label: "05: Organizational Context" },
+  { id: "impact", label: "06: Impact" },
 ];
 
 function StatStrip() {
@@ -42,7 +42,7 @@ function StatStrip() {
 function TimelineVisual() {
   return (
     <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "48px", borderRadius: "16px", margin: "32px 0" }}>
-      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Fig. 1 — Study timeline, January to August 2021</div>
+      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Fig. 1: Study timeline, January to August 2021</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(8, 1fr)", fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em", marginTop: "32px" }}>
         <div>Jan</div><div>Feb</div><div>Mar</div><div>Apr</div><div>May</div><div>Jun</div><div>Jul</div><div>Aug</div>
       </div>
@@ -82,7 +82,7 @@ function ParticipantVisual() {
 
   return (
     <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "48px", borderRadius: "16px", margin: "32px 0" }}>
-      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Fig. 2 — Participants: 4 power users, within subject</div>
+      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Fig. 2: Participants: 4 power users, within subject</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "24px", marginTop: "28px" }}>
         {participants.map((p, i) => (
           <div key={i} style={{ borderTop: "2px solid var(--color-text)", paddingTop: "16px" }}>
@@ -105,7 +105,7 @@ function ParticipantVisual() {
 function SUSHero() {
   return (
     <div style={{ background: "var(--color-text)", color: "var(--color-surface)", padding: "56px", borderRadius: "24px", margin: "32px 0" }}>
-      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>Fig. 3 — System Usability Scale, previous vs. current ABTools</div>
+      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>Fig. 3: System Usability Scale, previous vs. current ABTools</div>
       <div style={{ display: "flex", alignItems: "baseline", gap: "24px", marginTop: "28px", flexWrap: "wrap" }}>
         <div style={{ fontFamily: "var(--font-display)", fontSize: "96px", fontWeight: 700, lineHeight: 1, letterSpacing: "-0.02em", color: "rgba(255,255,255,0.5)" }}>60</div>
         <div style={{ fontFamily: "var(--font-display)", fontSize: "56px", color: "rgba(255,255,255,0.3)" }}>→</div>
@@ -156,7 +156,7 @@ function DumbbellChart() {
 
   return (
     <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "48px", borderRadius: "16px", margin: "32px 0" }}>
-      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Fig. 4 — All six dimensions improved · % favorable, before → after</div>
+      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Fig. 4: All six dimensions improved · % favorable, before → after</div>
 
       <div style={{ marginTop: "32px", display: "flex", flexDirection: "column" }}>
         {dimensions.map((d, i) => {
@@ -198,7 +198,7 @@ function VerbatimsComparison() {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px", margin: "24px 0" }}>
       <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "40px", borderRadius: "16px" }}>
-        <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-text-secondary)" }}>Before — previous ABTools</div>
+        <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-text-secondary)" }}>Before: previous ABTools</div>
         <div style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop: "24px" }}>
           <div style={{ fontFamily: "var(--font-primary)", fontSize: "18px", fontStyle: "italic", lineHeight: "1.5", color: "var(--color-text)" }}>&quot;It times out if you&apos;re not active for an hour.&quot;</div>
           <div style={{ fontFamily: "var(--font-primary)", fontSize: "18px", fontStyle: "italic", lineHeight: "1.5", color: "var(--color-text)" }}>&quot;Cryptic error messages. The system just self closes.&quot;</div>
@@ -206,7 +206,7 @@ function VerbatimsComparison() {
         </div>
       </div>
       <div style={{ background: "var(--color-text)", color: "var(--color-surface)", padding: "40px", borderRadius: "16px" }}>
-        <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>After — current ABTools</div>
+        <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>After: current ABTools</div>
         <div style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop: "24px" }}>
           <div style={{ fontFamily: "var(--font-primary)", fontSize: "18px", fontStyle: "italic", lineHeight: "1.5", color: "var(--color-surface)" }}>&quot;Consistent speed, always available when I need it.&quot;</div>
           <div style={{ fontFamily: "var(--font-primary)", fontSize: "18px", fontStyle: "italic", lineHeight: "1.5", color: "var(--color-surface)" }}>&quot;It hasn&apos;t been down, and it&apos;s quicker than the old ABTools.&quot;</div>
@@ -226,7 +226,7 @@ function ThemesBarChart() {
 
   return (
     <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "48px", borderRadius: "16px", margin: "32px 0" }}>
-      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Fig. 5 — Issues surfaced by theme (thematic analysis, N=35 issues)</div>
+      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Fig. 5: Issues surfaced by theme (thematic analysis, N=35 issues)</div>
 
       <div style={{ marginTop: "32px", display: "flex", flexDirection: "column", gap: "24px" }}>
         {themes.map((t, i) => {
@@ -268,7 +268,7 @@ function EngagementSurveyGrid() {
 
   return (
     <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "48px", borderRadius: "16px", margin: "32px 0" }}>
-      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Fig. 6 — JDF UX engagement survey, N=40 product team members, June to July 2021</div>
+      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Fig. 6: JDF UX engagement survey, N=40 product team members, June to July 2021</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "32px", marginTop: "32px" }}>
         {metrics.map((m, i) => {
           let fillPct = 100;
@@ -375,11 +375,11 @@ export default function JohnDeereCaseStudy() {
         </CaseStudySection>
 
         {/* ============================================ */}
-        {/* SECTION: 01 · THE RESEARCH PROBLEM           */}
+        {/* SECTION: 01: THE RESEARCH PROBLEM            */}
         {/* ============================================ */}
         <CaseStudySection
           id="problem"
-          heading="01 · The Research Problem"
+          heading="01: The Research Problem"
         >
           <p>
             A generic post launch survey would not work. Satisfaction ratings taken immediately after a migration absorb novelty bias, familiarity loss, and genuine usability change all at once, making it impossible to isolate what improved and what did not.
@@ -405,11 +405,11 @@ export default function JohnDeereCaseStudy() {
         </CaseStudySection>
 
         {/* ============================================ */}
-        {/* SECTION: 02 · STUDY DESIGN                   */}
+        {/* SECTION: 02: STUDY DESIGN                    */}
         {/* ============================================ */}
         <CaseStudySection
           id="design"
-          heading="02 · Study Design"
+          heading="02: Study Design"
         >
           <p>
             <strong>Longitudinal.</strong> A deliberate familiarization gap between the two evaluation points gave participants real working exposure to the new system before evaluating it, dissipating novelty effects so scores reflect genuine usability, not adjustment pain.
@@ -446,11 +446,11 @@ export default function JohnDeereCaseStudy() {
         </CaseStudySection>
 
         {/* ============================================ */}
-        {/* SECTION: 03 · RESULTS                        */}
+        {/* SECTION: 03: RESULTS                         */}
         {/* ============================================ */}
         <CaseStudySection
           id="results"
-          heading="03 · Results"
+          heading="03: Results"
         >
           <p>
             A 25.6 point SUS gain. The new system cleared every benchmark: industry average, global IT average, and the team&apos;s own FY21 target, all in a single study cycle.
@@ -477,11 +477,11 @@ export default function JohnDeereCaseStudy() {
         </CaseStudySection>
 
         {/* ============================================ */}
-        {/* SECTION: 04 · QUALITATIVE FINDINGS           */}
+        {/* SECTION: 04: QUALITATIVE FINDINGS            */}
         {/* ============================================ */}
         <CaseStudySection
           id="qualitative"
-          heading="04 · Qualitative Findings"
+          heading="04: Qualitative Findings"
         >
           <p>
             In the legacy system, analysts could format their comments: spacing, structure, and visual layout. The new system collapses all notes into unformatted paragraphs. For users rapidly scanning application history to make credit decisions, that is real cognitive load. It went directly into the backlog as a high priority item.
@@ -491,11 +491,11 @@ export default function JohnDeereCaseStudy() {
         </CaseStudySection>
 
         {/* ============================================ */}
-        {/* SECTION: 05 · ORGANIZATIONAL CONTEXT         */}
+        {/* SECTION: 05: ORGANIZATIONAL CONTEXT          */}
         {/* ============================================ */}
         <CaseStudySection
           id="org-context"
-          heading="05 · Organizational Context"
+          heading="05: Organizational Context"
         >
           <p>
             In parallel, the JDF UX team ran a broader engagement survey (N=40) across product team members to assess UX practice health. Where UX was engaged, teams saw success, and the ABTools study was a direct product of that embedded model.
@@ -505,11 +505,11 @@ export default function JohnDeereCaseStudy() {
         </CaseStudySection>
 
         {/* ============================================ */}
-        {/* SECTION: 06 · IMPACT                         */}
+        {/* SECTION: 06: IMPACT                          */}
         {/* ============================================ */}
         <CaseStudySection
           id="impact"
-          heading="06 · Impact"
+          heading="06: Impact"
         >
           <ImpactCards />
 

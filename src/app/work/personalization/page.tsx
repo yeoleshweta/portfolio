@@ -7,11 +7,11 @@ import { CaseStudySection, Blockquote } from "@/components/casestudy/CaseStudyCo
 
 const sections = [
   { id: "overview", label: "Overview" },
-  { id: "problem", label: "01 · The Problem" },
-  { id: "analysis", label: "02 · The Analysis" },
-  { id: "decision", label: "03 · The Decision" },
-  { id: "execution", label: "04 · The Execution" },
-  { id: "impact", label: "05 · The Impact" },
+  { id: "problem", label: "01: The Problem" },
+  { id: "analysis", label: "02: The Analysis" },
+  { id: "decision", label: "03: The Decision" },
+  { id: "execution", label: "04: The Execution" },
+  { id: "impact", label: "05: The Impact" },
 ];
 
 function VariantSelector() {
@@ -20,28 +20,28 @@ function VariantSelector() {
   const variants = {
     A: {
       title: "Variant A (Control)",
-      desc: "Control: The original Topshop header design. No border around the search field, and standard 'Search' placeholder text. Users struggled to identify it as an interactive input.",
+      desc: "Control: The original Topshop header design. No border around the search field, and standard Search placeholder text. Users struggled to identify it as an interactive input.",
       border: "none",
       placeholder: "Search",
       isWinner: false
     },
     B: {
       title: "Variant B (Descriptive Copy Only)",
-      desc: "Descriptive copy only: Replaced the standard placeholder with action-oriented copy, but kept the borderless input. While copy helped, the lack of visual boundaries still limited engagement.",
+      desc: "Descriptive copy only: Replaced the standard placeholder with action oriented copy, but kept the borderless input. While copy helped, the lack of visual boundaries still limited engagement.",
       border: "none",
       placeholder: "Search for items",
       isWinner: false
     },
     C: {
-      title: "Variant C (Descriptive Copy + Border)",
-      desc: "Descriptive framing: plain-language action copy that clarifies what the field does without adding length. Border adds input affordance.",
+      title: "Variant C (Descriptive Copy and Border)",
+      desc: "Descriptive framing: plain language action copy that clarifies what the field does without adding length. Border adds input affordance.",
       border: "1px solid #1c1b17",
       placeholder: "Search for items",
       isWinner: false
     },
     D: {
-      title: "Variant D (Winner — Border + Concise Copy)",
-      desc: "Minimal copy with the border treatment: the visible field boundary alone carried the affordance, and concise copy kept the header clean. The winning design — rolled out sitewide after reaching significance.",
+      title: "Variant D (Winner: Border with Concise Copy)",
+      desc: "Minimal copy with the border treatment: the visible field boundary alone carried the affordance, and concise copy kept the header clean. The winning design rolled out sitewide after reaching significance.",
       border: "1px solid #1c1b17",
       placeholder: "Search",
       isWinner: true
@@ -161,7 +161,7 @@ function VariantSelector() {
 
           {v.isWinner && (
             <div style={{ display: "inline-block", background: "var(--color-text)", color: "var(--color-surface)", padding: "8px 16px", borderRadius: "4px", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "12px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
-              WINNER · +5.8% CONVERSIONS
+              WINNER: +5.8% CONVERSIONS
             </div>
           )}
         </div>
@@ -169,7 +169,7 @@ function VariantSelector() {
 
       {/* Footer Caption */}
       <div style={{ background: "rgba(0,0,0,0.015)", padding: "16px 40px", borderTop: "1px solid var(--color-border)", fontSize: "12px", color: "var(--color-text-secondary)", fontFamily: "JetBrains Mono, monospace" }}>
-        Illustrative reconstruction of the test cells – not actual Topshop UI. Traffic split evenly across all cells; run to statistical significance before rollout.
+        Illustrative reconstruction of the test cells, not actual Topshop UI. Traffic split evenly across all cells; run to statistical significance before rollout.
       </div>
     </div>
   );
@@ -180,7 +180,7 @@ export default function TopshopCaseStudy() {
     <main>
       <CaseStudyHero
         title="What Analytics Couldn't Tell Us: Pairing Exit Intercepts with Behavioral Data at Topshop"
-        category="Quantitative UX Research · Feedback-Driven Optimization"
+        category="Quantitative UX Research · Feedback Driven Optimization"
         role="Analyst / Optimization Specialist"
         team="Qubit · Topshop"
         timeline="A/B/n Testing Cycle"
@@ -195,7 +195,7 @@ export default function TopshopCaseStudy() {
           heading="Overview"
         >
           <p>
-            How intercept survey feedback and behavioral analytics were triangulated to find a hidden conversion lever — and how a four-variant experiment turned it into measurable revenue.
+            How intercept survey feedback and behavioral analytics were triangulated to find a hidden conversion lever, and how a four variant experiment turned it into measurable revenue.
           </p>
 
           <div style={{
@@ -218,7 +218,7 @@ export default function TopshopCaseStudy() {
             </div>
             <div>
               <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Methods</span>
-              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Exit Intercepts · Funnel analysis · A/B/n testing</p>
+              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Exit Intercepts, Funnel analysis, and A/B/n testing</p>
             </div>
             <div>
               <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Outcome</span>
@@ -228,15 +228,15 @@ export default function TopshopCaseStudy() {
         </CaseStudySection>
 
         {/* ============================================ */}
-        {/* SECTION: 01 · THE PROBLEM                    */}
+        {/* SECTION: 01: THE PROBLEM                     */}
         {/* ============================================ */}
         <CaseStudySection
           id="problem"
-          heading="01 · The Problem"
+          heading="01: The Problem"
         >
           <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px" }}>Numbers tell you the scale of a problem. Feedback tells you how to deal with it.</h3>
           <p>
-            Topshop&apos;s search bar sat on every user&apos;s path to purchase — but it was underperforming. We knew something was wrong from the behavioral data alone: search adoption was low relative to comparable retailers, and sessions that never touched search converted at a fraction of those that did.
+            Topshop&apos;s search bar sat on every user&apos;s path to purchase, but it was underperforming. We knew something was wrong from the behavioral data alone: search adoption was low relative to comparable retailers, and sessions that never touched search converted at a fraction of those that did.
           </p>
           <p style={{ marginTop: "16px" }}>
             What the quantitative data couldn&apos;t tell us was why. Was it discoverability? Usability? Result quality? Pushing a sitewide redesign on a guess would have burned IT resources on an unvalidated hypothesis. We needed the user&apos;s voice before touching the interface.
@@ -244,55 +244,55 @@ export default function TopshopCaseStudy() {
         </CaseStudySection>
 
         {/* ============================================ */}
-        {/* SECTION: 02 · THE ANALYSIS                   */}
+        {/* SECTION: 02: THE ANALYSIS                    */}
         {/* ============================================ */}
         <CaseStudySection
           id="analysis"
-          heading="02 · The Analysis"
+          heading="02: The Analysis"
         >
           <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "24px" }}>Triangulating intercept feedback with behavioral data</h3>
           
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", margin: "24px 0" }}>
             <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px" }}>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Qualitative Signal — Exit Intercepts</span>
+              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Qualitative Signal: Exit Intercepts</span>
               <p style={{ margin: "14px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
-                Using Qubit&apos;s Visitor Opinion exit-feedback tool — an on-site intercept survey triggered as users left — we captured open-ended feedback at the moment of abandonment. A recurring theme emerged: <strong>users struggled to both find and use the search bar</strong>. It read as a low-contrast text element with no visual affordance signaling &quot;type here&quot;.
+                Using Qubit&apos;s Visitor Opinion exit feedback tool, which was an on site intercept survey triggered as users left, we captured open ended feedback at the moment of abandonment. A recurring theme emerged: <strong>users struggled to both find and use the search bar</strong>. It read as a low contrast text element with no visual affordance signaling &quot;type here&quot;.
               </p>
             </div>
             <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px" }}>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Quantitative Signal — Analytics</span>
+              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Quantitative Signal: Analytics</span>
               <p style={{ margin: "14px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
-                Qubit&apos;s behavioral analytics quantified the stakes: visitors who used search converted <strong>roughly 10× higher</strong> than those who didn&apos;t. Search wasn&apos;t a convenience feature — it was the single highest-intent behavior on the site, and friction there was directly suppressing revenue.
+                Qubit&apos;s behavioral analytics quantified the stakes: visitors who used search converted <strong>roughly 10 times higher</strong> than those who did not. Search was not a convenience feature; it was the single highest intent behavior on the site, and friction there was directly suppressing revenue.
               </p>
             </div>
           </div>
 
-          <Blockquote text="The intercept feedback gave us the diagnostic; the analytics gave us the business case. Neither alone would have justified the work — together they made it the obvious next test." />
+          <Blockquote text="The intercept feedback gave us the diagnostic; the analytics gave us the business case. Neither alone would have justified the work, but together they made it the obvious next test." />
         </CaseStudySection>
 
         {/* ============================================ */}
-        {/* SECTION: 03 · THE DECISION                   */}
+        {/* SECTION: 03: THE DECISION                    */}
         {/* ============================================ */}
         <CaseStudySection
           id="decision"
-          heading="03 · The Decision"
+          heading="03: The Decision"
         >
-          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px" }}>Test the hypotheses — don&apos;t ship the guess</h3>
+          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px" }}>Test the hypotheses, do not ship the guess</h3>
           <p>
-            The feedback pointed at two candidate fixes: <strong>visibility</strong> (the field didn&apos;t look like an input) and <strong>affordance copy</strong> (the placeholder didn&apos;t invite action). Rather than allocating expensive IT resources to push a full sitewide change based on either hypothesis, we designed four search variations testing both dimensions — changes in copy, and the addition of a border to the search box.
+            The feedback pointed at two candidate fixes: <strong>visibility</strong> (the field did not look like an input) and <strong>affordance copy</strong> (the placeholder did not invite action). Rather than allocating expensive IT resources to push a full sitewide change based on either hypothesis, we designed four search variations testing both dimensions: changes in copy, and the addition of a border to the search box.
           </p>
           <p style={{ marginTop: "16px" }}>
-            The test was split evenly across all users, with the existing design as control, so any change would carry statistical evidence into the IT prioritization conversation — not opinion.
+            The test was split evenly across all users, with the existing design as control, so any change would carry statistical evidence into the IT prioritization conversation, not opinion.
           </p>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", marginTop: "32px" }}>
             <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
               <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-accent)", fontWeight: 700 }}>H1</span>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", fontWeight: 600 }}>Visual affordance ➔ border</p>
+              <p style={{ margin: "8px 0 0 0", fontSize: "14px", fontWeight: 600 }}>Visual affordance to border</p>
             </div>
             <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
               <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-accent)", fontWeight: 700 }}>H2</span>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", fontWeight: 600 }}>Invitation ➔ copy change</p>
+              <p style={{ margin: "8px 0 0 0", fontSize: "14px", fontWeight: 600 }}>Invitation to copy change</p>
             </div>
             <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
               <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-accent)", fontWeight: 700 }}>H3</span>
@@ -302,26 +302,26 @@ export default function TopshopCaseStudy() {
         </CaseStudySection>
 
         {/* ============================================ */}
-        {/* SECTION: 04 · THE EXECUTION                  */}
+        {/* SECTION: 04: THE EXECUTION                   */}
         {/* ============================================ */}
         <CaseStudySection
           id="execution"
-          heading="04 · The Execution"
+          heading="04: The Execution"
         >
           <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px" }}>Four variants, one control, evenly split</h3>
           <p>
-            Explore the test cells below. Each variant isolates or combines the two hypotheses so the winning treatment could be attributed to a specific mechanism, not just &quot;the new one&quot;.
+            Explore the test cells below. Each variant isolates or combines the two hypotheses so the winning treatment could be attributed to a specific mechanism, not just the new one.
           </p>
 
           <VariantSelector />
         </CaseStudySection>
 
         {/* ============================================ */}
-        {/* SECTION: 05 · THE IMPACT                     */}
+        {/* SECTION: 05: THE IMPACT                      */}
         {/* ============================================ */}
         <CaseStudySection
           id="impact"
-          heading="05 · The Impact"
+          heading="05: The Impact"
         >
           <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "24px" }}>Evidence, not opinion, went to the roadmap</h3>
 
@@ -331,17 +331,17 @@ export default function TopshopCaseStudy() {
               <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)" }}>conversion uplift from the winning search design.</p>
             </div>
             <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>10x</div>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)" }}>higher conversion rate for search users — the metric that prioritized the work.</p>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>10 times</div>
+              <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)" }}>higher conversion rate for search users, the metric that prioritized the work.</p>
             </div>
             <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>9–11%</div>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>9 to 11%</div>
               <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)" }}>cumulative uplift once the same feedback method was applied to product pages.</p>
             </div>
           </div>
 
           <p>
-            The winning variant shipped sitewide with a quantified business case attached. Just as importantly, the method stuck: the same intercept-feedback ➔ hypothesis ➔ controlled-test loop was applied to a series of product-page micro-changes — size selectors, delivery tabs, confirmation popups, add-to-bag buttons — which together added between 9 and 11% uplift in conversion rate, without committing IT resources to anything unproven.
+            The winning variant shipped sitewide with a quantified business case attached. Just as importantly, the method stuck: the same intercept feedback to hypothesis to controlled test loop was applied to a series of product page micro changes, size selectors, delivery tabs, confirmation popups, and add to bag buttons, which together added between 9 and 11% uplift in conversion rate, without committing IT resources to anything unproven.
           </p>
 
           <div style={{ borderTop: "2px solid var(--color-text)", marginTop: "48px", paddingTop: "40px" }}>
@@ -351,7 +351,7 @@ export default function TopshopCaseStudy() {
               <div>
                 <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>Intercepts earn their place at the moment of intent</h4>
                 <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)" }}>
-                  Intercept feedback captured intent, not general attitude. Targeting logic — who sees the survey, when, and how often — determined whether the signal was usable at all.
+                  Intercept feedback captured intent, not general attitude. Targeting logic, who sees the survey, when, and how often, determined whether the signal was usable at all.
                 </p>
               </div>
               <div>
