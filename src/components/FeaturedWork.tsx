@@ -41,9 +41,9 @@ const moreProjects = [
   },
   {
     idx: "05",
-    tag: "UX Personalization",
-    title: "E-Commerce Personalization at Scale",
-    metric: "11% conversion lift",
+    tag: "Quantitative UXR",
+    title: "What Analytics Couldn't Tell Us: Pairing Exit Intercepts with Behavioral Data at Topshop",
+    metric: "+5.8% conversion lift",
     href: "/work/personalization",
   },
   {

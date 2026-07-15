@@ -1,471 +1,345 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
 import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
-import {
-  CaseStudySection,
-  ContextCard,
-  ResultsGrid,
-  Blockquote,
-  SkillSpotlight,
-  SkillConstellation,
-} from "@/components/casestudy/CaseStudyContent";
+import { CaseStudySection, Blockquote } from "@/components/casestudy/CaseStudyContent";
 
 const sections = [
   { id: "overview", label: "Overview" },
-  { id: "diagnosis", label: "The Diagnosis" },
-  { id: "framework", label: "The Framework" },
-  { id: "implementation", label: "Implementation" },
-  { id: "results", label: "Results & Impact" },
-  { id: "reflections", label: "Reflections" },
+  { id: "problem", label: "01 · The Problem" },
+  { id: "analysis", label: "02 · The Analysis" },
+  { id: "decision", label: "03 · The Decision" },
+  { id: "execution", label: "04 · The Execution" },
+  { id: "impact", label: "05 · The Impact" },
 ];
 
-/* ─────── Framework Layer Component ─────── */
-function FrameworkLayer({
-  title,
-  principle,
-  details,
-  color,
-  index,
-}: {
-  title: string;
-  principle: string;
-  details: string[];
-  color: string;
-  index: number;
-}) {
+function VariantSelector() {
+  const [activeVariant, setActiveVariant] = React.useState("D");
+
+  const variants = {
+    A: {
+      title: "Variant A (Control)",
+      desc: "Original Topshop header search. Minimal contrast, plain text input without a clear boundary. Underperformed in discoverability and engagement.",
+      border: "none",
+      placeholder: "type here",
+      placeholderColor: "#b5b0a3",
+      isWinner: false
+    },
+    B: {
+      title: "Variant B (Visual Affordance)",
+      desc: "Added a clean, solid border around the search input. Solved the discoverability issue by signaling a clear interactive field boundary.",
+      border: "1px solid var(--color-text)",
+      placeholder: "type here",
+      placeholderColor: "#b5b0a3",
+      isWinner: false
+    },
+    C: {
+      title: "Variant C (Affordance Copy)",
+      desc: "Updated the placeholder text from 'type here' to a more action-oriented prompt. Increased discoverability slightly by clarifying intent.",
+      border: "none",
+      placeholder: "Search products...",
+      placeholderColor: "var(--color-text-secondary)",
+      isWinner: false
+    },
+    D: {
+      title: "Variant D (Combined Treatment)",
+      desc: "Combined the solid border with the updated 'Search products...' action placeholder. This winning treatment resolved both discoverability and copy affordance issues.",
+      border: "1px solid var(--color-accent)",
+      placeholder: "Search products...",
+      placeholderColor: "var(--color-text-secondary)",
+      isWinner: true
+    }
+  };
+
+  const v = variants[activeVariant as keyof typeof variants];
+
   return (
-    <motion.div
-      initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      style={{
-        background: "#fff",
-        borderRadius: "20px",
-        padding: "32px",
-        border: `1px solid ${color}33`,
-        marginBottom: "24px",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "6px",
-          height: "100%",
-          background: color,
-        }}
-      />
-      <h4
-        style={{
-          color,
-          margin: "0 0 8px 0",
-          fontSize: "20px",
-          fontWeight: 800,
-        }}
-      >
-        {title}
-      </h4>
-      <p
-        style={{
-          fontSize: "14px",
-          fontStyle: "italic",
-          marginBottom: "20px",
-          color: "var(--color-text-secondary)",
-        }}
-      >
-        <strong>Principle:</strong> {principle}
-      </p>
-      <div
-        style={{
-          padding: 0,
-          margin: 0,
-          listStyle: "none",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "16px",
-        }}
-      >
-        {details.map((detail, i) => (
-          <div
-            key={i}
+    <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "40px", borderRadius: "16px", margin: "32px 0" }}>
+      {/* Tabs */}
+      <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid var(--color-border)", marginBottom: "32px", overflowX: "auto", paddingBottom: "12px" }}>
+        {Object.keys(variants).map((key) => (
+          <button
+            key={key}
+            onClick={() => setActiveVariant(key)}
             style={{
+              padding: "8px 16px",
+              borderRadius: "20px",
+              border: activeVariant === key ? "1px solid var(--color-text)" : "1px solid transparent",
+              background: activeVariant === key ? "var(--color-text)" : "transparent",
+              color: activeVariant === key ? "var(--color-surface)" : "var(--color-text-secondary)",
+              fontWeight: 600,
               fontSize: "14px",
-              display: "flex",
-              alignItems: "flex-start",
-              gap: "10px",
+              cursor: "pointer",
             }}
           >
-            <span style={{ color, fontSize: "18px" }}>→</span>
-            {detail}
-          </div>
+            Variant {key}
+          </button>
         ))}
       </div>
-    </motion.div>
+
+      {/* Mock Browser/Header Preview */}
+      <div style={{ background: "var(--color-bg)", borderRadius: "12px", border: "1px solid var(--color-border)", overflow: "hidden", marginBottom: "24px" }}>
+        {/* Browser Top Bar */}
+        <div style={{ background: "rgba(0,0,0,0.03)", padding: "10px 16px", display: "flex", gap: "6px", borderBottom: "1px solid var(--color-border)" }}>
+          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#ff5f56" }} />
+          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#ffbd2e" }} />
+          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#27c93f" }} />
+        </div>
+
+        {/* Mock Site Header */}
+        <div style={{ background: "#ffffff", padding: "24px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", minHeight: "80px", flexWrap: "wrap", gap: "16px" }}>
+          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "16px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text)" }}>RETAILER</div>
+          
+          {/* Search Field */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            padding: "8px 14px",
+            background: "#fff",
+            borderRadius: "4px",
+            border: v.border === "none" ? "none" : v.border,
+            width: "300px",
+            justifyContent: "space-between",
+            transition: "all 0.3s ease",
+            boxShadow: v.border === "none" ? "none" : "0 2px 8px rgba(0,0,0,0.02)"
+          }}>
+            <span style={{ fontSize: "13.5px", color: v.placeholderColor, transition: "all 0.3s ease" }}>{v.placeholder}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={v.placeholderColor} strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </div>
+        </div>
+      </div>
+
+      {/* Variant Details */}
+      <div>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+          <h4 style={{ margin: 0, fontSize: "18px", fontWeight: 700 }}>{v.title}</h4>
+          {v.isWinner && (
+            <span style={{ background: "rgba(139, 105, 250, 0.15)", color: "var(--color-accent)", padding: "4px 10px", borderRadius: "20px", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              WINNER · +5.8% CONVERSION LIFT
+            </span>
+          )}
+        </div>
+        <p style={{ marginTop: "12px", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
+          {v.desc}
+        </p>
+      </div>
+
+      <div style={{ fontSize: "12.5px", color: "var(--color-text-secondary)", fontStyle: "italic", marginTop: "24px", borderTop: "1px solid var(--color-border)", paddingTop: "16px" }}>
+        Illustrative reconstruction of the test cells — not actual Topshop UI. Traffic split evenly across all cells; run to statistical significance before rollout.
+      </div>
+    </div>
   );
 }
 
-export default function PersonalizationCaseStudy() {
+export default function TopshopCaseStudy() {
   return (
     <main>
       <CaseStudyHero
-        title="E-Commerce Personalization at Scale"
-        category="UX Personalization & Data Strategy"
-        role="UX Personalization Specialist"
-        team="Capita, Qubit, Wallis"
-        timeline="Jan 2018 – Oct 2022"
+        title="What Analytics Couldn't Tell Us: Pairing Exit Intercepts with Behavioral Data at Topshop"
+        category="Quantitative UX Research · Feedback-Driven Optimization"
+        role="Analyst / Optimization Specialist"
+        team="Qubit · Topshop"
+        timeline="A/B/n Testing Cycle"
       />
 
       <CaseStudyLayout sections={sections}>
+        {/* ============================================ */}
+        {/* SECTION: OVERVIEW                            */}
+        {/* ============================================ */}
         <CaseStudySection
           id="overview"
-          label="Overview"
-          heading="Designing Conversion Strategies for Wallis"
-        >
-          <SkillConstellation
-            primary={["Behavioral Segmentation", "A/B Testing & Experimentation", "Real-Time Personalization"]}
-            supporting={["Funnel Diagnostics", "Campaign Mirroring", "Statistical Rigor"]}
-            emerging={["Ethical Persuasion Design", "Audience Empathy"]}
-          />
-
-          <p>
-            The project focused on bridging the gap between high-volume
-            marketing and generic website experiences. For Wallis, the challenge
-            wasn&apos;t a lack of traffic; it was that a vast number of shoppers saw
-            exactly the same experience, leading to significant revenue leakage.
-          </p>
-          <p>
-            As a Personalization Specialist embedded within Qubit&apos;s London team,
-            I designed and implemented real-time behavioral interventions for
-            the Wallis website, turning generic sessions into contextually
-            relevant journeys.
-          </p>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "24px",
-              marginTop: "32px",
-            }}
-          >
-            <ContextCard
-              title="Scale"
-              text="Significant annual traffic across the entire online store."
-            />
-            <ContextCard
-              title="Impact"
-              text="Direct revenue growth via systematic behavioral triggers and campaign mirroring."
-            />
-          </div>
-        </CaseStudySection>
-
-        <CaseStudySection
-          id="diagnosis"
-          label="The Tension"
-          heading="What the Data Revealed"
+          heading="Overview"
         >
           <p>
-            Before designing interventions, I mapped behavioral data across the
-            portfolio. Three critical friction points emerged as the primary
-            sources of conversion loss.
+            How intercept survey feedback and behavioral analytics were triangulated to find a hidden conversion lever — and how a four-variant experiment turned it into measurable revenue.
           </p>
 
-          <SkillSpotlight
-            skill="Funnel Diagnostics"
-            description="Mapped end-to-end behavioral data to identify the three highest-impact friction zones in the conversion funnel."
-            evidence="Diagnosed 3 friction patterns — disconnected journeys, dead ends, and one-size-fits-all — that accounted for majority of revenue leakage."
-          />
-
-          <div style={{ marginTop: "40px" }}>
-            <h3 style={{ fontSize: "20px", marginBottom: "16px" }}>
-              1. The Disconnected Journey
-            </h3>
-            <p>
-              Email campaigns drove massive spikes, but the website remained
-              &quot;unaware&quot; of why the visitor was there. We found that discount
-              code usage was significantly lower than open rates because the
-              site failed to remind customers of the offers they&apos;d clicked on.
-            </p>
-
-            <h3
-              style={{
-                fontSize: "20px",
-                marginBottom: "16px",
-                marginTop: "32px",
-              }}
-            >
-              2. Dead Ends
-            </h3>
-            <p>
-              Empty bags and zero-results search pages functioned as exits.
-              Instead of recovering the session, the site simply displayed a
-              &quot;Sorry&quot; message, abandoning thousands of daily visitors at the
-              point of intent.
-            </p>
-
-            <h3
-              style={{
-                fontSize: "20px",
-                marginBottom: "16px",
-                marginTop: "32px",
-              }}
-            >
-              3. One Size Fit Nobody
-            </h3>
-            <p>
-              First-time international visitors saw the same homepage as loyal
-              UK customers. Despite having the data, the sites provided no
-              acknowledgement of history or context.
-            </p>
-          </div>
-
-          <Blockquote text="The diagnosis was clear: these websites weren't broken. They were generic. And in e-commerce, generic is broken — it just breaks quietly, one lost session at a time." />
-        </CaseStudySection>
-
-        <CaseStudySection
-          id="framework"
-          label="The Craft"
-          heading="Building a Systematic Approach"
-        >
-          <p>
-            To move beyond scattered A/B testing, I developed a four-layer
-            framework that addressed friction at every stage of the funnel. This
-            allowed us to deploy interventions systematically with speed and
-            rigour.
-          </p>
-
-          <SkillSpotlight
-            skill="Behavioral Segmentation"
-            description="Designed audience segments from behavioral signals, not just demographics. Real-time triggers responded to in-session actions."
-            evidence="Geo-specific social proof, threshold nudges, and history-aware personalization."
-          />
-
-          <div style={{ marginTop: "40px" }}>
-            <FrameworkLayer
-              index={0}
-              title="1. Campaign Mirroring"
-              principle="The website should know what brought the customer there."
-              color="#8b69fa"
-              details={[
-                "Dynamic banners on product pages reinforcing email offers.",
-                "In-bag reminders of active discount codes.",
-                "Pre-populated codes at checkout to reduce friction.",
-              ]}
-            />
-            <FrameworkLayer
-              index={1}
-              title="2. Behavioural Triggers"
-              principle="Real-time data should power moments of urgency and proof."
-              color="#11a961"
-              details={[
-                "Urgency messaging grounded in real inventory velocity.",
-                "Geo-specific social proof (e.g., 'Trending in Chicago').",
-                "Threshold nudges for free shipping qualification.",
-              ]}
-            />
-            <FrameworkLayer
-              index={2}
-              title="3. Recovery & Re-engagement"
-              principle="Turn dead ends into opportunities."
-              color="#f59e0b"
-              details={[
-                "Personalized product carousels on empty bag pages.",
-                "Recommendation engine backup for zero-results search.",
-                "Checkout simplification for high-friction segments.",
-              ]}
-            />
-            <FrameworkLayer
-              index={3}
-              title="4. Segmented Experiences"
-              principle="Different customers deserve fundamentally different journeys."
-              color="#ec4899"
-              details={[
-                "Orienting onboarding for non-digitally native audiences.",
-                "Tailored promotions based on user segments.",
-                "Product prioritization based on IP detected location.",
-              ]}
-            />
-          </div>
-
-          <SkillSpotlight
-            skill="Real-Time Personalization"
-            description="Built and deployed interventions that responded to in-session behavior — not pre-defined user segments."
-            evidence="Four-layer framework deployed across all key funnels."
-          />
-        </CaseStudySection>
-
-        <CaseStudySection
-          id="implementation"
-          label="Implementation"
-          heading="Rigorous Execution"
-        >
-          <p>
-            Implementation wasn&apos;t just about UI changes—it was about{" "}
-            <strong>statistical rigour</strong>. We introduced 10% blank-ad
-            control groups (placebos) to calculate true incremental ROI, moving
-            from correlation to causation.
-          </p>
-          <p>
-            We synchronized on-site messaging with a relentless daily
-            promotional calendar, ensuring creative was always aligned with the
-            trade plan.
-          </p>
-
-          <SkillSpotlight
-            skill="A/B Testing & Statistical Rigor"
-            description="Implemented 10% blank-ad control groups (placebos) to isolate true incremental lift from confounds."
-            evidence="Shifted measurement from correlation to causation for every intervention."
-          />
-        </CaseStudySection>
-
-        <CaseStudySection
-          id="results"
-          label="The Evidence"
-          heading="Measuring the Lift"
-        >
-          <ResultsGrid
-            items={[
-              {
-                label: "Conversion Lift",
-                value: "11% ↑",
-                description:
-                  "Significant revenue lift driven by targeted segments and geo-social proof.",
-              },
-              {
-                label: "Campaign ROI",
-                value: "Increased",
-                description:
-                  "Vast reduction in leaked conversion via mirroring.",
-              },
-              {
-                label: "UX Simplicity",
-                value: "Improved",
-                description:
-                  "Increased engagement through orienting onboarding.",
-              },
-              {
-                label: "Deployment Scale",
-                value: "Site-wide",
-                description: "Systematic deployment across all key funnels.",
-              },
-            ]}
-          />
-
-          <div style={{ marginTop: "48px" }}>
-            <Blockquote
-              text="Personalization is helping us build relationships with our customers that translate into increased engagement, loyalty and revenue."
-              author="Simon Pritchard, Arcadia Group Digital Director"
-            />
-          </div>
-        </CaseStudySection>
-
-        <CaseStudySection
-          id="reflections"
-          label="The Growth"
-          heading="Key Learnings"
-        >
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "32px",
-              marginTop: "32px",
-            }}
-          >
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "24px",
+            background: "var(--color-surface)",
+            padding: "32px",
+            borderRadius: "16px",
+            border: "1px solid var(--color-border)",
+            margin: "32px 0"
+          }}>
             <div>
-              <h4
-                style={{
-                  fontSize: "18px",
-                  fontWeight: 700,
-                  marginBottom: "12px",
-                }}
-              >
-                Complexity ≠ Impact
-              </h4>
-              <p
-                style={{
-                  fontSize: "14px",
-                  color: "var(--color-text-secondary)",
-                  lineHeight: 1.6,
-                }}
-              >
-                The most impactful interventions were often the simplest: code
-                reminders and dead-end recovery. Clarity consistently beat
-                sophisticated algorithms in driving immediate ROI.
-              </p>
+              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Role</span>
+              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Analyst / Optimization Specialist</p>
             </div>
             <div>
-              <h4
-                style={{
-                  fontSize: "18px",
-                  fontWeight: 700,
-                  marginBottom: "12px",
-                }}
-              >
-                Honest Scarcity Wins
-              </h4>
-              <p
-                style={{
-                  fontSize: "14px",
-                  color: "var(--color-text-secondary)",
-                  lineHeight: 1.6,
-                }}
-              >
-                Fake countdowns erode trust. Grounding urgency in real inventory
-                data ensured that our signals remained useful and respected over
-                the long term.
+              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Team</span>
+              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Qubit · Topshop</p>
+            </div>
+            <div>
+              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Methods</span>
+              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Exit Intercepts · Funnel analysis · A/B/n testing</p>
+            </div>
+            <div>
+              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Outcome</span>
+              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px", color: "var(--color-accent)" }}>+5.8% conversion uplift</p>
+            </div>
+          </div>
+        </CaseStudySection>
+
+        {/* ============================================ */}
+        {/* SECTION: 01 · THE PROBLEM                    */}
+        {/* ============================================ */}
+        <CaseStudySection
+          id="problem"
+          heading="01 · The Problem"
+        >
+          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px" }}>Numbers tell you the scale of a problem. Feedback tells you how to deal with it.</h3>
+          <p>
+            Topshop&apos;s search bar sat on every user&apos;s path to purchase — but it was underperforming. We knew something was wrong from the behavioral data alone: search adoption was low relative to comparable retailers, and sessions that never touched search converted at a fraction of those that did.
+          </p>
+          <p style={{ marginTop: "16px" }}>
+            What the quantitative data couldn&apos;t tell us was why. Was it discoverability? Usability? Result quality? Pushing a sitewide redesign on a guess would have burned IT resources on an unvalidated hypothesis. We needed the user&apos;s voice before touching the interface.
+          </p>
+        </CaseStudySection>
+
+        {/* ============================================ */}
+        {/* SECTION: 02 · THE ANALYSIS                   */}
+        {/* ============================================ */}
+        <CaseStudySection
+          id="analysis"
+          heading="02 · The Analysis"
+        >
+          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "24px" }}>Triangulating intercept feedback with behavioral data</h3>
+          
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", margin: "24px 0" }}>
+            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px" }}>
+              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Qualitative Signal — Exit Intercepts</span>
+              <p style={{ margin: "14px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
+                Using Qubit&apos;s Visitor Opinion exit-feedback tool — an on-site intercept survey triggered as users left — we captured open-ended feedback at the moment of abandonment. A recurring theme emerged: <strong>users struggled to both find and use the search bar</strong>. It read as a low-contrast text element with no visual affordance signaling &quot;type here&quot;.
               </p>
+            </div>
+            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px" }}>
+              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Quantitative Signal — Analytics</span>
+              <p style={{ margin: "14px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
+                Qubit&apos;s behavioral analytics quantified the stakes: visitors who used search converted <strong>roughly 10× higher</strong> than those who didn&apos;t. Search wasn&apos;t a convenience feature — it was the single highest-intent behavior on the site, and friction there was directly suppressing revenue.
+              </p>
+            </div>
+          </div>
+
+          <Blockquote text="The intercept feedback gave us the diagnostic; the analytics gave us the business case. Neither alone would have justified the work — together they made it the obvious next test." />
+        </CaseStudySection>
+
+        {/* ============================================ */}
+        {/* SECTION: 03 · THE DECISION                   */}
+        {/* ============================================ */}
+        <CaseStudySection
+          id="decision"
+          heading="03 · The Decision"
+        >
+          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px" }}>Test the hypotheses — don&apos;t ship the guess</h3>
+          <p>
+            The feedback pointed at two candidate fixes: <strong>visibility</strong> (the field didn&apos;t look like an input) and <strong>affordance copy</strong> (the placeholder didn&apos;t invite action). Rather than allocating expensive IT resources to push a full sitewide change based on either hypothesis, we designed four search variations testing both dimensions — changes in copy, and the addition of a border to the search box.
+          </p>
+          <p style={{ marginTop: "16px" }}>
+            The test was split evenly across all users, with the existing design as control, so any change would carry statistical evidence into the IT prioritization conversation — not opinion.
+          </p>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", marginTop: "32px" }}>
+            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
+              <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-accent)", fontWeight: 700 }}>H1</span>
+              <p style={{ margin: "8px 0 0 0", fontSize: "14px", fontWeight: 600 }}>Visual affordance ➔ border</p>
+            </div>
+            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
+              <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-accent)", fontWeight: 700 }}>H2</span>
+              <p style={{ margin: "8px 0 0 0", fontSize: "14px", fontWeight: 600 }}>Invitation ➔ copy change</p>
+            </div>
+            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
+              <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-accent)", fontWeight: 700 }}>H3</span>
+              <p style={{ margin: "8px 0 0 0", fontSize: "14px", fontWeight: 600 }}>Combined effect</p>
+            </div>
+          </div>
+        </CaseStudySection>
+
+        {/* ============================================ */}
+        {/* SECTION: 04 · THE EXECUTION                  */}
+        {/* ============================================ */}
+        <CaseStudySection
+          id="execution"
+          heading="04 · The Execution"
+        >
+          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px" }}>Four variants, one control, evenly split</h3>
+          <p>
+            Explore the test cells below. Each variant isolates or combines the two hypotheses so the winning treatment could be attributed to a specific mechanism, not just &quot;the new one&quot;.
+          </p>
+
+          <VariantSelector />
+        </CaseStudySection>
+
+        {/* ============================================ */}
+        {/* SECTION: 05 · THE IMPACT                     */}
+        {/* ============================================ */}
+        <CaseStudySection
+          id="impact"
+          heading="05 · The Impact"
+        >
+          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "24px" }}>Evidence, not opinion, went to the roadmap</h3>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "24px", margin: "24px 0" }}>
+            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>+5.8%</div>
+              <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)" }}>conversion uplift from the winning search design.</p>
+            </div>
+            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>10x</div>
+              <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)" }}>higher conversion rate for search users — the metric that prioritized the work.</p>
+            </div>
+            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>9–11%</div>
+              <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)" }}>cumulative uplift once the same feedback method was applied to product pages.</p>
+            </div>
+          </div>
+
+          <p>
+            The winning variant shipped sitewide with a quantified business case attached. Just as importantly, the method stuck: the same intercept-feedback ➔ hypothesis ➔ controlled-test loop was applied to a series of product-page micro-changes — size selectors, delivery tabs, confirmation popups, add-to-bag buttons — which together added between 9 and 11% uplift in conversion rate, without committing IT resources to anything unproven.
+          </p>
+
+          <div style={{ borderTop: "2px solid var(--color-text)", marginTop: "48px", paddingTop: "40px" }}>
+            <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "24px" }}>What this project taught me</h3>
+            
+            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+              <div>
+                <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>Intercepts earn their place at the moment of intent</h4>
+                <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)" }}>
+                  Intercept feedback captured intent, not general attitude. Targeting logic — who sees the survey, when, and how often — determined whether the signal was usable at all.
+                </p>
+              </div>
+              <div>
+                <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>Triangulation is what makes feedback actionable</h4>
+                <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)" }}>
+                  Qualitative feedback without behavioral data is a mystery. Joining them turned a vague complaint into a prioritized, sized, testable hypothesis.
+                </p>
+              </div>
+              <div>
+                <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>Small tests protect big resources</h4>
+                <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)" }}>
+                  The business case required to settle an argument should always run before engineering commits. Evidence travels further with stakeholders than any deck of opinions.
+                </p>
+              </div>
             </div>
           </div>
 
           <div
             style={{
               marginTop: "64px",
-              padding: "40px",
-              background: "rgba(17, 169, 97, 0.04)",
-              borderRadius: "24px",
-              border: "1px solid rgba(17, 169, 97, 0.1)",
+              padding: "24px",
+              background: "rgba(0,0,0,0.015)",
+              borderRadius: "8px",
+              border: "1px solid var(--color-border)",
+              fontSize: "13px",
+              color: "var(--color-text-secondary)",
+              fontStyle: "italic",
+              textAlign: "center",
             }}
           >
-            <h4
-              style={{
-                margin: "0 0 16px 0",
-                color: "#11a961",
-                fontSize: "20px",
-                fontWeight: 800,
-              }}
-            >
-              The Audience Lesson
-            </h4>
-            <p style={{ fontSize: "15px", lineHeight: 1.7, margin: 0 }}>
-              This project taught me that personalization isn&apos;t just about
-              adding more—it&apos;s about adding the right thing. For various
-              segments, particularly less digitally native users, &quot;good
-              personalization&quot; meant restraint and orientation. It shifted my
-              perspective from extracting value to genuinely helping the user,
-              making &quot;Is this better for the person?&quot; my primary design filter.
-            </p>
-          </div>
-
-          <div style={{ padding: "40px 0", textAlign: "center" }}>
-            <p
-              style={{
-                fontSize: "14px",
-                color: "var(--color-text-secondary)",
-                fontStyle: "italic",
-              }}
-            >
-              This case study documents personalization design conducted with
-              Qubit for Wallis. Proprietary metrics have been generalized for
-              confidentiality.
-            </p>
+            Case study conducted with Qubit for Arcadia Group. Metrics as publicly reported.
           </div>
         </CaseStudySection>
       </CaseStudyLayout>
