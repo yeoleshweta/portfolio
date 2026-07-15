@@ -35,14 +35,14 @@ function VariantSelector() {
     C: {
       title: "Variant C (Descriptive Copy + Border)",
       desc: "Descriptive framing: plain-language action copy that clarifies what the field does without adding length. Border adds input affordance.",
-      border: "1px solid var(--color-text)",
+      border: "1px solid #1c1b17",
       placeholder: "Search for items",
       isWinner: false
     },
     D: {
       title: "Variant D (Winner — Border + Concise Copy)",
       desc: "Minimal copy with the border treatment: the visible field boundary alone carried the affordance, and concise copy kept the header clean. The winning design — rolled out sitewide after reaching significance.",
-      border: "1px solid var(--color-text)",
+      border: "1px solid #1c1b17",
       placeholder: "Search",
       isWinner: true
     }
@@ -83,39 +83,71 @@ function VariantSelector() {
       <div style={{ padding: "40px" }}>
         {/* Mock Browser/Header Preview */}
         <div style={{ background: "var(--color-bg)", borderRadius: "12px", border: "1px solid var(--color-border)", overflow: "hidden", marginBottom: "32px" }}>
-          {/* Browser Top Bar */}
-          <div style={{ background: "rgba(0,0,0,0.03)", padding: "10px 16px", display: "flex", gap: "6px", borderBottom: "1px solid var(--color-border)" }}>
-            <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#ff5f56" }} />
-            <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#ffbd2e" }} />
-            <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#27c93f" }} />
-          </div>
-
-          {/* Mock Header */}
-          <div style={{ background: "#ffffff", padding: "24px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", minHeight: "80px", borderBottom: "1px solid rgba(0,0,0,0.04)" }}>
-            <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "16px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text)" }}>RETAILER</div>
-            
-            {/* Search Input Field */}
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              padding: "8px 14px",
-              background: "#fff",
-              borderRadius: "0px", // Topshop input was sharp-cornered
-              border: v.border === "none" ? "none" : v.border,
-              width: "280px",
-              justifyContent: "space-between",
-              transition: "all 0.2s ease"
-            }}>
-              <span style={{ fontSize: "13.5px", color: "var(--color-text-secondary)" }}>{v.placeholder}</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          
+          {/* Topshop Utility Bar */}
+          <div style={{ background: "#f5f5f3", borderBottom: "1px solid #e3e0d6", padding: "10px 32px", display: "flex", justifyContent: "flex-end", alignItems: "center", fontSize: "11px", fontFamily: "var(--font-primary)", color: "#1c1b17", letterSpacing: "0.05em" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              <span>MY BAG &nbsp;<span style={{ color: "#6e6b60" }}>0 item(s): £0.00</span></span>
             </div>
           </div>
 
-          {/* Simulated Webpage Context (Three wireframe cards) */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", padding: "24px 32px", background: "#ffffff" }}>
-            <div style={{ height: "80px", background: "rgba(0,0,0,0.02)", borderRadius: "4px", border: "1px dashed rgba(0,0,0,0.05)" }}></div>
-            <div style={{ height: "80px", background: "rgba(0,0,0,0.02)", borderRadius: "4px", border: "1px dashed rgba(0,0,0,0.05)" }}></div>
-            <div style={{ height: "80px", background: "rgba(0,0,0,0.02)", borderRadius: "4px", border: "1px dashed rgba(0,0,0,0.05)" }}></div>
+          {/* Topshop Main Header */}
+          <div style={{ background: "#ffffff", padding: "20px 32px 14px 32px", display: "flex", justifyContent: "space-between", alignItems: "flex-end", minHeight: "90px", borderBottom: "1px solid rgba(0,0,0,0.04)" }}>
+            {/* Logo */}
+            <div style={{ fontFamily: "var(--font-primary)", fontWeight: 300, fontSize: "36px", letterSpacing: "0.15em", color: "#1c1b17", lineHeight: 1, paddingBottom: "4px" }}>TOPSHOP</div>
+            
+            {/* Right Side: Welcome message + Search Bar */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "10px" }}>
+              <div style={{ fontSize: "11px", color: "#6e6b60" }}>
+                Welcome to Topshop, <span style={{ textDecoration: "underline", cursor: "pointer" }}>Sign in or register</span>
+              </div>
+              
+              {/* Search input field */}
+              <div style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "8px 12px",
+                background: "#fff",
+                borderRadius: "0px", // sharp corners
+                border: v.border === "none" ? "1px solid transparent" : v.border,
+                width: "280px",
+                justifyContent: "space-between",
+                height: "36px",
+                transition: "all 0.2s ease"
+              }}>
+                <span style={{ fontSize: "13px", color: v.border === "none" ? "#b5b0a3" : "#6e6b60" }}>{v.placeholder}</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1c1b17" strokeWidth="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </div>
+            </div>
+          </div>
+
+          {/* Topshop Navigation Bar */}
+          <div style={{ background: "#ffffff", borderTop: "1px solid #e3e0d6", borderBottom: "1px solid #e3e0d6", padding: "12px 32px", display: "flex", gap: "24px", alignItems: "center", fontSize: "11px", fontWeight: 700, letterSpacing: "0.08em", color: "#1c1b17" }}>
+            <span style={{ cursor: "pointer" }}>BAGS & ACCESSORIES</span>
+            <span style={{ color: "#e3e0d6" }}>|</span>
+            <span style={{ cursor: "pointer" }}>MAKE-UP</span>
+            <span style={{ color: "#e3e0d6" }}>|</span>
+            <span style={{ cursor: "pointer" }}>SALE & OFFERS</span>
+            <span style={{ color: "#e3e0d6" }}>|</span>
+            <span style={{ cursor: "pointer" }}>WE LOVE</span>
+          </div>
+
+          {/* Simulated Webpage Content (Mock Hero Banner with play overlay) */}
+          <div style={{ height: "240px", background: "#e8e7e3", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+            {/* Clean fashion-style catalog placeholder background */}
+            <div style={{ position: "absolute", inset: 0, opacity: 0.15, background: "radial-gradient(circle, #555 10%, transparent 11%)", backgroundSize: "12px 12px" }}></div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", zIndex: 1 }}>
+              {/* Play controls overlay */}
+              <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(28,27,23,0.5)" strokeWidth="2"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5"></line></svg>
+                <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "rgba(28,27,23,0.6)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white" style={{ marginLeft: "2px" }}><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(28,27,23,0.5)" strokeWidth="2"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+              </div>
+              <span style={{ fontSize: "11px", fontFamily: "JetBrains Mono, monospace", color: "#6e6b60" }}>[MOCK CATALOG BANNER PLAYBACK]</span>
+            </div>
           </div>
         </div>
 
