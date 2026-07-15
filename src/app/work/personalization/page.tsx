@@ -120,7 +120,6 @@ export default function PersonalizationCaseStudy() {
         role="UX Personalization Specialist"
         team="Capita, Qubit, Wallis"
         timeline="Jan 2018 – Oct 2022"
-        image="/assets/Ecommerce.jpg"
       />
 
       <CaseStudyLayout sections={sections}>

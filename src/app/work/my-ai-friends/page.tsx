@@ -53,7 +53,6 @@ export default function MyAIfriendsCaseStudy() {
         role="Lead AI Engineer & UX Designer"
         team="3 Members"
         timeline="~2 months"
-        image="/assets/myaifriends-hero.png"
       />
 
       <CaseStudyLayout sections={sections}>

@@ -54,7 +54,6 @@ export default function CryptoSecureCaseStudy() {
         role="ML/AI Engineering & Frontend"
         team="4 Members"
         timeline="~3 months"
-        image="/assets/Cryptosecure.jpg"
       />
 
       <CaseStudyLayout sections={sections}>

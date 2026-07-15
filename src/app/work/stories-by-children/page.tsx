@@ -190,7 +190,6 @@ export default function StoriesByChildrenCaseStudy() {
         role="Lead IA & UI Designer"
         team="1 Designer, 1 Developer, 1 Stakeholder"
         timeline="6 Weeks"
-        image="/assets/StoriesByChildren.jpg"
       />
 
       <CaseStudyLayout sections={sections}>
