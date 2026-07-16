@@ -67,6 +67,13 @@ const moreProjects = [
     metric: "$10k audit → 30 seconds",
     href: "/work/crypto-secure",
   },
+  {
+    idx: "09",
+    tag: "Quantitative UXR",
+    title: "Would they have bought anyway? Measuring true incrementality for Miss Selfridge",
+    metric: "47% new customer rate",
+    href: "/work/miss-selfridge",
+  },
 ] as const;
 
 export default function FeaturedWork() {
