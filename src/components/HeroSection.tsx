@@ -381,7 +381,7 @@ export default function HeroSection() {
             >
               <div className={styles.profilePic}>
                 <Image
-                  src="/assets/IMG_1191.JPG"
+                  src="/assets/IMG_1191.jpg"
                   alt="Shweta Sharma"
                   width={112}
                   height={112}

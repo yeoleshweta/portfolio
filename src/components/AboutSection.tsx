@@ -22,7 +22,7 @@ const galleryImages = [
     alt: "Motorcycle in the mountains",
   },
   {
-    src: "/assets/SelfImages/af88938a-795e-4ee4-b92f-435eb48be0af.JPG",
+    src: "/assets/SelfImages/af88938a-795e-4ee4-b92f-435eb48be0af.jpg",
     alt: "Handstand in the mountains",
   },
   { src: "/assets/SelfImages/IMG_9547_2.jpg", alt: "Scuba diving" },
