@@ -74,6 +74,13 @@ const moreProjects = [
     metric: "Segmented 50% of UK sales",
     href: "/work/topman",
   },
+  {
+    idx: "10",
+    tag: "Quantitative UXR",
+    title: "Do Small Wins Compound? Six Measured Experiments, One Revenue Per Visitor Discipline at Evans",
+    metric: "2.5% to 8.43% RPV uplift",
+    href: "/work/evans",
+  },
 ] as const;
 
 export default function FeaturedWork() {
