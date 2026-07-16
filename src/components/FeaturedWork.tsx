@@ -70,9 +70,9 @@ const moreProjects = [
   {
     idx: "09",
     tag: "Quantitative UXR",
-    title: "Why Were Students Not Saving? Segment Aware Personalization at Topman",
+    title: "Why Were Students Not Saving? Segment Aware Personalization at Dorothy Perkins",
     metric: "Segmented 50% of UK sales",
-    href: "/work/topman",
+    href: "/work/dorothy-perkins",
   },
   {
     idx: "10",

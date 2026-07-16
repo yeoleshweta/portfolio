@@ -158,14 +158,14 @@ function GeoBehavioralVisual() {
   );
 }
 
-export default function TopmanCaseStudy() {
+export default function DorothyPerkinsCaseStudy() {
   return (
     <main>
       <CaseStudyHero
-        title="Why Were Students Not Saving? Segment Aware Personalization at Topman"
+        title="Why Were Students Not Saving? Segment Aware Personalization at Dorothy Perkins"
         category="Segmentation · Personalization Governance"
         role="Personalization Specialist"
-        team="Capita · Qubit ecosystem: Topman"
+        team="Capita · Qubit ecosystem: Dorothy Perkins"
         timeline="Personalization Lifecycle"
       />
 
@@ -197,7 +197,7 @@ export default function TopmanCaseStudy() {
             </div>
             <div>
               <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Team</span>
-              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Capita · Topman</p>
+              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Capita · Dorothy Perkins</p>
             </div>
             <div>
               <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Methods</span>
@@ -211,7 +211,7 @@ export default function TopmanCaseStudy() {
 
           <h3 style={{ fontSize: "20px", fontWeight: 700, marginTop: "40px", marginBottom: "16px" }}>Making the data&apos;s segments visible in the experience</h3>
           <p>
-            Topman&apos;s data kept describing audiences that its website refused to acknowledge. Students, one of the brand&apos;s most important demographics who were entitled to a 10% discount, had to hunt to make the system know who they were. Regional customers browsed a product list ranked for a national average that described nobody. The challenge was not finding data; it was getting that data to show up in the web, become visible and useful experiences, and doing it with a discipline the board could trust.
+            Dorothy Perkins&apos; data kept describing audiences that its website refused to acknowledge. Students, one of the brand&apos;s most important demographics who were entitled to a 10% discount, had to hunt to make the system know who they were. Regional customers browsed a product list ranked for a national average that described nobody. The challenge was not finding data; it was getting that data to show up in the web, become visible and useful experiences, and doing it with a discipline the board could trust.
           </p>
           <p style={{ marginTop: "16px" }}>
             At Capita and Qubit, we designed, tested, and scaled segment personalization delivered through Qubit&apos;s platform, under a program philosophy of simplicity and business cases behind every deployed experience.
@@ -329,7 +329,7 @@ export default function TopmanCaseStudy() {
 
           <Blockquote text="The key has been to keep things simple and build a business case for each and every experience we want to deploy." />
           <div style={{ textAlign: "right", marginTop: "-16px", marginBottom: "32px", fontSize: "14px", color: "var(--color-text-secondary)", fontFamily: "JetBrains Mono, monospace" }}>
-            — Gareth Rees-John, Digital Director, Topman
+            — Gareth Rees-John, Digital Director, Dorothy Perkins
           </div>
 
           <div style={{ borderTop: "2px solid var(--color-text)", marginTop: "48px", paddingTop: "40px" }}>
