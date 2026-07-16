@@ -26,7 +26,6 @@ function StudentPricingVisual() {
     <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "40px", borderRadius: "16px", margin: "32px 0" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--color-border)", paddingBottom: "16px", marginBottom: "24px", flexWrap: "wrap", gap: "12px" }}>
         <div>
-          <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "11px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Interactive Prototype 1</span>
           <h4 style={{ margin: "4px 0 0 0", fontSize: "16px", fontWeight: 700 }}>Student Pricing Toggle</h4>
         </div>
         <button
@@ -113,7 +112,6 @@ function GeoBehavioralVisual() {
 
   return (
     <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "40px", borderRadius: "16px", margin: "32px 0" }}>
-      <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "11px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Interactive Prototype 2</span>
       <h4 style={{ margin: "4px 0 16px 0", fontSize: "16px", fontWeight: 700 }}>Geo Behavioral Merchandising</h4>
       
       {/* Tabs */}
@@ -310,7 +308,7 @@ export default function TopmanCaseStudy() {
           id="evidence"
           heading="04: Measuring the Lift"
         >
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "24px", margin: "24px 0" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "24px", margin: "24px 0" }}>
             <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
               <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>50%</div>
               <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)", lineHeight: "1.5" }}>of UK sales segmented at peak, the personalization experiences contributing to this share.</p>

@@ -183,7 +183,7 @@ export default function MissSelfridgeCaseStudy() {
 
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
             gap: "24px",
             background: "var(--color-surface)",
             padding: "32px",
@@ -304,7 +304,7 @@ export default function MissSelfridgeCaseStudy() {
         >
           <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "24px" }}>Measuring the lift</h3>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "24px", margin: "24px 0" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "24px", margin: "24px 0" }}>
             <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
               <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>47%</div>
               <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)", lineHeight: "1.5" }}>New Customer Rate: nearly half of campaign driven purchases came from customers entirely new to the brand.</p>
