@@ -74,6 +74,13 @@ const moreProjects = [
     metric: "47% new customer rate",
     href: "/work/miss-selfridge",
   },
+  {
+    idx: "10",
+    tag: "Quantitative UXR",
+    title: "Why Were Students Not Saving? Segment Aware Personalization at Topman",
+    metric: "Segmented 50% of UK sales",
+    href: "/work/topman",
+  },
 ] as const;
 
 export default function FeaturedWork() {
