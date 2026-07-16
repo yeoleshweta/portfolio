@@ -62,20 +62,13 @@ const moreProjects = [
   },
   {
     idx: "08",
-    tag: "Blockchain / ML",
-    title: "CryptoSecure: Smart Contract Security",
-    metric: "$10k audit → 30 seconds",
-    href: "/work/crypto-secure",
-  },
-  {
-    idx: "09",
     tag: "Quantitative UXR",
     title: "Would they have bought anyway? Measuring true incrementality for Miss Selfridge",
     metric: "47% new customer rate",
     href: "/work/miss-selfridge",
   },
   {
-    idx: "10",
+    idx: "09",
     tag: "Quantitative UXR",
     title: "Why Were Students Not Saving? Segment Aware Personalization at Topman",
     metric: "Segmented 50% of UK sales",
