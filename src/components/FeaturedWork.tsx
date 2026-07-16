@@ -81,6 +81,13 @@ const moreProjects = [
     metric: "2.5% to 8.43% RPV uplift",
     href: "/work/evans",
   },
+  {
+    idx: "11",
+    tag: "Quantitative UXR",
+    title: "Should the Homepage Check the Forecast? Weather and Geolocation at Burton",
+    metric: "+11.6% conversion lift",
+    href: "/work/burton",
+  },
 ] as const;
 
 export default function FeaturedWork() {
