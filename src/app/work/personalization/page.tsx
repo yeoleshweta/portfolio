@@ -19,29 +19,29 @@ function VariantSelector() {
 
   const variants = {
     A: {
-      title: "Variant A (Control)",
-      desc: "Control: The original Topshop header design. No border around the search field, and standard Search placeholder text. Users struggled to identify it as an interactive input.",
+      title: "Variant A",
+      desc: "No border around the search field, with placeholder text 'Enter product name or code'. Without a visible border, users struggled to identify it as an interactive search input.",
       border: "none",
-      placeholder: "Search",
+      placeholder: "Enter product name or code",
       isWinner: false
     },
     B: {
-      title: "Variant B (Descriptive Copy Only)",
-      desc: "Descriptive copy only: Replaced the standard placeholder with action oriented copy, but kept the borderless input. While copy helped, the lack of visual boundaries still limited engagement.",
-      border: "none",
-      placeholder: "Search for items",
+      title: "Variant B",
+      desc: "Light shade border around the search field with conversational placeholder 'I'm looking for...'. The subtle border improved input visibility, but copy framing was tested further.",
+      border: "1px solid #d3d1c7",
+      placeholder: "I'm looking for...",
       isWinner: false
     },
     C: {
-      title: "Variant C (Descriptive Copy and Border)",
-      desc: "Descriptive framing: plain language action copy that clarifies what the field does without adding length. Border adds input affordance.",
-      border: "1px solid #1c1b17",
-      placeholder: "Search for items",
+      title: "Variant C",
+      desc: "No border around the search field, with placeholder text 'Search for an item'. While the copy clarified intent, the lack of a visual border still limited input affordance.",
+      border: "none",
+      placeholder: "Search for an item",
       isWinner: false
     },
     D: {
-      title: "Variant D (Winner: Border with Concise Copy)",
-      desc: "Minimal copy with the border treatment: the visible field boundary alone carried the affordance, and concise copy kept the header clean. The winning design rolled out sitewide after reaching significance.",
+      title: "Variant D (Winner)",
+      desc: "Dark border around the search field with concise 'Search' placeholder text. The crisp visual boundary provided strong input affordance, making the search bar immediately recognizable. Rolled out sitewide after reaching statistical significance.",
       border: "1px solid #1c1b17",
       placeholder: "Search",
       isWinner: true
