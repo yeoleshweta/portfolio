@@ -88,6 +88,13 @@ const moreProjects = [
     metric: "+11.6% conversion lift",
     href: "/work/burton",
   },
+  {
+    idx: "12",
+    tag: "Design Systems",
+    title: "Fuel Design System: Building at Scale Inside John Deere's Enterprise Design System",
+    metric: "100+ screens on one system",
+    href: "/work/fuel-design-system",
+  },
 ] as const;
 
 export default function FeaturedWork() {
