@@ -3,6 +3,12 @@
   background: var(--color-surface);
   color: var(--color-text);
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.main {
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .scrollSpy {
