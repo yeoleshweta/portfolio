@@ -185,80 +185,55 @@ export default function FuelDesignSystemCaseStudy() {
             Fuel is specified at the foundational level, color, type, and a component library with defined states and redlined measurements for developer handoff. Below is the full system specification as applied to this platform, shown at scale.
           </p>
 
-          <h3 style={{ fontSize: "18px", fontWeight: 700, marginTop: "32px", marginBottom: "16px" }}>Foundations</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", margin: "20px 0" }}>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/spec-01-colors.jpg" alt="Colors spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Color: the brand and semantic palette that the token layer names and every component inherits.</div>
-            </div>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/spec-02-typography.jpg" alt="Typography spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Typography: one family, Source Sans Pro, in a documented ramp. Every text style in the product maps to one of these levels.</div>
+          {/* Full spec sheet — clean scrollable strip */}
+          <div style={{ margin: "32px 0" }}>
+            <div style={{ border: "1px solid var(--color-border)", borderRadius: "12px", overflow: "hidden", background: "#f8f8f6" }}>
+              {/* Buttons — high res, displayed first as standalone feature */}
+              <div style={{ padding: "24px", borderBottom: "1px solid var(--color-border)" }}>
+                <img
+                  src="/assets/fuel/spec-03-buttons.jpg"
+                  alt="Fuel buttons specification with redlines"
+                  style={{ width: "100%", height: "auto", display: "block", borderRadius: "4px" }}
+                />
+                <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "12px", fontStyle: "italic" }}>Buttons: primary, secondary, and value types, each with active and disabled states and pixel-level redlines. The primary button is 150×48, the secondary 150×48, the value button 88×33.</div>
+              </div>
+
+              {/* Dashboard Cards — high res from uploaded asset */}
+              <div style={{ padding: "24px" }}>
+                <img
+                  src="/assets/fuel/media__1784760985282.jpg"
+                  alt="Fuel dashboard cards specification"
+                  style={{ width: "100%", height: "auto", display: "block", borderRadius: "4px" }}
+                />
+                <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "12px", fontStyle: "italic" }}>Dashboard cards: the workhorse family — KPI cards, tabbed metric cards (Daily Delivery, OpsX, Sequence Details, Order Response Time), and chart cards. Each is a composition of the primitive components above, which is the entire point of the system.</div>
+              </div>
             </div>
           </div>
 
-          <h3 style={{ fontSize: "18px", fontWeight: 700, marginTop: "32px", marginBottom: "16px" }}>Core Controls</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", margin: "20px 0" }}>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/spec-03-buttons.jpg" alt="Buttons spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Buttons: three types, each with states, each redlined. The primary is redlined at 150x48.</div>
-            </div>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/spec-04-tabs.jpg" alt="Tabs spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Tabs: active and inactive states with specified dimensions.</div>
-            </div>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "24px", margin: "20px 0" }}>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/spec-05-forms.jpg" alt="Forms spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Forms: inputs specified across every validation state, so error and success behavior is inherited, never improvised.</div>
-            </div>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/spec-06-selection.jpg" alt="Selection controls spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Selection: checkboxes and radios with their full state matrix.</div>
-            </div>
-          </div>
-
-          <h3 style={{ fontSize: "18px", fontWeight: 700, marginTop: "32px", marginBottom: "16px" }}>Feedback & Navigation</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", margin: "20px 0" }}>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/spec-07-notifications.jpg" alt="Notifications spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Notifications: the messaging tokens (error, success, info) expressed as dismissible components.</div>
-            </div>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/spec-08-breadcrumb.jpg" alt="Breadcrumbs spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Breadcrumb: wayfinding for a deep, multi level tool.</div>
-            </div>
-          </div>
-
-          <h3 style={{ fontSize: "18px", fontWeight: 700, marginTop: "32px", marginBottom: "16px" }}>Composed Components</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", margin: "20px 0" }}>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/spec-09-launchpad.jpg" alt="Launchpad cards spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Launchpad card: a first composed component: frame, image, type styles, dimensions.</div>
-            </div>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/spec-10a-dashboard-cards.jpg" alt="Dashboard cards spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Dashboard cards: KPI cards, tabbed metric cards, chart cards, report tables. Each is a composition of the primitives above.</div>
-            </div>
+          {/* Spec note */}
+          <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", borderRadius: "8px", padding: "20px 24px", margin: "24px 0" }}>
+            <p style={{ margin: 0, fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
+              <strong>Why redlines matter.</strong> Each component carries pixel dimensions and every state (default, active, disabled, error, success). That is what makes a component developer ready — the spec, not just the picture, is the deliverable. Working within this discipline is the core of design system practice.
+            </p>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", margin: "20px 0" }}>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "12px" }}>
-              <img src="/assets/fuel/spec-11-graphs.jpg" alt="Graphs spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "11.5px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Graphs: chart components in the system palette, so data-viz stays on-brand without per-screen styling.</div>
+            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#f8f8f6", padding: "12px", display: "flex", flexDirection: "column", gap: "8px" }}>
+              <img src="/assets/fuel/spec-11-graphs.jpg" alt="Graphs spec" style={{ width: "100%", height: "140px", objectFit: "contain", objectPosition: "center", display: "block" }} />
+              <div style={{ fontSize: "11.5px", color: "var(--color-text-secondary)", fontStyle: "italic" }}>Graphs: chart components in the system palette, so data-viz stays on-brand.</div>
             </div>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "12px" }}>
-              <img src="/assets/fuel/spec-12-table.jpg" alt="Tables spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "11.5px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Table: the single most reused component in a data dense product.</div>
+            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#f8f8f6", padding: "12px", display: "flex", flexDirection: "column", gap: "8px" }}>
+              <img src="/assets/fuel/spec-12-table.jpg" alt="Tables spec" style={{ width: "100%", height: "140px", objectFit: "contain", objectPosition: "center", display: "block" }} />
+              <div style={{ fontSize: "11.5px", color: "var(--color-text-secondary)", fontStyle: "italic" }}>Table: the single most reused component in a data dense product.</div>
             </div>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "12px" }}>
-              <img src="/assets/fuel/spec-13-datepicker.jpg" alt="DatePicker spec" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "11.5px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Date picker: calendar input with selection states in the brand green.</div>
+            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#f8f8f6", padding: "12px", display: "flex", flexDirection: "column", gap: "8px" }}>
+              <img src="/assets/fuel/spec-13-datepicker.jpg" alt="DatePicker spec" style={{ width: "100%", height: "140px", objectFit: "contain", objectPosition: "center", display: "block" }} />
+              <div style={{ fontSize: "11.5px", color: "var(--color-text-secondary)", fontStyle: "italic" }}>Date picker: calendar input with selection states in the brand green.</div>
             </div>
           </div>
         </CaseStudySection>
+
+
 
         {/* ============================================ */}
         {/* SECTION: 03: TOKEN LAYER                     */}
@@ -270,9 +245,9 @@ export default function FuelDesignSystemCaseStudy() {
           <p>
             Beneath the visible components sits a tokenized color system, semantic names mapped to values, so a status color is defined once and inherited everywhere. I contributed to this layer: mapping process and status colors to Fuel&apos;s messaging tokens (success, info, warning, error) so state was expressed consistently across dashboards, health cards, and comparison views rather than hand picked per screen.
           </p>
-          <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "20px", margin: "24px 0" }}>
-            <img src="/assets/fuel/tokens-colours.jpg" alt="Color tokens spec" style={{ width: "100%", height: "auto" }} />
-            <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Sub-process color tokens mapped to Fuel messaging color names.</div>
+          <div style={{ border: "1px solid var(--color-border)", borderRadius: "12px", overflow: "hidden", background: "#f8f8f6", padding: "24px", margin: "24px 0" }}>
+            <img src="/assets/fuel/tokens-colours.jpg" alt="Color tokens spec" style={{ width: "100%", height: "auto", display: "block", borderRadius: "4px" }} />
+            <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "12px", fontStyle: "italic" }}>Sub-process color tokens mapped to Fuel messaging color names.</div>
           </div>
           <p style={{ marginTop: "16px" }}>
             Tokens turn a visual decision into a systemic one. When warning is a token rather than a hex value copied into forty screens, changing it is one edit, and every screen stays correct.
@@ -316,24 +291,24 @@ export default function FuelDesignSystemCaseStudy() {
           </p>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", margin: "32px 0" }}>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/screen-dashboard.jpg" alt="Program dashboard" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Program dashboard: health cards, status indicators (the messaging tokens in action), linked data tables, and toolbar actions, all composed from library components.</div>
+            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#f8f8f6" }}>
+              <img src="/assets/fuel/screen-dashboard.jpg" alt="Program dashboard" style={{ width: "100%", height: "auto", display: "block" }} />
+              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", padding: "12px 16px 16px", fontStyle: "italic" }}>Program dashboard: health cards, status indicators (the messaging tokens in action), linked data tables, and toolbar actions, all composed from library components.</div>
             </div>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/screen-createproject.jpg" alt="Create project flow" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Create Project flow: a dense multi section form assembled entirely from Fuel form fields, dropdowns, section cards, side navigation, and primary/secondary buttons.</div>
+            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#f8f8f6" }}>
+              <img src="/assets/fuel/screen-createproject.jpg" alt="Create project flow" style={{ width: "100%", height: "auto", display: "block" }} />
+              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", padding: "12px 16px 16px", fontStyle: "italic" }}>Create Project flow: a dense multi section form assembled entirely from Fuel form fields, dropdowns, section cards, side navigation, and primary/secondary buttons.</div>
             </div>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", margin: "32px 0" }}>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/screen-reports.jpg" alt="Reports and metrics view" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Reports and metrics: the Fuel table, trend graph components, and 24px icon set composed into a VP level metrics view.</div>
+            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#f8f8f6" }}>
+              <img src="/assets/fuel/screen-reports.jpg" alt="Reports and metrics view" style={{ width: "100%", height: "auto", display: "block" }} />
+              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", padding: "12px 16px 16px", fontStyle: "italic" }}>Reports and metrics: the Fuel table, trend graph components, and 24px icon set composed into a VP level metrics view.</div>
             </div>
-            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#fff", padding: "16px" }}>
-              <img src="/assets/fuel/screen-compare.jpg" alt="Release comparison view" style={{ width: "100%", height: "auto" }} />
-              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "8px", fontStyle: "italic" }}>Release comparison: one of the most complex screens in the product, built by repeating the same Fuel table, form, and status components in a side by side structure. Complexity handled through composition, not new UI.</div>
+            <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", background: "#f8f8f6" }}>
+              <img src="/assets/fuel/screen-compare.jpg" alt="Release comparison view" style={{ width: "100%", height: "auto", display: "block" }} />
+              <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", padding: "12px 16px 16px", fontStyle: "italic" }}>Release comparison: one of the most complex screens in the product, built by repeating the same Fuel table, form, and status components in a side by side structure. Complexity handled through composition, not new UI.</div>
             </div>
           </div>
 
