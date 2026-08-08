@@ -91,7 +91,7 @@ const moreProjects = [
   {
     idx: "12",
     tag: "UX Research · Product Design",
-    title: "Team Contract — Making Program Metrics Defensible",
+    title: "Team Contract: Making Program Metrics Defensible",
     metric: "9 participants · ~230 observations",
     href: "/work/team-contract",
   },

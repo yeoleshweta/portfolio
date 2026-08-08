@@ -115,7 +115,7 @@ function PullQuote({ children, cite }: { children: React.ReactNode; cite?: strin
           letterSpacing: "0.08em",
           color: T.muted,
         }}>
-          — {cite}
+          {cite}
         </cite>
       )}
     </blockquote>
@@ -155,12 +155,62 @@ function QuoteList({ quotes }: { quotes: string[] }) {
    pass pending — a clearly-styled placeholder shows the expected
    filename and intended content so gaps stay visible. Once the file
    exists in /public/assets/team-contract/, remove `pending`. */
+function LaptopFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ width: "100%", display: "flex", flexDirection: "column" as const, alignItems: "center" }}>
+      <div style={{
+        width: "92%",
+        background: "#1a1c20",
+        border: "4px solid #1a1c20",
+        borderRadius: "16px 16px 0 0",
+        position: "relative" as const,
+        overflow: "hidden",
+        boxShadow: "0 28px 60px -20px rgba(28, 27, 23, 0.28), inset 0 0 0 1px rgba(255,255,255,0.08)",
+        paddingTop: "14px",
+      }}>
+        <div style={{
+          position: "absolute" as const,
+          top: "6px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "6px",
+          height: "6px",
+          background: "#000",
+          borderRadius: "50%",
+          boxShadow: "0 0 0 1px rgba(255,255,255,0.12)",
+          zIndex: 2,
+        }} />
+        <div style={{ borderRadius: "4px", overflow: "hidden", background: "#fff" }}>
+          {children}
+        </div>
+      </div>
+      <div style={{
+        width: "100%",
+        height: "22px",
+        background: "linear-gradient(180deg, #d3d5d9 0%, #b8bac0 100%)",
+        borderRadius: "6px 6px 22px 22px",
+        boxShadow: "inset 0 1px 1px rgba(255,255,255,0.8), 0 14px 28px rgba(0,0,0,0.12)",
+        display: "flex",
+        justifyContent: "center",
+      }}>
+        <div style={{
+          width: "110px",
+          height: "7px",
+          background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.04) 100%)",
+          borderRadius: "0 0 8px 8px",
+        }} />
+      </div>
+    </div>
+  );
+}
+
 function Figure({
   filename,
   alt,
   caption,
   intent,
   pending = false,
+  laptop = false,
   width = 1600,
   height = 1000,
 }: {
@@ -169,62 +219,65 @@ function Figure({
   caption: string;
   intent?: string;
   pending?: boolean;
+  laptop?: boolean;
   width?: number;
   height?: number;
 }) {
+  const media = pending ? (
+    <div style={{
+      border: laptop ? "none" : `2px dashed ${T.border}`,
+      borderRadius: laptop ? 0 : "8px",
+      background: T.surface,
+      aspectRatio: `${width} / ${height}`,
+      display: "flex",
+      flexDirection: "column" as const,
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "10px",
+      padding: "32px",
+      textAlign: "center" as const,
+      boxSizing: "border-box" as const,
+    }}>
+      <div style={{
+        fontFamily: "JetBrains Mono, monospace",
+        fontSize: "10px",
+        letterSpacing: "0.18em",
+        textTransform: "uppercase" as const,
+        color: T.green,
+        fontWeight: 700,
+      }}>
+        Image pending
+      </div>
+      <div style={{
+        fontFamily: "JetBrains Mono, monospace",
+        fontSize: "13px",
+        color: T.text,
+        fontWeight: 600,
+        wordBreak: "break-all" as const,
+      }}>
+        {filename}
+      </div>
+      {intent && (
+        <p style={{ fontSize: "13.5px", lineHeight: 1.6, color: T.muted, margin: 0, maxWidth: "480px" }}>
+          {intent}
+        </p>
+      )}
+    </div>
+  ) : (
+    <img
+      src={`/assets/team-contract/${filename}`}
+      alt={alt}
+      loading="lazy"
+      width={width}
+      height={height}
+      style={{ width: "100%", height: "auto", display: "block", borderRadius: laptop ? 0 : "6px" }}
+    />
+  );
+
   return (
     <figure style={{ margin: "36px 0" }}>
-      {pending ? (
-        <div style={{
-          border: `2px dashed ${T.border}`,
-          borderRadius: "8px",
-          background: T.surface,
-          aspectRatio: `${width} / ${height}`,
-          display: "flex",
-          flexDirection: "column" as const,
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "10px",
-          padding: "32px",
-          textAlign: "center" as const,
-          boxSizing: "border-box" as const,
-        }}>
-          <div style={{
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: "10px",
-            letterSpacing: "0.18em",
-            textTransform: "uppercase" as const,
-            color: T.green,
-            fontWeight: 700,
-          }}>
-            Image pending
-          </div>
-          <div style={{
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: "13px",
-            color: T.text,
-            fontWeight: 600,
-            wordBreak: "break-all" as const,
-          }}>
-            {filename}
-          </div>
-          {intent && (
-            <p style={{ fontSize: "13.5px", lineHeight: 1.6, color: T.muted, margin: 0, maxWidth: "480px" }}>
-              {intent}
-            </p>
-          )}
-        </div>
-      ) : (
-        <img
-          src={`/assets/team-contract/${filename}`}
-          alt={alt}
-          loading="lazy"
-          width={width}
-          height={height}
-          style={{ width: "100%", height: "auto", display: "block", borderRadius: "6px" }}
-        />
-      )}
-      <figcaption style={{ fontSize: "13px", color: T.muted, marginTop: "10px", fontStyle: "italic", lineHeight: 1.5 }}>
+      {laptop ? <LaptopFrame>{media}</LaptopFrame> : media}
+      <figcaption style={{ fontSize: "13px", color: T.muted, marginTop: "14px", fontStyle: "italic", lineHeight: 1.5 }}>
         {caption}
       </figcaption>
     </figure>
@@ -421,11 +474,11 @@ export default function TeamContractCaseStudy() {
             color: T.text,
             margin: "0 0 20px 0",
           }}>
-            Team Contract — Making Program Metrics Defensible
+            Team Contract: Making Program Metrics Defensible
           </h1>
 
           <p style={{ fontSize: "17px", lineHeight: 1.7, color: T.muted, margin: "0 0 36px 0", maxWidth: "680px" }}>
-            Research-led redesign of John Deere&apos;s program metrics tool — making numbers defensible to leadership.
+            How research shifted John Deere&apos;s program metrics tool from busy data entry to numbers program managers could stand behind.
           </p>
 
           {/* Meta strip */}
@@ -451,24 +504,25 @@ export default function TeamContractCaseStudy() {
       <section id="overview" style={{ padding: "72px 0 64px", background: T.white }}>
         <Wrap>
           <SectionLabel>Summary</SectionLabel>
-          <SectionTitle>Used, but not trusted.</SectionTitle>
+          <SectionTitle>People used it. They did not trust it.</SectionTitle>
 
           <BodyText>
-            Team Contract is the internal application John Deere program managers use to record and report the metrics a product development program is accountable for — cost, schedule, quality, reliability, and risk — across six PDP phases.
+            Team Contract is the internal tool John Deere program managers use to record and report the metrics a product development program is accountable for. That covers cost, schedule, quality, reliability, and risk across six PDP phases.
           </BodyText>
           <BodyText>
-            It was being used, but not trusted. Program managers described it as <em>&ldquo;a tedious data entry tool&rdquo;</em> that produced a static snapshot with no history and no explanation of where numbers came from. The most telling workaround: PMs were <strong>screenshotting the tool and pasting it into PowerPoint</strong> because the tool itself couldn&apos;t produce something they were willing to show leadership.
+            The tool was in use, but it was not trusted. Program managers called it <em>&ldquo;a tedious data entry tool.&rdquo;</em> It showed a static snapshot with no history and no clear story for where the numbers came from. The strongest signal sat in the workaround: PMs were <strong>screenshotting the tool and pasting it into PowerPoint</strong> because the tool itself could not produce something they were willing to show leadership.
           </BodyText>
           <BodyText>
-            I ran the research that reframed the problem — from &ldquo;add more features&rdquo; to &ldquo;make the numbers defensible&rdquo; — and designed the changes that followed.
+            I ran the research that shifted the brief. The question was no longer &ldquo;what features should we add?&rdquo; It became &ldquo;how do we make the numbers defensible?&rdquo; The design work followed from that.
           </BodyText>
 
           <Figure
             filename="01-hero-team-contract-overview.png"
-            alt="Team Contract program overview screen showing program health cards, metric status indicators, and reporting entry points"
-            caption="Team Contract — final program overview."
-            intent="Hero shot — the finished program overview screen. The most polished single screen from the design file."
-            pending
+            alt="Common Segmentation Program Metrics (Team Contract) screen showing a metrics table with title, tolerance, AFE target, upper and lower bounds, current status, and estimate at full production columns"
+            caption="Team Contract program metrics overview inside Common Segmentation."
+            width={1024}
+            height={621}
+            laptop
           />
         </Wrap>
       </section>
@@ -481,19 +535,19 @@ export default function TeamContractCaseStudy() {
           <SectionDivider />
           <div style={{ paddingTop: "56px" }}>
             <SectionLabel>The Problem</SectionLabel>
-            <SectionTitle>Friction at both ends of its own workflow.</SectionTitle>
+            <SectionTitle>Hard to fill in. Harder to stand behind.</SectionTitle>
 
             <BodyText>
-              Team Contract sat at the centre of program reporting but generated friction at both ends of its own workflow.
+              Team Contract sat at the centre of program reporting, and it created friction on both sides of the job.
             </BodyText>
             <BodyText>
-              <strong>Entering data was expensive.</strong> Metrics were numerous, validation was aggressive and unclear, and much of the input was manual. One participant described chasing colleagues for numbers: <em>&ldquo;Tedious to go and ask people to add data.&rdquo;</em>
+              <strong>Getting data in took too much effort.</strong> There were many metrics. Validation was strict and unclear. A lot of the input was still manual. One participant described chasing colleagues for numbers: <em>&ldquo;Tedious to go and ask people to add data.&rdquo;</em>
             </BodyText>
             <BodyText>
-              <strong>The output wasn&apos;t usable.</strong> What came out was a point-in-time snapshot — no trends, no change history, no context for why a number looked the way it did. A red metric on a dashboard, with no history and no provenance, is not a conversation a PM can win.
+              <strong>What came out was hard to use.</strong> The tool showed a snapshot in time. There were no trends, no change history, and no context for why a number looked the way it did. A red metric with no history and no source is not a conversation a program manager can win.
             </BodyText>
 
-            <PullQuote cite="Program Management Group (P7–P9) session">
+            <PullQuote cite="Program Management Group (P7 to P9) session">
               &ldquo;Difficulty in explaining red metrics to senior leadership without context.&rdquo;
             </PullQuote>
 
@@ -502,7 +556,7 @@ export default function TeamContractCaseStudy() {
             </PullQuote>
 
             <BodyText>
-              The consequence: effort went in, but the artefact leadership actually saw was a screenshot in a slide deck. The tool was doing the work and getting none of the credit — and PMs carried the risk.
+              So the effort went into the tool, and leadership still saw a screenshot in a slide deck. The product did the work and got none of the credit. Program managers carried the risk.
             </BodyText>
 
             <PullQuote>
@@ -520,10 +574,10 @@ export default function TeamContractCaseStudy() {
           <SectionDivider />
           <div style={{ paddingTop: "56px" }}>
             <SectionLabel>Research</SectionLabel>
-            <SectionTitle>Five sessions, nine participants, one shared board.</SectionTitle>
+            <SectionTitle>Five sessions. Nine people. One shared board.</SectionTitle>
 
             <BodyText>
-              <strong>Method:</strong> 5 semi-structured interview sessions with 9 participants across the roles that touch a team contract — Product Owner, Program Managers, and engineering/corporate stakeholders. Sessions were recorded, transcribed, and synthesised on a shared FigJam board.
+              I ran five interview sessions with nine participants across the roles that touch a team contract: the Product Owner, program managers, and engineering and corporate stakeholders. We recorded the sessions, transcribed them, and synthesised everything on a shared FigJam board.
             </BodyText>
 
             <SubHeading>Participants</SubHeading>
@@ -550,16 +604,16 @@ export default function TeamContractCaseStudy() {
                 <tr>
                   <Td strong>3</Td>
                   <Td>Program Manager (P3)</Td>
-                  <Td>Program Manager (6–8 yrs using TC)</Td>
+                  <Td>Program Manager (6 to 8 years using Team Contract)</Td>
                 </tr>
                 <tr>
                   <Td strong>4</Td>
-                  <Td>Engineering &amp; Corporate Stakeholders (P4–P6)</Td>
-                  <Td>Engineering / corporate monitoring</Td>
+                  <Td>Engineering and Corporate Stakeholders (P4 to P6)</Td>
+                  <Td>Engineering and corporate monitoring</Td>
                 </tr>
                 <tr>
                   <Td strong>5</Td>
-                  <Td>Program Management Group (P7–P9)</Td>
+                  <Td>Program Management Group (P7 to P9)</Td>
                   <Td>Program management group</Td>
                 </tr>
               </tbody>
@@ -567,27 +621,27 @@ export default function TeamContractCaseStudy() {
 
             <Figure
               filename="02-research-board-sessions.png"
-              alt="Zoomed-out FigJam research board showing five interview session sections filled with sticky-note observations"
-              caption="Research board — 5 interview sessions."
-              intent="Zoomed-out view of the 5 interview sections on the FigJam board, showing the scale of the research."
-              pending
+              alt="FigJam research board with a summary section and three colour coded columns of sticky note observations from interview sessions"
+              caption="Research board with interview sessions captured as sticky notes."
+              width={1024}
+              height={630}
             />
 
             <SubHeading>Synthesis</SubHeading>
             <BodyText>
-              ~230 observations were affinity-mapped into four lenses — <strong>Current Status</strong> (what the tool does today), <strong>Confusion</strong> (where understanding breaks), <strong>Reaction</strong> (how users feel about it), and <strong>Improvement</strong> (what they ask for) — then reduced to a prioritised set of actionable items.
+              Roughly 230 observations were affinity mapped into four lenses: <strong>Current Status</strong> (what the tool does today), <strong>Confusion</strong> (where understanding breaks), <strong>Reaction</strong> (how users feel about it), and <strong>Improvement</strong> (what they ask for). From there, we reduced the board to a prioritised set of actions.
             </BodyText>
 
             <Figure
               filename="03-affinity-clusters.png"
-              alt="Affinity map with four labelled columns of clustered sticky notes: Confusion, Reaction, Improvement, and Current Status"
-              caption="Affinity mapping — Confusion, Reaction, Improvement, Current Status."
-              intent="The four affinity columns: Confusion / Reaction / Improvement / Current Status."
-              pending
+              alt="Affinity map with four labelled clusters of sticky notes: Confusion, Reaction, Improvement, and Current Status"
+              caption="Affinity mapping across Confusion, Reaction, Improvement, and Current Status."
+              width={1024}
+              height={826}
             />
 
             <BodyText>
-              Splitting <em>Confusion</em> from <em>Reaction</em> mattered. Confusion pointed at interface and information problems I could design against. Reaction pointed at a credibility problem — users disliked the tool not because it was hard, but because the effort didn&apos;t come back to them as value. Those needed different responses.
+              Splitting <em>Confusion</em> from <em>Reaction</em> mattered. Confusion pointed at interface and information problems I could design against. Reaction pointed at a credibility problem. People disliked the tool not because it was hard, but because the effort did not come back to them as value. Those two problems needed different responses.
             </BodyText>
           </div>
         </Wrap>
@@ -605,7 +659,7 @@ export default function TeamContractCaseStudy() {
 
             <SubHeading>1. The tool captured state, not change</SubHeading>
             <BodyText>
-              The single most repeated gap. Team Contract showed where a metric stood, never how it got there.
+              This was the gap we heard most often. Team Contract showed where a metric stood. It never showed how it got there.
             </BodyText>
             <QuoteList quotes={[
               "Static view, snapshot of current status.",
@@ -614,15 +668,15 @@ export default function TeamContractCaseStudy() {
               "Missing historical context.",
             ]} />
             <BodyText>
-              Without history, a metric turning red is an accusation rather than information. Participants asked repeatedly for trends, change history, and — notably — the <em>reason</em> a value changed, not just the value.
+              Without history, a metric turning red feels like an accusation, not information. Participants asked again and again for trends, change history, and especially the <em>reason</em> a value changed, not just the value itself.
             </BodyText>
             <PullQuote>
               &ldquo;Desire for change comments feature.&rdquo;
             </PullQuote>
 
-            <SubHeading>2. Validation obstructed instead of guiding</SubHeading>
+            <SubHeading>2. Validation got in the way instead of helping</SubHeading>
             <BodyText>
-              Validation was experienced as an obstacle course: errors surfaced late, were hard to locate, and were written in language that didn&apos;t explain the fix.
+              People experienced validation like an obstacle course. Errors showed up late, were hard to find, and were written in language that did not explain the fix.
             </BodyText>
             <QuoteList quotes={[
               "Validations causing errors when saving.",
@@ -631,9 +685,9 @@ export default function TeamContractCaseStudy() {
               "Too many validations.",
             ]} />
 
-            <SubHeading>3. Users didn&apos;t know what a field wanted</SubHeading>
+            <SubHeading>3. Users did not know what a field wanted</SubHeading>
             <BodyText>
-              Metric definitions were inconsistent across the organisation, so the same field was filled differently by different teams — which quietly undermined every roll-up report built on top of it.
+              Metric definitions were inconsistent across the organisation. The same field got filled differently by different teams. That quietly weakened every roll up report built on top of it.
             </BodyText>
             <PullQuote cite="Program Manager (P2)">
               &ldquo;What is meant by upper &amp; lower bounds, and what data should be added there.&rdquo;
@@ -643,9 +697,9 @@ export default function TeamContractCaseStudy() {
               "Metrics without context create confusion.",
             ]} />
 
-            <SubHeading>4. One structure didn&apos;t fit every program</SubHeading>
+            <SubHeading>4. One structure did not fit every program</SubHeading>
             <BodyText>
-              Programs differ by product line, scale, and season. A fixed metric set forced irrelevant fields on some programs and omitted what others needed.
+              Programs differ by product line, scale, and season. A fixed metric set forced irrelevant fields on some programs and left out what others actually needed.
             </BodyText>
             <QuoteList quotes={[
               "Not a one tool fits all.",
@@ -656,7 +710,7 @@ export default function TeamContractCaseStudy() {
 
             <SubHeading>5. The workarounds told us what was missing</SubHeading>
             <BodyText>
-              Where a tool fails, people build around it — and the workaround is a specification.
+              When a tool fails, people build around it. That workaround is often the clearest specification of what they need.
             </BodyText>
 
             <ScrollTable label="Workarounds observed and what each revealed">
@@ -668,20 +722,20 @@ export default function TeamContractCaseStudy() {
               </thead>
               <tbody>
                 <tr>
-                  <Td strong>Screenshotting TC into presentations</Td>
-                  <Td>Reporting output wasn&apos;t presentation-ready</Td>
+                  <Td strong>Screenshotting Team Contract into presentations</Td>
+                  <Td>Reporting output was not ready to show leadership</Td>
                 </tr>
                 <tr>
                   <Td strong>Parallel tracking in Power BI, Tableau, spreadsheets, SharePoint</Td>
-                  <Td>Visualisation and flexibility gaps</Td>
+                  <Td>Gaps in visualisation and flexibility</Td>
                 </tr>
                 <tr>
                   <Td strong>Manually chasing colleagues for updates</Td>
-                  <Td>No nudge or reminder mechanism</Td>
+                  <Td>No nudge or reminder in the product</Td>
                 </tr>
                 <tr>
                   <Td strong>Separate personal scorecards</Td>
-                  <Td>Metric set didn&apos;t match real accountability</Td>
+                  <Td>The metric set did not match real accountability</Td>
                 </tr>
               </tbody>
             </ScrollTable>
@@ -697,10 +751,10 @@ export default function TeamContractCaseStudy() {
           <SectionDivider />
           <div style={{ paddingTop: "56px" }}>
             <SectionLabel>From Findings to Design Decisions</SectionLabel>
-            <SectionTitle>Each design move traces to a specific finding.</SectionTitle>
+            <SectionTitle>Each design move came from a finding, not a feature request.</SectionTitle>
 
             <BodyText>
-              Each design move traces to a specific finding rather than a feature request.
+              Once the research settled, the design work was not a wish list. Each change traced back to something people had shown us or said out loud.
             </BodyText>
 
             <ScrollTable label="Design decisions traced to research findings">
@@ -708,60 +762,53 @@ export default function TeamContractCaseStudy() {
                 <tr>
                   <Th style={{ minWidth: "170px" }}>Finding</Th>
                   <Th style={{ minWidth: "200px" }}>Design response</Th>
-                  <Th style={{ minWidth: "240px" }}>Rationale</Th>
+                  <Th style={{ minWidth: "240px" }}>Why it mattered</Th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <Td strong>No history; can&apos;t explain a red metric</Td>
-                  <Td>Historical tracking + <strong>change-reason capture</strong></Td>
-                  <Td>A value change is only defensible with its justification attached. Capturing <em>why</em> at the moment of edit is what makes the later conversation survivable.</Td>
+                  <Td strong>No history, so a red metric could not be explained</Td>
+                  <Td>Historical tracking plus capturing the reason for a change</Td>
+                  <Td>A changed value only holds up later if the &ldquo;why&rdquo; was recorded when it was edited.</Td>
                 </tr>
                 <tr>
-                  <Td strong>Validation blocks and confuses</Td>
-                  <Td>Inline, contextual validation with plain-language messages and direct links to the offending field</Td>
-                  <Td>Move error handling from save-time gate to in-context guidance</Td>
+                  <Td strong>Validation blocked people and confused them</Td>
+                  <Td>Inline validation with plain language messages and a link to the field</Td>
+                  <Td>Move help to the moment of editing instead of failing at save.</Td>
                 </tr>
                 <tr>
-                  <Td strong>Users unsure what a field wants</Td>
-                  <Td>Field-level definitions and guidance surfaced at point of entry</Td>
-                  <Td>Standardises input, which protects every downstream roll-up</Td>
+                  <Td strong>Users were unsure what a field wanted</Td>
+                  <Td>Field definitions and guidance shown at the point of entry</Td>
+                  <Td>Clearer input protects every report that rolls up from it.</Td>
                 </tr>
                 <tr>
-                  <Td strong>One structure doesn&apos;t fit all programs</Td>
-                  <Td>Configurable metric selection; toggleable metrics per program</Td>
-                  <Td>Relevance is what makes the effort feel worth it</Td>
+                  <Td strong>One structure did not fit all programs</Td>
+                  <Td>Configurable metric selection per program</Td>
+                  <Td>People will put in the effort when the fields feel relevant.</Td>
                 </tr>
                 <tr>
-                  <Td strong>Snapshot output isn&apos;t presentable</Td>
-                  <Td>Improved reporting and data visualisation; export that isn&apos;t a screenshot</Td>
-                  <Td>Replace the workaround rather than tolerate it</Td>
+                  <Td strong>Snapshot output was not ready to present</Td>
+                  <Td>Stronger reporting and visualisation, with export that is not a screenshot</Td>
+                  <Td>Replace the workaround instead of living with it.</Td>
                 </tr>
                 <tr>
-                  <Td strong>Chasing people for updates</Td>
-                  <Td>Reminder / &ldquo;poke&rdquo; mechanism</Td>
-                  <Td>Removes the manual social overhead PMs were absorbing</Td>
+                  <Td strong>People were chasing colleagues for updates</Td>
+                  <Td>Reminder or &ldquo;poke&rdquo; mechanism</Td>
+                  <Td>Remove the manual chasing program managers had been absorbing.</Td>
                 </tr>
                 <tr>
-                  <Td strong>Parallel tracking in other tools</Td>
-                  <Td>Import/export and integration paths</Td>
-                  <Td>Meet users where their data already lives</Td>
+                  <Td strong>Parallel tracking lived in other tools</Td>
+                  <Td>Import, export, and integration paths</Td>
+                  <Td>Meet users where their data already lives.</Td>
                 </tr>
                 <tr>
-                  <Td strong>Red/yellow/green found genuinely useful</Td>
+                  <Td strong>Red, yellow, and green status was genuinely useful</Td>
                   <Td>Kept and extended the indicator system</Td>
-                  <Td>One of the few things users volunteered as working — preserve it</Td>
+                  <Td>One of the few things users volunteered as working. Keep it.</Td>
                 </tr>
               </tbody>
             </ScrollTable>
 
-            <Figure
-              filename="04-findings-to-decisions.png"
-              alt="Diagram connecting each research finding to its corresponding design decision"
-              caption="Design decisions traced to research findings."
-              intent="Optional — a simple findings-to-decisions diagram. Can be built from the table above if no artefact exists."
-              pending
-            />
           </div>
         </Wrap>
       </section>
@@ -774,79 +821,79 @@ export default function TeamContractCaseStudy() {
           <SectionDivider />
           <div style={{ paddingTop: "56px" }}>
             <SectionLabel>The Design</SectionLabel>
-            <SectionTitle>From data dump to defensible numbers.</SectionTitle>
+            <SectionTitle>From a pile of data to numbers people could defend.</SectionTitle>
 
-            <SubHeading>Program overview — from data dump to program health</SubHeading>
+            <SubHeading>Program overview: from a pile of data to program health</SubHeading>
             <BodyText>
-              The overview was rebuilt around a modular card system: each block of program information is self-contained and rearrangeable, so a program manager can foreground what their program is actually judged on.
+              We rebuilt the overview around modular cards. Each block of program information can stand on its own and be rearranged, so a program manager can put what they are judged on up front.
             </BodyText>
             <PullQuote>
               &ldquo;One-stop shop for program health overview.&rdquo;
             </PullQuote>
             <Figure
               filename="05-program-overview-modular-cards.png"
-              alt="Redesigned program overview composed of self-contained, rearrangeable cards for each block of program information"
-              caption="Program overview — modular cards."
-              intent="Program overview with modular / rearrangeable cards."
-              pending
+              alt="Reports (Team Contract) section showing a Detailed Program Health Card with modular report icons including Risk Dashboard, Phase Activity Dashboard, Portfolio Schedule, and Score Card"
+              caption="Program overview with modular report cards for program health."
+              width={1024}
+              height={179}
             />
 
             <BodyText>
-              Status indicators were retained and strengthened — the red/yellow/green language was the one element participants consistently reported as useful.
+              Status indicators stayed and got stronger. Red, yellow, and green was the one part of the interface participants consistently said was useful.
             </BodyText>
             <Figure
               filename="06-status-indicators.png"
-              alt="Close-up of metric cards with red, yellow, and green status indicators"
-              caption="Status indicators and metric cards."
-              intent="Close-up of red/yellow/green indicators and metric cards."
-              pending
+              alt="Metrics table with Title, Target, Current, and Trends columns, using red, orange, and green status colours plus sparklines for Dec to Feb"
+              caption="Status indicators with colour coded current values and trend history."
+              width={1024}
+              height={549}
             />
 
-            <SubHeading>Metric entry — guidance at the point of decision</SubHeading>
+            <SubHeading>Metric entry: guidance when it matters</SubHeading>
             <BodyText>
-              Entry screens carry definitions and expected-value guidance inline, so the question <em>&ldquo;what goes in this field?&rdquo;</em> is answered where it&apos;s asked rather than in a separate document.
+              Entry screens now carry definitions and guidance inline. The question <em>&ldquo;what goes in this field?&rdquo;</em> gets answered where it is asked, not in a separate document.
             </BodyText>
             <Figure
               filename="07-metric-entry-guidance.png"
-              alt="Metric entry form showing inline field definitions and expected-value guidance beside each input"
-              caption="Metric entry with inline guidance."
-              intent="Metric entry screen showing inline field guidance and definitions."
-              pending
+              alt="Metric row for Weighted Net Sales Per Unit with an info tooltip explaining green, yellow, and red status meanings for metric completion"
+              caption="Metric entry with info guidance at the moment of decision."
+              width={1024}
+              height={125}
             />
 
-            <SubHeading>Validation — corrective, not obstructive</SubHeading>
+            <SubHeading>Validation that helps, instead of blocking</SubHeading>
             <BodyText>
-              Errors are surfaced in context with plain-language explanation and a path to the specific field, replacing the save-time failure that participants found hardest to resolve.
+              Errors now show up in context with a short plain language explanation and a clear path to the field. That replaces the save time failure participants found hardest to resolve.
             </BodyText>
             <Figure
               filename="08-validation-states.png"
-              alt="Form validation states showing in-context, plain-language error messages linked to the specific fields that need fixing"
-              caption="Validation states."
-              intent="Validation error states — ideally before/after, or the improved inline version."
-              pending
+              alt="Metric row with red bordered fields and short inline messages under empty value and date inputs"
+              caption="Validation states with short inline messages at the field."
+              width={1024}
+              height={79}
             />
 
-            <SubHeading>History and change reasons — the defensibility layer</SubHeading>
+            <SubHeading>History and change reasons: the defensibility layer</SubHeading>
             <BodyText>
-              The change most directly tied to the core finding: metric history alongside the reason recorded at the time of change. This is what converts a red metric from an accusation into an explainable position.
+              This change sits closest to the core finding. Metric history sits next to the reason recorded when the value changed. That is what turns a red metric from an accusation into something a program manager can explain.
             </BodyText>
             <Figure
               filename="09-history-change-reasons.png"
               alt="Metric history view listing past values alongside the reason captured at the time of each change"
               caption="Historical tracking and change reasons."
-              intent="Historical tracking view and/or the change-reason capture field."
+              intent="Historical tracking view and/or the change reason capture field."
               pending
             />
 
-            <SubHeading>Reporting — replacing the screenshot</SubHeading>
+            <SubHeading>Reporting that replaces the screenshot</SubHeading>
             <BodyText>
-              Reporting output was reworked so the artefact leaving the tool is the artefact shown to leadership.
+              We reworked reporting so the thing that leaves the tool is the thing shown to leadership.
             </BodyText>
             <Figure
               filename="10-reporting-visualisation.png"
               alt="Reporting output with data visualisations designed to be shown to leadership directly, without screenshotting"
               caption="Reporting and data visualisation."
-              intent="Reporting / data visualisation output."
+              intent="Reporting and data visualisation output."
               pending
             />
           </div>
@@ -861,20 +908,20 @@ export default function TeamContractCaseStudy() {
           <SectionDivider />
           <div style={{ paddingTop: "56px" }}>
             <SectionLabel>Working in the Fuel Design System</SectionLabel>
-            <SectionTitle>Native Fuel, not bolted on.</SectionTitle>
+            <SectionTitle>Built to feel like native Fuel.</SectionTitle>
 
             <BodyText>
-              The work was built in <strong>Fuel</strong>, John Deere&apos;s enterprise design system. I composed screens from existing Fuel Kernel components — navigation, tables, form fields, buttons, status indicators — and extended new variants where the domain required patterns Fuel didn&apos;t yet cover, keeping token, state, and interaction conventions consistent so they read as native Fuel rather than bolted on.
+              The work lived inside <strong>Fuel</strong>, John Deere&apos;s enterprise design system. I composed screens from existing Fuel Kernel components such as navigation, tables, form fields, buttons, and status indicators. Where the domain needed patterns Fuel did not yet cover, I extended new variants and kept the tokens, states, and interactions consistent so the additions read as part of Fuel, not stuck on top of it.
             </BodyText>
             <BodyText>
-              Extended components were documented with full state coverage (default, focus, filled, error, disabled) and delivered as developer-ready specs.
+              Extended components were documented with full state coverage (default, focus, filled, error, disabled) and handed off as developer ready specs.
             </BodyText>
 
             <Figure
               filename="11-fuel-components-variants.png"
               alt="Fuel design system components used in Team Contract alongside the extended variants, documented with full state coverage"
-              caption="Fuel components and extended variants."
-              intent="Fuel components used + extended variants, with state coverage (default, focus, filled, error, disabled)."
+              caption="Fuel components and the variants we extended."
+              intent="Fuel components used plus extended variants, with state coverage (default, focus, filled, error, disabled)."
               pending
             />
           </div>
@@ -892,13 +939,13 @@ export default function TeamContractCaseStudy() {
             <SectionTitle>What the work taught me.</SectionTitle>
 
             <BodyText>
-              <strong>Research reframed the brief.</strong> The work arrived as a list of feature requests. The interviews showed the requests shared one root: users couldn&apos;t explain their own numbers. Solving for explainability addressed most of the list at once — and made it clear which requests could wait.
+              <strong>Research reframed the brief.</strong> The work arrived as a list of feature requests. The interviews showed those requests shared one root: users could not explain their own numbers. Solving for that addressed most of the list at once, and made it clear which requests could wait.
             </BodyText>
             <BodyText>
-              <strong>Workarounds were the most useful data.</strong> The PowerPoint screenshot was worth more than any feature request, because it showed precisely where the tool stopped being trusted, and what &ldquo;good&rdquo; looked like to the user.
+              <strong>Workarounds were the most useful data.</strong> The PowerPoint screenshot was worth more than any feature request. It showed exactly where the tool stopped being trusted, and what &ldquo;good&rdquo; looked like to the user.
             </BodyText>
             <BodyText>
-              <strong>Separating confusion from reaction changed what I designed.</strong> Confusion was an interface problem. Reaction was a value problem. Only fixing the first would have produced a clearer tool that people still resented filling in.
+              <strong>Separating confusion from reaction changed what I designed.</strong> Confusion was an interface problem. Reaction was a value problem. Fixing only the first would have produced a clearer tool that people still resented filling in.
             </BodyText>
 
             {/* Credits */}
@@ -907,7 +954,7 @@ export default function TeamContractCaseStudy() {
                 Credits
               </div>
               <BodyText style={{ margin: 0 }}>
-                Research, synthesis, and design — Shweta Sharma. Participant quotes are attributed to anonymised role labels (P1–P9).
+                Research, synthesis, and design by Shweta Sharma. Participant quotes are attributed to anonymised role labels (P1 to P9).
               </BodyText>
             </div>
           </div>

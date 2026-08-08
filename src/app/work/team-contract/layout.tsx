@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-const title = "Team Contract — Making Program Metrics Defensible | Shweta Sharma";
+const title = "Team Contract: Making Program Metrics Defensible | Shweta Sharma";
 const description =
-  "Research-led redesign of John Deere's program metrics tool — making numbers defensible to leadership. UX research and product design in the Fuel design system.";
+  "A research led redesign of John Deere's program metrics tool that helps program managers defend their numbers to leadership. UX research and product design in the Fuel design system.";
 const heroImage = "/assets/team-contract/01-hero-team-contract-overview.png";
 
 export const metadata: Metadata = {
