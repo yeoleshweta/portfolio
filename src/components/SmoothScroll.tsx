@@ -22,8 +22,10 @@ export default function SmoothScroll({
       wheelMultiplier: 1,
       touchMultiplier: 2,
       prevent: (node: Element) => {
-        // Allow native scrolling inside the Klyro widget
-        return !!node.closest("#klyro-widget, .klyro-widget, [data-klyro]");
+        // Allow native scrolling inside nested scroll areas / third-party widgets
+        return !!node.closest(
+          "#klyro-widget, .klyro-widget, [data-klyro], [data-lenis-prevent]",
+        );
       },
     });
 
