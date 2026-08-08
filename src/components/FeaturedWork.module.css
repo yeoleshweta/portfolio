@@ -1,18 +1,16 @@
 /*
- * FeaturedWork.module.css — Analog Blueprint layout
- * Fonts + colors aligned to portfolio design system.
- * Layout, grid, corner marks, grid-paper texture: unchanged.
+ * FeaturedWork — hybrid layout:
+ * 2 fixed featured cards + horizontal "more work" scroll (3 visible).
  */
 
-/* ── Section wrapper ── */
 .section {
   background: #f2f2f2;
   position: relative;
   z-index: 20;
   padding: 96px 0 104px;
+  overflow: hidden;
 }
 
-/* Grid-paper background */
 .section::before {
   content: "";
   position: absolute;
@@ -25,23 +23,21 @@
   pointer-events: none;
 }
 
-/* ── Container ── */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 48px;
   position: relative;
   z-index: 1;
+  pointer-events: auto;
 }
 
-/* ── Header ── */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: 48px;
 }
-
 
 .eyebrow {
   font-family: "IBM Plex Sans", sans-serif;
@@ -88,15 +84,11 @@
   letter-spacing: -1px;
 }
 
-/* ── Featured 2-col grid ── */
+/* ── Featured 2-col ── */
 .featuredGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  background: #e8e8e8;
-  border: 1px solid #e8e8e8;
-  border-radius: 6px 6px 0 0;
-  overflow: hidden;
+  gap: 14px;
 }
 
 .featuredCard {
@@ -104,47 +96,24 @@
   z-index: 50;
   padding: 44px 40px;
   background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
   text-decoration: none;
   color: inherit;
-  transition: background 0.25s ease;
+  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
   display: flex;
   flex-direction: column;
   cursor: pointer;
   pointer-events: auto;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
 .featuredCard:hover {
   background: rgba(139, 105, 250, 0.04);
+  border-color: rgba(139, 105, 250, 0.35);
+  box-shadow: 0 8px 24px rgba(28, 28, 28, 0.06);
 }
 
-/* ── Engineering corner marks ── */
-.cornerTL,
-.cornerTR,
-.cornerBL,
-.cornerBR {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-color: #8b69fa;
-  border-style: solid;
-  opacity: 0.25;
-  transition: opacity 0.25s ease;
-  pointer-events: none;
-}
-
-.featuredCard:hover .cornerTL,
-.featuredCard:hover .cornerTR,
-.featuredCard:hover .cornerBL,
-.featuredCard:hover .cornerBR {
-  opacity: 0.6;
-}
-
-.cornerTL { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
-.cornerTR { top: 10px; right: 10px; border-width: 1px 1px 0 0; }
-.cornerBL { bottom: 10px; left: 10px; border-width: 0 0 1px 1px; }
-.cornerBR { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
-
-/* ── Card content ── */
 .cardTag {
   font-family: "IBM Plex Sans", sans-serif;
   font-size: 10px;
@@ -226,49 +195,140 @@
   gap: 14px;
 }
 
-/* ── // more work divider ── */
+/* ── Divider ── */
 .divider {
   position: relative;
   z-index: 2;
   height: 1px;
-  background: #e8e8e8;
-  margin: 28px 0;
+  background: #e0e0e0;
+  margin: 36px 0 28px;
 }
 
-.divider::after {
-  content: "// more work";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.moreHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 60;
+  pointer-events: auto;
+}
+
+.moreLabel {
   font-family: "IBM Plex Sans", sans-serif;
   font-size: 11px;
   font-weight: 700;
   color: #666;
-  background: #f2f2f2;
-  padding: 0 16px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  white-space: nowrap;
 }
 
-/* ── More projects 3-col grid ── */
-.moreGrid {
+.scrollControls {
+  /* Two fixed slots: hide arrows via conditional render without layout jump */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  background: #e8e8e8;
-  border: 1px solid #e8e8e8;
-  border-radius: 0 0 6px 6px;
-  overflow: hidden;
+  grid-template-columns: 36px 36px;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 60;
+  pointer-events: auto;
+}
+
+.scrollSlot {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 60;
+  pointer-events: none; /* empty slot never steals clicks */
+}
+
+.scrollSlot > .scrollArrow {
+  pointer-events: auto;
+}
+
+/* ── More work horizontal scroll — 3 cards visible ── */
+.scrollArrow {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease;
+  /* Above mini cards (z-index 50) so page overlays don't steal clicks */
+  position: relative;
+  z-index: 60;
+  pointer-events: auto;
+  isolation: isolate;
+}
+
+.scrollArrow:hover {
+  border-color: rgba(26, 26, 26, 0.28);
+  color: #1a1a1a;
+  background: #fafafa;
+}
+
+.scrollArrow:focus-visible {
+  outline: 2px solid #1a1a1a;
+  outline-offset: 2px;
+}
+
+.moreScroll {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 2px 22px;
+  background: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 105, 250, 0.35) transparent;
+  pointer-events: auto;
+}
+
+.moreScroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.moreScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.moreScroll::-webkit-scrollbar-thumb {
+  background: rgba(139, 105, 250, 0.3);
+  border-radius: 999px;
 }
 
 .miniCard {
+  /* 3 cards + 2 gaps (14px) fit the container width */
+  flex: 0 0 calc((100% - 28px) / 3);
+  scroll-snap-align: start;
   padding: 22px;
   background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
   text-decoration: none;
   color: inherit;
-  transition: background 0.2s ease;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
   position: relative;
   z-index: 50;
   cursor: pointer;
@@ -276,10 +336,11 @@
 }
 
 .miniCard:hover {
-  background: rgba(139, 105, 250, 0.04);
+  border-color: rgba(139, 105, 250, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28, 28, 28, 0.06);
 }
 
-/* ── Mini card internals ── */
 .miniTop {
   display: flex;
   justify-content: space-between;
@@ -312,7 +373,7 @@
   letter-spacing: -0.02em;
   color: #1a1a1a;
   line-height: 1.4;
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   transition: color 0.2s ease;
 }
 
@@ -322,12 +383,13 @@
 
 .miniMetric {
   font-family: "IBM Plex Sans", sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   color: #8b69fa;
+  margin: auto 0 0;
+  line-height: 1.4;
 }
 
-/* ── Responsive ── */
 @media (max-width: 1024px) {
   .container {
     padding: 0 32px;
@@ -339,6 +401,10 @@
 
   .featuredCard {
     padding: 36px 32px;
+  }
+
+  .miniCard {
+    flex-basis: calc((100% - 14px) / 2);
   }
 }
 
@@ -370,13 +436,23 @@
     grid-template-columns: 1fr;
   }
 
-  .moreGrid {
-    grid-template-columns: 1fr 1fr;
+  .scrollControls {
+    grid-template-columns: 32px 32px;
+    gap: 6px;
   }
-}
 
-@media (max-width: 480px) {
-  .moreGrid {
-    grid-template-columns: 1fr;
+  .scrollSlot {
+    width: 32px;
+    height: 32px;
+  }
+
+  .scrollArrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .miniCard {
+    flex-basis: min(280px, 85%);
+    min-height: 168px;
   }
 }

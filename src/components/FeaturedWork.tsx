@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import styles from "./FeaturedWork.module.css";
 
@@ -97,12 +98,96 @@ const moreProjects = [
   },
 ] as const;
 
+const CARD_GAP = 14;
+/** Ignore sub-pixel / snap residual so edge arrows hide cleanly. */
+const SCROLL_EDGE_EPS = 8;
+
+function ArrowIcon({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {direction === "left" ? (
+        <polyline points="15 18 9 12 15 6" />
+      ) : (
+        <polyline points="9 18 15 12 9 6" />
+      )}
+    </svg>
+  );
+}
+
 export default function FeaturedWork() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const updateScrollState = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = el;
+      const maxScroll = Math.max(0, scrollWidth - clientWidth);
+      setCanScrollLeft(scrollLeft > SCROLL_EDGE_EPS);
+      setCanScrollRight(maxScroll > SCROLL_EDGE_EPS && scrollLeft < maxScroll - SCROLL_EDGE_EPS);
+    };
+
+    const normalizeStart = () => {
+      // Clear tiny residual offset from snap/layout so left arrow stays hidden at start.
+      if (el.scrollLeft > 0 && el.scrollLeft < SCROLL_EDGE_EPS) {
+        el.scrollLeft = 0;
+      }
+      updateScrollState();
+    };
+
+    normalizeStart();
+    // Re-measure after layout settles (flex card widths can lag first paint).
+    const raf = requestAnimationFrame(normalizeStart);
+
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    const ro = new ResizeObserver(updateScrollState);
+    ro.observe(el);
+    window.addEventListener("resize", updateScrollState);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener("scroll", updateScrollState);
+      ro.disconnect();
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, []);
+
+  const scrollByCard = (direction: -1 | 1) => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const card = el.querySelector<HTMLElement>("[data-mini-card]");
+    const amount = card
+      ? card.offsetWidth + CARD_GAP
+      : Math.max(el.clientWidth / 3, 240);
+    el.scrollTo({ left: el.scrollLeft + direction * amount, behavior: "smooth" });
+  };
+
+  const handleArrowClick = (
+    event: MouseEvent<HTMLButtonElement>,
+    direction: -1 | 1,
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+    scrollByCard(direction);
+  };
+
   return (
     <section id="work" className={styles.section}>
       <div className={styles.container}>
-
-        {/* ── Header ── */}
         <div className={styles.header}>
           <div className={styles.headerLeft}>
             <p className={styles.eyebrow}>// featured_work.index</p>
@@ -119,7 +204,6 @@ export default function FeaturedWork() {
           </div>
         </div>
 
-        {/* ── Featured 2-col cards ── */}
         <div className={styles.featuredGrid}>
           {featuredProjects.map((p) => (
             <Link key={p.href} href={p.href} className={styles.featuredCard}>
@@ -139,13 +223,56 @@ export default function FeaturedWork() {
           ))}
         </div>
 
-        {/* ── Divider ── */}
         <div className={styles.divider} />
 
-        {/* ── More projects 3-col ── */}
-        <div className={styles.moreGrid}>
+        <div className={styles.moreHeader}>
+          <span className={styles.moreLabel}>// more work</span>
+          <div className={styles.scrollControls} aria-hidden={!canScrollLeft && !canScrollRight}>
+            {/* Fixed two-slot grid reserves space so appearing/disappearing arrows don't shift layout */}
+            <div className={styles.scrollSlot}>
+              {canScrollLeft ? (
+                <button
+                  type="button"
+                  className={styles.scrollArrow}
+                  onClick={(e) => handleArrowClick(e, -1)}
+                  onPointerDown={(e) => e.stopPropagation()}
+                  aria-label="Scroll more work left"
+                >
+                  <ArrowIcon direction="left" />
+                </button>
+              ) : null}
+            </div>
+            <div className={styles.scrollSlot}>
+              {canScrollRight ? (
+                <button
+                  type="button"
+                  className={styles.scrollArrow}
+                  onClick={(e) => handleArrowClick(e, 1)}
+                  onPointerDown={(e) => e.stopPropagation()}
+                  aria-label="Scroll more work right"
+                >
+                  <ArrowIcon direction="right" />
+                </button>
+              ) : null}
+            </div>
+          </div>
+        </div>
+
+        <div
+          ref={scrollRef}
+          className={styles.moreScroll}
+          role="list"
+          aria-label="More case studies"
+          data-lenis-prevent
+        >
           {moreProjects.map((p) => (
-            <Link key={p.href} href={p.href} className={styles.miniCard}>
+            <Link
+              key={p.href}
+              href={p.href}
+              className={styles.miniCard}
+              role="listitem"
+              data-mini-card
+            >
               <div className={styles.miniTop}>
                 <span className={styles.miniIdx}>{p.idx}</span>
               </div>
@@ -155,7 +282,6 @@ export default function FeaturedWork() {
             </Link>
           ))}
         </div>
-
       </div>
     </section>
   );
