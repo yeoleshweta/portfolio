@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
 
 /* ─────────── Design tokens ─────────── */
@@ -160,6 +161,7 @@ function LaptopFrame({ children }: { children: React.ReactNode }) {
     <div style={{ width: "100%", display: "flex", flexDirection: "column" as const, alignItems: "center" }}>
       <div style={{
         width: "92%",
+        aspectRatio: "16 / 10",
         background: "#1a1c20",
         border: "4px solid #1a1c20",
         borderRadius: "16px 16px 0 0",
@@ -167,6 +169,7 @@ function LaptopFrame({ children }: { children: React.ReactNode }) {
         overflow: "hidden",
         boxShadow: "0 28px 60px -20px rgba(28, 27, 23, 0.28), inset 0 0 0 1px rgba(255,255,255,0.08)",
         paddingTop: "14px",
+        boxSizing: "border-box" as const,
       }}>
         <div style={{
           position: "absolute" as const,
@@ -180,7 +183,16 @@ function LaptopFrame({ children }: { children: React.ReactNode }) {
           boxShadow: "0 0 0 1px rgba(255,255,255,0.12)",
           zIndex: 2,
         }} />
-        <div style={{ borderRadius: "4px", overflow: "hidden", background: "#fff" }}>
+        <div style={{
+          position: "absolute" as const,
+          top: "14px",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          borderRadius: "4px",
+          overflow: "hidden",
+          background: "#fff",
+        }}>
           {children}
         </div>
       </div>
@@ -270,7 +282,18 @@ function Figure({
       loading="lazy"
       width={width}
       height={height}
-      style={{ width: "100%", height: "auto", display: "block", borderRadius: laptop ? 0 : "6px" }}
+      style={laptop ? {
+        width: "100%",
+        height: "100%",
+        objectFit: "cover" as const,
+        objectPosition: "top center",
+        display: "block",
+      } : {
+        width: "100%",
+        height: "auto",
+        display: "block",
+        borderRadius: "6px",
+      }}
     />
   );
 
@@ -368,6 +391,285 @@ function Td({ children, strong = false }: { children: React.ReactNode; strong?: 
 /* ─────────── Section divider ─────────── */
 function SectionDivider() {
   return <div style={{ borderTop: `1px solid ${T.border}` }} />;
+}
+
+/* ─────────── History + change reason animation ───────────
+   Short loop: a red metric with no context → the same metric
+   with history and the reason captured at each change. */
+const HISTORY_ROWS = [
+  {
+    when: "Dec 2024",
+    from: "96%",
+    to: "90%",
+    status: "#367C2B",
+    reason: "We updated the numbers for the new forecast.",
+  },
+  {
+    when: "Jan 2025",
+    from: "90%",
+    to: "72%",
+    status: "#D97706",
+    reason: "Parts arrived late, so two builds moved to later.",
+  },
+  {
+    when: "Feb 2025",
+    from: "72%",
+    to: "41%",
+    status: "#B91C1C",
+    reason: "Three tests were removed from this release.",
+  },
+] as const;
+
+function HistoryChangeAnimation() {
+  const [phase, setPhase] = React.useState<"before" | "after">("before");
+  const [visibleRows, setVisibleRows] = React.useState(0);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    let timers: ReturnType<typeof setTimeout>[] = [];
+
+    const run = () => {
+      if (cancelled) return;
+      setPhase("before");
+      setVisibleRows(0);
+
+      timers.push(setTimeout(() => {
+        if (cancelled) return;
+        setPhase("after");
+        HISTORY_ROWS.forEach((_, i) => {
+          timers.push(setTimeout(() => {
+            if (!cancelled) setVisibleRows(i + 1);
+          }, 450 + i * 520));
+        });
+      }, 2400));
+
+      timers.push(setTimeout(() => {
+        if (!cancelled) run();
+      }, 9000));
+    };
+
+    run();
+    return () => {
+      cancelled = true;
+      timers.forEach(clearTimeout);
+    };
+  }, []);
+
+  return (
+    <figure style={{ margin: "36px 0" }}>
+      <style>{`
+        .tc-history-grid {
+          display: grid;
+          grid-template-columns: 88px 70px 70px 1fr;
+          gap: 8px;
+        }
+        @media (max-width: 640px) {
+          .tc-history-grid {
+            grid-template-columns: 1fr;
+            gap: 4px;
+          }
+          .tc-history-head { display: none !important; }
+          .tc-history-meta {
+            grid-template-columns: 1fr 1fr 1fr !important;
+          }
+        }
+      `}</style>
+      <div
+        style={{
+          border: `1px solid ${T.border}`,
+          borderRadius: "10px",
+          background: T.white,
+          overflow: "hidden",
+          boxShadow: "0 10px 30px rgba(28, 27, 23, 0.04)",
+        }}
+        aria-label="Animation showing before and after: a red number with no explanation, then the same number with history and reasons"
+      >
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: "12px",
+          padding: "14px 20px",
+          background: T.surface,
+          borderBottom: `1px solid ${T.border}`,
+        }}>
+          <div style={{
+            fontFamily: "JetBrains Mono, monospace",
+            fontSize: "10px",
+            letterSpacing: "0.16em",
+            textTransform: "uppercase" as const,
+            color: T.muted,
+            fontWeight: 700,
+          }}>
+            Before and after
+          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={phase}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.25 }}
+              style={{
+                fontFamily: "JetBrains Mono, monospace",
+                fontSize: "10px",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase" as const,
+                fontWeight: 700,
+                color: phase === "before" ? "#B91C1C" : T.green,
+              }}
+            >
+              {phase === "before" ? "Hard to explain" : "Easy to explain"}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div style={{ padding: "22px 20px 20px" }}>
+          <div className="tc-history-meta" style={{
+            display: "grid",
+            gridTemplateColumns: "1.4fr 0.7fr 0.7fr",
+            gap: "12px",
+            alignItems: "end",
+            marginBottom: "18px",
+          }}>
+            <div>
+              <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase" as const, color: T.muted, marginBottom: "6px" }}>
+                What we track
+              </div>
+              <div style={{ fontSize: "15px", fontWeight: 700, color: T.text }}>
+                Forecast on track
+              </div>
+            </div>
+            <div>
+              <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase" as const, color: T.muted, marginBottom: "6px" }}>
+                Goal
+              </div>
+              <div style={{ fontSize: "15px", fontWeight: 600, color: T.text }}>96%</div>
+            </div>
+            <div>
+              <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase" as const, color: T.muted, marginBottom: "6px" }}>
+                Today
+              </div>
+              <motion.div
+                animate={{ color: "#B91C1C" }}
+                style={{ fontSize: "22px", fontWeight: 800, letterSpacing: "-0.02em" }}
+              >
+                41%
+              </motion.div>
+            </div>
+          </div>
+
+          <AnimatePresence mode="wait">
+            {phase === "before" ? (
+              <motion.div
+                key="before"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                style={{
+                  border: "1px solid #FECACA",
+                  background: "#FEF2F2",
+                  borderRadius: "8px",
+                  padding: "18px 16px",
+                  minHeight: "168px",
+                  display: "flex",
+                  flexDirection: "column" as const,
+                  justifyContent: "center",
+                  gap: "8px",
+                }}
+              >
+                <div style={{ fontSize: "15px", fontWeight: 700, color: "#991B1B" }}>
+                  Before: only a red number
+                </div>
+                <div style={{ fontSize: "14px", lineHeight: 1.6, color: "#7F1D1D" }}>
+                  Leaders see 41% against a 96% goal. There is no past trail and no note for why it dropped. The program manager has to explain it from memory.
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="after"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                style={{
+                  border: `1px solid ${T.border}`,
+                  borderRadius: "8px",
+                  overflow: "hidden",
+                  minHeight: "168px",
+                  background: T.surface,
+                }}
+              >
+                <div className="tc-history-grid tc-history-head" style={{
+                  padding: "10px 14px",
+                  borderBottom: `1px solid ${T.border}`,
+                  fontFamily: "JetBrains Mono, monospace",
+                  fontSize: "9.5px",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase" as const,
+                  color: T.muted,
+                  fontWeight: 700,
+                }}>
+                  <span>When</span>
+                  <span>Was</span>
+                  <span>Now</span>
+                  <span>Why it changed</span>
+                </div>
+
+                {HISTORY_ROWS.map((row, i) => (
+                  <motion.div
+                    key={row.when}
+                    className="tc-history-grid"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={visibleRows > i ? { opacity: 1, y: 0 } : { opacity: 0.15, y: 8 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    style={{
+                      padding: "12px 14px",
+                      borderBottom: i < HISTORY_ROWS.length - 1 ? `1px solid ${T.border}` : "none",
+                      background: T.white,
+                      alignItems: "start",
+                    }}
+                  >
+                    <span style={{ fontSize: "13px", color: T.muted, fontWeight: 600 }}>{row.when}</span>
+                    <span style={{ fontSize: "13px", color: T.muted }}>{row.from}</span>
+                    <span style={{ fontSize: "13px", fontWeight: 700, color: row.status }}>{row.to}</span>
+                    <span style={{ fontSize: "13px", color: T.text, lineHeight: 1.45 }}>{row.reason}</span>
+                  </motion.div>
+                ))}
+
+                <AnimatePresence>
+                  {visibleRows >= HISTORY_ROWS.length && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.35 }}
+                      style={{
+                        padding: "14px 14px 16px",
+                        background: "#F0F7EE",
+                        borderTop: `1px solid ${T.border}`,
+                      }}
+                    >
+                      <div style={{ fontSize: "14px", fontWeight: 700, color: T.green, marginBottom: "4px" }}>
+                        After: the story travels with the number
+                      </div>
+                      <div style={{ fontSize: "13.5px", lineHeight: 1.55, color: T.text }}>
+                        Program managers can show leaders what changed and why, in one place. No more digging through memory or pasting screenshots into slides.
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+      <figcaption style={{ fontSize: "13px", color: T.muted, marginTop: "14px", fontStyle: "italic", lineHeight: 1.5 }}>
+        Outcome: a red number stops being a blame moment. It becomes something you can explain.
+      </figcaption>
+    </figure>
+  );
 }
 
 /* ─────────── Sections nav ─────────── */
@@ -873,17 +1175,11 @@ export default function TeamContractCaseStudy() {
               height={79}
             />
 
-            <SubHeading>History and change reasons: the defensibility layer</SubHeading>
+            <SubHeading>What we designed: history and change reasons in the tool</SubHeading>
             <BodyText>
-              This change sits closest to the core finding. Metric history sits next to the reason recorded when the value changed. That is what turns a red metric from an accusation into something a program manager can explain.
+              In Team Contract, every updated metric now keeps a short history and a note for why it changed. That product change came from the research finding that people could not explain a red number. The animation below shows what that looks like in the tool.
             </BodyText>
-            <Figure
-              filename="09-history-change-reasons.png"
-              alt="Metric history view listing past values alongside the reason captured at the time of each change"
-              caption="Historical tracking and change reasons."
-              intent="Historical tracking view and/or the change reason capture field."
-              pending
-            />
+            <HistoryChangeAnimation />
 
             <SubHeading>Reporting that replaces the screenshot</SubHeading>
             <BodyText>
@@ -891,10 +1187,11 @@ export default function TeamContractCaseStudy() {
             </BodyText>
             <Figure
               filename="10-reporting-visualisation.png"
-              alt="Reporting output with data visualisations designed to be shown to leadership directly, without screenshotting"
-              caption="Reporting and data visualisation."
-              intent="Reporting and data visualisation output."
-              pending
+              alt="Reports Team Contract screen with program health report cards, VP Level Metrics table, colour status, trend lines, and Excel and PowerPoint export"
+              caption="Reporting output in Team Contract: metrics, trends, and export ready for leadership."
+              width={1440}
+              height={900}
+              laptop
             />
           </div>
         </Wrap>
