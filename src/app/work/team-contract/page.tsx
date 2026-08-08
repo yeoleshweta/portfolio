@@ -393,6 +393,169 @@ function SectionDivider() {
   return <div style={{ borderTop: `1px solid ${T.border}` }} />;
 }
 
+/* A few Fuel-style components, kept sparse and sharp */
+function FuelComponentsSample() {
+  const labelStyle: React.CSSProperties = {
+    fontFamily: "JetBrains Mono, monospace",
+    fontSize: "10px",
+    letterSpacing: "0.14em",
+    textTransform: "uppercase",
+    color: T.muted,
+    fontWeight: 700,
+    marginBottom: "16px",
+  };
+
+  const stateLabel: React.CSSProperties = {
+    fontFamily: "JetBrains Mono, monospace",
+    fontSize: "10px",
+    letterSpacing: "0.08em",
+    textTransform: "uppercase",
+    color: T.muted,
+    marginTop: "8px",
+    textAlign: "center",
+  };
+
+  return (
+    <figure style={{ margin: "40px 0 8px" }}>
+      <div style={{
+        background: T.white,
+        border: `1px solid ${T.border}`,
+        borderRadius: "12px",
+        padding: "40px 36px",
+      }}>
+        {/* Buttons */}
+        <div style={{ marginBottom: "48px" }}>
+          <div style={labelStyle}>Buttons</div>
+          <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "28px", alignItems: "flex-start" }}>
+            <div>
+              <button type="button" style={{
+                minWidth: "140px",
+                height: "44px",
+                padding: "0 20px",
+                background: T.yellow,
+                color: T.text,
+                border: "none",
+                borderRadius: "4px",
+                fontSize: "14px",
+                fontWeight: 700,
+                cursor: "default",
+              }}>
+                Primary
+              </button>
+              <div style={stateLabel}>Default</div>
+            </div>
+            <div>
+              <button type="button" style={{
+                minWidth: "140px",
+                height: "44px",
+                padding: "0 20px",
+                background: T.white,
+                color: T.green,
+                border: `1.5px solid ${T.green}`,
+                borderRadius: "4px",
+                fontSize: "14px",
+                fontWeight: 700,
+                cursor: "default",
+              }}>
+                Secondary
+              </button>
+              <div style={stateLabel}>Default</div>
+            </div>
+            <div>
+              <button type="button" disabled style={{
+                minWidth: "140px",
+                height: "44px",
+                padding: "0 20px",
+                background: "#E8E6DF",
+                color: "#A8A59A",
+                border: "none",
+                borderRadius: "4px",
+                fontSize: "14px",
+                fontWeight: 700,
+                cursor: "not-allowed",
+              }}>
+                Disabled
+              </button>
+              <div style={stateLabel}>Disabled</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Form field */}
+        <div style={{ marginBottom: "48px" }}>
+          <div style={labelStyle}>Form field</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "28px", maxWidth: "520px" }}>
+            <div>
+              <div style={{ fontSize: "13px", fontWeight: 600, color: T.text, marginBottom: "8px" }}>Current status</div>
+              <div style={{
+                height: "44px",
+                border: `1px solid ${T.border}`,
+                borderRadius: "4px",
+                padding: "0 14px",
+                display: "flex",
+                alignItems: "center",
+                color: T.text,
+                fontSize: "14px",
+                background: T.white,
+              }}>
+                $100
+              </div>
+              <div style={{ ...stateLabel, textAlign: "left" }}>Filled</div>
+            </div>
+            <div>
+              <div style={{ fontSize: "13px", fontWeight: 600, color: T.text, marginBottom: "8px" }}>Current status</div>
+              <div style={{
+                height: "44px",
+                border: "1.5px solid #B91C1C",
+                borderRadius: "4px",
+                padding: "0 14px",
+                display: "flex",
+                alignItems: "center",
+                color: T.muted,
+                fontSize: "14px",
+                background: T.white,
+              }}>
+                Enter value
+              </div>
+              <div style={{ fontSize: "12px", color: "#B91C1C", marginTop: "8px" }}>Required</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Status */}
+        <div>
+          <div style={labelStyle}>Status</div>
+          <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "16px" }}>
+            {[
+              { label: "On track", bg: "#E8F5E4", color: T.green },
+              { label: "At risk", bg: "#FFF4D6", color: "#B45309" },
+              { label: "Off track", bg: "#FEE2E2", color: "#B91C1C" },
+            ].map((s) => (
+              <span key={s.label} style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "8px 14px",
+                borderRadius: "999px",
+                background: s.bg,
+                color: s.color,
+                fontSize: "13px",
+                fontWeight: 700,
+              }}>
+                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: s.color }} />
+                {s.label}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+      <figcaption style={{ fontSize: "13px", color: T.muted, marginTop: "14px", fontStyle: "italic", lineHeight: 1.5 }}>
+        A few Fuel building blocks used in Team Contract: buttons, form fields, and status.
+      </figcaption>
+    </figure>
+  );
+}
+
 /* ─────────── History + change reason animation ───────────
    Short loop: a red metric with no context → the same metric
    with history and the reason captured at each change. */
@@ -678,6 +841,7 @@ const sections = [
   { id: "problem", label: "The Problem" },
   { id: "research", label: "Research" },
   { id: "findings", label: "What We Learned" },
+  { id: "actions", label: "Actionable Items" },
   { id: "decisions", label: "Findings to Decisions" },
   { id: "design", label: "The Design" },
   { id: "fuel", label: "Fuel Design System" },
@@ -1046,6 +1210,31 @@ export default function TeamContractCaseStudy() {
       </section>
 
       {/* ════════════════════════════════════════════════════ */}
+      {/*  ACTIONABLE ITEMS                                   */}
+      {/* ════════════════════════════════════════════════════ */}
+      <section id="actions" style={{ padding: "64px 0", background: T.white }}>
+        <Wrap>
+          <SectionDivider />
+          <div style={{ paddingTop: "56px" }}>
+            <SectionLabel>Actionable Items</SectionLabel>
+            <SectionTitle>From insights to a clear list of what to design next.</SectionTitle>
+
+            <BodyText>
+              After the findings settled, we turned them into a short list of actions. This board sat between research and design. It kept the team focused on what to build first: better validation, clearer guidance, stronger reporting, reminders, and easier ways to move data in and out of the tool.
+            </BodyText>
+
+            <Figure
+              filename="03b-actionable-items.png"
+              alt="FigJam board of actionable items including improve validation, reminder poke feature, simplify data entry, enhance reporting, integrate with other tools, and improve field guidance"
+              caption="Actionable items distilled from the research, used to prioritise what went into design."
+              width={1024}
+              height={957}
+            />
+          </div>
+        </Wrap>
+      </section>
+
+      {/* ════════════════════════════════════════════════════ */}
       {/*  FROM FINDINGS TO DESIGN DECISIONS                  */}
       {/* ════════════════════════════════════════════════════ */}
       <section id="decisions" style={{ padding: "64px 0", background: T.white }}>
@@ -1208,19 +1397,10 @@ export default function TeamContractCaseStudy() {
             <SectionTitle>Built to feel like native Fuel.</SectionTitle>
 
             <BodyText>
-              The work lived inside <strong>Fuel</strong>, John Deere&apos;s enterprise design system. I composed screens from existing Fuel Kernel components such as navigation, tables, form fields, buttons, and status indicators. Where the domain needed patterns Fuel did not yet cover, I extended new variants and kept the tokens, states, and interactions consistent so the additions read as part of Fuel, not stuck on top of it.
-            </BodyText>
-            <BodyText>
-              Extended components were documented with full state coverage (default, focus, filled, error, disabled) and handed off as developer ready specs.
+              The work lived inside <strong>Fuel</strong>, John Deere&apos;s enterprise design system. Screens were built from shared components so Team Contract felt like part of the same product family, not a one off tool.
             </BodyText>
 
-            <Figure
-              filename="11-fuel-components-variants.png"
-              alt="Fuel design system components used in Team Contract alongside the extended variants, documented with full state coverage"
-              caption="Fuel components and the variants we extended."
-              intent="Fuel components used plus extended variants, with state coverage (default, focus, filled, error, disabled)."
-              pending
-            />
+            <FuelComponentsSample />
           </div>
         </Wrap>
       </section>
