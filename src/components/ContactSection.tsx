@@ -11,6 +11,7 @@ import {
 import { useRef, useEffect, RefObject } from "react";
 import styles from "./ContactSection.module.css";
 import GlassCube from "./GlassCube";
+import { EVENTS, track } from "@/lib/analytics";
 
 // ── Physics constants ──────────────────────────────────────────────────────
 const GRAVITY        = 0.55;  // px / frame²  — pulls everything down
@@ -36,6 +37,7 @@ function PhysicsTile({
   const vy     = useRef(0);
   const rafRef = useRef<number | undefined>(undefined);
   const active = useRef(false);
+  const tracked = useRef(false);
 
   const stopLoop = () => {
     if (rafRef.current !== undefined) {
@@ -107,6 +109,10 @@ function PhysicsTile({
       onDragStart={() => { active.current = true; stopLoop(); }}
       onDragEnd={(_, info) => {
         active.current = false;
+        if (!tracked.current) {
+          tracked.current = true;
+          track(EVENTS.EASTER_EGG_PLAY, { feature: "contact_physics_tiles" });
+        }
         // framer-motion velocity is px/s → convert to px/frame at ~60 fps
         vx.current = info.velocity.x / 72;
         vy.current = info.velocity.y / 72;
@@ -266,6 +272,7 @@ export default function ContactSection() {
                 target={item.href.startsWith("mailto:") ? undefined : "_blank"}
                 rel={item.href.startsWith("mailto:") ? undefined : "noreferrer"}
                 className={styles.contactItem}
+                data-track-location="contact_section"
               >
                 <span className={styles.contactIcon}><ContactBadge type={item.type} /></span>
                 <span className={styles.contactText}>{item.label}</span>

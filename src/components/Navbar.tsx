@@ -33,6 +33,10 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 className={styles.navLink}
+                data-track="nav_click"
+                data-track-link-label={link.label}
+                data-track-link-href={link.href}
+                data-track-location="navbar"
               >
                 {link.label}
               </Link>
@@ -45,6 +49,7 @@ export default function Navbar() {
               target="_blank"
               rel="noreferrer"
               className={styles.cvBtn}
+              data-track-location="navbar"
             >
               <Download size={16} />
               Download CV
@@ -55,6 +60,9 @@ export default function Navbar() {
             className={styles.menuBtn}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
+            data-track="nav_click"
+            data-track-link-label="mobile_menu_toggle"
+            data-track-location="navbar_mobile"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -77,6 +85,10 @@ export default function Navbar() {
                   href={link.href}
                   className={styles.mobileLink}
                   onClick={() => setMobileOpen(false)}
+                  data-track="nav_click"
+                  data-track-link-label={link.label}
+                  data-track-link-href={link.href}
+                  data-track-location="navbar_mobile"
                 >
                   {link.label}
                 </Link>
@@ -87,6 +99,7 @@ export default function Navbar() {
                 rel="noreferrer"
                 className={styles.mobileCvBtn}
                 onClick={() => setMobileOpen(false)}
+                data-track-location="navbar_mobile"
               >
                 Download CV
               </a>

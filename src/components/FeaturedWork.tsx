@@ -205,8 +205,19 @@ export default function FeaturedWork() {
         </div>
 
         <div className={styles.featuredGrid}>
-          {featuredProjects.map((p) => (
-            <Link key={p.href} href={p.href} className={styles.featuredCard}>
+          {featuredProjects.map((p, i) => (
+            <Link
+              key={p.href}
+              href={p.href}
+              className={styles.featuredCard}
+              data-track="project_card_click"
+              data-track-project-slug={p.href.replace("/work/", "")}
+              data-track-project-title={p.title}
+              data-track-project-tag={p.tag}
+              data-track-card-group="featured"
+              data-track-card-position={i + 1}
+              data-track-location="featured_work"
+            >
               <span className={styles.cardTag}>{p.tag}</span>
               <span className={styles.cardRef}>[ref: {p.ref}]</span>
               <h3 className={styles.cardTitle}>{p.title}</h3>
@@ -237,6 +248,9 @@ export default function FeaturedWork() {
                   onClick={(e) => handleArrowClick(e, -1)}
                   onPointerDown={(e) => e.stopPropagation()}
                   aria-label="Scroll more work left"
+                  data-track="carousel_scroll"
+                  data-track-direction="left"
+                  data-track-location="featured_work"
                 >
                   <ArrowIcon direction="left" />
                 </button>
@@ -250,6 +264,9 @@ export default function FeaturedWork() {
                   onClick={(e) => handleArrowClick(e, 1)}
                   onPointerDown={(e) => e.stopPropagation()}
                   aria-label="Scroll more work right"
+                  data-track="carousel_scroll"
+                  data-track-direction="right"
+                  data-track-location="featured_work"
                 >
                   <ArrowIcon direction="right" />
                 </button>
@@ -265,13 +282,20 @@ export default function FeaturedWork() {
           aria-label="More case studies"
           data-lenis-prevent
         >
-          {moreProjects.map((p) => (
+          {moreProjects.map((p, i) => (
             <Link
               key={p.href}
               href={p.href}
               className={styles.miniCard}
               role="listitem"
               data-mini-card
+              data-track="project_card_click"
+              data-track-project-slug={p.href.replace("/work/", "")}
+              data-track-project-title={p.title}
+              data-track-project-tag={p.tag}
+              data-track-card-group="more_work"
+              data-track-card-position={i + 1}
+              data-track-location="featured_work"
             >
               <div className={styles.miniTop}>
                 <span className={styles.miniIdx}>{p.idx}</span>
