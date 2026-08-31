@@ -28,8 +28,8 @@ export default function RootLayout({
         <GoogleAnalytics />
         <AnalyticsProvider />
 
+        <CustomCursor />
         <SmoothScroll>
-          <CustomCursor />
           <Navbar />
           <BackgroundScene />
           <main className="main-content">{children}</main>
