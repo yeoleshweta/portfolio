@@ -6,436 +6,333 @@ import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
 import {
   CaseStudySection,
   CaseStudyImage,
-  Blockquote,
-  SkillConstellation,
-  UXEnablementImpact,
-  SUSTestTable,
 } from "@/components/casestudy/CaseStudyContent";
+import BeeTrail, { BEE_PATHS } from "@/components/casestudy/BeeTrail";
+import {
+  hero,
+  overview,
+  process,
+  gathering,
+  interviews,
+  persona,
+  decisionFlow,
+  delivery,
+  impact,
+  limitations,
+  lessons,
+  nextSteps,
+} from "@/content/designThinking";
+import styles from "./designThinking.module.css";
 
 const sections = [
   { id: "overview", label: "Overview" },
-  { id: "research", label: "Research & Insights" },
-  { id: "solutions", label: "Prioritisation & Persona" },
-  { id: "results", label: "Validation & Results" },
+  { id: "process", label: "The Process" },
+  { id: "gathering", label: "Gathering Insights" },
+  { id: "interviews", label: "What the Interviews Showed" },
+  { id: "persona", label: "Persona" },
+  { id: "decision-flow", label: "Where Insight Is Lost" },
+  { id: "delivery", label: "Delivery" },
+  { id: "impact", label: "Impact" },
+  { id: "limitations", label: "Limitations" },
+  { id: "lessons", label: "What This Project Taught Me" },
+  { id: "next", label: "Next Steps" },
 ];
 
-function DoubleDiamondDiagram() {
+function ModeIcon({ mode }: { mode: "diverge" | "converge" }) {
+  if (mode === "diverge") {
+    return (
+      <span className={styles.modeIcon} aria-hidden>
+        <svg width="18" height="16" viewBox="0 0 18 16" fill="none">
+          <path
+            d="M16 1L2 8l14 7"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+    );
+  }
   return (
-    <div style={{
-      margin: "48px 0",
-      background: "#fdfdfd",
-      padding: "40px 24px",
-      borderRadius: "16px",
-      border: "1px solid var(--color-border)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      overflowX: "auto"
-    }}>
-      <svg viewBox="0 0 880 380" width="100%" height="auto" style={{ minWidth: "850px", display: "block" }}>
-        <defs>
-          <linearGradient id="discoverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#e2f5f1" />
-            <stop offset="100%" stopColor="#bde7e0" />
-          </linearGradient>
-          <linearGradient id="defineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#009688" />
-            <stop offset="100%" stopColor="#00675b" />
-          </linearGradient>
-          <linearGradient id="developGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#ffedea" />
-            <stop offset="100%" stopColor="#ffdbd3" />
-          </linearGradient>
-          <linearGradient id="deliverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#e07765" />
-            <stop offset="100%" stopColor="#b34937" />
-          </linearGradient>
-          
-          <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-            <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#000000" floodOpacity="0.06" />
-          </filter>
-        </defs>
-
-        <text x="260" y="25" textAnchor="middle" fill="#00675b" fontSize="11" fontWeight="700" letterSpacing="0.08em" fontFamily="var(--font-primary)">PROBLEM SPACE · DESIGN THE RIGHT THING</text>
-        <text x="600" y="25" textAnchor="middle" fill="#b34937" fontSize="11" fontWeight="700" letterSpacing="0.08em" fontFamily="var(--font-primary)">SOLUTION SPACE · DESIGN THINGS RIGHT</text>
-
-        <g filter="url(#shadow)">
-          <circle cx="50" cy="110" r="26" fill="#e8f5f3" stroke="#bfe7e0" strokeWidth="1" />
-          <text x="50" y="108" textAnchor="middle" fill="#1c5249" fontSize="9.5" fontWeight="700" fontFamily="var(--font-primary)">Stake-</text>
-          <text x="50" y="119" textAnchor="middle" fill="#1c5249" fontSize="9.5" fontWeight="700" fontFamily="var(--font-primary)">holders</text>
-          
-          <circle cx="104" cy="110" r="26" fill="#ffedea" stroke="#ffd9d1" strokeWidth="1" />
-          <text x="104" y="113" textAnchor="middle" fill="#802e21" fontSize="9.5" fontWeight="700" fontFamily="var(--font-primary)">Customers</text>
-        </g>
-        <text x="77" y="152" textAnchor="middle" fill="#6c7a7e" fontSize="9" fontWeight="600" fontFamily="var(--font-primary)">Inputs feed research</text>
-        
-        <path d="M 134 110 L 152 110" stroke="#a0afb3" strokeWidth="1.5" fill="none" />
-        <polygon points="152,107 158,110 152,113" fill="#a0afb3" />
-
-        <g filter="url(#shadow)">
-          <polygon points="164,110 264,30 264,190" fill="url(#discoverGrad)" stroke="#bde7e0" strokeWidth="0.5" />
-          <text x="222" y="115" textAnchor="middle" fill="#004d40" fontSize="17" fontWeight="800" fontFamily="var(--font-display)">Discover</text>
-          
-          <polygon points="264,30 364,110 264,190" fill="url(#defineGrad)" />
-          <text x="306" y="115" textAnchor="middle" fill="#ffffff" fontSize="17" fontWeight="800" fontFamily="var(--font-display)">Define</text>
-        </g>
-
-        {/* Multi-line labels to prevent overlaps */}
-        <text x="214" y="210" textAnchor="middle" fill="#404c4f" fontSize="9.5" fontWeight="600" fontFamily="var(--font-primary)">
-          <tspan x="214" dy="0">Explore needs</tspan>
-          <tspan x="214" dy="13">&amp; opportunities</tspan>
-        </text>
-        <text x="314" y="210" textAnchor="middle" fill="#404c4f" fontSize="9.5" fontWeight="600" fontFamily="var(--font-primary)">
-          <tspan x="314" dy="0">Prioritize &amp; frame</tspan>
-          <tspan x="314" dy="13">the problem</tspan>
-        </text>
-
-        <line x1="432" x2="432" y1="40" y2="180" stroke="#78888c" strokeWidth="1" strokeDasharray="3 3" />
-        <circle cx="432" cy="40" r="4" fill="#505c60" />
-        <rect x="402" y="98" width="60" height="24" rx="4" fill="#ffffff" stroke="#78888c" strokeWidth="1" />
-        <text x="432" y="108" textAnchor="middle" fill="#404c4f" fontSize="7.5" fontWeight="700" letterSpacing="0.04em" fontFamily="var(--font-primary)">INTERNAL</text>
-        <text x="432" y="116" textAnchor="middle" fill="#404c4f" fontSize="7.5" fontWeight="700" letterSpacing="0.04em" fontFamily="var(--font-primary)">GATE</text>
-
-        <g filter="url(#shadow)">
-          <polygon points="500,110 600,30 600,190" fill="url(#developGrad)" stroke="#ffdbd3" strokeWidth="0.5" />
-          <text x="558" y="115" textAnchor="middle" fill="#802e21" fontSize="17" fontWeight="800" fontFamily="var(--font-display)">Develop</text>
-          
-          <polygon points="600,30 700,110 600,190" fill="url(#deliverGrad)" />
-          <text x="642" y="115" textAnchor="middle" fill="#ffffff" fontSize="17" fontWeight="800" fontFamily="var(--font-display)">Deliver</text>
-        </g>
-        
-        <text x="550" y="210" textAnchor="middle" fill="#404c4f" fontSize="9.5" fontWeight="600" fontFamily="var(--font-primary)">
-          <tspan x="550" dy="0">Sprint, prototype</tspan>
-          <tspan x="550" dy="13">&amp; test</tspan>
-        </text>
-        <text x="650" y="210" textAnchor="middle" fill="#404c4f" fontSize="9.5" fontWeight="600" fontFamily="var(--font-primary)">
-          <tspan x="650" dy="0">Build, QA &amp;</tspan>
-          <tspan x="650" dy="13">launch the MVP</tspan>
-        </text>
-
-        <path d="M 708 110 L 726 110" stroke="#a0afb3" strokeWidth="1.5" fill="none" />
-        <polygon points="726,107 732,110 726,113" fill="#a0afb3" />
-
-        <g filter="url(#shadow)">
-          <rect x="738" y="75" width="112" height="70" rx="8" fill="#f5f7f8" stroke="#d5dcde" strokeWidth="1" />
-          <text x="794" y="93" textAnchor="middle" fill="#1d2629" fontSize="9.5" fontWeight="700" fontFamily="var(--font-primary)">Support &</text>
-          <text x="794" y="105" textAnchor="middle" fill="#1d2629" fontSize="9.5" fontWeight="700" fontFamily="var(--font-primary)">Knowledge</text>
-          <text x="794" y="121" textAnchor="middle" fill="#606d71" fontSize="8" fontWeight="600" fontFamily="var(--font-primary)">Docs & enablement for</text>
-          <text x="794" y="131" textAnchor="middle" fill="#606d71" fontSize="8" fontWeight="600" fontFamily="var(--font-primary)">lasting adoption</text>
-        </g>
-
-        <g>
-          <circle cx="403" cy="256" r="16" fill="#758285" />
-          <text x="403" y="259" textAnchor="middle" fill="#ffffff" fontSize="9" fontWeight="700" fontFamily="var(--font-primary)">PM</text>
-          
-          <circle cx="432" cy="256" r="16" fill="#1b7a70" />
-          <text x="432" y="259" textAnchor="middle" fill="#ffffff" fontSize="9" fontWeight="700" fontFamily="var(--font-primary)">UX</text>
-          
-          <circle cx="461" cy="256" r="16" fill="#d26b59" />
-          <text x="461" y="259" textAnchor="middle" fill="#ffffff" fontSize="9" fontWeight="700" fontFamily="var(--font-primary)">Tech</text>
-
-          <text x="432" y="288" textAnchor="middle" fill="#505c60" fontSize="10" fontWeight="600" fontFamily="var(--font-primary)">Cross-functional pod runs the sprint & feasibility calls</text>
-        </g>
-
-        <path d="M 800 152 Q 800 326 432 326 T 77 152" fill="none" stroke="#78888c" strokeWidth="1.5" />
-        <polygon points="73,158 77,148 81,158" fill="#78888c" />
-
-        <rect x="362" y="316" width="140" height="20" rx="10" fill="#ffffff" stroke="#78888c" strokeWidth="1" />
-        <text x="432" y="329" textAnchor="middle" fill="#1c2527" fontSize="9" fontWeight="700" fontFamily="var(--font-primary)">Adoption · Value · Speed</text>
-        <text x="432" y="352" textAnchor="middle" fill="#505c60" fontSize="9.5" fontWeight="600" fontFamily="var(--font-primary)">Continuous feedback loop ➔ fuels the next Discovery (&quot;UX Mastery&quot;)</text>
+    <span className={styles.modeIcon} aria-hidden>
+      <svg width="18" height="16" viewBox="0 0 18 16" fill="currentColor">
+        <path d="M2 1l14 7-14 7V1z" />
       </svg>
-    </div>
+    </span>
   );
 }
 
-export default function DesignThinkingCaseStudy() {
+export default function DesignThinkingPage() {
+  const role = hero.meta.find((m) => m.label === "Role")?.value ?? "";
+  const team = hero.meta.find((m) => m.label === "Team")?.value ?? "";
+  const method = hero.meta.find((m) => m.label === "Method")?.value ?? "";
+  const timeline = hero.meta.find((m) => m.label === "Timeline")?.value ?? "";
+
   return (
-    <CaseStudyLayout sections={sections}>
+    <div className={styles.page}>
       <CaseStudyHero
-        title="No UX, No Problem? A Qualitative Study into How Product Managers Navigate UX Without UX Support"
         category=""
-        role="UX Advocate & Researcher · Strategy & Transformation"
-        team="Strategy & Transformation Team · UX Coaches · Product Coaches · Agile Coaches"
-        timeline="12 Weeks"
+        title={hero.title}
+        role={role}
+        team={team}
+        method={method}
+        timeline={timeline}
       />
 
-      {/* --- OVERVIEW & BACKGROUND --- */}
-      <CaseStudySection
-        id="overview"
-      >
-        <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>Overview</h3>
-        <p>
-          John Deere India runs 250+ internal products. Most don&apos;t have a dedicated UX professional. Some teams could afford to hire for it most couldn&apos;t. So Product Managers absorbed the gap, running their own research, designing their own flows, and making calls from intuition. Not by choice. Because the system left them no alternative.
-        </p>
-        <p>
-          The challenge wasn&apos;t convincing PMs that UX mattered, they knew it did. The challenge was designing support that fit into a workflow already stretched beyond capacity. Any solution that added friction would be abandoned. It had to be faster than doing nothing.
-        </p>
-        <p>
-          This was a qualitative exploratory research study using contextual inquiry and co-design methods. The goal: understand exactly where that system was breaking down, and design a pathway to fix it.
-        </p>
+      <CaseStudyLayout sections={sections}>
+        <CaseStudySection id="overview">
+          <h2 className={styles.heading}>Overview</h2>
+          {overview.paragraphs.map((p) => (
+            <p key={p.slice(0, 24)} className={styles.lead}>
+              {p}
+            </p>
+          ))}
+          <div className={styles.stats}>
+            {overview.stats.map((stat) => (
+              <div
+                key={stat.label}
+                className={`${styles.statCard}${stat.dark ? ` ${styles.statCardDark}` : ""}`}
+              >
+                <span className={styles.statNumber}>{stat.number}</span>
+                <span className={styles.statLabel}>{stat.label}</span>
+              </div>
+            ))}
+          </div>
+          <div className={styles.callout}>
+            <strong>Research goal:</strong> {overview.researchGoal}
+          </div>
+        </CaseStudySection>
 
-        <SkillConstellation
-          primary={[
-            "Contextual Inquiry",
-            "Workshop Facilitation",
-            "Organizational Change Management",
-          ]}
-          supporting={[
-            "Persona Development",
-            "Affinity Mapping",
-            "Usability Testing (SUS)",
-          ]}
-          emerging={["Stakeholder Mapping", "Co-creation Methods"]}
-        />
+        <CaseStudySection id="process">
+          <h2 className={styles.heading}>The Process</h2>
+          <p className={styles.lead}>
+            The work followed the <strong>Double Diamond</strong>: open up to
+            understand the problem, narrow to define it, then open and narrow
+            again on what to build.
+          </p>
+          <div className={styles.processGrid}>
+            {process.cards.map((card) => (
+              <div key={card.label} className={styles.processCard}>
+                <ModeIcon mode={card.mode} />
+                <span className={styles.smallLabel}>{card.label}</span>
+                <h3 className={styles.cardTitle}>{card.title}</h3>
+                <p className={styles.cardText}>{card.text}</p>
+              </div>
+            ))}
+          </div>
+        </CaseStudySection>
 
-        <div style={{ marginTop: "40px", marginBottom: "40px" }}>
-          <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>Background</h3>
-          <p>
-            I was part of John Deere&apos;s Strategy &amp; Transformation team a cross-functional pod of product coaches, agile coaches, and UX coaches. My role was UX Advocate: the person PMs came to when they had a research question and no researcher to ask.
-          </p>
-          <p>
-            The structural reality was stark. Across 250 internal products, UX coverage was uneven by design. Teams with budget hired UX professionals. Teams without handed the work to their PMs who were already managing specs, stakeholders, planning ceremonies, and commercial priorities. Layering research and synthesis on top was unsustainable, and the quality of product decisions showed it.
-          </p>
-          <p>
-            My mandate was two-pronged. First, bridge the gap and provide ad hoc UX support to teams with no dedicated UX resource. Second, build UX literacy like running workshops, advocate for research, and shift how PMs approached user-centred decision-making over time.
-          </p>
-          <p>
-            This study was one of the qualitative research initiatives I led to answer one question: what are PMs actually struggling with, and what would genuinely help them? Not assumptions. Evidence.
-          </p>
+        <div className={styles.beeWrap}>
+          <BeeTrail
+            {...BEE_PATHS.timeline}
+            decorative
+            label="Bee flying from process into gathering insights"
+          />
         </div>
 
-        <p style={{ margin: "24px 0", padding: "16px", background: "var(--color-bg-card)", borderLeft: "4px solid var(--color-accent)", borderRadius: "0 8px 8px 0" }}>
-          <strong>Research Question:</strong> What structural barriers prevent Product Managers from making user-centred decisions, and what interventions would realistically fit their existing workflow?
-        </p>
+        <CaseStudySection id="gathering">
+          <h2 className={styles.heading}>Gathering Insights</h2>
+          {gathering.paragraphs.map((p) => (
+            <p key={p.slice(0, 24)} className={styles.lead}>
+              {p}
+            </p>
+          ))}
+          <div className={styles.blockGrid}>
+            {gathering.blocks.map((block) => (
+              <div key={block.label} className={styles.blockCard}>
+                <span className={styles.smallLabel}>{block.label}</span>
+                <h3 className={styles.cardTitle}>{block.title}</h3>
+                <p className={styles.cardText}>{block.text}</p>
+              </div>
+            ))}
+          </div>
+          <CaseStudyImage
+            src={gathering.image.src}
+            alt={gathering.image.alt}
+            caption={gathering.image.caption}
+          />
+        </CaseStudySection>
 
-        <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
+        <CaseStudySection id="interviews">
+          <h2 className={styles.heading}>What the Interviews Showed</h2>
+          <p className={styles.lead}>{interviews.intro}</p>
+          <div className={styles.themeTable}>
+            {interviews.themes.map((row) => (
+              <div key={row.theme} className={styles.themeRow}>
+                <span className={styles.themeName}>{row.theme}</span>
+                <div className={styles.themeBarWrap}>
+                  <span className={styles.themeCount}>{row.count}</span>
+                  <div className={styles.reachTrack}>
+                    <div
+                      className={styles.reachFill}
+                      style={{ width: `${row.fill}%` }}
+                    />
+                  </div>
+                </div>
+                <p className={styles.themeNote}>&ldquo;{row.note}&rdquo;</p>
+              </div>
+            ))}
+          </div>
+          <p className={styles.caption}>{interviews.themeCaption}</p>
 
-        <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>The Process</h3>
-        <p>
-          This engagement followed the <strong>Double Diamond framework</strong> diverging to understand the full problem space before converging on solutions augmented with contextual inquiry and collaborative co-creation methods.
-        </p>
+          <h3 className={styles.subheading}>Framing the problem</h3>
+          <CaseStudyImage
+            src={interviews.problemFraming.src}
+            alt={interviews.problemFraming.alt}
+            caption={interviews.problemFraming.caption}
+          />
 
-        <DoubleDiamondDiagram />
-
-        <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
-
-        <h3>Framing the Problem</h3>
-        <p>
-          Problem Framing sits at the transition from Discover &rarr; Define. Before any solution work began, I needed a locked, shared understanding of what we were actually solving and for whom.
-        </p>
-
-        <CaseStudyImage
-          src="/assets/problem-framing.png"
-          alt="Framing the Problem diagram"
-          caption="Framing the Problem: Mapping user lenses, forming statement drafts, and refining structural infrastructure for team-wide UX support."
-        />
-
-        <p style={{ margin: "24px 0", padding: "16px", background: "var(--color-bg-card)", borderLeft: "4px solid var(--color-accent)", borderRadius: "0 8px 8px 0" }}>
-          <strong>Problem Statement:</strong> Product Managers at John Deere India are making assumption-driven product decisions not because they lack empathy or motivation, but because the organisation has no lightweight, accessible UX infrastructure built for their pace and context. The gap is structural, not individual.
-        </p>
-      </CaseStudySection>
-
-      {/* --- RESEARCH & INSIGHTS --- */}
-      <CaseStudySection
-        id="research"
-        heading="Gathering Insights"
-      >
-        <p>
-          To understand the actual shape of the problem, I conducted 15 contextual interviews and shadowed planning meetings across John Deere&apos;s product lines.
-        </p>
-        <p>
-          Participants were selected across product lines to capture variation in team size, UX resource availability, and product maturity. I deliberately included both PMs who had some prior UX exposure and those who had none, in order to understand whether the gap was a skill problem or a systems problem. It was consistently the latter.
-        </p>
-        <p>
-          I chose contextual inquiry over surveys or focus groups deliberately. Surveys would have told me what PMs thought they needed. Shadowing told me what they actually did, and the gap between those two things turned out to be the entire finding: PMs consistently reported feeling &apos;fine&apos; in interviews but visibly struggled when observed making live decisions.
-        </p>
-        <p>
-          We clustered raw observations into thematic areas using Miro to identify critical friction points.
-        </p>
-
-        <CaseStudyImage
-          src="/assets/gathering-insights.png"
-          alt="Affinity mapping of research observations in Miro"
-          caption="Gathering Insights: Mapping 100+ raw observations from PM interviews and shadowing sessions into thematic clusters (Confusion, Reaction, Improvement, Current Status)."
-        />
-
-        <p style={{ marginTop: "24px" }}>
-          Three themes dominated the synthesis wall regardless of product line, team size, or PM experience level: <strong>access</strong> (no tools, no templates, no entry points), <strong>timing</strong> (research arriving after decisions were made), and <strong>isolation</strong> (no peer community to ask or learn from). These three themes directly shaped the three delivery streams: Tool Enablement, Buddy-Up, and Community Forum, with one response per theme.
-        </p>
-
-        <div style={{ marginTop: "32px", marginBottom: "32px" }}>
-          <h4 style={{ marginBottom: "16px", color: "var(--color-text)", fontWeight: 700 }}>Key Research Findings</h4>
-          
-          <div style={{ marginBottom: "24px" }}>
-            <strong>Finding 1: Research arrived too late to influence decisions.</strong>
-            <Blockquote text="By the time I get a research deck, the roadmap is locked. I read it, I learn something useful, and I file it away." author="PM, Platform Products (paraphrased)" />
-            <p style={{ fontSize: "14px", marginTop: "4px", color: "var(--color-text-secondary)" }}>80% of participants described a version of this experience.</p>
+          <div className={styles.reframe}>
+            <span className={styles.reframeLabel}>
+              {interviews.reframe.label}
+            </span>
+            <p className={styles.reframeStatement}>
+              {interviews.reframe.statement}
+            </p>
+            <p className={styles.reframeText}>{interviews.reframe.text}</p>
           </div>
 
-          <div style={{ marginBottom: "24px" }}>
-            <strong>Finding 2: PMs were making UX decisions alone and knew it was wrong.</strong>
-            <Blockquote text="I designed that entire flow in a spreadsheet. I knew it wasn't right but there was no one else." author="PM, Internal Tools (paraphrased)" />
-            <p style={{ fontSize: "14px", marginTop: "4px", color: "var(--color-text-secondary)" }}>73% had built personal workarounds to fill the UX gap.</p>
+          <h3 className={styles.subheading}>From insight to hypothesis</h3>
+          <div className={styles.hypothesisWrap}>
+            <CaseStudyImage
+              src={interviews.hypothesis.src}
+              alt={interviews.hypothesis.alt}
+              caption={interviews.hypothesis.caption}
+            />
           </div>
+        </CaseStudySection>
 
-          <div style={{ marginBottom: "24px" }}>
-            <strong>Finding 3: The problem wasn't motivation: it was infrastructure.</strong>
-            <Blockquote text="I'd do the research if I knew how. I'd use the tools if someone showed me once." author="PM, P&C Team (paraphrased)" />
-            <p style={{ fontSize: "14px", marginTop: "4px", color: "var(--color-text-secondary)" }}>53% had never received structured UX onboarding despite being responsible for user-facing decisions.</p>
-          </div>
+        <div className={styles.beeWrap}>
+          <BeeTrail
+            {...BEE_PATHS.homeFeatured}
+            decorative
+            label="Bee flying from insights into persona"
+          />
         </div>
 
-        <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
+        <CaseStudySection id="persona">
+          <h2 className={styles.heading}>Persona</h2>
+          <p className={styles.lead}>{persona.intro}</p>
+          <CaseStudyImage
+            src={persona.image.src}
+            alt={persona.image.alt}
+            caption={persona.image.caption}
+          />
+          <h3 className={styles.subheading}>
+            Three profiles behind the persona
+          </h3>
+          <p className={styles.lead}>{persona.profilesIntro}</p>
+          <div className={styles.profileGrid}>
+            {persona.profiles.map((profile) => (
+              <div key={profile.title} className={styles.profileCard}>
+                <span className={styles.smallLabel}>{profile.label}</span>
+                <h4 className={styles.profileTitle}>{profile.title}</h4>
+                <p className={styles.profileText}>{profile.text}</p>
+                <span className={styles.pill}>{profile.pill}</span>
+              </div>
+            ))}
+          </div>
+        </CaseStudySection>
 
-        <h3>Insights &amp; Prioritisation Formula</h3>
-        <p>
-          To transition from qualitative insights to a structured prioritisation model, I plugged our
-          research findings into a core hypothesis formula, defining clear outcomes, target users,
-          benefits, and feature priorities alongside measurable UX metrics.
-        </p>
+        <CaseStudySection id="decision-flow">
+          <h2 className={styles.heading}>Where a Product Decision Loses User Insight</h2>
+          <p className={styles.lead}>{decisionFlow.intro}</p>
+          <div className={styles.flow}>
+            {decisionFlow.rows.map((row) => (
+              <div key={row.n} className={styles.flowRow}>
+                <div className={styles.flowStep}>
+                  <span className={styles.flowNum}>{row.n}</span>
+                  <span className={styles.flowName}>{row.step}</span>
+                </div>
+                <div className={styles.flowPain}>{row.pain}</div>
+                <div
+                  className={`${styles.flowAdd}${row.dashed ? ` ${styles.flowAddDashed}` : ""}`}
+                >
+                  {row.add}
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className={styles.caption}>{decisionFlow.caption}</p>
+        </CaseStudySection>
 
-        <CaseStudyImage
-          src="/assets/hypothesis-formula.png"
-          alt="Prioritisation and hypothesis formula flowchart"
-          caption="Insights plugged into a formula: Outlining the hypothesis (Outcome, User, Benefit, Feature) and the core metrics used to measure success: Workshop attendance rate, Tool adoption rate (% of PMs independently using Figma/Mural post-session), NPS from post-programme survey, Buddy-Up retention beyond pilot, and inbound collaboration requests per month."
-        />
-      </CaseStudySection>
+        <CaseStudySection id="delivery">
+          <h2 className={styles.heading}>Delivery</h2>
+          <p className={styles.lead}>{delivery.intro}</p>
+          <div className={styles.deliveryGrid}>
+            {delivery.cards.map((card) => (
+              <div
+                key={card.title}
+                className={`${styles.deliveryCard}${card.dark ? ` ${styles.deliveryCardDark}` : ""}`}
+              >
+                <span className={styles.smallLabel}>{card.label}</span>
+                <h3 className={styles.cardTitleLg}>{card.title}</h3>
+                <p className={styles.cardText}>{card.text}</p>
+              </div>
+            ))}
+          </div>
+          <p className={styles.closing}>
+            <strong>Eight workshops</strong> brought PMs to the forum, their
+            buddies and the templates. One finding needed nothing new: the
+            DeereUX site already existed, but few PMs knew it was there, so the
+            programme pointed them to it.
+          </p>
+        </CaseStudySection>
 
-      {/* --- SOLUTIONS --- */}
-      <CaseStudySection
-        id="solutions"
-        heading="Prioritisation & Persona"
-      >
-        <p>
-          I categorised findings into initiative areas to give leadership visibility into what to address first and why.
-        </p>
-        <p>
-          <strong>Prioritisation criteria:</strong>
-        </p>
-        <ul>
-          <li>Severity score (frequency &times; impact on PM decision quality)</li>
-          <li>Effort to implement (facilitation + coordination complexity)</li>
-          <li>Dependencies between initiatives</li>
-        </ul>
-        <p>
-          From this, <strong>Tool Enablement (Figma, Mural, DeereUX)</strong> was established as the highest priority with highest severity score, fastest to implement, and foundational to everything else. PMs needed working tools before a peer community or buddy system would be useful.
-        </p>
-        <p>
-          The Buddy-Up Programme and Community Forum were sequenced to follow, since both depended on PMs having a shared toolset and common language first.
-        </p>
+        <div className={styles.beeWrap}>
+          <BeeTrail
+            {...BEE_PATHS.homeBridge}
+            decorative
+            label="Bee flying from delivery into impact"
+          />
+        </div>
 
-        <h3 style={{ marginTop: "40px" }}>Narrowing the Scope: Meet Rajesh</h3>
-        <p>
-          With the problem defined and priorities set, I synthesized the research into <strong>&quot;Rajesh&quot;
-          , a composite persona</strong> built from behavioral patterns and direct quotes across the
-          15 interviews.
-        </p>
-        <p>
-          Rajesh wasn't built to be decorative. He was built to anchor every solution decision.
-        </p>
+        <CaseStudySection id="impact">
+          <h2 className={styles.heading}>Impact</h2>
+          <p className={styles.lead}>{impact.intro}</p>
+          <div className={styles.impactTable}>
+            {impact.rows.map((row) => (
+              <div key={row.level} className={styles.impactRow}>
+                <span className={styles.impactLevel}>{row.level}</span>
+                <span className={styles.impactQuestion}>{row.question}</span>
+                <p className={styles.impactEvidence}>{row.evidence}</p>
+              </div>
+            ))}
+          </div>
+        </CaseStudySection>
 
-        <CaseStudyImage
-          src="/assets/rajesh_persona.png"
-          alt="Persona Card: Rajesh, The Product Manager"
-          caption="Meet Rajesh: A composite persona built from behavioral patterns, demographics, and key pain points gathered across 15 interviews."
-        />
-      </CaseStudySection>
+        <CaseStudySection id="limitations">
+          <h2 className={styles.heading}>Limitations</h2>
+          <ul className={styles.bulletList}>
+            {limitations.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </CaseStudySection>
 
-      {/* --- VALIDATION & RESULTS --- */}
-      <CaseStudySection
-        id="results"
-      >
-        <p>
-          I ran a before/after SUS test with PMs inside their actual planning sessions (the real context, not a lab) specifically measuring confidence and ease of using Figma&apos;s Fuel Design System to sketch solutions independently.
-        </p>
-        <p>
-          <strong>Method:</strong> Moderated observation during live planning sessions + SUS scoring before and after the onboarding intervention, across 11 participants.
-        </p>
-        <p>
-          The pre-test score of 52 was captured during the first session, where PMs were given a specific task in Figma with no prior instruction, measuring first-contact friction rather than baseline familiarity. The post-test score of 78 was captured after three structured onboarding sessions covering the same task context.
-        </p>
+        <CaseStudySection id="lessons">
+          <h2 className={styles.heading}>What This Project Taught Me</h2>
+          <div className={styles.lessonGrid}>
+            {lessons.map((lesson) => (
+              <div key={lesson.title} className={styles.lessonCard}>
+                <h3 className={styles.lessonTitle}>{lesson.title}</h3>
+                <p className={styles.lessonText}>{lesson.text}</p>
+              </div>
+            ))}
+          </div>
+        </CaseStudySection>
 
-        <SUSTestTable />
-
-        <p>
-          A score below 68 indicates usability issues. Starting at 52, PMs found Figma inaccessible without support. After structured onboarding, the score rose to 78 (a +26 point improvement), crossing from poor into excellent.
-        </p>
-        <p>
-          <strong>What I observed:</strong> 9 of 11 participants completed the task independently after onboarding. The 2 who stalled hit the same friction point: locating the right component for their use case without knowing Figma terminology.
-        </p>
-        <p>
-          <strong>Change that followed:</strong> We added a use-case index to the Fuel Design System onboarding guide, mapping common PM tasks to relevant components, so PMs could find what they needed without needing to think like a designer.
-        </p>
-
-        <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "48px 0" }} />
-
-        <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>Delivery</h3>
-        <p>
-          The research pointed to one clear truth: PMs didn&apos;t need more documentation. They needed access to the right tools, the confidence to use them, and a community to learn alongside.
-        </p>
-
-        <h4 style={{ marginTop: "24px" }}>Tool Enablement</h4>
-        <p>
-          I introduced PMs to the infrastructure that already existed but wasn&apos;t reaching them. This meant hands-on workshops, 1:1 sessions, and drop-in clinics covering:
-        </p>
-        <ul style={{ marginTop: "12px", marginBottom: "24px" }}>
-          <li style={{ marginBottom: "8px" }}>
-            <strong>Fuel Design System (Figma):</strong> so PMs could prototype and test ideas quickly without waiting for a designer
-          </li>
-          <li style={{ marginBottom: "8px" }}>
-            <strong>Mural templates:</strong> structured brainstorming frameworks they could run themselves
-          </li>
-          <li style={{ marginBottom: "8px" }}>
-            <strong>DeereUX website:</strong> the internal source of truth for branding, typography, and design decisions, making it easier to justify design choices with evidence rather than instinct
-          </li>
-        </ul>
-
-        <h4 style={{ marginTop: "24px" }}>Buddy-Up Programme</h4>
-        <p>
-          PMs were paired with UX coaches or peer PMs depending on their need: some needed structured guidance, others just a thinking partner. 10 of 12 pairs continued collaborating beyond the pilot voluntarily.
-        </p>
-
-        <h4 style={{ marginTop: "24px" }}>Community Forum (MS Teams)</h4>
-        <p>
-          A dedicated shared space with monthly structured meetings gave PMs a place to ask questions, share wins, and get peer critique on decisions. It seeded itself to 120 threads started in the first month, entirely organically.
-        </p>
-
-        <h3 style={{ marginTop: "40px" }}>What happened after 12 weeks</h3>
-        <p>
-          There was no formal handoff because none was needed. By the end of the engagement, PMs across teams were proactively reaching out to the P&C team for UX collaboration. The appetite kept growing as literacy increased, which was exactly the point.
-        </p>
-
-        <h3 style={{ marginTop: "40px" }}>Impact</h3>
-        <UXEnablementImpact />
-
-        <p style={{ marginTop: "24px" }}>
-          The original research question asked what structural barriers existed and what interventions would realistically fit PM workflows. The 86 NPS, 100% tool adoption, and 3&times;/month organic collaboration demand collectively suggest the structural gap was real and the intervention fit. The fact that no formal handoff was needed, and that the community sustained itself, is the strongest signal that the solution was designed for the system, not imposed on it.
-        </p>
-
-        <h3 style={{ marginTop: "40px", color: "#8b69fa", fontWeight: 800 }}>Limitations</h3>
-        <p>
-          This study measured adoption and sentiment, not downstream product quality. Whether tool usage translated into better product decisions for end users remains unmeasured (that is the next research question). Additionally, with 15 participants across a 250+ product portfolio, the findings reflect P&C team patterns and may not generalise to all product lines.
-        </p>
-
-
-        <h3 style={{ marginTop: "40px", color: "#8b69fa", fontWeight: 800 }}>Next Steps</h3>
-        <ul style={{ paddingLeft: "20px" }}>
-          <li style={{ marginBottom: "8px", lineHeight: "1.4" }}>
-            <strong>Scale Coverage:</strong> Expand the programme to the remaining 86% of product teams not reached in the pilot.
-          </li>
-          <li style={{ marginBottom: "8px", lineHeight: "1.4" }}>
-            <strong>Quarterly Tracking:</strong> Track UX literacy quarterly by running a pulse survey every 3 months to see if adoption is holding.
-          </li>
-          <li style={{ marginBottom: "8px", lineHeight: "1.4" }}>
-            <strong>Link to Outcomes:</strong> Close the ROI loop by mapping tool usage to product outcomes to prove downstream impact.
-          </li>
-          <li style={{ marginBottom: "8px", lineHeight: "1.4" }}>
-            <strong>Buddy-Up Support:</strong> Formalise Buddy-Up to track structured goals and check-ins to build on the 83% who continued voluntarily.
-          </li>
-        </ul>
-
-
-      </CaseStudySection>
-    </CaseStudyLayout>
+        <CaseStudySection id="next">
+          <h2 className={styles.heading}>Next Steps</h2>
+          <ul className={styles.bulletList}>
+            {nextSteps.map((item) => (
+              <li key={item.strong}>
+                <strong>{item.strong}</strong> {item.text}
+              </li>
+            ))}
+          </ul>
+        </CaseStudySection>
+      </CaseStudyLayout>
+    </div>
   );
 }

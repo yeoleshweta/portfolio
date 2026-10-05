@@ -10,6 +10,7 @@ interface CaseStudyHeroProps {
   role: string;
   team: string;
   timeline: string;
+  method?: string;
   subtitle?: string;
   children?: React.ReactNode;
   image?: string;
@@ -26,6 +27,7 @@ export default function CaseStudyHero({
   role,
   team,
   timeline,
+  method,
   subtitle,
   children,
   image,
@@ -95,6 +97,12 @@ export default function CaseStudyHero({
             <span className={styles.metaLabel}>Team</span>
             <span className={styles.metaValue}>{team}</span>
           </div>
+          {method ? (
+            <div className={styles.metaItem}>
+              <span className={styles.metaLabel}>Method</span>
+              <span className={styles.metaValue}>{method}</span>
+            </div>
+          ) : null}
           <div className={styles.metaItem}>
             <span className={styles.metaLabel}>Timeline</span>
             <span className={styles.metaValue}>{timeline}</span>

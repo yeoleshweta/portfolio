@@ -20,8 +20,8 @@ const featuredProjects = [
     tag: "UX Research",
     ref: "John-Deere · fig. 02",
     description:
-      "A qualitative study into how Product Managers at John Deere navigate product design and UX decisions without dedicated support. Co-designed a systemic programme scaling UX literacy and tool adoption.",
-    pills: ["100%_tool_adoption", "86_nps", "83%_buddy_retention"],
+      "A qualitative study into how Product Managers at John Deere navigate product design and UX decisions without dedicated support. Led to a community forum and a monthly PM cohort.",
+    pills: ["8_pm_interviews", "community_forum", "pm_cohort"],
     href: "/work/design-thinking",
   },
 ] as const;
