@@ -1,0 +1,77 @@
+.svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  display: block;
+}
+
+.trail {
+  fill: none;
+  stroke: #8b69fa;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1 10;
+  animation: march 1.2s linear infinite;
+}
+
+.arrow {
+  fill: none;
+  stroke: #8b69fa;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bee {
+  offset-rotate: auto;
+  animation: fly 9s ease-in-out infinite;
+}
+
+.wing {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flap 0.16s ease-in-out infinite alternate;
+}
+
+@keyframes march {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+
+@keyframes fly {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  6%,
+  94% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes flap {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0.45);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail,
+  .bee,
+  .wing {
+    animation: none;
+  }
+
+  .bee {
+    offset-distance: 50%;
+    opacity: 1;
+  }
+}

@@ -11,6 +11,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import styles from "./HeroSection.module.css";
+import BeeTrail, { BEE_PATHS } from "@/components/casestudy/BeeTrail";
 
 const CUBE_SIZE = 112;
 const CUBE_STEP = 118;
@@ -393,6 +394,13 @@ export default function HeroSection() {
                 &apos;why&apos; behind human behavior and the &apos;how&apos;
                 behind the systems meant to support it.
               </p>
+              <div className={styles.beeTrail} aria-hidden>
+                <BeeTrail
+                  {...BEE_PATHS.homeHero}
+                  decorative
+                  label="Decorative bee trail"
+                />
+              </div>
             </motion.div>
           </motion.div>
         </div>

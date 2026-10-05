@@ -1,0 +1,25 @@
+.figure {
+  background: #ffffff;
+  border: 1px solid var(--jd-line, #e9e7ee);
+  border-radius: 16px;
+  padding: clamp(24px, 4vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin: 32px 0;
+}
+
+.caption {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #6b6b6b;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}

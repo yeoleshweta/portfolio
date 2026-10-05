@@ -146,6 +146,12 @@
   font-weight: 400;
 }
 
+.beeTrail {
+  max-width: 360px;
+  margin-top: 14px;
+  opacity: 0.85;
+}
+
 .description strong {
   font-weight: 700;
 }

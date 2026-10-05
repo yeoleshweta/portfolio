@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import styles from "./FeaturedWork.module.css";
+import BeeTrail, { BEE_PATHS } from "@/components/casestudy/BeeTrail";
 
 const featuredProjects = [
   {
@@ -43,7 +44,7 @@ const moreProjects = [
   {
     idx: "05",
     tag: "Quantitative UXR",
-    title: "When Did Better Actually Mean Better? A Longitudinal Usability Study",
+    title: "When Did Better Actually Mean Better?",
     metric: "SUS Score: 60 → 85.6 (+25.6)",
     href: "/work/john-deere",
   },
@@ -195,6 +196,13 @@ export default function FeaturedWork() {
               Selected<br />
               <em className={styles.titleItalic}>research &<br />design.</em>
             </h2>
+            <div className={styles.beeTrail} aria-hidden>
+              <BeeTrail
+                {...BEE_PATHS.homeFeatured}
+                decorative
+                label="Decorative bee trail"
+              />
+            </div>
           </div>
           <div className={styles.headerMeta}>
             doc: portfolio/work<br />

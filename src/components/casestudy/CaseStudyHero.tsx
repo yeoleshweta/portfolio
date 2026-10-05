@@ -10,10 +10,14 @@ interface CaseStudyHeroProps {
   role: string;
   team: string;
   timeline: string;
+  subtitle?: string;
+  children?: React.ReactNode;
   image?: string;
   isVideo?: boolean;
   videoUrl?: string;
   isSmallImage?: boolean;
+  /** Soft grid + purple glow used by ABTools hero */
+  variant?: "default" | "abtools";
 }
 
 export default function CaseStudyHero({
@@ -22,13 +26,19 @@ export default function CaseStudyHero({
   role,
   team,
   timeline,
+  subtitle,
+  children,
   image,
   isVideo = false,
   videoUrl,
   isSmallImage = false,
+  variant = "default",
 }: CaseStudyHeroProps) {
   return (
-    <section className={styles.hero}>
+    <section
+      className={`${styles.hero}${variant === "abtools" ? ` ${styles.abtools}` : ""}`}
+      id="top"
+    >
       <div className={styles.header}>
         {category && (
           <motion.span
@@ -43,16 +53,38 @@ export default function CaseStudyHero({
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className={styles.title}
+          transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          className={`${styles.title}${variant === "abtools" ? ` ${styles.titleGlow}` : ""}`}
         >
           {title}
         </motion.h1>
 
+        {subtitle ? (
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.24, ease: "easeOut" }}
+            className={styles.subtitle}
+          >
+            {subtitle}
+          </motion.p>
+        ) : null}
+
+        {children ? (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.32, ease: "easeOut" }}
+            className={styles.heroExtra}
+          >
+            {children}
+          </motion.div>
+        ) : null}
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 0.44, ease: "easeOut" }}
           className={styles.meta}
         >
           <div className={styles.metaItem}>
