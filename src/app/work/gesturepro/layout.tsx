@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
+import { caseStudyMetadata } from "@/lib/caseStudyMeta";
 
-export const metadata: Metadata = {
-  title: "GesturePro",
-};
+export const metadata: Metadata = caseStudyMetadata("gesturepro");
 
 export default function Layout({
   children,

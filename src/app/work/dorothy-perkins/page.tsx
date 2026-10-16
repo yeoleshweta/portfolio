@@ -163,7 +163,7 @@ export default function DorothyPerkinsCaseStudy() {
     <main>
       <CaseStudyHero
         title="Why Were Students Not Saving? Segment Aware Personalization at Dorothy Perkins"
-        category="Segmentation · Personalization Governance"
+        category="Quantitative / Experimentation"
         role="Personalization Specialist"
         team="Capita · Qubit ecosystem: Dorothy Perkins"
         timeline="Personalization Lifecycle"

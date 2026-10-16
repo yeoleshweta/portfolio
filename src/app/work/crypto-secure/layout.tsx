@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
+import { caseStudyMetadata } from "@/lib/caseStudyMeta";
 
-export const metadata: Metadata = {
-  title: "Crypto Secure",
-};
+export const metadata: Metadata = caseStudyMetadata("crypto-secure");
 
 export default function Layout({
   children,

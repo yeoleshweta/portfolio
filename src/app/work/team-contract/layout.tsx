@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
+import { caseStudyMetadata } from "@/lib/caseStudyMeta";
 
-export const metadata: Metadata = {
-  title: "Team Contract Metrics",
-};
+export const metadata: Metadata = caseStudyMetadata("team-contract");
 
 export default function Layout({
   children,

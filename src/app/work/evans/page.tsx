@@ -154,7 +154,7 @@ export default function EvansCaseStudy() {
     <main>
       <CaseStudyHero
         title="Do small wins compound? Six measured experiments, one revenue per visitor discipline at Evans"
-        category="Experimentation Portfolio · Metric Design"
+        category="Quantitative / Experimentation"
         role="Personalization & Experimentation Specialist"
         team="Capita · Qubit ecosystem: Evans"
         timeline="Experimentation Lifecycle"

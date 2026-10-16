@@ -180,7 +180,7 @@ export default function TopshopCaseStudy() {
     <main>
       <CaseStudyHero
         title="What Analytics Couldn't Tell Us: Pairing Exit Intercepts with Behavioral Data at Topshop"
-        category="Quantitative UX Research · Feedback Driven Optimization"
+        category="Quantitative / Experimentation"
         role="Analyst / Optimization Specialist"
         team="Qubit · Topshop"
         timeline="A/B/n Testing Cycle"

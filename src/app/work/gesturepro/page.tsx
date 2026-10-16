@@ -103,7 +103,7 @@ export default function GestureProCaseStudy() {
     <main>
       <CaseStudyHero
         title="GesturePro — Real-Time Sign Language Translation"
-        category="AI / Accessibility"
+        category="AI / ML Research"
         role="Full-Stack Developer & ML Engineer"
         team="4 Engineers"
         timeline="Ongoing"

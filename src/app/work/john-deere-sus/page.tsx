@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
 import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
 import { CaseStudySection } from "@/components/casestudy/CaseStudyContent";
@@ -53,21 +52,6 @@ const sections = [
   { id: "next", label: "12: Next Time" },
   { id: "lessons", label: "13: Lessons" },
 ];
-
-/** Render copy that may include visible [PLACEHOLDER] tokens. */
-function withPlaceholders(text: string) {
-  // TODO(shweta): resolve [SQUARE BRACKETS] placeholders listed in the ABTools spec §9
-  const parts = text.split(/(\[[^\]]+\])/g);
-  return parts.map((part, i) =>
-    part.startsWith("[") && part.endsWith("]") ? (
-      <span key={i} className={styles.placeholderMark}>
-        {part}
-      </span>
-    ) : (
-      <React.Fragment key={i}>{part}</React.Fragment>
-    ),
-  );
-}
 
 function colStart(start: number) {
   return `${(start - 1) * 12.5}%`;
@@ -296,7 +280,7 @@ export default function JohnDeerePage() {
             {design.instruments.map((inst) => (
               <div key={inst.title} className={styles.miniCard}>
                 <h3 className={styles.miniTitle}>{inst.title}</h3>
-                <p className={styles.miniText}>{withPlaceholders(inst.text)}</p>
+                <p className={styles.miniText}>{inst.text}</p>
               </div>
             ))}
           </div>
@@ -340,10 +324,7 @@ export default function JohnDeerePage() {
                       style={{ width: `${p.tenurePct}%` }}
                     />
                   </div>
-                  {/* TODO(shweta): verify [TENURE] for credit admin profile */}
-                  <span className={styles.profileTenure}>
-                    {withPlaceholders(p.tenure)}
-                  </span>
+                  <span className={styles.profileTenure}>{p.tenure}</span>
                   <p className={styles.profileText}>{p.text}</p>
                   <span className={styles.profileSystems}>{p.systems}</span>
                 </div>
@@ -356,12 +337,7 @@ export default function JohnDeerePage() {
         <CaseStudySection id="workflow" heading="04: The Workflow">
           <p className={styles.lead}>{workflow.lead}</p>
           <p className={styles.body}>{workflow.p}</p>
-          <Figure
-            caption={
-              // TODO(shweta): confirm step order vs deck, then remove [VERIFY STEP ORDER]
-              workflow.caption
-            }
-          >
+          <Figure caption={workflow.caption}>
             {workflow.steps.map((step, i) => (
               <div key={step.title} className={styles.workflowStep}>
                 <div>
@@ -603,7 +579,7 @@ export default function JohnDeerePage() {
                 <h3 className={styles.miniTitle}>{c.title}</h3>
                 {c.paras.map((para) => (
                   <p key={para.slice(0, 24)} className={styles.miniText}>
-                    {withPlaceholders(para)}
+                    {para}
                   </p>
                 ))}
               </div>

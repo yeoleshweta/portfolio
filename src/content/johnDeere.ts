@@ -1,11 +1,10 @@
 /**
  * ABTools / John Deere Financial case study content.
  * Source of truth: abtools-case-study-cursor-spec.md §5 — do not rewrite copy.
- * Placeholders in [SQUARE BRACKETS] stay visible until resolved.
  */
 
 export const hero = {
-  category: 'Mixed-methods UX benchmark · Two-wave within-subjects study',
+  category: 'Mixed Methods',
   title: "When did 'better' actually mean better?",
   subtitle: "Measuring whether the redesign of a 20-year-old credit processing system genuinely improved usability for the people who can't walk away from it.",
   meta: [
@@ -91,7 +90,7 @@ export const design = {
   },
   instruments: [
     { title: 'System Usability Scale', text: 'Standardized 10-item scale (Lewis and Sauro, 2009), benchmarkable against industry (68), Global IT (63) and the FY21 target (67).' },
-    { title: 'Custom Likert questionnaire', text: 'Six sections: Satisfaction, Ease of Use, Learnability, System Performance, Human Error Support, Productivity. Reported as % favorable. [SCORING RULE] · [ITEMS PER DIMENSION]' },
+    { title: 'Custom Likert questionnaire', text: 'Six sections: Satisfaction, Ease of Use, Learnability, System Performance, Human Error Support, Productivity. Reported as % favorable.' },
     { title: 'Open-ended probes', text: 'Verbatims explain why scores moved, and surface what no rating scale asks about.' },
   ],
   tradeoffs: [
@@ -109,7 +108,7 @@ export const participants = {
   p: "ABTools is part of their job, so they can't leave when something frustrates them. Their friction stays in the system, which is exactly why it's worth studying. Reviews can take as little as 15 minutes, so minutes of friction are a large share of each decision.",
   profiles: [
     { role: 'Senior Credit Analyst', name: 'Decision-maker analyst', hours: '4 to 6 hrs / day', tenure: '3.5 yrs experience', tenurePct: 18, text: 'Reviews applications, makes same-day decisions, spreads financials. Needs scannable notes and a fast personal worklist.', systems: 'ABTools · MARS · CreditPath' },
-    { role: 'Credit Analyst, credit admin', name: 'High-volume admin analyst', hours: 'All day', tenure: '[TENURE] experience', tenurePct: 50, unverified: true, text: 'Admin work that differs from normal analysts; dealer and customer calls. Needs speed and no routing detours.', systems: 'ABTools · ACAPS' },
+    { role: 'Credit Analyst, credit admin', name: 'High-volume admin analyst', hours: 'All day', tenure: 'Not on file', tenurePct: 50, unverified: true, text: 'Admin work that differs from normal analysts; dealer and customer calls. Needs speed and no routing detours.', systems: 'ABTools · ACAPS' },
     { role: 'Credit Processing Specialist', name: 'Processing specialist', hours: '2 to 3 hrs / day', tenure: '15+ yrs experience', tenurePct: 75, text: 'Turndown and counteroffer letters, bank rating, FileNet import. Needs reliable handoffs and errors that say what to do.', systems: 'ABTools' },
     { role: 'Manager, Retail Credit Delivery Admin', name: 'Manager', hours: '2 to 4 hrs / day', tenure: '20+ yrs experience', tenurePct: 100, text: 'Sets up worklists, sets priority order, trains staff. Needs queue visibility, search that finds everyone, and export.', systems: 'ABTools · ACAPS' },
   ], // unverified: render the tenure bar with the hatch, not solid
@@ -119,7 +118,7 @@ export const participants = {
 export const workflow = {
   lead: 'Where the friction sits in a working day.',
   p: 'Pinning each finding to the step where it happens shows that the remaining problems cluster around reading history and moving through queues, not around the decision itself.',
-  caption: 'Fig. 2: Simplified workflow with findings pinned to steps [VERIFY STEP ORDER]',
+  caption: 'Fig. 2: Simplified workflow with findings pinned to steps',
   steps: [
     { title: 'Work the queue', findings: ['Own name not found in employee search', 'No auto-refresh, pin or Excel export'] },
     { title: 'Open an application', findings: ['Place lost in a long queue', '"Create new credit request" failed silently'] },
@@ -251,7 +250,7 @@ export const org = {
 export const impact = {
   cards: [
     { kicker: 'Impact 1', title: 'Gave leadership evidence, not opinion.', paras: ['SUS moved from below the Global IT average to "excellent", with gains on every dimension the team cared about.'] },
-    { kicker: 'Impact 2', title: 'Directed what comes next.', paras: ['The Notes issue entered the backlog as a high-priority item with a specific fix: keep comment formatting, enlarge the comment box, and let text scale with zoom.', '[WHAT HAPPENED NEXT: did the Notes fix ship?]'] },
+    { kicker: 'Impact 2', title: 'Directed what comes next.', paras: ['The Notes issue entered the backlog as a high-priority item with a specific fix: keep comment formatting, enlarge the comment box, and let text scale with zoom.'] },
     { kicker: 'Impact 3', title: 'Shifted the model.', paras: ['Three recommendations, each backed by the engagement survey: an ongoing feedback loop, passive behavioral analytics, and proactive research ahead of releases.'] },
   ],
   quote: "This study wasn't designed to show that the redesign worked. It was designed so that if the redesign didn't work, we'd know.",

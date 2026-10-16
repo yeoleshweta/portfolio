@@ -68,10 +68,10 @@ A personal portfolio for Shweta Sharma, UX Researcher, built as an animation-hea
 | `/experience` | `src/app/experience/page.tsx` | Full work history |
 | `/work/abim` | `src/app/work/abim/page.tsx` | ABIM case study |
 | `/work/crypto-secure` | — | CryptoSecure case study |
-| `/work/design-thinking` | — | Design Thinking case study |
+| `/work/pm-ux-study` | — | PM UX study (redirects from `/work/design-thinking`) |
 | `/work/gesturepro` | — | GesturePro case study |
 | `/work/healthcare-bias` | — | Healthcare Bias case study |
-| `/work/john-deere` | — | John Deere case study |
+| `/work/john-deere-sus` | — | John Deere SUS study (redirects from `/work/john-deere`) |
 | `/work/personalization` | — | Personalization case study |
 | `/work/stories-by-children` | — | Stories by Children case study |
 

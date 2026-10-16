@@ -8,7 +8,6 @@ import {
   CaseStudySection,
   ContextCard,
   ResultsGrid,
-  Blockquote,
   BaselineTargetMetrics,
   SkillSpotlight,
   SkillConstellation,
@@ -810,7 +809,7 @@ export default function ABIMCaseStudy() {
     <main>
       <CaseStudyHero
         title="From Frameworks to F1 Scores: Designing a Scalable Communication Assessment System"
-        category="Quantitative UX Research · Measurement Design · Instrument Validation"
+        category="AI / ML Research"
         role="Innovation Analyst (Data &amp; Research Focused)"
         team="I/O Psychologists · Data Scientist · AI/ML Engineer"
         timeline="Co-Op (6 months)"
@@ -944,10 +943,6 @@ export default function ABIMCaseStudy() {
             The result is a massive verification gap: physicians are certified via examination but assumed capable of proper human interaction. The only existing measure, patient satisfaction surveys, is rare, self-selected, and indirect.
           </p>
 
-
-          <Blockquote
-            text="Key phrase to use: &quot;We certify doctors via exam but assume they are capable of proper human interaction. This project tried to make that assumption testable.&quot;"
-          />
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>1.2 Why Communication is Hard to Measure</h3>
           <p>

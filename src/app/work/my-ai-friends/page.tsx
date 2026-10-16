@@ -49,7 +49,7 @@ export default function MyAIfriendsCaseStudy() {
     <main>
       <CaseStudyHero
         title="myAIfriends: Context-Aware Conversational AI Platform"
-        category="RAG Architecture / AI Engineering"
+        category="AI / ML Research"
         role="Lead AI Engineer & UX Designer"
         team="3 Members"
         timeline="~2 months"

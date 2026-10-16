@@ -168,7 +168,7 @@ export default function BurtonCaseStudy() {
     <main>
       <CaseStudyHero
         title="Should the homepage check the forecast? Weather and geolocation at Burton"
-        category="Contextual Data Integration"
+        category="Quantitative / Experimentation"
         role="Personalization Specialist"
         team="Capita · Qubit ecosystem: Burton"
         timeline="Integration Lifecycle"

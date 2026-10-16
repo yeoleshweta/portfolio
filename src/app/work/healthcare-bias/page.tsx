@@ -164,7 +164,7 @@ export default function HealthcareBiasCaseStudy() {
     <main>
       <CaseStudyHero
         title="Detecting Healthcare Bias with NLP"
-        category="Data Science & ML Engineering"
+        category="AI / ML Research"
         role="Data Scientist Co-op"
         team="1 Data Scientist Co-op, 1 Advisor"
         timeline="Sept 2025 – Present"

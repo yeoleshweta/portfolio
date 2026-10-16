@@ -186,7 +186,7 @@ export default function StoriesByChildrenCaseStudy() {
     <main>
       <CaseStudyHero
         title="Redesigning a Storytelling Platform for Young Creators"
-        category="UX Research & Design"
+        category="Qualitative Research"
         role="Lead IA & UI Designer"
         team="1 Designer, 1 Developer, 1 Stakeholder"
         timeline="6 Weeks"

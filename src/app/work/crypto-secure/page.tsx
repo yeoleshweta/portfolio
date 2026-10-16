@@ -50,7 +50,7 @@ export default function CryptoSecureCaseStudy() {
     <main>
       <CaseStudyHero
         title="CryptoSecure: AI-Powered Smart Contract Security"
-        category="Blockchain Security / ML Engineering"
+        category="AI / ML Research"
         role="ML/AI Engineering & Frontend"
         team="4 Members"
         timeline="~3 months"

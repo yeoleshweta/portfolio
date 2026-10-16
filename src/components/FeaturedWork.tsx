@@ -8,7 +8,7 @@ import BeeTrail, { BEE_PATHS } from "@/components/casestudy/BeeTrail";
 const featuredProjects = [
   {
     title: "From Frameworks to F1 Scores: Designing a Scalable Communication Assessment System",
-    tag: "NLP & UX Research",
+    tag: "AI / ML Research",
     ref: "ABIM-2025 · fig. 01",
     description:
       "Building a scalable, rubric-grounded NLP pipeline that measures patient-centered communication behaviors across real clinical transcripts. Operationalized frameworks like Calgary-Cambridge and NURSE into measurable constructs for ABIM.",
@@ -17,68 +17,68 @@ const featuredProjects = [
   },
   {
     title: "No UX, No Problem? A Qualitative Study into How Product Managers Navigate UX Without UX Support",
-    tag: "UX Research",
+    tag: "Qualitative Research",
     ref: "John-Deere · fig. 02",
     description:
       "A qualitative study into how Product Managers at John Deere navigate product design and UX decisions without dedicated support. Led to a community forum and a monthly PM cohort.",
     pills: ["8_pm_interviews", "community_forum", "pm_cohort"],
-    href: "/work/design-thinking",
+    href: "/work/pm-ux-study",
   },
 ] as const;
 
 const moreProjects = [
   {
     idx: "03",
-    tag: "Data Science & ML",
+    tag: "AI / ML Research",
     title: "Healthcare Bias — NLP Detection",
     metric: "4-label bias framework",
     href: "/work/healthcare-bias",
   },
   {
     idx: "04",
-    tag: "Quantitative UXR",
+    tag: "Quantitative / Experimentation",
     title: "What Analytics Couldn't Tell Us: Pairing Exit Intercepts with Behavioral Data at Topshop",
     metric: "+5.8% conversion lift",
     href: "/work/personalization",
   },
   {
     idx: "05",
-    tag: "Quantitative UXR",
+    tag: "Mixed Methods",
     title: "When Did Better Actually Mean Better?",
     metric: "SUS Score: 60 → 85.6 (+25.6)",
-    href: "/work/john-deere",
+    href: "/work/john-deere-sus",
   },
   {
     idx: "06",
-    tag: "AI / Accessibility",
+    tag: "AI / ML Research",
     title: "GesturePro — Sign Language Translation",
     metric: "Real-time, zero hardware",
     href: "/work/gesturepro",
   },
   {
     idx: "07",
-    tag: "Quantitative UXR",
+    tag: "Quantitative / Experimentation",
     title: "Would they have bought anyway? Measuring true incrementality for Miss Selfridge",
     metric: "47% new customer rate",
     href: "/work/miss-selfridge",
   },
   {
     idx: "08",
-    tag: "Quantitative UXR",
+    tag: "Quantitative / Experimentation",
     title: "Why Were Students Not Saving? Segment Aware Personalization at Dorothy Perkins",
     metric: "Segmented 50% of UK sales",
     href: "/work/dorothy-perkins",
   },
   {
     idx: "09",
-    tag: "Quantitative UXR",
+    tag: "Quantitative / Experimentation",
     title: "Do Small Wins Compound? Six Measured Experiments, One Revenue Per Visitor Discipline at Evans",
     metric: "2.5% to 8.43% RPV uplift",
     href: "/work/evans",
   },
   {
     idx: "10",
-    tag: "Quantitative UXR",
+    tag: "Quantitative / Experimentation",
     title: "Should the Homepage Check the Forecast? Weather and Geolocation at Burton",
     metric: "+11.6% conversion lift",
     href: "/work/burton",
@@ -92,7 +92,7 @@ const moreProjects = [
   },
   {
     idx: "12",
-    tag: "UX Research · Product Design",
+    tag: "Qualitative Research",
     title: "Team Contract: Making Program Metrics Defensible",
     metric: "9 participants · ~230 observations",
     href: "/work/team-contract",

@@ -163,7 +163,7 @@ export default function MissSelfridgeCaseStudy() {
     <main>
       <CaseStudyHero
         title="Would they have bought anyway? Measuring true incrementality for Miss Selfridge"
-        category="Quantitative Measurement · Experimentation"
+        category="Quantitative / Experimentation"
         role="Measurement & Personalization Specialist"
         team="Qubit · Client ecosystem: Miss Selfridge"
         timeline="Experimentation Period"

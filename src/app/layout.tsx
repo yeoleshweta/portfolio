@@ -10,9 +10,10 @@ import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 import ConsentBanner from "@/components/analytics/ConsentBanner";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.shwetasharma.tech"),
   title: {
-    default: "Shweta Sharma | UX Researcher · AI & ML",
-    template: "%s | Shweta Sharma",
+    default: "Shweta Sharma — UX Researcher",
+    template: "%s · Shweta Sharma",
   },
   description:
     "Shweta Sharma — UX Researcher and AI/ML Grad Student at Drexel. 6+ years across UX, behavioral analytics, and data science. Building things that respond to how people actually behave.",

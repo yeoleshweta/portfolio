@@ -333,7 +333,7 @@ export default function FuelDesignSystemCaseStudy() {
         <Wrap>
           {/* Company tag */}
           <div style={{ display: "inline-block", background: T.green, color: T.white, fontFamily: "JetBrains Mono, monospace", fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase" as const, padding: "5px 12px", borderRadius: "2px", marginBottom: "24px" }}>
-            John Deere
+            Design Systems
           </div>
 
           <h1 style={{

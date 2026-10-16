@@ -52,9 +52,8 @@ export default function Navbar() {
     <>
       <nav className={styles.navbar} aria-label="Primary">
         <div className={styles.container}>
-          <Link href="/" className={styles.brand}>
-            shweta<span className={styles.brandDot}>.</span>
-            <span className={styles.brandScript}>tech</span>
+          <Link href="/" className={styles.brand} aria-label="Shweta Sharma, home">
+            Shweta <span className={styles.brandScript}>Sharma</span>
           </Link>
 
           <div className={styles.links}>

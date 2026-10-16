@@ -71,7 +71,7 @@ export default function DesignThinkingPage() {
   return (
     <div className={styles.page}>
       <CaseStudyHero
-        category=""
+        category="Qualitative Research"
         title={hero.title}
         role={role}
         team={team}

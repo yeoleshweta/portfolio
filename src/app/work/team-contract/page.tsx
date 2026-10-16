@@ -939,7 +939,7 @@ export default function TeamContractCaseStudy() {
       <section style={{ paddingTop: "120px", paddingBottom: "0", background: T.white, borderBottom: `1px solid ${T.border}` }}>
         <Wrap>
           <div style={{ display: "inline-block", background: T.green, color: T.white, fontFamily: "JetBrains Mono, monospace", fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase" as const, padding: "5px 12px", borderRadius: "2px", marginBottom: "24px" }}>
-            John Deere
+            Qualitative Research
           </div>
 
           <h1 style={{
