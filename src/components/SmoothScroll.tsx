@@ -4,8 +4,25 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setLenis } from "@/lib/lenisRef";
 
 gsap.registerPlugin(ScrollTrigger);
+
+function hasOwnScroll(node: HTMLElement) {
+  let el: HTMLElement | null = node;
+  while (el && el !== document.body) {
+    const { overflowX, overflowY } = getComputedStyle(el);
+    const scrollsX =
+      (overflowX === "auto" || overflowX === "scroll") &&
+      el.scrollWidth > el.clientWidth + 1;
+    const scrollsY =
+      (overflowY === "auto" || overflowY === "scroll") &&
+      el.scrollHeight > el.clientHeight + 1;
+    if (scrollsX || scrollsY) return true;
+    el = el.parentElement;
+  }
+  return false;
+}
 
 export default function SmoothScroll({
   children,
@@ -17,25 +34,24 @@ export default function SmoothScroll({
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    if (reduceMotion) {
-      document.documentElement.classList.add("reduce-motion");
-      return;
-    }
+    if (reduceMotion) return;
 
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.1,
+      smoothWheel: true,
+      syncTouch: false,
       orientation: "vertical",
       gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-      prevent: (node: Element) => {
-        return !!node.closest(
-          "#klyro-widget, .klyro-widget, [data-klyro], [data-lenis-prevent]",
+      prevent: (node) => {
+        return (
+          !!node.closest(
+            "#klyro-widget, .klyro-widget, [data-klyro], [data-lenis-prevent]",
+          ) || hasOwnScroll(node)
         );
       },
     });
+
+    setLenis(lenis);
 
     const handleScroll = () => ScrollTrigger.update();
     const tick = (time: number) => lenis.raf(time * 1000);
@@ -48,6 +64,7 @@ export default function SmoothScroll({
       lenis.off("scroll", handleScroll);
       gsap.ticker.remove(tick);
       lenis.destroy();
+      setLenis(null);
     };
   }, []);
 

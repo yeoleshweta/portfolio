@@ -2,9 +2,10 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 24px;
-  height: 24px;
-  background-color: #8b69fa;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 2px solid #8b69fa;
   border-radius: 50%;
   pointer-events: none;
   z-index: 2147483000;

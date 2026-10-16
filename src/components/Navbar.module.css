@@ -47,7 +47,7 @@
 .links {
   display: flex;
   align-items: center;
-  gap: 58px;
+  gap: 36px;
 }
 
 .navLink {
@@ -58,13 +58,38 @@
   transition: color 0.2s ease;
 }
 
-.navLink:hover {
+.navLink:hover,
+.navLink[aria-current] {
   color: #1b1b1b;
+}
+
+.navLink[aria-current] {
+  box-shadow: inset 0 -2px 0 var(--color-lilac);
 }
 
 .actions {
   display: flex;
   align-items: center;
+  gap: 12px;
+}
+
+.pauseBtn,
+.mobilePauseBtn {
+  font-size: 14px;
+  font-weight: 700;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  color: #1b1b1b;
+  border: 1.4px solid rgba(23, 23, 23, 0.38);
+  background: transparent;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+}
+
+.pauseBtn[aria-pressed="true"],
+.mobilePauseBtn[aria-pressed="true"] {
+  background: #ece7ef;
 }
 
 .cvBtn {

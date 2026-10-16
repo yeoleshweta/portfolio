@@ -54,6 +54,8 @@
   /* Darkened lilac for brand script on light chrome (~4.5:1 on #f2f2f2) */
   --color-lilac: #7a5fd4;
 
+  --header-height: 94px;
+
   /* Font sizes */
   --text-hero: clamp(48px, 10vw, 139px);
   --text-heading: 64px;
@@ -84,8 +86,14 @@
 
 html {
   scroll-behavior: auto;
+  scroll-padding-top: var(--header-height);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+section,
+[id] {
+  scroll-margin-top: var(--header-height);
 }
 
 body {
@@ -97,17 +105,25 @@ body {
   overflow-x: hidden;
 }
 
-/* Hide the system cursor only when custom cursor is active AND motion is OK.
-   Coarse pointers never get cursor:none (CustomCursor already gates that). */
-html.has-custom-cursor:not(.reduce-motion),
-html.has-custom-cursor:not(.reduce-motion) * {
-  cursor: none !important;
+a,
+button,
+[role="button"],
+summary,
+label[for] {
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html.has-custom-cursor,
-  html.has-custom-cursor * {
-    cursor: auto !important;
+/* Pause control and OS reduced motion stop looping motion. Transitions stay. */
+html.animations-paused *,
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation: none !important;
+}
+
+@media (max-width: 809px) {
+  :root {
+    --header-height: 82px;
   }
 }
 

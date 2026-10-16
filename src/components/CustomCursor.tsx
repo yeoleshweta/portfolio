@@ -49,7 +49,7 @@ export default function CustomCursor() {
       current.current.y = cy;
 
       const scale = hovering.current ? 1.45 : 1;
-      el.style.transform = `translate3d(${cx - 12}px, ${cy - 12}px, 0) scale(${scale})`;
+      el.style.transform = `translate3d(${cx - 14}px, ${cy - 14}px, 0) scale(${scale})`;
 
       const dx = Math.abs(tx - cx);
       const dy = Math.abs(ty - cy);
@@ -59,7 +59,7 @@ export default function CustomCursor() {
         raf.current = 0;
         current.current.x = tx;
         current.current.y = ty;
-        el.style.transform = `translate3d(${tx - 12}px, ${ty - 12}px, 0) scale(${scale})`;
+        el.style.transform = `translate3d(${tx - 14}px, ${ty - 14}px, 0) scale(${scale})`;
       }
     };
 

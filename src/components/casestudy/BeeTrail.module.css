@@ -93,6 +93,21 @@
   }
 }
 
+:global(html.animations-paused) .reveal,
+:global(html.reduce-motion) .reveal {
+  stroke-dashoffset: 0;
+}
+
+:global(html.animations-paused) .arrow,
+:global(html.reduce-motion) .arrow {
+  opacity: 1;
+}
+
+:global(html.animations-paused) .bee,
+:global(html.reduce-motion) .bee {
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .trail,
   .reveal,

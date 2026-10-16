@@ -8,9 +8,9 @@ import {
   useSpring,
   useTransform,
   useInView,
-  useReducedMotion,
   type MotionValue,
 } from "framer-motion";
+import { useMotionOff } from "@/components/MotionControl";
 import styles from "./HeroSection.module.css";
 import BeeTrail, { BEE_PATHS } from "@/components/casestudy/BeeTrail";
 
@@ -72,9 +72,11 @@ const cubies = (() => {
 function Cubie({
   cubie,
   progress,
+  frozen,
 }: {
   cubie: (typeof cubies)[number];
   progress: MotionValue<number>;
+  frozen: boolean;
 }) {
   const x = useTransform(
     progress,
@@ -130,7 +132,7 @@ function Cubie({
   return (
     <motion.div
       className={styles.cubie}
-      style={{ x, y, z, rotateX, rotateY, rotateZ, scale }}
+      style={frozen ? undefined : { x, y, z, rotateX, rotateY, rotateZ, scale }}
     >
       {Object.entries(FACE_TRANSFORMS).map(([face, transform]) => {
         // Only render faces that are visible (on the exterior)
@@ -159,7 +161,7 @@ function Cubie({
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const hotspotRef = useRef<HTMLDivElement>(null);
-  const reduceMotion = useReducedMotion() ?? false;
+  const reduceMotion = useMotionOff();
   const [isCubeHovered, setIsCubeHovered] = useState(false);
 
   const { scrollYProgress: heroScrollYProgress } = useScroll({
@@ -281,14 +283,18 @@ export default function HeroSection() {
           >
             <motion.div
               className={styles.cubeMotion}
-              style={{
-                x: cubeScrollX,
-                y: cubeScrollY,
-                rotateX: cubeRotateX,
-                rotateY: cubeRotateY,
-                rotateZ: cubeRotateZ,
-                scale: cubeScale,
-              }}
+              style={
+              reduceMotion
+                ? undefined
+                : {
+                    x: cubeScrollX,
+                    y: cubeScrollY,
+                    rotateX: cubeRotateX,
+                    rotateY: cubeRotateY,
+                    rotateZ: cubeRotateZ,
+                    scale: cubeScale,
+                  }
+            }
             >
               <motion.div
                 className={styles.cubeSpin}
@@ -301,6 +307,7 @@ export default function HeroSection() {
                       key={cubie.id}
                       cubie={cubie}
                       progress={cubeProgress}
+                      frozen={reduceMotion}
                     />
                   ))}
                 </div>
@@ -312,36 +319,36 @@ export default function HeroSection() {
       <motion.div
         aria-hidden="true"
         className={styles.transitionFog}
-        style={{ opacity: transitionFogOpacity }}
+        style={reduceMotion ? { opacity: 0 } : { opacity: transitionFogOpacity }}
       />
 
       <div className={styles.container}>
         <div className={styles.content}>
           <motion.div
             className={styles.textStack}
-            style={{ y: titleY, opacity: titleOpacity }}
+            style={reduceMotion ? undefined : { y: titleY, opacity: titleOpacity }}
           >
             <motion.div
-              initial={{ opacity: 0, y: 42 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 42 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: reduceMotion ? 0 : 1, ease: [0.16, 1, 0.3, 1] }}
             >
               <h1 className={styles.heading}>
                 <motion.span
                   className={styles.line}
-                  initial={{ y: 120 }}
+                  initial={reduceMotion ? false : { y: 120 }}
                   animate={{ y: 0 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: reduceMotion ? 0 : 1, ease: [0.16, 1, 0.3, 1] }}
                 >
                   DESIGNING
                 </motion.span>
                 <motion.span
                   className={styles.line}
-                  initial={{ y: 120 }}
+                  initial={reduceMotion ? false : { y: 120 }}
                   animate={{ y: 0 }}
                   transition={{
-                    duration: 1,
-                    delay: 0.06,
+                    duration: reduceMotion ? 0 : 1,
+                    delay: reduceMotion ? 0 : 0.06,
                     ease: [0.16, 1, 0.3, 1],
                   }}
                 >
@@ -349,15 +356,23 @@ export default function HeroSection() {
                 </motion.span>
                 <motion.span
                   className={styles.script}
-                  style={{ x: scriptX, y: scriptY, rotate: scriptRotate }}
+                  style={
+                    reduceMotion
+                      ? undefined
+                      : { x: scriptX, y: scriptY, rotate: scriptRotate }
+                  }
                 >
                   <motion.span
                     className={styles.scriptInner}
-                    initial={{ opacity: 0, x: -48, y: 32, rotate: -5 }}
+                    initial={
+                      reduceMotion
+                        ? false
+                        : { opacity: 0, x: -48, y: 32, rotate: -5 }
+                    }
                     animate={{ opacity: 1, x: 0, y: 0, rotate: 0 }}
                     transition={{
-                      duration: 1.1,
-                      delay: 0.18,
+                      duration: reduceMotion ? 0 : 1.1,
+                      delay: reduceMotion ? 0 : 0.18,
                       ease: [0.16, 1, 0.3, 1],
                     }}
                   >
@@ -370,15 +385,15 @@ export default function HeroSection() {
 
           <motion.div
             className={styles.bioContainer}
-            style={{ y: bioY, opacity: bioOpacity }}
+            style={reduceMotion ? undefined : { y: bioY, opacity: bioOpacity }}
           >
             <motion.div
               className={styles.bioInner}
-              initial={{ opacity: 0, y: 22 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                delay: 0.28,
-                duration: 0.9,
+                delay: reduceMotion ? 0 : 0.28,
+                duration: reduceMotion ? 0 : 0.9,
                 ease: [0.16, 1, 0.3, 1],
               }}
             >

@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
+import MotionControl from "@/components/MotionControl";
+import HashScroll from "@/components/HashScroll";
 import BackgroundScene from "@/components/BackgroundScene";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
@@ -36,7 +38,9 @@ export default function RootLayout({
           Skip to main content
         </a>
 
+        <MotionControl>
         <CustomCursor />
+        <HashScroll />
         <SmoothScroll>
           <Navbar />
           <BackgroundScene />
@@ -44,6 +48,7 @@ export default function RootLayout({
             {children}
           </main>
         </SmoothScroll>
+        </MotionControl>
         <ConsentBanner />
         <Script
           src="https://unpkg.com/@klyro/widget/dist/widget.js"

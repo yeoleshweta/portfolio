@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import styles from "./GlassCube.module.css";
 import { CSSProperties } from "react";
+import { useMotionOff } from "@/components/MotionControl";
 
 interface GlassCubeProps {
   size: number;
@@ -22,6 +23,7 @@ export default function GlassCube({
   delay,
   color = "rgba(139, 105, 250, 0.4)",
 }: GlassCubeProps) {
+  const motionOff = useMotionOff();
   const halfSize = size / 2;
 
   const cubeStyle = {
@@ -42,20 +44,28 @@ export default function GlassCube({
       <motion.div
         className={styles.cube}
         style={cubeStyle}
-        animate={{
-          rotateX: [0, 360],
-          rotateY: [0, 360],
-          rotateZ: [0, 360],
-          y: [0, -20, 0],
-          x: [0, 10, 0],
-          opacity: [0.5, 0.9, 0.5],
-        }}
-        transition={{
-          duration: duration * 1.5,
-          repeat: Infinity,
-          ease: "linear",
-          delay: delay,
-        }}
+        animate={
+          motionOff
+            ? undefined
+            : {
+                rotateX: [0, 360],
+                rotateY: [0, 360],
+                rotateZ: [0, 360],
+                y: [0, -20, 0],
+                x: [0, 10, 0],
+                opacity: [0.5, 0.9, 0.5],
+              }
+        }
+        transition={
+          motionOff
+            ? { duration: 0 }
+            : {
+                duration: duration * 1.5,
+                repeat: Infinity,
+                ease: "linear",
+                delay: delay,
+              }
+        }
       >
         <div className={`${styles.face} ${styles.front}`} style={faceStyle} />
         <div className={`${styles.face} ${styles.back}`} style={faceStyle} />

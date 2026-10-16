@@ -1,299 +1,79 @@
 .section {
   position: relative;
   z-index: 30;
-  background: var(--color-background);
-  isolation: isolate;
-  /* Reduced to 400vh to remove extra blank space at the end */
-  height: 400vh;
-  margin-top: 0;
-  margin-bottom: 20vh;
+  scroll-margin-top: var(--header-height);
+  padding: 4.5rem 1.5rem 3rem;
 }
 
-.scene {
-  position: relative;
-  height: 400vh;
-}
-
-.sticky {
-  position: sticky;
-  top: 94px;
-  height: calc(100svh - 94px);
-  overflow: visible;
-  display: block;
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
-}
-
-.backdropWash {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: transparent;
-}
-
-.header {
-  position: relative;
-  z-index: 4;
-  display: flex;
+.inner {
+  max-width: 1100px;
   margin: 0 auto;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  padding-top: 5vh;
-  text-align: center;
 }
 
 .title {
   font-family: var(--font-display);
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: #1a1a1a;
-  text-transform: none;
+  text-align: center;
+  margin: 0;
 }
 
 .italic {
   font-family: var(--font-script);
   font-style: italic;
   font-weight: 400;
-  color: #444;
+  color: var(--color-lilac);
 }
 
 .description {
-  width: 1100px;
-  max-width: calc(100% - 32px);
-  color: #444;
-  font-family: var(--font-primary);
-  font-size: 1rem;
-  font-weight: 400;
+  max-width: 42rem;
+  margin: 1rem auto 2rem;
+  color: #333;
+  font-size: 1.05rem;
   line-height: 1.6;
+  text-align: center;
 }
 
-.smallCubeField {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 168px;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.smallCube {
-  position: absolute;
-  display: block;
-  border: 1px solid rgba(17, 17, 17, 0.18);
-  border-radius: 5px;
-  background: rgba(231, 214, 255, 0.72);
-}
-
-.heartCube {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  transform-style: preserve-3d;
-}
-
-.heartCubeFace {
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  backface-visibility: hidden;
-  backdrop-filter: blur(2px);
-}
-
-.heartFront {
-  transform: translateZ(10px);
-}
-.heartBack {
-  transform: rotateY(180deg) translateZ(10px);
-}
-.heartRight {
-  transform: rotateY(90deg) translateZ(10px);
-}
-.heartLeft {
-  transform: rotateY(-90deg) translateZ(10px);
-}
-.heartTop {
-  transform: rotateX(90deg) translateZ(10px);
-}
-.heartBottom {
-  transform: rotateX(-90deg) translateZ(10px);
-}
-
-.carouselContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100svh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: visible;
-  z-index: 10;
-  perspective: 1500px;
-  perspective-origin: center 50%;
-  pointer-events: none;
-}
-
-.galleryTrack {
+.cell {
   position: relative;
-  width: 0;
-  height: 0;
-  transform-style: preserve-3d;
-  pointer-events: auto;
-}
-
-.galleryCard {
-  position: absolute;
-  width: 280px;
-  height: 380px;
-  /* Centering formula */
-  left: 50%;
-  top: 50%;
-  margin-left: -140px;
-  margin-top: -190px;
-  border-radius: 12px;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-  background: #111;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  pointer-events: auto;
-  -webkit-box-reflect: below 2px
-    linear-gradient(transparent, transparent 60%, rgba(255, 255, 255, 0.15));
+  background: #e7e4ea;
 }
 
-.cardImageInner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 12px;
+.cell:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
 }
 
-.galleryCard:hover {
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-}
-
-.galleryCard img,
-.cardCover {
+.photo {
   object-fit: cover;
-  width: 100%;
-  height: 100%;
 }
 
-.stageScatterCube {
-  position: absolute;
-  display: block;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(2px);
-}
-
-/* Layout adjustments for laptops to prevent 3D cards overlapping text */
-@media (max-width: 1440px) {
-  .header {
-    padding-top: 40px;
-  }
-  .title {
-    font-size: 2.8rem;
-  }
-  .description {
-    width: 1050px;
-    font-size: 1.05rem;
-  }
-  .carouselContainer {
-    height: 750px;
-  }
-  .galleryCard {
-    width: 260px;
-    height: 350px;
-    margin-left: -130px;
-    margin-top: -175px;
-  }
-}
-
-@media (max-width: 1180px), (max-height: 800px) {
-  .scene {
-    height: 360svh;
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .sticky {
-    top: 84px;
-    height: calc(100svh - 84px);
+  .grid {
+    grid-auto-rows: 140px;
   }
 
-  .header {
-    padding-top: 32px;
-  }
-
-  .title {
-    font-size: 2.4rem;
-  }
-
-  .description {
-    width: 950px;
-    font-size: 1.1rem;
-  }
-
-  .carouselContainer {
-    height: 600px;
-  }
-
-  .galleryCard {
-    width: 240px;
-    height: 320px;
-    margin-left: -120px;
-    margin-top: -160px;
-  }
-}
-
-@media (max-width: 768px) {
-  .scene {
-    height: 360svh;
-  }
-
-  .sticky {
-    position: sticky;
-    top: 64px;
-    height: calc(100svh - 64px);
-    overflow: hidden;
-  }
-
-  .header {
-    width: 100%;
-    padding-top: 32px;
-  }
-
-  .title {
-    font-size: 1.8rem;
-  }
-
-  .italic {
-    font-size: 2.4rem;
-  }
-
-  .description {
-    width: 100%;
-    font-size: 15px;
-  }
-
-  .smallCubeField,
-  .stageScatterCube {
-    display: none;
-  }
-
-  .carouselContainer {
-    height: 480px;
-  }
-
-  .galleryCard {
-    width: 240px;
-    height: 320px;
+  .cell:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
   }
 }
