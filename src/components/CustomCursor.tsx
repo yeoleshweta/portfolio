@@ -30,8 +30,9 @@ export default function CustomCursor() {
   useEffect(() => {
     if (!mounted) return;
 
-    const mq = window.matchMedia("(pointer: fine)");
-    if (!mq.matches) return;
+    const finePointer = window.matchMedia("(pointer: fine)");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!finePointer.matches || reduceMotion.matches) return;
 
     const el = dotRef.current;
     if (!el) return;

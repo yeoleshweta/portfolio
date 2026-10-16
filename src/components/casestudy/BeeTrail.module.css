@@ -3,6 +3,7 @@
   height: auto;
   overflow: visible;
   display: block;
+  --bee-duration: 9s;
 }
 
 .trail {
@@ -14,17 +15,26 @@
   animation: march 1.2s linear infinite;
 }
 
+/* Mask stroke: uncovers the dotted trail in sync with the bee. */
+.reveal {
+  stroke-dasharray: var(--path-length, 1000);
+  stroke-dashoffset: var(--path-length, 1000);
+  animation: revealTrail var(--bee-duration) ease-in-out infinite;
+}
+
 .arrow {
   fill: none;
   stroke: #8b69fa;
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
+  opacity: 0;
+  animation: showArrow var(--bee-duration) ease-in-out infinite;
 }
 
 .bee {
   offset-rotate: auto;
-  animation: fly 9s ease-in-out infinite;
+  animation: fly var(--bee-duration) ease-in-out infinite;
 }
 
 .wing {
@@ -36,6 +46,26 @@
 @keyframes march {
   to {
     stroke-dashoffset: -22;
+  }
+}
+
+@keyframes revealTrail {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes showArrow {
+  0%,
+  82% {
+    opacity: 0;
+  }
+  90%,
+  94% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
@@ -65,9 +95,19 @@
 
 @media (prefers-reduced-motion: reduce) {
   .trail,
+  .reveal,
+  .arrow,
   .bee,
   .wing {
     animation: none;
+  }
+
+  .reveal {
+    stroke-dashoffset: 0;
+  }
+
+  .arrow {
+    opacity: 1;
   }
 
   .bee {

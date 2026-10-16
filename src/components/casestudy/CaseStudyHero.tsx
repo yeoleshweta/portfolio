@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./CaseStudyHero.module.css";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 interface CaseStudyHeroProps {
   title: string;
@@ -36,6 +36,34 @@ export default function CaseStudyHero({
   isSmallImage = false,
   variant = "default",
 }: CaseStudyHeroProps) {
+  const reduceMotion = useReducedMotion() ?? false;
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(!reduceMotion);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (reduceMotion) {
+      video.pause();
+      setPlaying(false);
+      return;
+    }
+    video.play().catch(() => setPlaying(false));
+    setPlaying(true);
+  }, [reduceMotion, videoUrl]);
+
+  const togglePlayback = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      video.play().catch(() => undefined);
+      setPlaying(true);
+    } else {
+      video.pause();
+      setPlaying(false);
+    }
+  };
+
   return (
     <section
       className={`${styles.hero}${variant === "abtools" ? ` ${styles.abtools}` : ""}`}
@@ -44,7 +72,7 @@ export default function CaseStudyHero({
       <div className={styles.header}>
         {category && (
           <motion.span
-            initial={{ opacity: 0, y: 20 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className={styles.category}
@@ -53,7 +81,7 @@ export default function CaseStudyHero({
           </motion.span>
         )}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           className={`${styles.title}${variant === "abtools" ? ` ${styles.titleGlow}` : ""}`}
@@ -63,7 +91,7 @@ export default function CaseStudyHero({
 
         {subtitle ? (
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.24, ease: "easeOut" }}
             className={styles.subtitle}
@@ -74,7 +102,7 @@ export default function CaseStudyHero({
 
         {children ? (
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.32, ease: "easeOut" }}
             className={styles.heroExtra}
@@ -84,7 +112,7 @@ export default function CaseStudyHero({
         ) : null}
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.44, ease: "easeOut" }}
           className={styles.meta}
@@ -112,7 +140,7 @@ export default function CaseStudyHero({
 
       {(image || (isVideo && videoUrl)) && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 40 }}
+          initial={reduceMotion ? false : { opacity: 0, scale: 0.9, y: 40 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className={`${styles.mockupContainer} ${isSmallImage ? styles.smallMockup : ""}`}
@@ -120,18 +148,28 @@ export default function CaseStudyHero({
           {isVideo && videoUrl ? (
             <div className={styles.laptopMockup}>
               <div className={styles.laptopScreen}>
-                <div className={styles.webcam}></div>
+                <div className={styles.webcam} aria-hidden />
                 <video
+                  ref={videoRef}
                   src={videoUrl}
-                  autoPlay
+                  autoPlay={!reduceMotion}
                   muted
                   loop
                   playsInline
                   className={styles.videoPlayer}
+                  aria-label={`${title} product demo video`}
                 />
+                <button
+                  type="button"
+                  className={styles.videoToggle}
+                  onClick={togglePlayback}
+                  aria-pressed={playing}
+                >
+                  {playing ? "Pause video" : "Play video"}
+                </button>
               </div>
               <div className={styles.laptopBase}>
-                <div className={styles.laptopNotch}></div>
+                <div className={styles.laptopNotch} aria-hidden />
               </div>
             </div>
           ) : (

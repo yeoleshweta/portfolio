@@ -1,6 +1,6 @@
 .page {
   --dt-accent: #8b69fa;
-  --dt-accent-sm: #6d47e8;
+  --dt-accent-sm: var(--color-accent-text, #5b3fd4);
   --dt-text: #595959;
   --dt-strong: #1c1c1c;
   --dt-light: #f8f9fa;

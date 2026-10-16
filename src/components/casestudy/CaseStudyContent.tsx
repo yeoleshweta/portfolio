@@ -2,7 +2,7 @@
 
 import React from "react";
 import styles from "./CaseStudyContent.module.css";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 interface SectionProps {
   id?: string;
@@ -250,6 +250,7 @@ export function DoubleDiamondCarousel({
 }) {
   const [[index, direction], setTuple] = React.useState([0, 1]);
   const [isPaused, setIsPaused] = React.useState(false);
+  const reduceMotion = useReducedMotion() ?? false;
 
   const paginate = React.useCallback(
     (newDirection: number) => {
@@ -263,12 +264,12 @@ export function DoubleDiamondCarousel({
   );
 
   React.useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || reduceMotion) return;
     const timer = setInterval(() => {
       paginate(1);
     }, 5000);
     return () => clearInterval(timer);
-  }, [isPaused, paginate]);
+  }, [isPaused, paginate, reduceMotion]);
 
   const stage = stages[index];
 
@@ -292,6 +293,12 @@ export function DoubleDiamondCarousel({
       className={styles.carouselWrapper}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+          setIsPaused(false);
+        }
+      }}
     >
       <div className={styles.watermark}>
         {String(index + 1).padStart(2, "0")}
@@ -324,6 +331,7 @@ export function DoubleDiamondCarousel({
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    aria-hidden
                   >
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                     <polyline points="22 4 12 14.01 9 11.01"></polyline>

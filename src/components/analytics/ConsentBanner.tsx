@@ -7,10 +7,8 @@ import styles from "./ConsentBanner.module.css";
 /**
  * Minimal cookie notice, shown once per visitor.
  *
- * Until a choice is made, Consent Mode v2 keeps `analytics_storage` denied,
- * so GA4 receives cookieless pings only — no identifiers, nothing stored on
- * the device. Accepting upgrades the session to normal (cookie-based)
- * measurement; declining keeps it cookieless forever.
+ * Non-modal region (not a dialog) so focus order stays natural and Escape
+ * is not required. Consent Mode v2 keeps analytics denied until a choice.
  */
 export default function ConsentBanner() {
   const [visible, setVisible] = useState(false);
@@ -18,7 +16,6 @@ export default function ConsentBanner() {
   useEffect(() => {
     if (!GA_ENABLED) return;
     if (readConsent() === null) {
-      // Let the hero animation land first.
       const timer = window.setTimeout(() => setVisible(true), 1200);
       return () => window.clearTimeout(timer);
     }
@@ -32,11 +29,17 @@ export default function ConsentBanner() {
   };
 
   return (
-    <div className={styles.banner} role="dialog" aria-label="Cookie notice">
-      <p className={styles.text}>
+    <aside
+      className={styles.banner}
+      role="region"
+      aria-label="Analytics cookie notice"
+    >
+      <p className={styles.text} id="consent-banner-text">
         I use Google Analytics to see which case studies people actually read.
         No ads, no profiles, no data sold.{" "}
-        <span className={styles.muted}>Decline and nothing is stored on your device.</span>
+        <span className={styles.muted}>
+          Decline and nothing is stored on your device.
+        </span>
       </p>
       <div className={styles.actions}>
         <button
@@ -54,6 +57,6 @@ export default function ConsentBanner() {
           Allow
         </button>
       </div>
-    </div>
+    </aside>
   );
 }

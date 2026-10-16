@@ -48,7 +48,7 @@ function Word({
   progress: MotionValue<number>;
   range: [number, number];
 }) {
-  const opacity = useTransform(progress, range, [0.1, 1]);
+  const opacity = useTransform(progress, range, [0.65, 1]);
   return (
     <motion.span style={{ opacity }} className={styles.word}>
       {children}{" "}

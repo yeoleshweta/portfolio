@@ -288,7 +288,7 @@
 
 .contactScript {
   margin-top: -8px;
-  color: #8b69fa;
+  color: var(--color-accent-text);
   font-family: var(--font-script);
   font-size: 68px;
   font-style: italic;

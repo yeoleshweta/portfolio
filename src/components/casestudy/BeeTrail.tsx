@@ -1,6 +1,11 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import {
+  useEffect,
+  useId,
+  useRef,
+  type CSSProperties,
+} from "react";
 import styles from "./BeeTrail.module.css";
 
 type BeeTrailProps = {
@@ -25,6 +30,34 @@ export default function BeeTrail({
   decorative = false,
   className,
 }: BeeTrailProps) {
+  const reactId = useId();
+  const maskId = `bee-trail-mask-${reactId.replace(/:/g, "")}`;
+  const revealRef = useRef<SVGPathElement>(null);
+  const durationStyle = {
+    ["--bee-duration" as string]: `${duration}s`,
+  } as CSSProperties;
+
+  useEffect(() => {
+    const path = revealRef.current;
+    if (!path) return;
+
+    const measure = () => {
+      const length = path.getTotalLength();
+      if (length > 0) {
+        path.style.setProperty("--path-length", `${length}`);
+      }
+    };
+
+    measure();
+    const frame = requestAnimationFrame(measure);
+    const observer = new ResizeObserver(measure);
+    observer.observe(path);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, [d]);
+
   return (
     <svg
       viewBox={viewBox}
@@ -32,15 +65,30 @@ export default function BeeTrail({
       aria-label={decorative ? undefined : label}
       aria-hidden={decorative ? true : undefined}
       className={`${styles.svg}${className ? ` ${className}` : ""}`}
+      style={durationStyle}
     >
-      <path className={styles.trail} d={d} />
+      <defs>
+        <mask id={maskId} maskUnits="userSpaceOnUse">
+          {/* White stroke reveals the trail only where the bee has already flown. */}
+          <path
+            ref={revealRef}
+            className={styles.reveal}
+            d={d}
+            fill="none"
+            stroke="#fff"
+            strokeWidth={14}
+            strokeLinecap="round"
+          />
+        </mask>
+      </defs>
+      <path className={styles.trail} d={d} mask={`url(#${maskId})`} />
       {arrow ? <path className={styles.arrow} d={arrow} /> : null}
       <g
         className={styles.bee}
         style={
           {
             offsetPath: `path('${d}')`,
-            animationDuration: `${duration}s`,
+            ...durationStyle,
           } as CSSProperties
         }
       >

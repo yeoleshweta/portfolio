@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./CaseStudyLayout.module.css";
-import Navbar from "../Navbar";
 import { EVENTS, projectSlugFor, track } from "@/lib/analytics";
 
 interface CaseStudyLayoutProps {
@@ -74,20 +73,21 @@ export default function CaseStudyLayout({
 
   return (
     <div className={styles.layout}>
-      <Navbar />
-
-      <div className={styles.scrollSpy}>
-        <div className={styles.progressLine} />
+      <div className={styles.scrollSpy} aria-label="Case study sections">
+        <div className={styles.progressLine} aria-hidden />
         <div
           className={styles.progressFill}
           style={{ height: `${scrollProgress}%` }}
+          aria-hidden
         />
         {sections.map((section) => (
           <button
             key={section.id}
+            type="button"
             className={`${styles.dot} ${activeSection === section.id ? styles.dotActive : ""}`}
             onClick={() => scrollTo(section.id)}
             aria-label={`Scroll to ${section.label}`}
+            aria-current={activeSection === section.id ? "true" : undefined}
             data-track="nav_click"
             data-track-link-label={`scrollspy:${section.label}`}
             data-track-location="case_study_scrollspy"
@@ -95,7 +95,7 @@ export default function CaseStudyLayout({
         ))}
       </div>
 
-      <main className={styles.main}>{children}</main>
+      <div className={styles.main}>{children}</div>
     </div>
   );
 }

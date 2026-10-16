@@ -10,7 +10,10 @@ import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 import ConsentBanner from "@/components/analytics/ConsentBanner";
 
 export const metadata: Metadata = {
-  title: "Shweta Sharma | UX Researcher · AI & ML",
+  title: {
+    default: "Shweta Sharma | UX Researcher · AI & ML",
+    template: "%s | Shweta Sharma",
+  },
   description:
     "Shweta Sharma — UX Researcher and AI/ML Grad Student at Drexel. 6+ years across UX, behavioral analytics, and data science. Building things that respond to how people actually behave.",
 };
@@ -28,11 +31,17 @@ export default function RootLayout({
         <GoogleAnalytics />
         <AnalyticsProvider />
 
+        <a href="#main-content" className="skipLink">
+          Skip to main content
+        </a>
+
         <CustomCursor />
         <SmoothScroll>
           <Navbar />
           <BackgroundScene />
-          <main className="main-content">{children}</main>
+          <main id="main-content" className="main-content" tabIndex={-1}>
+            {children}
+          </main>
         </SmoothScroll>
         <ConsentBanner />
         <Script

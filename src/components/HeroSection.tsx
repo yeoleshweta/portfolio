@@ -8,6 +8,7 @@ import {
   useSpring,
   useTransform,
   useInView,
+  useReducedMotion,
   type MotionValue,
 } from "framer-motion";
 import styles from "./HeroSection.module.css";
@@ -158,6 +159,7 @@ function Cubie({
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const hotspotRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion() ?? false;
   const [isCubeHovered, setIsCubeHovered] = useState(false);
 
   const { scrollYProgress: heroScrollYProgress } = useScroll({
@@ -238,7 +240,7 @@ export default function HeroSection() {
   );
 
   const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
-    if (!hotspotRef.current) {
+    if (reduceMotion || !hotspotRef.current) {
       return;
     }
 
@@ -268,12 +270,12 @@ export default function HeroSection() {
         >
           <motion.div
             className={styles.cubeIntro}
-            style={{ x: mouseX, y: mouseY }}
-            initial={{ opacity: 0, scale: 0.88, rotate: 6 }}
+            style={reduceMotion ? undefined : { x: mouseX, y: mouseY }}
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.88, rotate: 6 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{
-              duration: 1.15,
-              delay: 0.12,
+              duration: reduceMotion ? 0 : 1.15,
+              delay: reduceMotion ? 0 : 0.12,
               ease: [0.16, 1, 0.3, 1],
             }}
           >

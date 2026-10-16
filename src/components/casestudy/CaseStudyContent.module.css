@@ -698,16 +698,32 @@
 
 .dot {
   width: 48px;
-  height: 4px;
+  height: 24px;
+  padding: 10px 0;
   border-radius: 2px;
-  background: var(--color-border);
+  background: transparent;
   border: none;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.dot::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-border);
+  transition: background 0.3s ease, width 0.3s ease;
+}
+
+.dotActive::after {
+  background: var(--color-accent);
+  width: 100%;
 }
 
 .dotActive {
-  background: var(--color-accent);
   width: 64px;
 }
 
@@ -975,7 +991,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #8b69fa;
+  color: var(--color-accent-text);
   margin-bottom: 8px;
   display: block;
 }
@@ -1050,7 +1066,7 @@
 }
 
 .skillConstellationColumnTitle.primary {
-  color: #8b69fa;
+  color: var(--color-accent-text);
   border-bottom-color: rgba(139, 105, 250, 0.2);
 }
 
@@ -1076,7 +1092,7 @@
 
 .skillPill.primary {
   background: rgba(139, 105, 250, 0.08);
-  color: #8b69fa;
+  color: var(--color-accent-text);
   border: 1px solid rgba(139, 105, 250, 0.15);
 }
 

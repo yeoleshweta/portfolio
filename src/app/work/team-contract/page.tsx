@@ -864,7 +864,7 @@ function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
   };
 
   return (
-    <main style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f5f3", padding: "24px" }}>
+    <div role="region" aria-label="Password protected case study" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f5f3", padding: "24px" }}>
       <div style={{ background: T.white, border: `1px solid ${T.border}`, borderRadius: "12px", width: "100%", maxWidth: "440px", overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}>
         <div style={{ height: "6px", background: T.yellow }} />
         <div style={{ background: T.green, padding: "28px 24px", textAlign: "center" as const, color: T.white }}>
@@ -879,16 +879,27 @@ function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column" as const, gap: "6px" }}>
+            <label htmlFor="team-contract-password" style={{ fontSize: "12px", fontWeight: 600, color: T.text }}>
+              Password
+            </label>
             <input
+              id="team-contract-password"
               type="password"
+              autoComplete="current-password"
               placeholder="Enter password..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              style={{ padding: "12px 16px", border: `1px solid ${T.border}`, borderRadius: "4px", fontSize: "14px", outline: "none", width: "100%", color: T.text, boxSizing: "border-box" as const }}
+              aria-invalid={Boolean(error)}
+              aria-describedby={error ? "team-contract-password-error" : undefined}
+              style={{ padding: "12px 16px", border: `1px solid ${T.border}`, borderRadius: "4px", fontSize: "14px", width: "100%", color: T.text, boxSizing: "border-box" as const }}
               onFocus={(e) => { e.target.style.borderColor = T.green; }}
               onBlur={(e) => { e.target.style.borderColor = T.border; }}
             />
-            {error && <span style={{ fontSize: "12.5px", color: "#b91c1c", fontWeight: 600 }}>{error}</span>}
+            {error && (
+              <span id="team-contract-password-error" role="alert" style={{ fontSize: "12.5px", color: "#b91c1c", fontWeight: 600 }}>
+                {error}
+              </span>
+            )}
           </div>
           <button
             type="submit"
@@ -900,7 +911,7 @@ function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
           </button>
         </form>
       </div>
-    </main>
+    </div>
   );
 }
 

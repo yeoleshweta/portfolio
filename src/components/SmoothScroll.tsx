@@ -13,6 +13,15 @@ export default function SmoothScroll({
   children: React.ReactNode;
 }) {
   useEffect(() => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reduceMotion) {
+      document.documentElement.classList.add("reduce-motion");
+      return;
+    }
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -22,7 +31,6 @@ export default function SmoothScroll({
       wheelMultiplier: 1,
       touchMultiplier: 2,
       prevent: (node: Element) => {
-        // Allow native scrolling inside nested scroll areas / third-party widgets
         return !!node.closest(
           "#klyro-widget, .klyro-widget, [data-klyro], [data-lenis-prevent]",
         );
