@@ -5,15 +5,15 @@ import Link from "next/link";
 import {
   BadgePercent,
   Book,
-  ChartLine,
   ChevronLeft,
   ChevronRight,
   CloudSun,
   Hand,
-  LayoutGrid,
   MessageCircle,
+  MessageSquare,
   Shield,
   ShoppingBag,
+  Stethoscope,
   TrendingUp,
   Users,
   type LucideIcon,
@@ -23,21 +23,21 @@ import { CASE_STUDIES, type CaseStudyMeta } from "@/lib/caseStudyMeta";
 import styles from "./AboutMeSection.module.css";
 
 const FEATURED_SLUGS = new Set([
-  "abim",
-  "pm-ux-study",
-  "healthcare-bias",
+  "john-deere-sus",
+  "fuel-design-system",
   "personalization",
+  "abim",
 ]);
 
-/** Hidden studies, in the order they appear on the homepage slider. */
+/** Studies that are not in the featured four, in slider order. */
 const SLUGS = [
-  "john-deere-sus",
+  "pm-ux-study",
+  "healthcare-bias",
   "gesturepro",
   "miss-selfridge",
   "dorothy-perkins",
   "evans",
   "burton",
-  "fuel-design-system",
   "team-contract",
   "crypto-secure",
   "my-ai-friends",
@@ -45,13 +45,13 @@ const SLUGS = [
 ] as const;
 
 const ICONS: Record<(typeof SLUGS)[number], LucideIcon> = {
-  "john-deere-sus": ChartLine,
+  "pm-ux-study": MessageSquare,
+  "healthcare-bias": Stethoscope,
   gesturepro: Hand,
   "miss-selfridge": ShoppingBag,
   "dorothy-perkins": BadgePercent,
   evans: TrendingUp,
   burton: CloudSun,
-  "fuel-design-system": LayoutGrid,
   "team-contract": Users,
   "crypto-secure": Shield,
   "my-ai-friends": MessageCircle,
@@ -60,13 +60,13 @@ const ICONS: Record<(typeof SLUGS)[number], LucideIcon> = {
 
 /** Short outcomes already used on the site. Studies without one fall back to the description. */
 const METRICS: Partial<Record<(typeof SLUGS)[number], string>> = {
-  "john-deere-sus": "SUS 60 → 85.6",
+  "pm-ux-study": "8 PM interviews",
+  "healthcare-bias": "4-label framework",
   gesturepro: "Real-time, zero hardware",
   "miss-selfridge": "47% new customer rate",
   "dorothy-perkins": "Segmented 50% of UK sales",
   evans: "2.5% to 8.43% RPV uplift",
   burton: "+11.6% conversion lift",
-  "fuel-design-system": "100+ screens on one system",
   "team-contract": "9 participants · ~230 observations",
 };
 

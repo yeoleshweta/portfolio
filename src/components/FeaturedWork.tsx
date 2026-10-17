@@ -24,6 +24,47 @@ type Study = {
 
 const STUDIES: Study[] = [
   {
+    slug: "john-deere-sus",
+    title: "When Did Better Actually Mean Better?",
+    category: "Mixed Methods",
+    metric: "SUS 60 → 85.6",
+    blurb:
+      "A two-wave usability study of ABTools raised SUS from 60 to 85.6.",
+    code: "ABTOOLS",
+    image: "/assets/abtools_usability_study.jpg",
+    imageAlt:
+      "Chart of the ABTools usability score rising from 60 to 85.6 over eight months",
+    ratio: "1376 / 768",
+    accent: "violet",
+  },
+  {
+    slug: "fuel-design-system",
+    title: "Fuel Design System",
+    category: "Design Systems",
+    metric: "100+ screens on one system",
+    blurb:
+      "A shared Fuel component system brought more than 100 John Deere screens onto one specification.",
+    code: "FUEL",
+    image: "/assets/fuel/hires-dashboard.jpg",
+    imageAlt:
+      "John Deere program dashboard showing project status, risks, and delivery",
+    ratio: "3338 / 2160",
+    accent: "green",
+  },
+  {
+    slug: "personalization",
+    title: "What Analytics Couldn't Tell Us",
+    category: "Quantitative / Experimentation",
+    metric: "+5.8% conversion",
+    blurb:
+      "Pairing exit intercepts with behavioral data at Topshop produced a 5.8% conversion lift.",
+    code: "TOPSHOP",
+    image: "/assets/personalization-hero.png",
+    imageAlt: "Illustration of shoppers, products, and a conversion funnel",
+    ratio: "1 / 1",
+    accent: "coral",
+  },
+  {
     slug: "abim",
     title: "From Frameworks to F1 Scores",
     category: "AI / ML Research",
@@ -63,32 +104,6 @@ const STUDIES: Study[] = [
     imageAlt: "Illustration of a brain and clinical charts in a glass laboratory",
     ratio: "1 / 1",
     accent: "green",
-  },
-  {
-    slug: "personalization",
-    title: "What Analytics Couldn't Tell Us",
-    category: "Quantitative / Experimentation",
-    metric: "+5.8% conversion",
-    blurb:
-      "Pairing exit intercepts with behavioral data at Topshop produced a 5.8% conversion lift.",
-    code: "TOPSHOP",
-    image: "/assets/personalization-hero.png",
-    imageAlt: "Illustration of shoppers, products, and a conversion funnel",
-    ratio: "1 / 1",
-    accent: "coral",
-  },
-  {
-    slug: "john-deere-sus",
-    title: "When Did Better Actually Mean Better?",
-    category: "Mixed Methods",
-    metric: "SUS 60 → 85.6",
-    blurb:
-      "A two-wave usability study of ABTools raised SUS from 60 to 85.6.",
-    code: "ABTOOLS",
-    image: "/assets/abtools_usability_study.jpg",
-    imageAlt:
-      "Line chart of ABTools usability scores rising from 60 to 85.6 over eight months",
-    accent: "violet",
   },
   {
     slug: "gesturepro",
@@ -142,19 +157,6 @@ const STUDIES: Study[] = [
       "Weather and location personalization on Burton's homepage lifted conversion by 11.6%.",
     code: "BURTON",
     accent: "gold",
-  },
-  {
-    slug: "fuel-design-system",
-    title: "Fuel Design System",
-    category: "Design Systems",
-    metric: "100+ screens on one system",
-    blurb:
-      "A shared Fuel component system brought more than 100 John Deere screens onto one specification.",
-    code: "FUEL",
-    image: "/assets/fuel/hires-dashboard.jpg",
-    imageAlt:
-      "John Deere program dashboard showing project status, risks, and delivery",
-    accent: "green",
   },
   {
     slug: "team-contract",
