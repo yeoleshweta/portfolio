@@ -1,0 +1,952 @@
+# NLP-Based Behavioral Measurement Pipeline for Clinical Communication: Complete Research Documentation
+
+## Aligned to ACGME & ABMS Competencies, ACGME Milestones, Clinical Communication Frameworks, and SLM Data Labeling Architecture
+
+---
+
+## Table of Contents
+
+1. [Executive Summary](#1-executive-summary)
+2. [Project Origins and Evolution](#2-project-origins-and-evolution)
+3. [Core Competency Frameworks: ABMS, ACGME, and ABIM](#3-core-competency-frameworks-abms-acgme-and-abim)
+   - 3.1 [ABMS/ACGME Six Core Competencies](#31-abmsacgme-six-core-competencies)
+   - 3.2 [ACGME Milestones System](#32-acgme-milestones-system)
+   - 3.3 [ABIM's Role and Milestones Context](#33-abims-role-and-milestones-context)
+   - 3.4 [ACGME Milestones 2.0 Developmental Trajectory](#34-acgme-milestones-20-developmental-trajectory)
+4. [Where Clinical Communication Lives in the Competency Framework](#4-where-clinical-communication-lives-in-the-competency-framework)
+   - 4.1 [Internal Medicine ICS1: The Anchor Subcompetency](#41-internal-medicine-ics1-the-anchor-subcompetency)
+   - 4.2 [ICS1 Developmental Levels (L1–L5)](#42-ics1-developmental-levels-l1l5)
+5. [Clinical Communication Behavior Frameworks (Complete)](#5-clinical-communication-behavior-frameworks-complete)
+   - 5.1 [Calgary–Cambridge Guide (CCG)](#51-calgarycambridge-guide-ccg)
+   - 5.2 [NURSE Framework (Empathy Micro-Skills)](#52-nurse-framework-empathy-micro-skills)
+   - 5.3 [AHRQ SHARE Approach (Shared Decision-Making)](#53-ahrq-share-approach-shared-decision-making)
+   - 5.4 [SPIKES Protocol (Delivering Bad News)](#54-spikes-protocol-delivering-bad-news)
+   - 5.5 [Mark McLaughlin's 6-Step Assessment Framework](#55-mark-mclaughlins-6-step-assessment-framework)
+6. [Mapping Observable Behaviors to Competencies and Milestones](#6-mapping-observable-behaviors-to-competencies-and-milestones)
+7. [Mastering the Clinical Intake: Podcast Masterclass Insights](#7-mastering-the-clinical-intake-podcast-masterclass-insights)
+   - 7.1 [The Three Pillars of Assessment Mastery](#71-the-three-pillars-of-assessment-mastery)
+   - 7.2 [Physician Adaptability and Emotion Regulation](#72-physician-adaptability-and-emotion-regulation)
+   - 7.3 [The Digital Frontier and AI](#73-the-digital-frontier-and-ai)
+8. [Clinical Inquiry and Pedagogy Questions](#8-clinical-inquiry-and-pedagogy-questions)
+9. [Data and Labeling Pipeline: Deep Dive](#9-data-and-labeling-pipeline-deep-dive)
+   - 9.1 [Phase 1: Synthetic Data Bootstrap (ChatNote-Style)](#91-phase-1-synthetic-data-bootstrap-chatnote-style)
+   - 9.2 [Phase 2: Pivot to Real Clinician–Patient Conversations](#92-phase-2-pivot-to-real-clinicianpatient-conversations)
+   - 9.3 [Phase 3: LLM-Based Labeling at Scale](#93-phase-3-llm-based-labeling-at-scale)
+   - 9.4 [Phase 4: NER in Transcript Pipelines](#94-phase-4-ner-in-transcript-pipelines)
+   - 9.5 [Phase 5: Downstream Model Training and Final Grading](#95-phase-5-downstream-model-training-and-final-grading)
+10. [Small Language Model (SLM) Behavior Analysis and Data Labeling Schema](#10-small-language-model-slm-behavior-analysis-and-data-labeling-schema)
+    - 10.1 [Medical Jargon and Labeling Conventions](#101-medical-jargon-and-labeling-conventions)
+    - 10.2 [Complete CSV Labeling Schema](#102-complete-csv-labeling-schema)
+    - 10.3 [Database Querying Plan (MVD)](#103-database-querying-plan-mvd)
+11. [Internal Artifacts and Source Systems](#11-internal-artifacts-and-source-systems)
+    - 11.1 [GitHub Repository: ABIM-ETD/competency-map](#111-github-repository-abim-etdcompetency-map)
+    - 11.2 [SharePoint Artifacts](#112-sharepoint-artifacts)
+    - 11.3 [Monday.com](#113-mondaycom)
+12. [Supporting Research and Evidence Base](#12-supporting-research-and-evidence-base)
+    - 12.1 [Synthetic vs. Real Transcripts](#121-synthetic-vs-real-transcripts)
+    - 12.2 [LLMs as Annotators](#122-llms-as-annotators)
+    - 12.3 [NER-Based De-Identification](#123-ner-based-de-identification)
+    - 12.4 [NLP-Screened Human Abstraction](#124-nlp-screened-human-abstraction)
+    - 12.5 [Automated Evaluation of Physician Communication](#125-automated-evaluation-of-physician-communication)
+13. [Assessment and Measurement Challenges](#13-assessment-and-measurement-challenges)
+14. [Generalizability Beyond Healthcare](#14-generalizability-beyond-healthcare)
+15. [Practical Recommendations for Integration](#15-practical-recommendations-for-integration)
+    - 15.1 [Validation and Governance Steps](#151-validation-and-governance-steps)
+    - 15.2 [Recommended Metrics](#152-recommended-metrics)
+    - 15.3 [Thresholding, Human-in-Loop Design, and Change Management](#153-thresholding-human-in-loop-design-and-change-management)
+    - 15.4 [Privacy and PHI Handling](#154-privacy-and-phi-handling)
+16. [Pipeline Architecture Visualizations](#16-pipeline-architecture-visualizations)
+    - 16.1 [ICS1 Milestones Developmental Timeline](#161-ics1-milestones-developmental-timeline)
+    - 16.2 [Validation and Deployment Pipeline Flowchart](#162-validation-and-deployment-pipeline-flowchart)
+    - 16.3 [End-to-End Data Flow: From Transcript to Competency Signal](#163-end-to-end-data-flow-from-transcript-to-competency-signal)
+17. [Concrete Workflow-Specific Recommendations](#17-concrete-workflow-specific-recommendations)
+18. [References and Sources](#18-references-and-sources)
+
+---
+
+## 1. Executive Summary
+
+This document is a **single-source-of-truth consolidation** of all research, conversations, design decisions, clinical frameworks, pedagogical questions, data labeling schemas, and evidence gathered across the development of an **NLP-based behavioral measurement pipeline for clinical communication**, anchored to the ABMS/ACGME competency frameworks and ACGME Milestones system.
+
+### The Problem
+
+Manual measurement of clinical communication behaviors — empathy, rapport, shared decision-making, agenda-setting, safety-netting — is slow, expensive, subjective, and difficult to scale. Yet these behaviors are foundational to patient safety, treatment adherence, and physician competency as codified by ABMS/ACGME. Residency programs and certification boards need scalable, valid methods to assess these skills across thousands of clinical encounters.
+
+### The Solution: An NLP-Based Behavioral Measurement Pipeline
+
+The project builds a system that:
+
+1. **Ingests** real clinician–patient conversation transcripts (pivoted from an initial synthetic-data bootstrap strategy).
+2. **Labels** communication behaviors at scale using LLM-based annotation grounded in formal rubrics — the **Calgary–Cambridge Guide** (consultation structure), **NURSE** (empathy micro-skills), **SHARE** (shared decision-making), **SPIKES** (bad news delivery), and **McLaughlin's 6-Step Assessment** framework.
+3. **Maps** those behavioral labels upward to **ABMS/ACGME Core Competency domains** and **Internal Medicine Milestones subcompetencies** (particularly ICS1: Patient- and Family-Centered Communication).
+4. **Trains** downstream Small Language Models (SLMs) to produce structured "final grades" and behavioral profiles per encounter.
+5. **Positions** outputs as **formative decision-support signals** — not standalone high-stakes judgments — within a competency assessment ecosystem that keeps final authority with trained human reviewers and Clinical Competency Committees.
+
+### Key Numbers
+
+- **~985 conversations** in the current labeled dataset (real + simulated)
+- **~8–10 exemplar conversations** curated per behavioral construct for few-shot prompting
+- **Multiple LLM variants** evaluated per construct (Qwen, Llama), with best-performing model selected per construct
+- **Combined label space** spanning Calgary–Cambridge (`cc_`), NURSE (`nurse_`), SHARE (`sh_`), SPIKES (`sp_`), Clinical Reasoning (`cr_`), McLaughlin/Exam (`ml_`, `exam_`), and KSAO/competency alignment labels
+
+---
+
+## 2. Project Origins and Evolution
+
+### Original Plan: Synthetic Data + Manual Annotation
+
+The project originated with a plan documented in internal SharePoint artifacts (specifically `Project summary.docx`) describing a "ChatNote-style" dataset strategy:
+
+- Source synthetic doctor–patient conversations from a HuggingFace dataset modeled after the **NoteChat** paradigm — a system that generates synthetic clinical dialogues conditioned on clinical notes using LLM-based roleplay modules.
+- Manually annotate these conversations using **Label Studio** as the annotation workflow platform.
+- Apply a label ontology derived from Calgary–Cambridge, NURSE, and SHARE frameworks.
+- Train classification models on the annotated data.
+
+This approach was practical for bootstrapping: synthetic datasets are available at scale, avoid PHI constraints, and allow rapid iteration on the labeling ontology.
+
+### The Pivot: Why Real Conversations Were Necessary
+
+The decision to pivot toward real clinician–patient transcripts was driven by a fundamental validity concern: **synthetic conversations, while useful for initial development, can diverge from real-world distributions in ways that undermine measurement accuracy when the goal is to assess authentic human communication behaviors.**
+
+Key factors motivating the pivot:
+
+- **Distribution shift risk**: Models trained on synthetic data may learn patterns that do not generalize to authentic clinical interactions, where communication is messier, more context-dependent, and shaped by real emotional dynamics.
+- **Rubric interpretation sensitivity**: Behavioral constructs like empathy, shared decision-making, and rapport-building manifest differently in scripted vs. spontaneous dialogue.
+- **Model collapse risk**: Research on synthetic-data recursion (Shumailov et al., Nature 2024) demonstrates that over-reliance on generated data reduces representation of distributional "tails" — the unusual, difficult, or edge-case interactions that matter most for valid behavioral measurement.
+- **The NoteChat ecosystem itself** exists precisely because real conversations are limited, implicitly acknowledging that synthetic data is a workaround rather than a substitute.
+
+### Scope Evolution: From Communication Labels to Full Clinical Assessment
+
+Over the course of the research, the project's scope expanded beyond the original Calgary/NURSE/SHARE label space to encompass a more comprehensive clinical assessment framework including:
+
+- **SPIKES protocol** for bad news delivery behaviors
+- **McLaughlin's 6-Step Assessment** for physical exam and clinical process behaviors
+- **Clinical Reasoning labels** (`cr_`) for cognitive processes like diagnostic parsimony, hypothesis generation, and stop rules
+- **KSAO (Knowledge, Skills, Abilities, Other) indicators** aligned to ABMS/ACGME competency domains
+- **Weak-label covariates** auto-derived from administrative and survey data (visit duration, patient satisfaction scores, incident counts, training recency)
+
+This expansion transformed the project from a narrow communication-labeling tool into a **comprehensive clinical competency measurement pipeline**.
+
+### Current State
+
+The pipeline now works with approximately **985 conversations**, using a combination of real and simulated transcripts, with LLM-based labeling at scale supported by carefully curated exemplar conversations and rubric-grounded prompts. Model selection (Qwen vs. Llama) is performed on a **per-construct basis**.
+
+---
+
+## 3. Core Competency Frameworks: ABMS, ACGME, and ABIM
+
+### 3.1 ABMS/ACGME Six Core Competencies
+
+The **American Board of Medical Specialties (ABMS)** and the **Accreditation Council for Graduate Medical Education (ACGME)** jointly define six core competencies that serve as the competency-based foundation for U.S. graduate medical education and board certification:
+
+| # | Competency Domain | Description | Alignment to This Project |
+|---|---|---|---|
+| 1 | **Medical Knowledge** | Established and evolving biomedical, clinical, and cognate sciences and their application to patient care | Contextual background for clinical reasoning labels (`cr_`) |
+| 2 | **Patient Care & Procedural Skills** | Patient-centered, compassionate, appropriate, and effective treatment of health problems, including patient-centered decision-making | Direct target via SHARE labels (`sh_`), exam labels (`exam_`), and outcome covariates |
+| 3 | **Practice-Based Learning & Improvement** | Investigation and evaluation of patient care practices, appraisal and assimilation of scientific evidence, and improvements in practice | Supported through training recency covariates and longitudinal tracking |
+| 4 | **Systems-Based Practice** | Awareness of and responsiveness to the larger context and system of healthcare | Captured via compliance/risk labels, utilization outcomes |
+| 5 | **Interpersonal & Communication Skills** | Effective information exchange and teaming with patients, families, and health professionals | **Primary target** — Calgary, NURSE, SPIKES, McLaughlin labels |
+| 6 | **Professionalism** | Commitment to carrying out professional responsibilities, adherence to ethical principles, sensitivity to diversity, humanism | Captured via NURSE empathy labels, professionalism covariates |
+
+Official ABMS standards for Initial Certification require ABMS Member Boards to incorporate all six competencies, with annotation text defining each domain with explicit references to patient-centered decision-making, effective listening, nonverbal communication, health literacy, ethics, and humanism.
+
+**Source**: [ABMS Standards for Initial Certification](https://www.abms.org/board-certification/board-certification-standards/standards-for-initial-certification/)
+
+### 3.2 ACGME Milestones System
+
+ACGME Milestones operationalize the six competency domains into **specialty-specific, developmental "narrative descriptors"** arranged along five levels (Levels 1–5):
+
+- **Purpose**: Formative assessment, shared language across programs, and program improvement — *not* externally imposed high-stakes decision tools.
+- **Structure**: Each specialty has its own Milestones document with subcompetencies mapped to the six core domains, each described through behavioral/narrative descriptors at progressive developmental levels.
+- **Governance caution**: ACGME has explicitly stated that individual Milestones data "were not designed or intended" for external high-stakes decisions (e.g., licensing, credentialing), warning that such use can create negative incentives and potential rating inflation.
+
+This governance caution is **directly relevant**: any automated NLP-derived "grades" or behavioral assessments must be positioned as formative or decision-support unless specifically validated for a high-stakes context under rigorous governance.
+
+**Sources**:
+- [ACGME-I Milestones Overview](https://www.acgme-i.org/accreditation-process/milestones/)
+- [ACGME Position on High-Stakes Use (PDF)](https://www.acgme.org/globalassets/PDFs/Milestones/UseofIndividualMilestonesDatabyExternalEntitiesforHighStakesDecisions.pdf)
+
+### 3.3 ABIM's Role and Milestones Context
+
+The **American Board of Internal Medicine (ABIM)** describes Milestones as **outcomes-based expectations** within the six domains, co-convened by ACGME/ABIM/AAIM working groups, used for normative data, program improvement, and demonstrating GME accountability.
+
+**Source**: [ABIM Milestones](https://www.abim.org/program-directors-administrators/milestones)
+
+### 3.4 ACGME Milestones 2.0 Developmental Trajectory
+
+The Milestones 2.0 framework maps clinical communication skills across a developmental continuum that directly informs how behavioral labels should be interpreted and scored:
+
+| Level | Stage | Description | Framework Alignment |
+|---|---|---|---|
+| **Level 1** | Novice | Rule-driven. Relies on checklists for basic introductions. | CCG Phase I basics |
+| **Level 2** | Advanced Beginner | Begins to establish therapeutic relationships in routine situations; identifies emotional cues. | NURSE Naming; basic rapport |
+| **Level 3** | Competent | Integrates I.C.E. and NURSE's exploring steps to align goals with treatment; utilizes basic shared decision-making. | CCG Phase II + NURSE Explore + basic SHARE |
+| **Level 4** | Proficient | Uses "dual process thinking" and independently manages complex situations; utilizes the full SHARE approach even amidst conflict. | Full SHARE; SPIKES mastery; complex SDM |
+| **Level 5** | Expert | Acts as a role model/coach; seamlessly adapts frameworks to atypical environments; manages systems-level ethical issues. | Coaching others; barrier mitigation modeling |
+
+This developmental trajectory provides the **scoring anchor** for the pipeline's "final grades" — each behavioral label detection can be mapped to the appropriate milestone level based on the complexity and sophistication of the observed behavior.
+
+---
+
+## 4. Where Clinical Communication Lives in the Competency Framework
+
+### 4.1 Internal Medicine ICS1: The Anchor Subcompetency
+
+Clinical communication behaviors map across multiple competency domains but have their primary home in:
+
+- **Interpersonal & Communication Skills (ICS)**: The direct domain for communication behaviors.
+- **Professionalism**: Humanism, sensitivity, respectful partnerships.
+- **Patient Care & Procedural Skills**: Patient-centered decision-making, treatment adherence, and safety outcomes.
+
+Within the Internal Medicine Milestones, **ICS1 (Patient- and Family-Centered Communication)** serves as the anchor subcompetency, explicitly including shared decision-making, mitigation of communication barriers, agenda-setting, verifying understanding, eliciting values/goals/preferences, and reflecting on bias.
+
+### 4.2 ICS1 Developmental Levels (L1–L5)
+
+| Level | Description | Key Behavioral Descriptors |
+|---|---|---|
+| **Level 1** | Foundational | Respect and rapport basics; fundamental communication courtesies |
+| **Level 2** | Developing | Establishes and maintains a therapeutic relationship in straightforward encounters |
+| **Level 3** | Proficient | Therapeutic relationship in challenging encounters; identifies complex communication barriers |
+| **Level 4** | Advanced | **Shared decision-making regardless of complexity; mitigates communication barriers** |
+| **Level 5** | Expert/Aspirational | Coaches others in communication skills; models barrier mitigation for peers and learners |
+
+The ACGME-I Internal Medicine Milestones (v2.0) provides even more behavior-granular descriptors: setting the agenda, verifying understanding, eliciting values/goals/preferences, reflecting on bias, and using shared decision-making to align patient preferences to clinical options.
+
+**Sources**:
+- [US IM Milestones v2.1 (PDF)](https://www.acgme.org/globalassets/pdfs/milestones/internalmedicinemilestones.pdf)
+- [ACGME-I IM Milestones v2.0 (PDF)](https://www.acgme-i.org/globalassets/acgme-international/milestones-2.0/internalmedicinemilestones2.0int.pdf)
+
+---
+
+## 5. Clinical Communication Behavior Frameworks (Complete)
+
+Clinical communication has evolved from a time-based apprenticeship into a competency-based model where interpersonal skills are foundational procedures impacting patient safety and outcomes. The following frameworks — all included in the project's label ontology — operationalize these skills.
+
+### 5.1 Calgary–Cambridge Guide (CCG)
+
+The Calgary–Cambridge Guide provides the **macro-structure and process model** for the medical interview, identifying over 70 discrete communication behaviors. It ensures the visit is efficient, organized, and clinically thorough while balancing the biomedical perspective with the patient's illness framework.
+
+#### Phase-by-Phase Breakdown
+
+**Phase I: Initiating the Session**
+- Establishing rapport, clarifying roles, greeting the patient
+- **Agenda setting** (label: `cc_agenda_set`): Eliciting the full list of patient concerns using techniques like asking "What else?" multiple times to prevent "doorknob" questions at the end of the visit
+- This is one of the highest-yield communication behaviors — a missed agenda item can derail the entire encounter
+
+**Phase II: Gathering Information**
+- Exploring the patient's illness framework using the **I.C.E. mnemonic**:
+  - **Ideas**: Patient's perceived cause of the problem
+  - **Concerns**: Patient's biggest worry
+  - **Expectations**: Patient's hopes for the visit
+- Relies heavily on supporting the patient's narrative with uninterrupted, active listening (label: `cc_patient_narrative_supported`)
+- Active listening is not passive — it is the engine of clinical efficiency, reducing unnecessary testing and repeat visits
+
+**Phase III: Providing Structure**
+- **Signposting** (label: `cc_structure_signposting`): Making the interview structure explicit (e.g., "First we will discuss X, then Y")
+- **Summarizing**: Periodic summaries to confirm understanding and maintain flow
+- These structural behaviors reduce patient anxiety and increase information retention
+
+**Phase IV: Building the Relationship**
+- A continuous thread throughout the encounter — not a discrete phase
+- Demonstrating empathy, non-judgmental acceptance
+- Dealing sensitively with embarrassing, taboo, or culturally complex topics
+- Label: `cc_opening` (rapport-building behaviors)
+
+**Phase V & VI: Explanation, Planning, and Closing**
+- **Chunking and checking**: Delivering information in digestible segments, checking comprehension after each chunk (health literacy management)
+- **Safety netting** (label: `cc_closing_next_steps`): Explaining what to do if the treatment fails, when to return, and warning signs to watch for
+- **Summary and check-back** (label: `cc_summary_checkback`): Teach-back adjacent — verifying the patient can articulate the plan in their own words
+
+**Source**: Silverman et al. — [PubMed](https://pubmed.ncbi.nlm.nih.gov/8736242/)
+
+### 5.2 NURSE Framework (Empathy Micro-Skills)
+
+While CCG manages the encounter flow, NURSE provides the specific **micro-skills to respond to emotional cues and build trust**. These are the moment-to-moment empathic responses that either strengthen or fracture the therapeutic alliance.
+
+| Letter | Micro-Skill | Label Tag | Example Language | What It Achieves |
+|---|---|---|---|---|
+| **N** | **Naming** | `nurse_name` | "It sounds like you're worried." / "You seem frustrated." | Explicitly identifies the patient's emotion; signals attunement |
+| **U** | **Understanding** | `nurse_understand` | "I can see how this is challenging." / "That makes sense given what you've been through." | Validates the *legitimacy* of the patient's feelings (distinct from simply saying "I understand") |
+| **R** | **Respecting** | `nurse_respect` | "You've been working really hard on this." / "I admire your strength." | Praises resilience and coping; builds self-efficacy |
+| **S** | **Supporting** | `nurse_support` | "I'll be with you through this." / "We are committed to helping you." | Offers partnership and commitment; reduces isolation |
+| **E** | **Exploring** | `nurse_explore` | "Tell me more about what's on your mind." / "What concerns you most?" | Uses open-ended questions to deepen understanding of the emotional landscape |
+
+**Key insight**: NURSE behaviors support higher-level shared decision-making by **addressing emotional barriers first**. A patient who feels unheard or dismissed cannot meaningfully participate in complex treatment decisions. The empathic micro-skills are therefore prerequisites, not luxuries.
+
+**Source**: VitalTalk — [vitaltalk.org](https://vitaltalk.org/responding-to-emotion-respecting/)
+
+### 5.3 AHRQ SHARE Approach (Shared Decision-Making)
+
+Shared decision-making requires collaboration based on clinical evidence and patient values. SHARE formalizes this into five actionable steps.
+
+| Step | Label Tag | Description | ICS1 Milestone Anchor |
+|---|---|---|---|
+| **S** — Seek participation | `sh_seek_participation` | Invite patient participation; respect autonomy as a starting point | L3–L4: engaging patient in decisions |
+| **H** — Help compare options | `sh_help_compare_options` | Compare options; describe risks/benefits in plain language | L4: "shared decision making regardless of complexity" |
+| **A** — Assess values/preferences | `sh_assess_values_preferences` | Explore the patient's personal values, costs, and lifestyle preferences | ACGME-I ICS1: "eliciting values/goals/preferences" |
+| **R** — Reach a decision | `sh_reach_decision` | Confirm the choice and agree on a plan collaboratively | L4: mitigates barriers to reach aligned decisions |
+| **E** — Evaluate | `sh_evaluate` | Monitor implementation and manage barriers post-decision | L5: coaching and systems-level monitoring |
+
+**Source**: [AHRQ SHARE Fact Sheet](https://www.ahrq.gov/es/health-literacy/curriculum-tools/shareddecisionmaking/tools/sharefactsheet/index.html)
+
+### 5.4 SPIKES Protocol (Delivering Bad News)
+
+SPIKES provides a structured approach to ensure emotional safety and clarity when breaking bad news — one of the most high-stakes communication tasks in medicine.
+
+| Step | Label Tag | Description |
+|---|---|---|
+| **S** — Setting | `sp_setting` | Ensure privacy, adequate time, minimize interruptions; invite support persons |
+| **P** — Perception | `sp_perception` | Assess what the patient already knows or suspects ("What have you been told so far?") |
+| **I** — Invitation | `sp_invitation` | Ask how much the patient wants to know ("Some patients want all the details; others prefer the big picture. What works for you?") |
+| **K** — Knowledge | `sp_knowledge_plain` | Use plain, direct language; avoid medical jargon; deliver the information in small chunks |
+| **E** — Emotion | `sp_emotion_addressed` | Address and validate emotional reactions using NURSE micro-skills; allow silence |
+| **S** — Strategy | `sp_strategy_summary` | Summarize the plan and next steps; ensure the patient knows what happens next |
+
+**Clinical note**: SPIKES and NURSE are deeply intertwined — the "Emotion" step of SPIKES is operationalized through NURSE micro-skills. This means that in transcript analysis, detecting SPIKES-E behaviors simultaneously activates NURSE label detection.
+
+### 5.5 Mark McLaughlin's 6-Step Assessment Framework
+
+A foundational roadmap emphasizing that the clinical process is bookended by relationship-building — connection opens the encounter, and confirmation closes it.
+
+| Step | Description | Label Tags | Pipeline Significance |
+|---|---|---|---|
+| 1. **Connection** | Establish rapport; build the working alliance before clinical questioning | `cc_opening` | First-impression behaviors; detected in opening turns |
+| 2. **Elicit** | Gather the patient's story in their own words; support the narrative | `cc_patient_narrative_supported` | Active listening measurement; uninterrupted speech detection |
+| 3. **Review** | Review prior history, treatments, and records | — | Contextual grounding (may not be directly labeled in communication labels) |
+| 4. **Physical Exam** | Conduct a thorough, evidence-based exam | `exam_targeted_vs_shotgun`, `exam_red_flags_addressed` | Links to clinical reasoning and evidence-based practice |
+| 5. **Show/Tell** | Share findings transparently with the patient | Related to CCG Phase V | Explanation behaviors; information delivery quality |
+| 6. **Confirm** | Close the loop with teach-back and plan acceptance | `ml_teachback_confirm` | Verification that the patient can articulate the plan |
+
+---
+
+## 6. Mapping Observable Behaviors to Competencies and Milestones
+
+This mapping table is the **central reference artifact** connecting transcript-visible behaviors (the NLP pipeline's detection targets) through the label ontology to competency domains and Milestones language.
+
+| Observable Behavior in Transcripts | Framework Tag(s) | Primary ABMS/ACGME Competency Domain | IM ICS1 Milestones Anchor |
+|---|---|---|---|
+| Sets agenda at start; confirms concern list | `cc_agenda_set` | Interpersonal & Communication Skills | ACGME-I ICS1: "setting the agenda" and "verifying understanding" |
+| Uses respectful language / rapport-building | `cc_opening` | ICS; Professionalism | US IM ICS1 Level 1: respect/rapport |
+| Supports patient narrative with active listening | `cc_patient_narrative_supported` | ICS | CCG Phase II; foundational to all higher-level behaviors |
+| Provides signposting for encounter structure | `cc_structure_signposting` | ICS | CCG Phase III; structural clarity |
+| Names emotion ("It sounds like you're worried.") | `nurse_name` | Professionalism; ICS | Supports therapeutic relationship; addresses emotion barriers |
+| Shows understanding / validation | `nurse_understand` | Professionalism; ICS | "Establishes and maintains a therapeutic relationship" (ICS1 L2–L3) |
+| Expresses respect for patient coping/resilience | `nurse_respect` | Professionalism; ICS | Therapeutic relationship maintenance |
+| Offers support / partnership | `nurse_support` | Professionalism; ICS | Barrier mitigation and trust building for complex SDM |
+| Explores emotions with open-ended questions | `nurse_explore` | ICS | Deepening understanding to inform care decisions |
+| Elicits values/preferences/goals | `sh_assess_values_preferences` | Patient Care; ICS | ACGME-I ICS1: "eliciting values/goals/preferences" |
+| Compares options with risks/benefits | `sh_help_compare_options` | Patient Care; ICS | US IM ICS1 Level 4: "shared decision making" |
+| Reaches collaborative decision | `sh_reach_decision` | Patient Care; ICS | L4 SDM behaviors |
+| Summarizes and checks back (teach-back) | `cc_summary_checkback` | ICS | ACGME-I ICS1: verifying understanding and aligning plans |
+| Closes with next steps and safety-netting | `cc_closing_next_steps` | Patient Care; ICS | Patient-centered plan and barrier mitigation; ICS1 higher-level proficiency |
+| Ensures privacy/setting for bad news | `sp_setting` | Professionalism; ICS | Environmental and contextual competence |
+| Assesses patient's prior knowledge | `sp_perception` | ICS | Patient-centered information delivery |
+| Uses plain language for difficult information | `sp_knowledge_plain` | ICS | Health literacy management |
+| Addresses emotional reactions to bad news | `sp_emotion_addressed` | Professionalism; ICS | NURSE integration within SPIKES |
+| Confirms understanding via teach-back | `ml_teachback_confirm` | ICS | Closing the loop; McLaughlin Step 6 |
+| Demonstrates diagnostic parsimony | `cr_diagnostic_parsimony` | Medical Knowledge; Patient Care | Clinical reasoning quality |
+| Applies evidence-based exam maneuvers | `exam_targeted_vs_shotgun` | Patient Care | Exam quality over quantity |
+
+**Internal validation**: The SharePoint labeling document (`Labelling_BehaviorAnalysis.docx`) confirms this combined label space and mentions ABMS/ACGME alignment fields.
+
+---
+
+## 7. Mastering the Clinical Intake: Podcast Masterclass Insights
+
+These insights, distilled from expert clinician interviews and podcast masterclasses, provide the **practitioner's perspective** on the behaviors the pipeline seeks to measure.
+
+### 7.1 The Three Pillars of Assessment Mastery
+
+**Pillar 1: The Cognitive Engine (Internal Clinical Reasoning)**
+- Combines fast pattern-matching (**System 1** — intuitive, heuristic-driven) with slow deductive thinking (**System 2** — deliberate, analytical)
+- Incorporates **diagnostic parsimony** (label: `cr_diagnostic_parsimony`): the simplest sufficient diagnosis that accounts for all findings
+- Incorporates **stop rules** (label: `cr_stop_rules_applied`): knowing when to halt cascade testing — a critical skill that prevents unnecessary downstream orders, costs, and patient harm
+- The cognitive engine is invisible in transcripts but its *outputs* are visible: the quality of the problem representation, the hypothesis list, and the testing decisions
+
+**Pillar 2: The Essential Skill Set (External Communication)**
+- Active listening is the engine for clinical efficiency — not a soft skill, but a time-saving, error-reducing clinical technique
+- Includes tactical skills like:
+  - **Structuring**: Making the encounter flow explicit (CCG Phase III)
+  - **Empathetic interruption**: Redirecting a tangential narrative while maintaining rapport — one of the hardest communication skills to master and teach
+  - **Choice architecture**: Framing options in a way that supports informed decision-making without undue influence (SHARE alignment)
+
+**Pillar 3: The Foundational Layer (The Working Alliance)**
+- Trust is the essential lubricant for the entire clinical assessment process
+- Requires shifting from a **paternalistic model** ("I'll tell you what to do") to a **collaborative partnership** where goals and tasks are explicitly agreed upon
+- The working alliance has three components:
+  1. **Bond**: Mutual liking and trust
+  2. **Goals**: Shared understanding of what the encounter should achieve
+  3. **Tasks**: Agreement on how to get there
+- When the alliance breaks down, every other skill becomes ineffective
+
+### 7.2 Physician Adaptability and Emotion Regulation
+
+**Patient-centeredness as behavioral adaptability**: True patient-centered care is not a fixed style — it is defined by the ability to **alter communication style** (pace, technicality, empathy intensity) to match the individual patient's competence, preferences, and emotional state.
+
+**Emotion regulation — the hidden clinical skill**:
+- Physicians must manage their own internal emotional responses to patient distress
+- Unmanaged physician emotion leads to **negative emotion transfer**: the clinician's frustration, anxiety, or grief is unconsciously transmitted to the patient, undermining trust and objectivity
+- This is not currently labeled in the pipeline's ontology but represents a potential future construct — detectable through linguistic markers of physician emotional leakage (hedging patterns, increased interruption frequency, shortened empathic responses)
+
+### 7.3 The Digital Frontier and AI
+
+- Technology must shift from being a barrier (the "cold spot" — the physician typing while the patient talks) to a **relational facilitator**
+- AI assists by offloading cognitive load through:
+  - **Structured SOAP note creation**: Automating documentation so the physician can be fully present during the encounter
+  - **Identifying clinically relevant patterns**: Surfacing data-driven insights that support (not replace) clinical reasoning
+- The unautomatable core remains **human connection** — the pipeline measures precisely the skills that AI documentation tools free clinicians to practice
+
+---
+
+## 8. Clinical Inquiry and Pedagogy Questions
+
+These questions, drawn from clinical education research and expert interviews, represent the **pedagogical foundation** for understanding what the pipeline should measure and how results should be interpreted. They also serve as a framework for developing coaching feedback based on pipeline outputs.
+
+1. What is your internal mental checklist for a chief complaint?
+2. How do you balance interrupting vs. allowing uninterrupted speech?
+3. What cues signal the patient is finished with their main concern?
+4. How do you move vague symptoms toward specific details?
+5. How do initial questions shape differential diagnosis and surface fears?
+6. How is uncertainty communicated while maintaining trust?
+7. What empathy statements are used for difficult information?
+8. What framework (SOAP, ICE) is used to teach assessment structure?
+9. What is the most common student mistake, and how is it coached?
+10. How is the *purpose* of exam steps taught over pure memorization?
+11. What belongs on a checklist vs. a global rating?
+12. How is "sufficient data" determined without losing clinical focus?
+13. How much questioning variability is acceptable?
+14. How are multiple issues balanced against time constraints?
+15. How is patient understanding gauged without condescension?
+16. How are psychosomatic complaints redirected to actionable data?
+17. What is the internal "pause" process before finalizing the Assessment and Plan?
+
+> **Note**: There is also a specific request to acquire **"Eric's rubric"** on how medical students are graded/passed — this rubric, once obtained, should be integrated into the labeling schema as an additional validation anchor.
+
+---
+
+## 9. Data and Labeling Pipeline: Deep Dive
+
+### 9.1 Phase 1: Synthetic Data Bootstrap (ChatNote-Style)
+
+**What was planned**: Use a HuggingFace "ChatNote-style" doctor–patient dataset to bootstrap labeling and model training.
+
+**About NoteChat**: Generates synthetic clinical dialogues conditioned on clinical notes using LLM-based roleplay modules, designed to overcome limited availability of real conversations.
+
+**Why useful**: No PHI concerns, readily available at scale, allows rapid iteration on labeling ontology.
+
+**Limitations**: Distribution shift, rubric interpretation sensitivity, model collapse risk.
+
+**Source**: [NoteChat — ACL Anthology](https://aclanthology.org/2024.findings-acl.901/)
+
+### 9.2 Phase 2: Pivot to Real Clinician–Patient Conversations
+
+**The decision**: Pivot to real transcripts as primary ground truth.
+
+**Evidence supporting the pivot**:
+1. **Distribution shift**: Synthetic conversations are cleaner, more structured, more formulaic than real interactions
+2. **Model collapse** (Shumailov et al., Nature 2024): Over-reliance on generated data reduces distributional tail representation
+3. **Construct validity**: Nuanced human behaviors like empathy must be grounded in real human expression
+
+**Current dataset**: ~985 conversations (real + simulated)
+
+**Source**: [Shumailov et al. — Nature](https://www.nature.com/articles/s41586-024-07566-y)
+
+### 9.3 Phase 3: LLM-Based Labeling at Scale
+
+**The method**:
+1. **Exemplar curation**: ~8–10 exemplar conversations per behavioral construct
+2. **Rubric-grounded prompting**: Prompts encode formal rubric definitions + exemplar demonstrations
+3. **LLM inference**: Prompted LLM labels ~985 conversations across all constructs
+4. **Per-construct model selection**: Qwen and Llama variants evaluated; best performer selected per construct
+
+**Research basis**:
+- **Few-shot / in-context learning**: Central paradigm from GPT-3 paper (NeurIPS 2020)
+- **LLMs as annotators**: Can match or exceed crowd-worker performance (with caveats)
+- **Three-phase paradigm**: Generate → assess quality → learn with labels
+- **Limitations**: Moderate agreement with experts; bias replication; requires human-in-loop governance
+
+**Sources**:
+- [Brown et al. (GPT-3) — NeurIPS 2020](https://papers.nips.cc/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html)
+- [LLMs as Effective Annotators — PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC10372638/)
+- [LLM Annotation Survey — EMNLP 2024](https://aclanthology.org/2024.emnlp-main.54/)
+- [LLM Bias in Annotation — Nature HSSC](https://www.nature.com/articles/s41599-025-05834-4)
+
+### 9.4 Phase 4: NER in Transcript Pipelines
+
+**Why NER is necessary**: PHI risk is a gating constraint for real clinical transcripts. NER-style tagging of PHI entities followed by replacement/redaction is required before any labeling or model training.
+
+**Gold standard**: The **i2b2/UTHealth 2014 de-identification corpus** provides the methodological precedent (double annotation + adjudication, surrogate generation under HIPAA, documented quality metrics).
+
+**Source**: [Stubbs et al. — PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC4978170/)
+
+### 9.5 Phase 5: Downstream Model Training and Final Grading
+
+**The goal**: Train downstream SLMs on LLM-generated labels to produce **structured "final grades"** aligned to Calgary and NURSE constructs.
+
+**Architecture considerations**:
+- **Multi-label classification**: Multiple behaviors co-occur within each conversation segment
+- **Ordinal scoring**: Quality gradients for constructs with ordinal structure (e.g., Calgary scores 0–2)
+- **Aggregation**: Individual construct detections aggregated to encounter-level behavioral profiles and final grades (1–5 scale)
+
+---
+
+## 10. Small Language Model (SLM) Behavior Analysis and Data Labeling Schema
+
+This section documents the complete data labeling schema that connects clinical communication behaviors to measurable features and health outcomes — the technical specification for the pipeline's output layer.
+
+### 10.1 Medical Jargon and Labeling Conventions
+
+The label ontology uses namespace prefixes to organize behaviors by source framework:
+
+| Prefix | Framework | Scope |
+|---|---|---|
+| `cc_` | **Calgary–Cambridge** | Interview flow and structure behaviors |
+| `nurse_` | **NURSE** | Empathy and emotional intelligence micro-skills |
+| `sh_` | **SHARE** | Shared decision-making steps |
+| `sp_` | **SPIKES** | Bad news delivery protocol |
+| `cr_` | **Clinical Reasoning** | Clinician cognitive processes |
+| `ml_` | **McLaughlin** | Assessment framework steps |
+| `exam_` | **Physical Exam** | Exam quality and evidence-based practice |
+| `comp_` | **ABMS/ACGME Competency** | Direct competency domain scores |
+| `ksao_` | **KSAO Indicators** | Knowledge, Skills, Abilities, Other |
+
+#### Detailed Label Examples by Namespace
+
+**Calgary–Cambridge (`cc_`)**:
+- `cc_agenda_set` — Screening concerns at encounter opening
+- `cc_opening` — Rapport-building and greeting behaviors
+- `cc_patient_narrative_supported` — Active listening; supporting the patient's story
+- `cc_structure_signposting` — Making overt transitions explicit ("Now I'd like to...")
+- `cc_summary_checkback` — Summarizing and verifying understanding
+- `cc_closing_next_steps` — Safety netting and next-step clarity
+
+**NURSE (`nurse_`)**:
+- `nurse_name` — Naming the patient's emotion
+- `nurse_understand` — Validating and showing understanding
+- `nurse_respect` — Praising resilience and coping
+- `nurse_support` — Offering partnership
+- `nurse_explore` — Open-ended emotional exploration
+
+**SHARE (`sh_`)**:
+- `sh_seek_participation` — Inviting patient into decision-making
+- `sh_help_compare_options` — Comparing clinical options
+- `sh_assess_values_preferences` — Exploring personal values, costs, lifestyle
+- `sh_reach_decision` — Confirming the collaborative choice
+- `sh_evaluate` — Monitoring implementation
+
+**SPIKES (`sp_`)**:
+- `sp_setting` — Privacy and environment
+- `sp_perception` — Assessing patient's prior knowledge
+- `sp_invitation` — Asking about information preferences
+- `sp_knowledge_plain` — Plain language delivery
+- `sp_emotion_addressed` — Emotional validation during bad news
+- `sp_strategy_summary` — Summarizing the plan after bad news
+
+**Clinical Reasoning (`cr_`)**:
+- `cr_problem_representation_quality` — Quality of case synthesis
+- `cr_diagnostic_parsimony` — Simplest sufficient diagnosis
+- `cr_stop_rules_applied` — Preventing cascade testing
+- `cr_uses_evidence_lrs` — Using likelihood ratios and evidence
+- `cr_hypothesis_list_quality` — Quality and breadth of differential
+- `cr_cognitive_bias_mitigations` — Evidence of debiasing strategies
+
+**McLaughlin/Exam (`ml_`, `exam_`)**:
+- `ml_teachback_confirm` — Teach-back verification at closing
+- `exam_targeted_vs_shotgun` — Targeted vs. unfocused exam
+- `exam_red_flags_addressed` — Red flag identification and action
+- `exam_hints_documented` — Physical exam hints documented
+- `exam_ascites_lr_maneuvers` — Evidence-based specific exam maneuvers
+
+### 10.2 Complete CSV Labeling Schema
+
+The output CSV schema organizes all labels into five major sections:
+
+#### Section 1: Keys and Provenance
+| Field | Description |
+|---|---|
+| `item_id` | Unique identifier for the labeled encounter |
+| `source` | Data source (meditod | ehrshot | abim_db) |
+| `clinician_key` | De-identified clinician identifier |
+| `patient_key` | De-identified patient identifier |
+| `datetime` | Encounter date/time |
+| `rubric_version` | Version of the labeling rubric used |
+| `rater_role` | Role of the rater (LLM | human_expert | human_trainee) |
+| `rater_confidence` | Confidence level of the rater |
+
+#### Section 2: Global Outcomes
+| Field | Scale | Description |
+|---|---|---|
+| `final_grade` | 1–5 | Overall encounter quality grade (maps to Milestones levels) |
+| `communication_overall` | 1–5 | Aggregate communication quality |
+| `empathy_overall` | 1–5 | Aggregate empathy quality |
+| `shared_decision_overall` | 1–5 | Aggregate shared decision-making quality |
+| `professionalism_overall` | 1–5 | Aggregate professionalism quality |
+
+#### Section 3: Behavioral Features
+All individual behavioral labels from all frameworks (cc_, nurse_, sh_, sp_, cr_, ml_, exam_) as described in Section 10.1 above.
+
+#### Section 4: Competency and KSAO Alignment
+| Field | Scale | Description |
+|---|---|---|
+| `comp_professionalism` | 1–5 | ABMS/ACGME Professionalism competency score |
+| `comp_patient_care` | 1–5 | ABMS/ACGME Patient Care competency score |
+| `comp_ics` | 1–5 | ABMS/ACGME Interpersonal & Communication Skills score |
+| `ksao_identifies_problems` | — | KSAO: Problem identification ability |
+| `ksao_relationship_mgmt` | — | KSAO: Relationship management ability |
+| `ksao_documentation_quality` | — | KSAO: Documentation quality indicator |
+
+#### Section 5: Weak-Label Covariates (Auto-Derived)
+These are not directly labeled from transcripts but auto-derived from administrative systems to enrich the behavioral data:
+
+| Field | Description |
+|---|---|
+| `survey_count` / `avg_score` | Patient satisfaction survey count and average score |
+| `incident_count` | Safety incident count associated with the clinician |
+| `profile_note_count` | Number of profile notes on file |
+| `training_recency_days` | Days since last relevant training |
+| `visit_duration_min` | Encounter duration in minutes |
+| `is_telemed` | Whether the encounter was conducted via telemedicine |
+
+### 10.3 Database Querying Plan (MVD)
+
+To build the full dataset, the following core database tables must be queried:
+
+| Table Category | Tables | Purpose |
+|---|---|---|
+| **Encounters & Scheduling** | `encounters`, `appointments` | Baseline denominators, durations, encounter type |
+| **Clinical Notes/Transcripts** | `clinical_notes`, `note_sections` | Source text for NLP labeling (agenda-setting, NURSE, SPIKES detection) |
+| **Orders, Diagnoses, Exam Findings** | `diagnoses`, `orders`, `exam_findings` | Link evidence-based exam behaviors to downstream testing cascades |
+| **Outcomes & Utilization** | `ed_returns`, `readmissions`, `costs` | Relate communication behaviors to safety and efficiency outcomes |
+| **Patient-Reported Experience** | `patient_surveys` | Measure perceived empathy and communication quality |
+| **Compliance/Risk** | `consent_logs`, `chaperone_logs` | Environmental standards (SPIKES Setting) |
+| **Clinician Training** | `training_records` | Link training to behavior to outcomes (longitudinal tracking) |
+
+This querying plan enables the pipeline to connect behavioral labels (detected in transcripts) to **downstream outcomes** — creating the evidence chain from "clinician used NURSE empathy micro-skills" → "patient reported higher satisfaction" → "fewer ED returns" that justifies the measurement approach.
+
+---
+
+## 11. Internal Artifacts and Source Systems
+
+### 11.1 GitHub Repository: ABIM-ETD/competency-map
+
+**Repository**: `ABIM-ETD/competency-map`
+
+**Key files**:
+- **`README.md`**: Project overview and data import pipeline references
+- **`config/import_map.yaml`**: Excel-to-database column mappings; references the master Milestones workbook
+
+**Purpose**: Houses the competency mapping application that ingests Milestones data from a master Excel workbook and makes it queryable/navigable.
+
+### 11.2 SharePoint Artifacts
+
+| Document | Location | Content |
+|---|---|---|
+| **MASTER Milestones 2 with Definitions and Harmonized 20250818.xlsx** | Competency Model folder; AI Behavior Analysis research folder | Master Milestones workbook with all definitions and harmonized mappings |
+| **Labelling_BehaviorAnalysis.docx** | ETD-RF AI Behavior Analysis research folder | Full Calgary/NURSE/SHARE label list with ABMS/ACGME alignment fields |
+| **Project summary.docx** | Personal SharePoint | Original "ChatNote-style" dataset plan and Label Studio annotation workflow |
+
+### 11.3 Monday.com
+
+Searched for "ChatNote" and "NURSE" — **no relevant artifacts returned**. No Monday.com sources were used as evidence.
+
+---
+
+## 12. Supporting Research and Evidence Base
+
+### 12.1 Synthetic vs. Real Transcripts
+
+- **NoteChat**: State-of-the-art synthetic clinical dialogue generation; implicitly acknowledges real conversations are scarce and constrained
+- **Model collapse** (Shumailov et al., Nature 2024): Recursive synthetic data degrades distributional tails
+- **Domain adaptation**: Models trained on synthetic distributions underperform on authentic data for nuanced behavioral tasks
+
+### 12.2 LLMs as Annotators
+
+- **Promising**: Can match/exceed crowd-worker agreement with dramatic cost/time savings
+- **Cautious**: Agreement with expert annotators is moderate; systematic bias replication possible
+- **Best practices**: Treat as "silver-grade"; validate per-construct; implement bias monitoring
+
+### 12.3 NER-Based De-Identification
+
+The i2b2/UTHealth 2014 corpus is the gold standard: double annotation, adjudication, surrogate generation, documented quality metrics under HIPAA.
+
+### 12.4 NLP-Screened Human Abstraction
+
+JAMA Network Open study: NLP-assisted abstraction for goals-of-care discussions drastically reduced manual hours while maintaining sensitivity and managing statistical power loss through threshold design.
+
+### 12.5 Automated Evaluation of Physician Communication
+
+Study on prostate cancer consultations: NLP models identified high-yield sentences; grading quality using only the top 10 sentences achieved feasibility/accuracy balance — directly parallels the project's exemplar-based approach.
+
+---
+
+## 13. Assessment and Measurement Challenges
+
+### Why Manual Measurement Is Difficult
+- **Construct subjectivity**: Empathy, rapport, and SDM are partially subjective, context-dependent, and expressed in many linguistic forms
+- **Resource intensity**: High-quality assessment is expensive and time-consuming
+- **Reliability**: Manual coding has limited inter-rater reliability at scale
+
+### Why Automation Requires Safeguards
+- **False precision**: Automated scores can mask uncertainty
+- **High-stakes coupling**: ACGME warns against coupling Milestones to high-stakes decisions
+- **Fairness**: Models can systematically perform differently across demographic groups, encounter types, or linguistic styles
+
+---
+
+## 14. Generalizability Beyond Healthcare
+
+The measurement problem is cross-industry: mapping unstructured dialogue to rubric-defined competencies.
+
+| Industry | Analogous Constructs | Sensitivity |
+|---|---|---|
+| **Legal** (depositions, hearings) | Argument quality, politeness, clarity | Privileged communications |
+| **Customer Support / Call Centers** | Empathy, resolution behaviors, compliance | Customer privacy |
+| **Education / Academic Advising** | Feedback quality, scaffolding, inclusion | FERPA; power dynamics |
+| **Therapy / Coaching** | Reflective listening, motivational interviewing | Highly sensitive disclosures |
+
+---
+
+## 15. Practical Recommendations for Integration
+
+### 15.1 Validation and Governance Steps
+
+1. **Define construct validity explicitly**: Written mapping from each label to ABMS/ACGME competency domain(s) and specific Milestone descriptors using official language as anchor text
+2. **Create a stratified, human-coded gold set**: Stratified across specialties, encounter types, difficulty; oversample rare positive contexts
+3. **Use "NLP-screened human review" for higher-stakes outputs**: Route low-confidence, high-impact, or fairness-flagged cases to humans
+4. **Do not position automated grades as "Milestones ratings"**: Treat as evidence signals for CCC discussions, coaching, and remediation
+
+### 15.2 Recommended Metrics
+
+| Metric Category | Specific Metrics | Purpose |
+|---|---|---|
+| **Classification** | Per-class Precision, Recall, F1 | Catch failure on rare classes |
+| **Summary** | Macro-F1 | Imbalance-robust headline metric |
+| **Error Analysis** | Confusion matrices | Ordinal error patterns |
+| **Annotation Quality** | IAA (LLM vs. human) | Quantify silver-vs-gold gap |
+| **Calibration** | ECE, Brier score | Threshold reliability for routing |
+| **Fairness** | Slice-based F1 by site, demographics, language, encounter type | Detect systematic bias |
+
+### 15.3 Thresholding, Human-in-Loop Design, and Change Management
+
+| Tier | Condition | Action |
+|---|---|---|
+| **Auto-accept** | High confidence + low-risk construct | Accept label automatically |
+| **Human review** | Low confidence, high stakes, or subjective construct | Route to trained reviewer |
+| **Escalation** | Fairness gap > threshold | Trigger bias audit |
+
+### 15.4 Privacy and PHI Handling
+
+1. NER-based PHI de-identification (i2b2 methodology)
+2. Strict role-based access controls
+3. Audit logs for all data access and labeling actions
+4. Documented data flow diagrams
+5. Consent alignment with IRB approvals
+
+---
+
+## 16. Pipeline Architecture Visualizations
+
+### 16.1 ICS1 Milestones Developmental Timeline
+
+```
+ICS1 (Patient- and Family-Centered Communication) — Developmental Continuum
+
+Level 1 ──→ Level 2 ──→ Level 3 ──→ Level 4 ──→ Level 5
+
+L1: Respect/rapport basics
+L2: Therapeutic relationship in straightforward encounters
+L3: Therapeutic relationship in challenging encounters; identifies complex barriers
+L4: Shared decision-making regardless of complexity; mitigates barriers
+L5: Coaches others; models barrier mitigation
+```
+
+### 16.2 Validation and Deployment Pipeline Flowchart
+
+```
+┌─────────────────────────────────────┐
+│  Define constructs + rubric         │
+│  (CCG/NURSE/SHARE/SPIKES/McLaughlin)│
+│  + milestone anchors                │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│  Collect transcripts                │
+│  (real + simulated, ~985)           │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│  NER-based preprocessing            │
+│  (PHI de-id + structure tags)       │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│  Curate 8–10 exemplar conversations │
+│  per construct + rubric-grounded    │
+│  prompt engineering                 │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│  LLM labeling at scale              │
+│  (Qwen/Llama best-of per construct) │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│  Gold set human annotation          │
+│  (stratified sample)                │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│  Evaluate label quality             │
+│  per-class F1 + IAA + bias slices   │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│  Train downstream SLM               │
+│  (multilabel/ordinal scoring)       │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│  Calibrate probabilities            │
+│  and set tiered thresholds          │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│  Deploy decision support            │
+│  auto / human-review / escalation   │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│  Ongoing monitoring                 │
+│  drift + fairness + periodic reval  │
+└─────────────────────────────────────┘
+```
+
+### 16.3 End-to-End Data Flow: From Transcript to Competency Signal
+
+```
+┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+│  Raw         │    │  De-ID'd     │    │  Labeled     │    │  Scored      │
+│  Transcript  │───→│  Transcript  │───→│  Transcript  │───→│  Encounter   │
+│  (PHI)       │    │  (NER)       │    │  (LLM)       │    │  (SLM)       │
+└──────────────┘    └──────────────┘    └──────────────┘    └──────┬───────┘
+                                                                   │
+                    ┌──────────────────────────────────────────────┘
+                    │
+                    ▼
+    ┌───────────────────────────────────┐
+    │  Behavioral Profile               │
+    │  ┌─────────┐ ┌─────────┐         │
+    │  │ cc_*    │ │ nurse_* │         │
+    │  │ labels  │ │ labels  │         │
+    │  └─────────┘ └─────────┘         │
+    │  ┌─────────┐ ┌─────────┐         │
+    │  │ sh_*    │ │ sp_*    │         │
+    │  │ labels  │ │ labels  │         │
+    │  └─────────┘ └─────────┘         │
+    │  ┌─────────┐ ┌─────────┐         │
+    │  │ cr_*    │ │ exam_*  │         │
+    │  │ labels  │ │ labels  │         │
+    │  └─────────┘ └─────────┘         │
+    └───────────────┬───────────────────┘
+                    │
+                    ▼
+    ┌───────────────────────────────────┐
+    │  Competency Alignment             │
+    │  comp_ics: 4/5                    │
+    │  comp_professionalism: 4/5        │
+    │  comp_patient_care: 3/5           │
+    │  final_grade: 4/5                 │
+    └───────────────┬───────────────────┘
+                    │
+                    ▼
+    ┌───────────────────────────────────┐
+    │  Decision Support Output          │
+    │  → CCC Discussion Input           │
+    │  → Coaching Feedback              │
+    │  → Longitudinal Tracking          │
+    │  → Program-Level Analytics        │
+    └───────────────────────────────────┘
+```
+
+---
+
+## 17. Concrete Workflow-Specific Recommendations
+
+1. **Treat LLM labels as silver-grade**: Use the 985 × construct labeled datasets as training inputs, but validate against adjudicated human gold sets. This aligns with both the promise and limitations of LLM annotation.
+
+2. **Justify per-construct model selection with metrics**: Choosing "Qwen or Llama depending on performance" is sound but must be justified by per-construct validation metrics. Rare constructs (certain NURSE behaviors, SPIKES steps) can fail silently under aggregate metrics.
+
+3. **Design a transparent aggregation model for "final grades"**: If construct detections translate to encounter-level grades, use a weighted rubric score with transparent rationale. Validate that composites correlate with external criteria (OSCE ratings, OPTION5/SDM tools, CCC judgments).
+
+4. **Position as scalable feedback infrastructure**: Frame the pipeline as generating behavioral insights that support — not replace — competency committees, faculty coaching, and formative assessment. This is consistent with ABMS/ACGME intent, ACGME governance cautions, and empirical success of hybrid NLP + human models.
+
+5. **Plan for ongoing monitoring**: Continuous monitoring for model drift, fairness degradation, and calibration decay. Periodic revalidation against fresh human-coded samples as populations shift.
+
+6. **Integrate weak-label covariates**: Enrich behavioral labels with auto-derived signals (visit duration, patient satisfaction, incident counts, training recency) to build the evidence chain from communication behaviors to downstream outcomes.
+
+7. **Pursue "Eric's rubric"**: Once obtained, integrate as an additional validation anchor and potential labeling schema extension for medical student grading alignment.
+
+---
+
+## 18. References and Sources
+
+### Official Standards and Frameworks
+1. ABMS Standards for Initial Certification — https://www.abms.org/board-certification/board-certification-standards/standards-for-initial-certification/
+2. ACGME-I Milestones Overview — https://www.acgme-i.org/accreditation-process/milestones/
+3. ACGME Position on High-Stakes Use of Milestones Data — https://www.acgme.org/globalassets/PDFs/Milestones/UseofIndividualMilestonesDatabyExternalEntitiesforHighStakesDecisions.pdf
+4. US Internal Medicine Milestones (v2.1) — https://www.acgme.org/globalassets/pdfs/milestones/internalmedicinemilestones.pdf
+5. ACGME-I Internal Medicine Milestones (v2.0) — https://www.acgme-i.org/globalassets/acgme-international/milestones-2.0/internalmedicinemilestones2.0int.pdf
+6. ABIM Milestones — https://www.abim.org/program-directors-administrators/milestones
+
+### Communication Behavior Frameworks
+7. Calgary–Cambridge Guide (Silverman et al.) — https://pubmed.ncbi.nlm.nih.gov/8736242/
+8. VitalTalk NURSE Framework — https://vitaltalk.org/responding-to-emotion-respecting/
+9. AHRQ SHARE Approach — https://www.ahrq.gov/es/health-literacy/curriculum-tools/shareddecisionmaking/tools/sharefactsheet/index.html
+
+### Synthetic Data and Distribution Shift
+10. NoteChat: Synthetic Clinical Dialogues — https://aclanthology.org/2024.findings-acl.901/
+11. Shumailov et al. — Model Collapse (Nature 2024) — https://www.nature.com/articles/s41586-024-07566-y
+
+### LLMs as Annotators
+12. Brown et al. — GPT-3 (NeurIPS 2020) — https://papers.nips.cc/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html
+13. LLMs as Effective Annotators — https://pmc.ncbi.nlm.nih.gov/articles/PMC10372638/
+14. LLM Annotation Survey (EMNLP 2024) — https://aclanthology.org/2024.emnlp-main.54/
+15. LLM Bias in Annotation — https://www.nature.com/articles/s41599-025-05834-4
+
+### De-Identification and PHI
+16. i2b2/UTHealth 2014 De-Identification Corpus — https://pmc.ncbi.nlm.nih.gov/articles/PMC4978170/
+
+### NLP in Clinical Communication Assessment
+17. Automated Evaluation of Physician Communication — https://www.nature.com/articles/s41391-025-01011-5
+18. NLP-Assisted Abstraction for Goals-of-Care (JAMA Network Open) — https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2801918
+
+### Measurement and Psychometrics
+19. Systematic Review of Physician–Patient Communication Measures — https://pmc.ncbi.nlm.nih.gov/articles/PMC4273948/
+20. Communication Competence Assessment Tools Review — https://pubmed.ncbi.nlm.nih.gov/15739134/
+
+### Internal Project Artifacts
+21. GitHub: `ABIM-ETD/competency-map` — `README.md`, `config/import_map.yaml`
+22. SharePoint: `MASTER Milestones 2 with Definitions and Harmonized 20250818.xlsx`
+23. SharePoint: `Labelling_BehaviorAnalysis.docx` (ETD-RF AI Behavior Analysis folder)
+24. SharePoint: `Project summary.docx`
+
+### Miscellaneous Resources
+25. Hugging Face Bias Checker Token: `hf_REDACTED`
+
+---
+
+> **Document generated**: March 2026
+>
+> **Scope**: Complete consolidation of all research, clinical communication frameworks, competency alignments, podcast masterclass insights, pedagogical questions, SLM data labeling schemas, database querying plans, pipeline architecture, and evidence gathered across the NLP-Based Behavioral Measurement Pipeline for Clinical Communication project.
+>
+> **Document status**: Living document — to be updated as "Eric's rubric" is obtained, additional conversations are located, and pipeline validation results become available.
