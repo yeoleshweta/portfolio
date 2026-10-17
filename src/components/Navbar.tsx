@@ -1,31 +1,67 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Download } from "lucide-react";
+import {
+  Book,
+  Briefcase,
+  Download,
+  Home,
+  Mail,
+  Newspaper,
+  type LucideIcon,
+} from "lucide-react";
 import styles from "./Navbar.module.css";
-import { useMotionControl } from "@/components/MotionControl";
+import { useMotionOff } from "@/components/MotionControl";
 import { scrollToSection, scrollToTop } from "@/lib/scrollToSection";
 
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/#work" },
-  { label: "Work Experience", href: "/experience" },
-  { label: "Contact", href: "/#contact" },
+const navLinks: { label: string; href: string; icon: LucideIcon }[] = [
+  { label: "Home", href: "/", icon: Home },
+  { label: "Projects", href: "/#work", icon: Book },
+  { label: "Blog", href: "/#articles", icon: Newspaper },
+  { label: "Career", href: "/experience", icon: Briefcase },
+  { label: "Contact", href: "/#contact", icon: Mail },
 ];
+
+const pageSections = ["work", "articles", "contact"];
 
 const cvHref = "/assets/UX_Researcher_Resume.pdf";
 
+const COMPACT_ON = 72;
+const COMPACT_OFF = 28;
+
 export default function Navbar() {
   const pathname = usePathname();
-  const { userPaused, togglePaused } = useMotionControl();
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const motionOff = useMotionOff();
+  const [compact, setCompact] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
-  const menuBtnRef = useRef<HTMLButtonElement>(null);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
-  const menuId = useId();
+
+  useEffect(() => {
+    let frame = 0;
+    const read = () => {
+      frame = 0;
+      const y = window.scrollY;
+      setCompact((prev) => (prev ? y > COMPACT_OFF : y > COMPACT_ON));
+    };
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(read);
+    };
+    read();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.nav = compact ? "compact" : "expanded";
+    return () => {
+      delete document.documentElement.dataset.nav;
+    };
+  }, [compact]);
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -33,7 +69,7 @@ export default function Navbar() {
       return;
     }
 
-    const sections = ["work", "contact"]
+    const sections = pageSections
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el));
 
@@ -56,9 +92,13 @@ export default function Navbar() {
   const currentFor = (href: string): "page" | true | undefined => {
     if (href === "/experience") return pathname === "/experience" ? "page" : undefined;
     if (href === "/#work") return activeSection === "work" ? true : undefined;
+    if (href === "/#articles") return activeSection === "articles" ? true : undefined;
     if (href === "/#contact") return activeSection === "contact" ? true : undefined;
     if (href === "/") {
-      return pathname === "/" && activeSection !== "work" && activeSection !== "contact"
+      return pathname === "/" &&
+        activeSection !== "work" &&
+        activeSection !== "articles" &&
+        activeSection !== "contact"
         ? "page"
         : undefined;
     }
@@ -66,7 +106,6 @@ export default function Navbar() {
   };
 
   const onNavigate = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
-    setMobileOpen(false);
     if (href === "/" && pathname === "/") {
       event.preventDefault();
       scrollToTop();
@@ -80,43 +119,22 @@ export default function Navbar() {
     }
   };
 
-  useEffect(() => {
-    if (!mobileOpen) return;
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setMobileOpen(false);
-        menuBtnRef.current?.focus();
-      }
-    };
-    document.addEventListener("keydown", onKeyDown);
-
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    const focusables = mobileMenuRef.current?.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled])',
-    );
-    focusables?.[0]?.focus();
-
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = originalOverflow;
-      previouslyFocused?.focus?.();
-    };
-  }, [mobileOpen]);
-
   return (
-    <>
-      <nav className={styles.navbar} aria-label="Primary">
-        <div className={styles.container}>
-          <Link href="/" className={styles.brand} aria-label="Shweta Sharma, home">
-            Shweta <span className={styles.brandScript}>Sharma</span>
-          </Link>
+    <nav
+      className={styles.navbar}
+      aria-label="Primary"
+      data-compact={compact ? "true" : "false"}
+      data-motion={motionOff ? "off" : "on"}
+    >
+      <div className={styles.container}>
+        <Link href="/" className={styles.brand} aria-label="Shweta Sharma, home">
+          Shweta <span className={styles.brandScript}>Sharma</span>
+        </Link>
 
-          <div className={styles.links}>
-            {navLinks.map((link) => (
+        <div className={styles.links}>
+          {navLinks.map((link) => {
+            const Icon = link.icon;
+            return (
               <Link
                 key={link.label}
                 href={link.href}
@@ -128,102 +146,25 @@ export default function Navbar() {
                 data-track-link-href={link.href}
                 data-track-location="navbar"
               >
-                {link.label}
+                <Icon className={styles.navIcon} size={20} strokeWidth={2.1} aria-hidden />
+                <span className={styles.navLabel}>{link.label}</span>
               </Link>
-            ))}
-          </div>
-
-          <div className={styles.actions}>
-            <button
-              type="button"
-              className={styles.pauseBtn}
-              aria-pressed={userPaused}
-              onClick={togglePaused}
-            >
-              {userPaused ? "Play animations" : "Pause animations"}
-            </button>
-            <a
-              href={cvHref}
-              target="_blank"
-              rel="noreferrer"
-              className={styles.cvBtn}
-              data-track-location="navbar"
-            >
-              <Download size={16} aria-hidden />
-              Download CV (PDF)
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          </div>
-
-          <button
-            ref={menuBtnRef}
-            type="button"
-            className={styles.menuBtn}
-            onClick={() => setMobileOpen((open) => !open)}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileOpen}
-            aria-controls={menuId}
-            data-track="nav_click"
-            data-track-link-label="mobile_menu_toggle"
-            data-track-location="navbar_mobile"
-          >
-            {mobileOpen ? <X size={24} aria-hidden /> : <Menu size={24} aria-hidden />}
-          </button>
+            );
+          })}
         </div>
-      </nav>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            id={menuId}
-            ref={mobileMenuRef}
-            className={styles.mobileMenu}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Mobile navigation"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-          >
-            <div className={styles.mobileLinks}>
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className={styles.mobileLink}
-                  aria-current={currentFor(link.href)}
-                  onClick={(event) => onNavigate(event, link.href)}
-                  data-track="nav_click"
-                  data-track-link-label={link.label}
-                  data-track-link-href={link.href}
-                  data-track-location="navbar_mobile"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <button
-                type="button"
-                className={styles.mobilePauseBtn}
-                aria-pressed={userPaused}
-                onClick={togglePaused}
-              >
-                {userPaused ? "Play animations" : "Pause animations"}
-              </button>
-              <a
-                href={cvHref}
-                target="_blank"
-                rel="noreferrer"
-                className={styles.mobileCvBtn}
-                onClick={() => setMobileOpen(false)}
-                data-track-location="navbar_mobile"
-              >
-                Download CV (PDF)
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        <a
+          href={cvHref}
+          target="_blank"
+          rel="noreferrer"
+          className={styles.cvBtn}
+          data-track-location="navbar"
+        >
+          <Download size={16} aria-hidden />
+          <span className={styles.cvLabel}>Download CV (PDF)</span>
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+      </div>
+    </nav>
   );
 }

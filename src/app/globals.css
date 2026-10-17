@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,700;1,300&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400;1,600&display=swap');
 
 @font-face {
   font-family: "Inter Display";
@@ -121,9 +121,13 @@ html.reduce-motion *::after {
   animation: none !important;
 }
 
+html[data-nav="compact"] {
+  --header-height: 68px;
+}
+
 @media (max-width: 809px) {
   :root {
-    --header-height: 82px;
+    --header-height: 68px;
   }
 }
 

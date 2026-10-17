@@ -10,8 +10,8 @@
 
 .hobbiesSticky {
   position: sticky;
-  top: 94px;
-  height: calc(100svh - 94px);
+  top: var(--header-height);
+  height: calc(100svh - var(--header-height));
   overflow: hidden;
 }
 

@@ -1,0 +1,1314 @@
+.frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: inline-size;
+  container-name: cover;
+}
+
+.isPaused {
+  /* Toggled by IntersectionObserver in CoverFrame. */
+}
+
+.stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1440px;
+  height: 900px;
+  transform-origin: top left;
+  transform: scale(var(--scale, 0.5));
+  pointer-events: none;
+}
+
+.board {
+  --ink: #1c1c1c;
+  --lilac: #8b69fa;
+  --lilac-deep: #7a5fd4;
+  --muted: #5c5c5c;
+  --line: #d4d4d8;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 1440px;
+  height: 900px;
+  overflow: hidden;
+  color: var(--ink);
+  background: #f2f2f2;
+  background-image:
+    linear-gradient(rgba(28, 28, 28, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 28, 28, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+  font-family: "IBM Plex Sans", var(--font-primary), sans-serif;
+}
+
+.visual {
+  position: relative;
+  flex: 1 1 56%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 40px 16px;
+}
+
+.visualTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.kicker,
+.brand,
+.meta,
+.badgeRow,
+.caption,
+.c1Tick,
+.c1Month,
+.c1Axis,
+.c1Note span,
+.c2Label,
+.c2Scale,
+.c3Cap,
+.c4Stat span + *,
+.c4Nlp span,
+.c4LoopLabel {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+.kicker,
+.brand {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lilac-deep);
+}
+
+.caption {
+  margin: auto 0 4px;
+  text-align: center;
+  color: var(--lilac);
+  font-size: 18px;
+  font-style: italic;
+  font-family: "IBM Plex Serif", serif;
+  letter-spacing: 0.01em;
+}
+
+.info {
+  flex: 0 0 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px 40px 32px;
+  background: #fff;
+}
+
+.infoTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: #6a6a6a;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ece6ff;
+  color: var(--lilac-deep);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.badgeMint {
+  background: #d7eadc;
+  color: #2f6a45;
+}
+
+.badgePink {
+  background: #f3d7dc;
+  color: #a13b52;
+}
+
+.badgeLav {
+  background: #dde3f7;
+  color: #4a5aa8;
+}
+
+.go {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.title {
+  margin: 0;
+  max-width: 18ch;
+  font-family: var(--font-display), "Inter Display", sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.title em {
+  font-family: var(--font-script), "Kepler Std Extended Italic Display", serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--lilac);
+}
+
+.meta {
+  margin: 0;
+  color: var(--lilac);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.lede {
+  margin: 0;
+  max-width: 58ch;
+  color: #3f3f3f;
+  font-size: 20px;
+  line-height: 1.45;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.pills span {
+  padding: 8px 14px;
+  border: 1px solid #cfcfd4;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.spark {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background:
+    linear-gradient(#8b69fa, #8b69fa) center / 2px 100% no-repeat,
+    linear-gradient(#8b69fa, #8b69fa) center / 100% 2px no-repeat;
+  transform: rotate(45deg);
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+
+.frame[data-motion="off"] .stage *,
+.frame[data-motion="off"] .stage *::before,
+.frame[data-motion="off"] .stage *::after,
+.frame.isPaused .stage * {
+  animation-play-state: paused !important;
+}
+
+.frame[data-motion="off"] .stage *,
+.frame[data-motion="off"] .stage *::before,
+.frame[data-motion="off"] .stage *::after {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage *,
+  .stage *::before,
+  .stage *::after {
+    animation: none !important;
+  }
+}
+
+@container cover (max-width: 720px) {
+  .kicker,
+  .brand,
+  .lede,
+  .pills,
+  .meta,
+  .caption {
+    visibility: hidden;
+  }
+}
+
+@container cover (max-width: 420px) {
+  .title,
+  .badgeRow {
+    visibility: hidden;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: rotate(45deg) scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: rotate(45deg) scale(1.15);
+  }
+}
+
+/* ─── Cover 01 · Longitudinal SUS ─── */
+
+.c1 .visual {
+  background: #f3effc;
+}
+
+.c1Chart {
+  display: block;
+  width: 100%;
+  height: 340px;
+  overflow: visible;
+}
+
+.c1Grid {
+  stroke: #cfc6ea;
+  stroke-dasharray: 5 7;
+  stroke-width: 1.5;
+}
+
+.c1Tick,
+.c1Month,
+.c1Axis {
+  fill: #7d77a3;
+  font-size: 13px;
+}
+
+.c1Tick,
+.c1Month {
+  text-anchor: end;
+}
+
+.c1Month {
+  text-anchor: middle;
+  fill: #8a86a8;
+}
+
+.c1Axis {
+  fill: var(--lilac);
+  letter-spacing: 0.04em;
+}
+
+.c1Area {
+  fill: url(#c1Hatch);
+  opacity: 0.9;
+  animation: c1-fill 7s ease-out infinite;
+}
+
+.c1Line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  animation: c1-draw 7s ease-in-out infinite;
+}
+
+.c1Dot {
+  fill: #fff;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+
+.c1End {
+  fill: var(--lilac);
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: c1-pulse 7s ease-in-out infinite;
+}
+
+.c1Val,
+.c1EndLabel {
+  fill: var(--ink);
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-anchor: middle;
+}
+
+.c1EndLabel {
+  fill: var(--lilac-deep);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.c1Note {
+  position: absolute;
+  top: 86px;
+  left: 168px;
+  width: 210px;
+  padding: 14px 16px 16px;
+  border: 1.5px solid var(--ink);
+  border-radius: 10px 18px 12px 10px;
+  background: #fef7ce;
+  box-shadow: 3px 4px 0 var(--ink);
+  animation: c1-note 5s ease-in-out infinite;
+}
+
+.c1Note span {
+  display: block;
+  color: #6b5b14;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+
+.c1Note strong {
+  display: block;
+  margin: 4px 0 2px;
+  font-family: var(--font-display), sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.c1Note em {
+  color: var(--lilac-deep);
+  font-family: "IBM Plex Serif", serif;
+  font-size: 15px;
+}
+
+.c1SparkA {
+  top: 72px;
+  right: 168px;
+}
+
+.c1SparkB {
+  top: 108px;
+  right: 92px;
+  animation-delay: 0.8s;
+}
+
+@keyframes c1-draw {
+  0% {
+    stroke-dashoffset: 900;
+  }
+  42%,
+  86% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 900;
+  }
+}
+
+@keyframes c1-fill {
+  0%,
+  12% {
+    opacity: 0;
+  }
+  40%,
+  86% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes c1-pulse {
+  0%,
+  40% {
+    transform: scale(1);
+  }
+  48%,
+  56% {
+    transform: scale(1.35);
+  }
+  64%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes c1-note {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(1.5deg);
+  }
+}
+
+/* ─── Cover 02 · Fuel ─── */
+
+.c2 .visual {
+  background: #e8f3ec;
+}
+
+.c2Stage {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-height: 0;
+  padding: 8px 24px 0 8px;
+}
+
+.c2Tokens {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 320px;
+  animation: c2-feed 6s ease-in-out infinite;
+}
+
+.c2Row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.c2Button {
+  display: grid;
+  place-items: center;
+  width: 148px;
+  height: 52px;
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  background: #fff;
+  font-family: "IBM Plex Serif", serif;
+  font-size: 22px;
+  font-style: italic;
+}
+
+.c2Toggle {
+  display: block;
+  width: 72px;
+  height: 38px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #b7dcc4;
+}
+
+.c2Toggle span {
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: 3px 0 0 38px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: #fff;
+}
+
+.c2Radios {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.c2Radios span {
+  display: block;
+  width: 210px;
+  height: 0;
+  margin-left: 36px;
+  border-top: 3px solid var(--ink);
+}
+
+.c2Radios span::before {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  margin: -12px 0 0 -36px;
+  border: 2.5px solid var(--ink);
+  border-radius: 50%;
+  background: #fff;
+}
+
+.c2Radios {
+  position: relative;
+}
+
+.c2On::before {
+  background: var(--lilac) !important;
+  box-shadow: inset 0 0 0 3px #fff;
+}
+
+.c2TypeRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.c2Swatch {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+}
+
+.c2Swatch[data-tone="lilac"] {
+  background: var(--lilac);
+}
+
+.c2Swatch[data-tone="mint"] {
+  background: #c7e2d0;
+}
+
+.c2Swatch[data-tone="ink"] {
+  background: var(--ink);
+}
+
+.c2TypeRow strong {
+  margin-left: 8px;
+  font-family: var(--font-display), sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.c2Label {
+  margin: 0;
+  color: var(--lilac);
+  font-size: 16px;
+  font-style: italic;
+  font-family: "IBM Plex Serif", serif;
+  text-align: center;
+}
+
+.c2Flow,
+.c2Screens {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--lilac);
+  font-family: "IBM Plex Serif", serif;
+  font-size: 18px;
+  font-style: italic;
+}
+
+.c2Flow svg,
+.c2Screens svg,
+.c4Nlp svg,
+.c4To svg,
+.c4Loop {
+  fill: none;
+  stroke: var(--lilac);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.c2Flow svg {
+  width: 88px;
+  height: 36px;
+}
+
+.c2Flow svg path:first-child,
+.c2Screens svg path:first-child,
+.c4Nlp svg path:first-child,
+.c4To svg path:first-child,
+.c4Loop path:first-child {
+  stroke-dasharray: 6 8;
+  animation: c2-flow 1s linear infinite;
+}
+
+.c2Screens {
+  position: absolute;
+  right: 8px;
+  top: 36px;
+}
+
+.c2Screens svg {
+  width: 72px;
+  height: 36px;
+}
+
+.c2SurveyWrap {
+  position: relative;
+  width: 430px;
+  height: 360px;
+  margin-left: 12px;
+}
+
+.c2Sheet,
+.c2Survey {
+  position: absolute;
+  inset: 0;
+  border: 2.5px solid var(--ink);
+  border-radius: 22px;
+  background: #fff;
+}
+
+.c2Sheet {
+  inset: -18px -22px 28px 18px;
+  background: #f7f7f4;
+}
+
+.c2Sheet[data-mid="true"] {
+  inset: -8px -12px 14px 8px;
+  background: #fff;
+}
+
+.c2Survey {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 26px 20px;
+  box-shadow: 8px 10px 0 rgba(28, 28, 28, 0.08);
+}
+
+.c2Dots {
+  display: flex;
+  gap: 6px;
+}
+
+.c2Dots i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff5f57;
+}
+
+.c2Dots i:nth-child(2) {
+  background: #febc2e;
+}
+
+.c2Dots i:nth-child(3) {
+  background: #28c840;
+}
+
+.c2Progress {
+  display: block;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #eceaf3;
+}
+
+.c2Progress b {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--lilac);
+  animation: c2-fill 5s ease-in-out infinite;
+}
+
+.c2Survey p {
+  margin: 6px 0 0;
+  font-family: "IBM Plex Serif", serif;
+  font-size: 28px;
+  font-style: italic;
+  line-height: 1.15;
+}
+
+.c2Rating {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.c2Rating span {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 600;
+  animation: c2-pick 4.5s linear infinite;
+}
+
+.c2Rating span[data-on="true"] {
+  background: var(--lilac);
+  color: #fff;
+  border-color: var(--lilac);
+  animation: none;
+}
+
+.c2Scale {
+  display: flex;
+  justify-content: space-between;
+  color: #6a6a6a;
+  font-size: 12px;
+}
+
+.c2Next {
+  align-self: flex-end;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.c2Spark {
+  right: 64px;
+  bottom: 88px;
+}
+
+@keyframes c2-feed {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes c2-flow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+@keyframes c2-fill {
+  0% {
+    width: 12%;
+  }
+  70%,
+  88% {
+    width: 68%;
+  }
+  100% {
+    width: 12%;
+  }
+}
+
+@keyframes c2-pick {
+  0%,
+  16% {
+    background: var(--lilac);
+    color: #fff;
+    border-color: var(--lilac);
+  }
+  18%,
+  100% {
+    background: #fff;
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+}
+
+/* ─── Cover 03 · Topshop ─── */
+
+.c3 .visual {
+  background: #faeff0;
+}
+
+.c3Stage {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 0;
+  padding: 0 32px;
+}
+
+.c3Exit,
+.c3Chart {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.c3Exit svg,
+.c3Chart svg {
+  width: 320px;
+  height: 250px;
+  overflow: visible;
+}
+
+.c3Exit svg path,
+.c3Exit svg line,
+.c3Exit svg circle,
+.c3Exit svg rect {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.c3Exit svg circle:last-of-type {
+  fill: #fff;
+}
+
+.c3Bag {
+  fill: #e7a0ad !important;
+  animation: c3-sway 2.8s ease-in-out infinite;
+  transform-origin: 197px 116px;
+}
+
+.c3Exit svg text {
+  fill: var(--ink);
+  font-family: var(--font-display), sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.c3Bubble {
+  position: absolute;
+  top: 8px;
+  right: 36px;
+  padding: 10px 16px;
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  background: #fff;
+  font-family: "IBM Plex Serif", serif;
+  font-size: 18px;
+  font-style: italic;
+  animation: c3-pop 4s ease-in-out infinite;
+}
+
+.c3Plus {
+  color: var(--lilac);
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.c3Chart svg line {
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.c3Bar,
+.c3BarMid,
+.c3BarHi {
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  transform-origin: center bottom;
+  animation: c3-grow 5s ease-out infinite;
+}
+
+.c3Bar {
+  fill: #fff;
+}
+
+.c3BarMid {
+  fill: #f3d0d6;
+}
+
+.c3BarHi {
+  fill: var(--lilac);
+}
+
+.c3Cursor {
+  fill: #fff;
+  stroke: var(--ink);
+  stroke-width: 2;
+  animation: c3-cursor 4s ease-in-out infinite;
+}
+
+.c3Callout {
+  position: absolute;
+  top: 0;
+  right: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--lilac);
+}
+
+.c3Callout span {
+  font-family: "IBM Plex Serif", serif;
+  font-size: 16px;
+  font-style: italic;
+}
+
+.c3Callout strong {
+  padding: 6px 14px;
+  border: 2px solid var(--lilac);
+  border-radius: 40px;
+  font-family: var(--font-display), sans-serif;
+  font-size: 24px;
+  animation: c3-pop 4s ease-in-out infinite;
+}
+
+.c3Cap {
+  margin: 8px 0 0;
+  color: var(--lilac);
+  font-size: 16px;
+  font-style: italic;
+  font-family: "IBM Plex Serif", serif;
+}
+
+.c3Spark {
+  right: 80px;
+  top: 120px;
+}
+
+@keyframes c3-grow {
+  0% {
+    transform: scaleY(0);
+  }
+  28%,
+  82% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes c3-sway {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes c3-pop {
+  0%,
+  70%,
+  100% {
+    transform: scale(1);
+  }
+  78% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes c3-cursor {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(8px, -10px);
+  }
+}
+
+/* ─── Cover 04 · ABIM ─── */
+
+.c4 .visual {
+  background: #eef0fa;
+}
+
+.c4Stage {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 0;
+  padding: 8px 20px 36px;
+}
+
+.c4Talk {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 320px;
+}
+
+.c4Stack {
+  position: relative;
+  width: 280px;
+  height: 210px;
+}
+
+.c4Stack span {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 0;
+  height: 190px;
+  border: 2.5px solid var(--ink);
+  border-radius: 18px;
+  background: #f7f7fb;
+}
+
+.c4Stack span:nth-child(2) {
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  background: #fff;
+}
+
+.c4Card {
+  position: absolute;
+  inset: 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px 20px 18px;
+  border: 2.5px solid var(--ink);
+  border-radius: 18px;
+  background: #fff;
+}
+
+.c4Clinician,
+.c4Patient {
+  height: 54px;
+  border-radius: 16px;
+  background: #d9d4ea;
+}
+
+.c4Patient {
+  align-self: flex-end;
+  width: 78%;
+  background: #c9b8f4;
+}
+
+.c4Card em,
+.c4Card strong {
+  position: absolute;
+  font-family: "IBM Plex Serif", serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 400;
+  color: #6a6a6a;
+}
+
+.c4Card em {
+  top: 8px;
+  right: 16px;
+}
+
+.c4Card strong {
+  left: 24px;
+  bottom: 36px;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+.c4Stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0 0;
+  color: var(--lilac);
+  font-family: "IBM Plex Serif", serif;
+  font-size: 18px;
+  font-style: italic;
+}
+
+.c4Stat span {
+  font-family: var(--font-display), sans-serif;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+
+.c4Nlp,
+.c4To {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--lilac);
+  font-family: "IBM Plex Serif", serif;
+  font-size: 16px;
+  font-style: italic;
+}
+
+.c4Nlp svg,
+.c4To svg {
+  width: 72px;
+  height: 28px;
+}
+
+.c4Rubric {
+  position: relative;
+  width: 250px;
+  padding: 36px 22px 22px;
+  border: 2.5px solid var(--ink);
+  border-radius: 8px 8px 18px 18px;
+  background: #fff;
+}
+
+.c4Clip {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 92px;
+  height: 28px;
+  border: 2.5px solid var(--ink);
+  border-radius: 8px;
+  background: #c9b8f4;
+  transform: translateX(-50%);
+}
+
+.c4Rubric p {
+  margin: 0 0 12px;
+  font-family: "IBM Plex Serif", serif;
+  font-size: 22px;
+  font-style: italic;
+  text-align: center;
+}
+
+.c4Rubric ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.c4Rubric li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  align-items: center;
+  gap: 10px;
+  animation: c4-check 6s ease-in-out infinite;
+}
+
+.c4Rubric i {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  background:
+    linear-gradient(#8b69fa, #8b69fa) 50% 55% / 12px 2px no-repeat,
+    linear-gradient(#8b69fa, #8b69fa) 42% 60% / 2px 8px no-repeat;
+  transform: rotate(-12deg);
+}
+
+.c4Rubric b {
+  height: 2px;
+  background: var(--ink);
+}
+
+.c4Stages {
+  margin: 12px 0 0;
+  color: var(--lilac-deep);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.c4Gauge {
+  position: relative;
+  width: 240px;
+  text-align: center;
+}
+
+.c4Gauge svg {
+  width: 220px;
+  height: 150px;
+  overflow: visible;
+}
+
+.c4Arc {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.c4NeedleWrap {
+  transform-box: view-box;
+  transform-origin: 90px 102px;
+  animation: c4-needle 6s ease-in-out infinite;
+}
+
+.c4Needle {
+  stroke: var(--ink);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.c4NeedleWrap circle {
+  fill: var(--lilac);
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+
+.c4Gauge strong {
+  display: block;
+  margin-top: -18px;
+  font-family: var(--font-display), sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.c4Gauge em {
+  color: var(--lilac);
+  font-family: "IBM Plex Serif", serif;
+  font-size: 16px;
+}
+
+.c4Loop {
+  position: absolute;
+  right: 80px;
+  bottom: 18px;
+  width: 280px;
+  height: 70px;
+}
+
+.c4LoopLabel {
+  position: absolute;
+  right: 120px;
+  bottom: 8px;
+  margin: 0;
+  color: var(--lilac);
+  font-size: 16px;
+  font-style: italic;
+  font-family: "IBM Plex Serif", serif;
+}
+
+.c4Spark {
+  right: 72px;
+  top: 96px;
+}
+
+@keyframes c4-needle {
+  0% {
+    transform: rotate(-42deg);
+  }
+  45%,
+  70% {
+    transform: rotate(8deg);
+  }
+  100% {
+    transform: rotate(-42deg);
+  }
+}
+
+@keyframes c4-check {
+  0%,
+  12% {
+    opacity: 0.25;
+  }
+  24%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}

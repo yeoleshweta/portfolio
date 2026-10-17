@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fuel Component Anatomy — from variables to screens</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F0F0F0; --panel:#FFFFFF; --panel-line:#E4E4E4; --ink:#1E1E1E; --muted:#8A8A8A;
+  --fig-blue:#0D99FF; --fig-purple:#9747FF; --redline:#F24E7C;
+  --jd-green:#367C2B; --jd-yellow:#FFDE00; --success:#699E61; --warn:#F2A900; --error:#E8A0A6;
+  --tok-bg:#F5F0FF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--canvas);color:var(--ink);overflow:hidden}
+.app{display:grid;grid-template-columns:200px 1fr 232px;grid-template-rows:1fr 92px;height:100vh;min-height:560px}
+/* ---------- layers panel ---------- */
+.layers{background:var(--panel);border-right:1px solid var(--panel-line);padding:14px 0;font-size:12.5px;overflow:hidden}
+.layers h4{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0 14px 10px}
+.layer{padding:6px 14px 6px 26px;position:relative;color:#555;white-space:nowrap;opacity:.35;transition:.4s}
+.layer:before{content:"";position:absolute;left:12px;top:11px;width:8px;height:8px;border:1.2px solid currentColor;border-radius:1px}
+.layer.comp:before{border-color:var(--fig-purple);transform:rotate(45deg)}
+.layer.on{opacity:1;color:var(--ink)}
+.layer.sel{background:#E5F4FF;color:var(--fig-blue);font-weight:600}
+.layer .ind{color:var(--fig-purple)}
+/* ---------- canvas ---------- */
+.stage{position:relative;overflow:hidden;background:
+  linear-gradient(var(--canvas),var(--canvas)),
+  repeating-linear-gradient(0deg,#E8E8E8 0 1px,transparent 1px 24px),
+  repeating-linear-gradient(90deg,#E8E8E8 0 1px,transparent 1px 24px);
+  background-blend-mode:normal,normal,normal}
+.center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+/* variables panel (stage 0) */
+.vars{position:absolute;background:var(--panel);border:1px solid var(--panel-line);border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.12);width:340px;left:50%;top:50%;transform:translate(-50%,-46%) scale(.92);opacity:0;transition:.6s;font-size:12.5px}
+.vars.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.vars h5{padding:12px 16px;border-bottom:1px solid var(--panel-line);font-size:12px;display:flex;gap:8px;align-items:center}
+.vars h5:before{content:"{ }";font-family:'IBM Plex Mono',monospace;color:var(--fig-purple);font-size:11px}
+.vrow{display:flex;align-items:center;gap:10px;padding:8px 16px;border-bottom:1px solid #F3F3F3;opacity:0;transform:translateX(-8px);transition:.4s}
+.vars.show .vrow{opacity:1;transform:none}
+.vars.show .vrow:nth-child(2){transition-delay:.1s}.vars.show .vrow:nth-child(3){transition-delay:.2s}
+.vars.show .vrow:nth-child(4){transition-delay:.3s}.vars.show .vrow:nth-child(5){transition-delay:.4s}
+.vars.show .vrow:nth-child(6){transition-delay:.5s}.vars.show .vrow:nth-child(7){transition-delay:.6s}
+.sw{width:16px;height:16px;border-radius:4px;border:1px solid rgba(0,0,0,.12);flex:none}
+.vname{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#333;flex:1}
+.vval{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted)}
+/* the button being built */
+.build{position:relative;opacity:0;transition:.5s;transform:scale(.9)}
+.build.show{opacity:1;transform:scale(1)}
+.btn{width:158px;height:48px;background:#D9D9D9;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;color:transparent;border-radius:3px;transition:.7s;position:relative}
+.btn.autolayout{color:#666}
+.btn.bound{background:var(--jd-yellow);color:var(--ink)}
+/* selection handles */
+.sel-box{position:absolute;inset:-1.5px;border:1.5px solid var(--fig-blue);opacity:0;transition:.4s;pointer-events:none}
+.sel-box.show{opacity:1}
+.sel-box i{position:absolute;width:7px;height:7px;background:#fff;border:1.5px solid var(--fig-blue)}
+.sel-box i:nth-child(1){left:-4px;top:-4px}.sel-box i:nth-child(2){right:-4px;top:-4px}
+.sel-box i:nth-child(3){left:-4px;bottom:-4px}.sel-box i:nth-child(4){right:-4px;bottom:-4px}
+/* redlines */
+.red{position:absolute;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--redline);opacity:0;transition:.5s}
+.red.show{opacity:1}
+.red.w{left:0;right:0;top:-26px;text-align:center}
+.red.w:before{content:"";position:absolute;left:0;right:0;top:14px;border-top:1px solid var(--redline)}
+.red.h{top:0;bottom:0;left:-30px;writing-mode:vertical-rl;display:flex;align-items:center}
+.red.h:before{content:"";position:absolute;top:0;bottom:0;left:14px;border-left:1px solid var(--redline)}
+/* variable chip that flies to fill */
+.chip-fly{position:absolute;font-family:'IBM Plex Mono',monospace;font-size:10px;background:var(--tok-bg);border:1px solid var(--fig-purple);color:var(--fig-purple);padding:3px 8px;border-radius:999px;display:flex;gap:5px;align-items:center;opacity:0;transition:all .9s cubic-bezier(.4,0,.2,1);left:50%;top:16%;transform:translateX(-50%)}
+.chip-fly .dot{width:9px;height:9px;border-radius:3px;background:var(--jd-yellow);border:1px solid rgba(0,0,0,.15)}
+.chip-fly.fly{opacity:1;top:calc(50% - 40px)}
+.chip-fly.docked{opacity:0;top:50%}
+/* variants frame */
+.variants{position:absolute;padding:26px 30px;border:1.5px dashed var(--fig-purple);border-radius:8px;opacity:0;transition:.6s;transform:scale(.94);background:rgba(151,71,255,.03)}
+.variants.show{opacity:1;transform:scale(1)}
+.variants .tag{position:absolute;top:-9px;left:12px;background:var(--fig-purple);color:#fff;font-size:9.5px;font-family:'IBM Plex Mono',monospace;padding:1px 8px;border-radius:3px;display:flex;gap:5px;align-items:center}
+.vgrid{display:grid;grid-template-columns:repeat(3,138px);gap:16px}
+.vbtn{height:42px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13.5px;opacity:0;transform:translateY(8px);transition:.45s}
+.variants.show .vbtn{opacity:1;transform:none}
+.variants.show .vbtn:nth-child(2){transition-delay:.12s}.variants.show .vbtn:nth-child(3){transition-delay:.24s}
+.variants.show .vbtn:nth-child(4){transition-delay:.36s}.variants.show .vbtn:nth-child(5){transition-delay:.48s}
+.variants.show .vbtn:nth-child(6){transition-delay:.6s}
+.v-primary{background:var(--jd-yellow);color:var(--ink)}
+.v-secondary{background:#fff;color:#C21E25;border:1.5px solid #C21E25}
+.v-value{background:#D2E1CF;color:#2A5F22}
+.v-dis{background:#DDDDDD;color:#9A9A9A}
+/* composed card */
+.card{width:300px;background:#fff;border:1px solid #E2E2E2;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.08);opacity:0;transform:scale(.93);transition:.6s;overflow:hidden}
+.card.show{opacity:1;transform:scale(1)}
+.card .head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #EFEFEF}
+.card .head b{color:var(--jd-green);font-size:14.5px}
+.card .kpi{text-align:center;padding:16px}
+.card .kpi .n{font-size:44px;font-weight:700}
+.card .kpi .l{font-size:12px;color:var(--muted)}
+.card .row{display:flex;gap:8px;justify-content:center;padding:0 16px 8px}
+.pill{font-size:11px;padding:3px 10px;border-radius:999px;opacity:0;transform:translateY(6px);transition:.4s}
+.card.show .pill{opacity:1;transform:none}
+.card.show .pill:nth-child(1){transition-delay:.25s}.card.show .pill:nth-child(2){transition-delay:.4s}.card.show .pill:nth-child(3){transition-delay:.55s}
+.p-ok{background:#D2E1CF;color:#2A5F22}.p-warn{background:#FFF3CD;color:#8A6D00}.p-err{background:#F8E1E3;color:#A02833}
+.card .acts{display:flex;gap:10px;padding:12px 16px 16px;justify-content:center}
+.card .acts .a{height:36px;padding:0 18px;border-radius:3px;font-size:13px;font-weight:600;display:flex;align-items:center;opacity:0;transition:.5s}
+.card.show .acts .a{opacity:1}
+.card.show .acts .a:nth-child(1){transition-delay:.7s}.card.show .acts .a:nth-child(2){transition-delay:.85s}
+/* screens fan */
+.fan{display:flex;gap:26px;opacity:0;transition:.7s;transform:translateY(14px)}
+.fan.show{opacity:1;transform:none}
+.mini{width:190px;height:132px;background:#fff;border:1px solid #E2E2E2;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:10px;position:relative;overflow:hidden}
+.mini .bar{height:8px;background:var(--jd-green);border-radius:2px;margin-bottom:8px}
+.mini .blk{background:#EFEFEF;border-radius:2px;margin-bottom:6px}
+.mini .yb{position:absolute;right:10px;bottom:10px;width:44px;height:14px;background:var(--jd-yellow);border-radius:2px}
+.mini .lbl{position:absolute;left:10px;bottom:8px;font-size:9.5px;color:var(--muted);font-family:'IBM Plex Mono',monospace}
+.mini .gr{position:absolute;right:10px;top:26px;display:flex;gap:3px;align-items:flex-end;height:34px}
+.mini .gr i{width:8px;background:var(--jd-green);border-radius:1px}
+.mini .gr i:nth-child(2){background:var(--jd-yellow)}.mini .gr i:nth-child(3){background:#1E1E1E}
+/* ---------- properties panel ---------- */
+.props{background:var(--panel);border-left:1px solid var(--panel-line);padding:14px;font-size:12px;overflow:hidden}
+.props h4{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.prop{border:1px solid var(--panel-line);border-radius:8px;padding:10px 12px;margin-bottom:10px;opacity:.28;transition:.5s}
+.prop.on{opacity:1;border-color:#D5D5D5}
+.prop.hot{border-color:var(--fig-purple);background:var(--tok-bg)}
+.prop .k{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:5px}
+.prop .v{font-family:'IBM Plex Mono',monospace;font-size:11px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.prop .v .sw{width:13px;height:13px}
+.tokpill{background:var(--tok-bg);border:1px solid var(--fig-purple);color:var(--fig-purple);padding:1px 8px;border-radius:999px;font-size:10px;display:inline-flex;gap:5px;align-items:center}
+/* ---------- caption / controls ---------- */
+.dock{grid-column:1/4;background:#1E1E1E;color:#fff;display:flex;align-items:center;gap:18px;padding:0 20px}
+.dock .play{width:40px;height:40px;border-radius:50%;border:none;background:var(--jd-yellow);color:#1E1E1E;font-size:15px;cursor:pointer;flex:none;font-family:inherit}
+.dock .nav{background:none;border:1px solid #4A4A4A;color:#ddd;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:14px}
+.cap{flex:1;min-width:0}
+.cap b{display:block;font-size:15px;color:var(--jd-yellow)}
+.cap span{font-size:12.5px;color:#C9C9C9;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dots{display:flex;gap:7px}
+.dots i{width:8px;height:8px;border-radius:50%;background:#4A4A4A;cursor:pointer;transition:.3s}
+.dots i.on{background:var(--jd-yellow);transform:scale(1.25)}
+@media(max-width:860px){.app{grid-template-columns:0 1fr 0}.layers,.props{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app" data-stage="0">
+  <aside class="layers">
+    <h4>Layers</h4>
+    <div class="layer on" id="L0">Fuel · Variables</div>
+    <div class="layer" id="L1">Frame — button</div>
+    <div class="layer" id="L2">↳ Auto layout · label</div>
+    <div class="layer comp" id="L3"><span class="ind">◇</span> button / primary</div>
+    <div class="layer comp" id="L4"><span class="ind">◇</span> button — variants ×6</div>
+    <div class="layer comp" id="L5"><span class="ind">◇</span> card / metric</div>
+    <div class="layer" id="L6">Screens — dashboard · create · report</div>
+  </aside>
+
+  <main class="stage">
+    <!-- Stage 0: variables -->
+    <div class="vars" id="vars">
+      <h5>Fuel · local variables</h5>
+      <div class="vrow"><span class="sw" style="background:#FFDE00"></span><span class="vname">fuel-color-background-action-primary</span><span class="vval">#FFDE00</span></div>
+      <div class="vrow"><span class="sw" style="background:#367C2B"></span><span class="vname">fuel-color-brand-green</span><span class="vval">#367C2B</span></div>
+      <div class="vrow"><span class="sw" style="background:#699E61"></span><span class="vname">fuel-color-messaging-success-base</span><span class="vval">#699E61</span></div>
+      <div class="vrow"><span class="sw" style="background:#F2A900"></span><span class="vname">fuel-color-messaging-warning-base</span><span class="vval">#F2A900</span></div>
+      <div class="vrow"><span class="sw" style="background:#E8A0A6"></span><span class="vname">fuel-color-messaging-error-light</span><span class="vval">#E8A0A6</span></div>
+      <div class="vrow"><span class="sw" style="background:#fff;border:1px solid #ccc;font-size:9px;display:flex;align-items:center;justify-content:center">Aa</span><span class="vname">fuel-type-button · Source Sans Pro 600</span><span class="vval">15/24</span></div>
+      <div class="vrow"><span class="sw" style="background:#DDD"></span><span class="vname">fuel-space-inset-button</span><span class="vval">24 / 12</span></div>
+    </div>
+
+    <!-- Stages 1–3: the button being built -->
+    <div class="center"><div class="build" id="build">
+      <div class="btn" id="btn">Primary</div>
+      <div class="sel-box" id="selbox"><i></i><i></i><i></i><i></i></div>
+      <div class="red w" id="redw">158</div>
+      <div class="red h" id="redh">48</div>
+    </div></div>
+    <div class="chip-fly" id="chip"><span class="dot"></span>fuel-color-background-action-primary</div>
+
+    <!-- Stage 4: variants -->
+    <div class="center"><div class="variants" id="variants">
+      <div class="tag">◇ button · property: type / state</div>
+      <div class="vgrid">
+        <div class="vbtn v-primary">Primary</div>
+        <div class="vbtn v-secondary">Secondary</div>
+        <div class="vbtn v-value">Value</div>
+        <div class="vbtn v-dis">Primary</div>
+        <div class="vbtn v-dis">Secondary</div>
+        <div class="vbtn v-dis">Value</div>
+      </div>
+    </div></div>
+
+    <!-- Stage 5: composed card -->
+    <div class="center"><div class="card" id="card">
+      <div class="head"><b>OpsX</b><span style="font-size:11px;color:#999">⚙ ✕</span></div>
+      <div class="kpi"><div class="n">99</div><div class="l">Past Due Orders</div></div>
+      <div class="row">
+        <span class="pill p-ok">On track</span><span class="pill p-warn">Tooling</span><span class="pill p-err">Delivery</span>
+      </div>
+      <div class="acts">
+        <div class="a v-primary">View report</div>
+        <div class="a v-secondary">Dismiss</div>
+      </div>
+    </div></div>
+
+    <!-- Stage 6: screens -->
+    <div class="center"><div class="fan" id="fan">
+      <div class="mini"><div class="bar" style="width:60%"></div><div class="blk" style="height:22px"></div><div class="blk" style="height:12px;width:70%"></div><div class="blk" style="height:12px;width:55%"></div><div class="yb"></div><div class="lbl">dashboard</div></div>
+      <div class="mini"><div class="bar" style="width:40%"></div><div class="blk" style="height:11px;width:85%"></div><div class="blk" style="height:11px;width:85%"></div><div class="blk" style="height:11px;width:60%"></div><div class="blk" style="height:11px;width:72%"></div><div class="yb"></div><div class="lbl">create project</div></div>
+      <div class="mini"><div class="bar" style="width:52%"></div><div class="blk" style="height:12px;width:64%"></div><div class="blk" style="height:12px;width:80%"></div><div class="gr"><i style="height:30px"></i><i style="height:20px"></i><i style="height:26px"></i></div><div class="lbl">reports</div></div>
+    </div></div>
+  </main>
+
+  <aside class="props">
+    <h4>Design</h4>
+    <div class="prop" id="P0"><div class="k">Frame</div><div class="v">W 158 · H 48 · R 3</div></div>
+    <div class="prop" id="P1"><div class="k">Auto layout</div><div class="v">padding 24 / 12 · hug</div></div>
+    <div class="prop" id="P2"><div class="k">Fill</div><div class="v" id="fillv">#D9D9D9</div></div>
+    <div class="prop" id="P3"><div class="k">Text</div><div class="v" id="textv">—</div></div>
+    <div class="prop" id="P4"><div class="k">Component</div><div class="v" id="compv">—</div></div>
+  </aside>
+
+  <div class="dock">
+    <button class="play" id="playBtn" aria-label="Play or pause">❚❚</button>
+    <button class="nav" id="prev" aria-label="Previous step">‹</button>
+    <button class="nav" id="next" aria-label="Next step">›</button>
+    <div class="cap"><b id="capT">The variables</b><span id="capS">Every Fuel decision starts as a token — color, type, spacing — defined once, referenced everywhere.</span></div>
+    <div class="dots" id="dots"></div>
+  </div>
+</div>
+
+<script>
+const stages = [
+ {t:"The variables", s:"Every Fuel decision starts as a token — color, type, spacing — defined once, referenced everywhere."},
+ {t:"A frame, not a picture", s:"The button begins as a 158×48 frame — the exact redlined dimensions from the Fuel spec."},
+ {t:"Auto layout + label", s:"Padding 24/12 via auto layout, label set in the Fuel type style — structure before styling."},
+ {t:"Bind the variable", s:"The fill isn't a hex — it's fuel-color-background-action-primary. Change the token, every button follows."},
+ {t:"States become variants", s:"One component, six variants: type × state. Consumers pick properties; they never rebuild."},
+ {t:"Composition, not invention", s:"Buttons, pills, and tokens compose into a metric card — a new component built entirely from existing ones."},
+ {t:"One library, every screen", s:"Dashboards, create flows, reports — different jobs, same components. That's the system working."}
+];
+let cur = 0, playing = true, timer = null;
+const app = document.getElementById('app');
+const $ = id => document.getElementById(id);
+
+function render(){
+  app.dataset.stage = cur;
+  // layers
+  for(let i=0;i<=6;i++){ const L=$('L'+i); L.classList.toggle('on', i<=cur); L.classList.toggle('sel', i===cur); }
+  // stage 0
+  $('vars').classList.toggle('show', cur===0);
+  // stages 1-3 build
+  $('build').classList.toggle('show', cur>=1 && cur<=3);
+  $('selbox').classList.toggle('show', cur===1);
+  $('btn').classList.toggle('autolayout', cur>=2);
+  $('redw').classList.toggle('show', cur===2); $('redh').classList.toggle('show', cur===2);
+  $('btn').classList.toggle('bound', cur>=3);
+  const chip=$('chip'); chip.classList.remove('fly','docked');
+  if(cur===3){ requestAnimationFrame(()=>{ chip.classList.add('fly'); setTimeout(()=>chip.classList.add('docked'), 950); }); }
+  // stage 4-6
+  $('variants').classList.toggle('show', cur===4);
+  $('card').classList.toggle('show', cur===5);
+  $('fan').classList.toggle('show', cur===6);
+  // props
+  $('P0').classList.toggle('on', cur>=1);
+  $('P1').classList.toggle('on', cur>=2);
+  $('P2').classList.toggle('on', cur>=1); $('P2').classList.toggle('hot', cur===3);
+  $('P3').classList.toggle('on', cur>=2); $('P4').classList.toggle('on', cur>=4); $('P4').classList.toggle('hot', cur===4||cur===5);
+  $('fillv').innerHTML = cur>=3 ? '<span class="tokpill"><span class="sw" style="background:#FFDE00;width:9px;height:9px;border-radius:3px"></span>action-primary</span>' : '#D9D9D9';
+  $('textv').innerHTML = cur>=2 ? (cur>=3?'<span class="tokpill">fuel-type-button</span>':'Source Sans Pro 600 · 15') : '—';
+  $('compv').textContent = cur>=5 ? '◇ card / metric — instances: 4' : (cur>=4 ? '◇ button — 6 variants' : '—');
+  // caption + dots
+  $('capT').textContent = stages[cur].t; $('capS').textContent = stages[cur].s;
+  document.querySelectorAll('#dots i').forEach((d,i)=>d.classList.toggle('on', i===cur));
+}
+function go(n){ cur = (n+stages.length)%stages.length; render(); }
+function tick(){ if(playing){ go(cur+1); } }
+function setPlay(p){ playing=p; $('playBtn').textContent = p?'❚❚':'▶'; clearInterval(timer); if(p) timer=setInterval(tick, 3200); }
+// dots
+const dots=$('dots'); stages.forEach((_,i)=>{ const d=document.createElement('i'); d.onclick=()=>{setPlay(false);go(i)}; dots.appendChild(d); });
+$('next').onclick=()=>{setPlay(false);go(cur+1)};
+$('prev').onclick=()=>{setPlay(false);go(cur-1)};
+$('playBtn').onclick=()=>setPlay(!playing);
+render(); setPlay(true);
+</script>
+</body>
+</html>
