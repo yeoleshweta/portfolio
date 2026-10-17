@@ -100,7 +100,7 @@ function ArchitectureLayer({
 
 export default function GestureProCaseStudy() {
   return (
-    <main>
+    <>
       <CaseStudyHero
         title="GesturePro — Real-Time Sign Language Translation"
         category="AI / ML Research"
@@ -589,6 +589,6 @@ export default function GestureProCaseStudy() {
           </div>
         </CaseStudySection>
       </CaseStudyLayout>
-    </main>
+    </>
   );
 }

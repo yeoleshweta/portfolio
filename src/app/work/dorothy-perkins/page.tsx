@@ -160,7 +160,7 @@ function GeoBehavioralVisual() {
 
 export default function DorothyPerkinsCaseStudy() {
   return (
-    <main>
+    <>
       <CaseStudyHero
         title="Why Were Students Not Saving? Segment Aware Personalization at Dorothy Perkins"
         category="Quantitative / Experimentation"
@@ -374,6 +374,6 @@ export default function DorothyPerkinsCaseStudy() {
           </div>
         </CaseStudySection>
       </CaseStudyLayout>
-    </main>
+    </>
   );
 }

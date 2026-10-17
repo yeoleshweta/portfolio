@@ -177,7 +177,7 @@ function VariantSelector() {
 
 export default function TopshopCaseStudy() {
   return (
-    <main>
+    <>
       <CaseStudyHero
         title="What Analytics Couldn't Tell Us: Pairing Exit Intercepts with Behavioral Data at Topshop"
         category="Quantitative / Experimentation"
@@ -386,6 +386,6 @@ export default function TopshopCaseStudy() {
           </div>
         </CaseStudySection>
       </CaseStudyLayout>
-    </main>
+    </>
   );
 }

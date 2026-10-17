@@ -130,7 +130,7 @@ function PhysicsTile({
 const contactItems = [
   { type: "linkedin" as const, label: "Linkedin",                   href: "https://www.linkedin.com/in/sharmashweta08" },
   { type: "gmail"    as const, label: "shwetayeolesharma@gmail.com", href: "mailto:shwetayeolesharma@gmail.com" },
-  { type: "cv"       as const, label: "Download CV",                 href: "/assets/UX_Researcher_Resume.pdf" },
+  { type: "cv"       as const, label: "Download CV (PDF)",          href: "/assets/UX_Researcher_Resume.pdf" },
 ];
 
 const CUBES = [

@@ -98,8 +98,8 @@ export const gathering = {
     },
   ],
   image: {
-    src: "/assets/mural-pm-interviews.jpg",
-    alt: "Mural board for the Product Manager persona interviews, with notes from each session grouped into need and pain point clusters",
+    src: "/assets/pm-persona-board.jpg",
+    alt: "Research board for the product-manager study, with a persona card for Rajesh and clusters of needs and pain points",
     caption:
       "Gathering Insights: notes from eight PM interviews on the Mural board, grouped into needs and pain points.",
   },

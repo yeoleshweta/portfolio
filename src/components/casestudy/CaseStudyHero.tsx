@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import styles from "./CaseStudyHero.module.css";
 import { motion, useReducedMotion } from "framer-motion";
+import { studyFromPath } from "@/content/caseStudyBriefs";
 
 interface CaseStudyHeroProps {
   title: string;
@@ -37,8 +39,13 @@ export default function CaseStudyHero({
   variant = "default",
 }: CaseStudyHeroProps) {
   const reduceMotion = useReducedMotion() ?? false;
+  const pathname = usePathname();
+  const brief = studyFromPath(pathname);
+  const summaryLine =
+    subtitle ?? (brief?.kind === "featured" ? brief.summary : undefined);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(!reduceMotion);
+  const [minutes, setMinutes] = useState<number | null>(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -51,6 +58,18 @@ export default function CaseStudyHero({
     video.play().catch(() => setPlaying(false));
     setPlaying(true);
   }, [reduceMotion, videoUrl]);
+
+  useEffect(() => {
+    const measure = () => {
+      const body = document.querySelector<HTMLElement>("[data-case-study-body]");
+      const text = body?.innerText ?? "";
+      const words = text.trim().split(/\s+/).filter(Boolean).length;
+      setMinutes(words ? Math.max(1, Math.round(words / 220)) : null);
+    };
+    measure();
+    const timer = window.setTimeout(measure, 400);
+    return () => window.clearTimeout(timer);
+  }, [pathname]);
 
   const togglePlayback = () => {
     const video = videoRef.current;
@@ -68,6 +87,7 @@ export default function CaseStudyHero({
     <section
       className={`${styles.hero}${variant === "abtools" ? ` ${styles.abtools}` : ""}`}
       id="top"
+      data-case-study-hero
     >
       <div className={styles.header}>
         {category && (
@@ -89,14 +109,18 @@ export default function CaseStudyHero({
           {title}
         </motion.h1>
 
-        {subtitle ? (
+        {minutes ? (
+          <p className={styles.readingTime}>{minutes} min read</p>
+        ) : null}
+
+        {summaryLine ? (
           <motion.p
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.24, ease: "easeOut" }}
             className={styles.subtitle}
           >
-            {subtitle}
+            {summaryLine}
           </motion.p>
         ) : null}
 

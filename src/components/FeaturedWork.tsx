@@ -1,318 +1,423 @@
 "use client";
 
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { useMotionOff } from "@/components/MotionControl";
 import styles from "./FeaturedWork.module.css";
-import BeeTrail, { BEE_PATHS } from "@/components/casestudy/BeeTrail";
 
-const featuredProjects = [
-  {
-    title: "From Frameworks to F1 Scores: Designing a Scalable Communication Assessment System",
-    tag: "AI / ML Research",
-    ref: "ABIM-2025 · fig. 01",
-    description:
-      "Building a scalable, rubric-grounded NLP pipeline that measures patient-centered communication behaviors across real clinical transcripts. Operationalized frameworks like Calgary-Cambridge and NURSE into measurable constructs for ABIM.",
-    pills: ["985_conversations", "bert_classifier", "11_constructs"],
-    href: "/work/abim",
-  },
-  {
-    title: "No UX, No Problem? A Qualitative Study into How Product Managers Navigate UX Without UX Support",
-    tag: "Qualitative Research",
-    ref: "John-Deere · fig. 02",
-    description:
-      "A qualitative study into how Product Managers at John Deere navigate product design and UX decisions without dedicated support. Led to a community forum and a monthly PM cohort.",
-    pills: ["8_pm_interviews", "community_forum", "pm_cohort"],
-    href: "/work/pm-ux-study",
-  },
-] as const;
+type Accent = "violet" | "gold" | "green" | "coral";
 
-const moreProjects = [
+type Study = {
+  slug: string;
+  title: string;
+  category: string;
+  metric: string;
+  blurb: string;
+  code: string;
+  image?: string;
+  imageAlt?: string;
+  /** Width / height, so the card matches the file instead of cropping it. */
+  ratio?: string;
+  accent: Accent;
+};
+
+const STUDIES: Study[] = [
   {
-    idx: "03",
-    tag: "AI / ML Research",
-    title: "Healthcare Bias — NLP Detection",
-    metric: "4-label bias framework",
-    href: "/work/healthcare-bias",
+    slug: "abim",
+    title: "From Frameworks to F1 Scores",
+    category: "AI / ML Research",
+    metric: "985 conversations",
+    blurb:
+      "A rubric-grounded NLP pipeline that scores patient-centered communication in clinical transcripts.",
+    code: "ABIM–2025",
+    image: "/assets/abim-hero.png",
+    imageAlt:
+      "Illustration of a clinical transcript connected to a neural network, with a stethoscope",
+    ratio: "1 / 1",
+    accent: "violet",
   },
   {
-    idx: "04",
-    tag: "Quantitative / Experimentation",
-    title: "What Analytics Couldn't Tell Us: Pairing Exit Intercepts with Behavioral Data at Topshop",
-    metric: "+5.8% conversion lift",
-    href: "/work/personalization",
+    slug: "pm-ux-study",
+    title: "No UX, No Problem?",
+    category: "Qualitative Research",
+    metric: "8 PM interviews",
+    blurb:
+      "Eight interviews with John Deere product managers led to a community forum and a monthly PM cohort.",
+    code: "JOHN–DEERE",
+    image: "/assets/pm-persona-board.jpg",
+    imageAlt:
+      "Research board for the product-manager study, with a persona card for Rajesh and clusters of needs and pain points",
+    ratio: "1024 / 636",
+    accent: "gold",
   },
   {
-    idx: "05",
-    tag: "Mixed Methods",
+    slug: "healthcare-bias",
+    title: "Detecting Healthcare Bias",
+    category: "AI / ML Research",
+    metric: "4-label framework",
+    blurb:
+      "An NLP model that flags biased language in clinical text using a four-label framework.",
+    code: "HEALTH–AI",
+    image: "/assets/healthcare-bias-hero.png",
+    imageAlt: "Illustration of a brain and clinical charts in a glass laboratory",
+    ratio: "1 / 1",
+    accent: "green",
+  },
+  {
+    slug: "personalization",
+    title: "What Analytics Couldn't Tell Us",
+    category: "Quantitative / Experimentation",
+    metric: "+5.8% conversion",
+    blurb:
+      "Pairing exit intercepts with behavioral data at Topshop produced a 5.8% conversion lift.",
+    code: "TOPSHOP",
+    image: "/assets/personalization-hero.png",
+    imageAlt: "Illustration of shoppers, products, and a conversion funnel",
+    ratio: "1 / 1",
+    accent: "coral",
+  },
+  {
+    slug: "john-deere-sus",
     title: "When Did Better Actually Mean Better?",
-    metric: "SUS Score: 60 → 85.6 (+25.6)",
-    href: "/work/john-deere-sus",
+    category: "Mixed Methods",
+    metric: "SUS 60 → 85.6",
+    blurb:
+      "A two-wave usability study of ABTools raised SUS from 60 to 85.6.",
+    code: "ABTOOLS",
+    image: "/assets/abtools_usability_study.jpg",
+    imageAlt:
+      "Line chart of ABTools usability scores rising from 60 to 85.6 over eight months",
+    accent: "violet",
   },
   {
-    idx: "06",
-    tag: "AI / ML Research",
-    title: "GesturePro — Sign Language Translation",
+    slug: "gesturepro",
+    title: "GesturePro",
+    category: "AI / ML Research",
     metric: "Real-time, zero hardware",
-    href: "/work/gesturepro",
+    blurb:
+      "A real-time sign-language translation prototype that runs on a camera, with no extra hardware.",
+    code: "GESTUREPRO",
+    image: "/assets/gesturepro-hero.png",
+    imageAlt:
+      "Illustration of hands forming signs, traced with a motion mesh, beside a speech bubble",
+    accent: "gold",
   },
   {
-    idx: "07",
-    tag: "Quantitative / Experimentation",
-    title: "Would they have bought anyway? Measuring true incrementality for Miss Selfridge",
+    slug: "miss-selfridge",
+    title: "Would They Have Bought Anyway?",
+    category: "Quantitative / Experimentation",
     metric: "47% new customer rate",
-    href: "/work/miss-selfridge",
+    blurb:
+      "An incrementality test found that 47% of campaign-driven Miss Selfridge purchases came from new customers.",
+    code: "MISS SELFRIDGE",
+    accent: "green",
   },
   {
-    idx: "08",
-    tag: "Quantitative / Experimentation",
-    title: "Why Were Students Not Saving? Segment Aware Personalization at Dorothy Perkins",
+    slug: "dorothy-perkins",
+    title: "Why Were Students Not Saving?",
+    category: "Quantitative / Experimentation",
     metric: "Segmented 50% of UK sales",
-    href: "/work/dorothy-perkins",
+    blurb:
+      "Segment-aware personalization made a student discount and regional ranking visible at Dorothy Perkins.",
+    code: "DOROTHY PERKINS",
+    accent: "coral",
   },
   {
-    idx: "09",
-    tag: "Quantitative / Experimentation",
-    title: "Do Small Wins Compound? Six Measured Experiments, One Revenue Per Visitor Discipline at Evans",
+    slug: "evans",
+    title: "Do Small Wins Compound?",
+    category: "Quantitative / Experimentation",
     metric: "2.5% to 8.43% RPV uplift",
-    href: "/work/evans",
+    blurb:
+      "Six measured experiments at Evans each lifted revenue per visitor under one commercial metric.",
+    code: "EVANS",
+    accent: "violet",
   },
   {
-    idx: "10",
-    tag: "Quantitative / Experimentation",
-    title: "Should the Homepage Check the Forecast? Weather and Geolocation at Burton",
+    slug: "burton",
+    title: "Should the Homepage Check the Forecast?",
+    category: "Quantitative / Experimentation",
     metric: "+11.6% conversion lift",
-    href: "/work/burton",
+    blurb:
+      "Weather and location personalization on Burton's homepage lifted conversion by 11.6%.",
+    code: "BURTON",
+    accent: "gold",
   },
   {
-    idx: "11",
-    tag: "Design Systems",
-    title: "Fuel Design System: Building at Scale Inside John Deere's Enterprise Design System",
+    slug: "fuel-design-system",
+    title: "Fuel Design System",
+    category: "Design Systems",
     metric: "100+ screens on one system",
-    href: "/work/fuel-design-system",
+    blurb:
+      "A shared Fuel component system brought more than 100 John Deere screens onto one specification.",
+    code: "FUEL",
+    image: "/assets/fuel/hires-dashboard.jpg",
+    imageAlt:
+      "John Deere program dashboard showing project status, risks, and delivery",
+    accent: "green",
   },
   {
-    idx: "12",
-    tag: "Qualitative Research",
-    title: "Team Contract: Making Program Metrics Defensible",
+    slug: "team-contract",
+    title: "Team Contract",
+    category: "Qualitative Research",
     metric: "9 participants · ~230 observations",
-    href: "/work/team-contract",
+    blurb:
+      "Research with nine participants turned program metrics into numbers managers could defend.",
+    code: "TEAM CONTRACT",
+    image: "/assets/team-contract/01-hero-team-contract-overview.png",
+    imageAlt:
+      "Team Contract metrics screen with targets, bounds, and status for a John Deere program",
+    accent: "coral",
   },
-] as const;
+];
 
-const CARD_GAP = 14;
-/** Ignore sub-pixel / snap residual so edge arrows hide cleanly. */
-const SCROLL_EDGE_EPS = 8;
+const FEATURED = STUDIES.slice(0, 4);
 
-function ArrowIcon({ direction }: { direction: "left" | "right" }) {
+function pad(index: number) {
+  return String(index + 1).padStart(2, "0");
+}
+
+function ForwardArrow() {
   return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      {direction === "left" ? (
-        <polyline points="15 18 9 12 15 6" />
-      ) : (
-        <polyline points="9 18 15 12 9 6" />
-      )}
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M5 12h14m-5-5 5 5-5 5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
     </svg>
   );
 }
 
+function trackProps(study: Study, group: string, position: number) {
+  return {
+    "data-track": "project_card_click",
+    "data-track-project-slug": study.slug,
+    "data-track-project-title": study.title,
+    "data-track-project-tag": study.category,
+    "data-track-card-group": group,
+    "data-track-card-position": position,
+    "data-track-location": "featured_work",
+  };
+}
+
 export default function FeaturedWork() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const motionOff = useMotionOff();
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [preview, setPreview] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = scrollRef.current;
+    const el = sliderRef.current;
     if (!el) return;
 
-    const updateScrollState = () => {
-      const { scrollLeft, scrollWidth, clientWidth } = el;
-      const maxScroll = Math.max(0, scrollWidth - clientWidth);
-      setCanScrollLeft(scrollLeft > SCROLL_EDGE_EPS);
-      setCanScrollRight(maxScroll > SCROLL_EDGE_EPS && scrollLeft < maxScroll - SCROLL_EDGE_EPS);
+    const update = () => {
+      const cards = [...el.querySelectorAll<HTMLElement>("[data-slide]")];
+      let best = 0;
+      let bestDist = Infinity;
+      cards.forEach((card, index) => {
+        const dist = Math.abs(card.offsetLeft - el.scrollLeft - 40);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = index;
+        }
+      });
+      setActiveSlide((current) => (current === best ? current : best));
     };
 
-    const normalizeStart = () => {
-      // Clear tiny residual offset from snap/layout so left arrow stays hidden at start.
-      if (el.scrollLeft > 0 && el.scrollLeft < SCROLL_EDGE_EPS) {
-        el.scrollLeft = 0;
-      }
-      updateScrollState();
-    };
-
-    normalizeStart();
-    // Re-measure after layout settles (flex card widths can lag first paint).
-    const raf = requestAnimationFrame(normalizeStart);
-
-    el.addEventListener("scroll", updateScrollState, { passive: true });
-    const ro = new ResizeObserver(updateScrollState);
-    ro.observe(el);
-    window.addEventListener("resize", updateScrollState);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      el.removeEventListener("scroll", updateScrollState);
-      ro.disconnect();
-      window.removeEventListener("resize", updateScrollState);
-    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    return () => el.removeEventListener("scroll", update);
   }, []);
 
-  const scrollByCard = (direction: -1 | 1) => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    const card = el.querySelector<HTMLElement>("[data-mini-card]");
-    const amount = card
-      ? card.offsetWidth + CARD_GAP
-      : Math.max(el.clientWidth / 3, 240);
-    el.scrollTo({ left: el.scrollLeft + direction * amount, behavior: "smooth" });
-  };
-
-  const handleArrowClick = (
-    event: MouseEvent<HTMLButtonElement>,
-    direction: -1 | 1,
-  ) => {
-    event.preventDefault();
-    event.stopPropagation();
-    scrollByCard(direction);
+  const goToSlide = (index: number) => {
+    const el = sliderRef.current;
+    const card = el?.querySelectorAll<HTMLElement>("[data-slide]")[index];
+    if (!el || !card) return;
+    const left = card.offsetLeft - (el.clientWidth - card.clientWidth) / 2;
+    el.scrollTo({ left, behavior: motionOff ? "auto" : "smooth" });
+    setActiveSlide(index);
   };
 
   return (
-    <section id="work" className={styles.section}>
+    <section
+      id="work"
+      className={styles.section}
+      aria-labelledby="case-study-title"
+      data-motion={motionOff ? "off" : "on"}
+    >
+      <div className={styles.grid} aria-hidden="true" />
+      <div className={styles.orb} aria-hidden="true" />
+
       <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.headerLeft}>
-            <p className={styles.eyebrow}>// featured_work.index</p>
-            <h2 className={styles.title}>
-              Selected<br />
-              <em className={styles.titleItalic}>research &<br />design.</em>
+        <header className={styles.header}>
+          <div>
+            <p className={styles.eyebrow}>// work archive · 4 stories</p>
+            <h2 id="case-study-title" className={styles.title}>
+              Case <span className={styles.titleItalic}>studies.</span>
             </h2>
-            <div className={styles.beeTrail} aria-hidden>
-              <BeeTrail
-                {...BEE_PATHS.homeFeatured}
-                decorative
-                label="Decorative bee trail"
-              />
-            </div>
+            <p className={styles.lede}>
+              Stories of curiosity, evidence, and design—turning complex human
+              behavior into useful systems.
+            </p>
           </div>
-          <div className={styles.headerMeta}>
-            doc: portfolio/work<br />
-            version: 2026.1<br />
-            status: open_to_work<br />
-            <span className={styles.metaDash}>──────────────────</span>
-          </div>
-        </div>
+        </header>
 
-        <div className={styles.featuredGrid}>
-          {featuredProjects.map((p, i) => (
-            <Link
-              key={p.href}
-              href={p.href}
-              className={styles.featuredCard}
-              data-track="project_card_click"
-              data-track-project-slug={p.href.replace("/work/", "")}
-              data-track-project-title={p.title}
-              data-track-project-tag={p.tag}
-              data-track-card-group="featured"
-              data-track-card-position={i + 1}
-              data-track-location="featured_work"
-            >
-              <span className={styles.cardTag}>{p.tag}</span>
-              <span className={styles.cardRef}>[ref: {p.ref}]</span>
-              <h3 className={styles.cardTitle}>{p.title}</h3>
-              <p className={styles.cardDesc}>{p.description}</p>
-
-              <div className={styles.pills}>
-                {p.pills.map((pill) => (
-                  <span key={pill} className={styles.pill}>{pill}</span>
+        <div className={styles.sliderShell}>
+              <div
+                ref={sliderRef}
+                className={styles.slider}
+                data-lenis-prevent
+              >
+                {FEATURED.map((study, index) => (
+                  <Link
+                    key={study.slug}
+                    href={`/work/${study.slug}`}
+                    className={styles.slide}
+                    data-slide
+                    style={{ ["--slide-ratio" as string]: study.ratio ?? "1 / 1" }}
+                    {...trackProps(study, "slider", index + 1)}
+                  >
+                    <div className={styles.media}>
+                      <Image
+                        src={study.image!}
+                        alt={study.imageAlt!}
+                        fill
+                        sizes="(max-width: 979px) 88vw, 62vw"
+                        className={styles.photo}
+                      />
+                    </div>
+                    <div className={styles.slideBody}>
+                      <p className={styles.slideKicker}>
+                        <span className={styles.kickerDot} data-accent={study.accent} aria-hidden="true" />
+                        {study.category}
+                      </p>
+                      <div>
+                        <p className={styles.slideCode}>
+                          {pad(index)} — {study.code}
+                        </p>
+                        <h3 className={styles.slideTitle}>{study.title}</h3>
+                        <p className={styles.slideBlurb}>{study.blurb}</p>
+                        <span className={styles.read}>
+                          Read case study
+                          <span className={styles.readIcon}>
+                            <ForwardArrow />
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
                 ))}
               </div>
-
-              <span className={styles.cta}>→ view case study</span>
-            </Link>
-          ))}
-        </div>
-
-        <div className={styles.divider} />
-
-        <div className={styles.moreHeader}>
-          <span className={styles.moreLabel}>// more work</span>
-          <div className={styles.scrollControls} aria-hidden={!canScrollLeft && !canScrollRight}>
-            {/* Fixed two-slot grid reserves space so appearing/disappearing arrows don't shift layout */}
-            <div className={styles.scrollSlot}>
-              {canScrollLeft ? (
-                <button
-                  type="button"
-                  className={styles.scrollArrow}
-                  onClick={(e) => handleArrowClick(e, -1)}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  aria-label="Scroll more work left"
-                  data-track="carousel_scroll"
-                  data-track-direction="left"
-                  data-track-location="featured_work"
-                >
-                  <ArrowIcon direction="left" />
-                </button>
-              ) : null}
-            </div>
-            <div className={styles.scrollSlot}>
-              {canScrollRight ? (
-                <button
-                  type="button"
-                  className={styles.scrollArrow}
-                  onClick={(e) => handleArrowClick(e, 1)}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  aria-label="Scroll more work right"
-                  data-track="carousel_scroll"
-                  data-track-direction="right"
-                  data-track-location="featured_work"
-                >
-                  <ArrowIcon direction="right" />
-                </button>
-              ) : null}
-            </div>
-          </div>
-        </div>
-
-        <div
-          ref={scrollRef}
-          className={styles.moreScroll}
-          role="list"
-          aria-label="More case studies"
-          data-lenis-prevent
-        >
-          {moreProjects.map((p, i) => (
-            <Link
-              key={p.href}
-              href={p.href}
-              className={styles.miniCard}
-              role="listitem"
-              data-mini-card
-              data-track="project_card_click"
-              data-track-project-slug={p.href.replace("/work/", "")}
-              data-track-project-title={p.title}
-              data-track-project-tag={p.tag}
-              data-track-card-group="more_work"
-              data-track-card-position={i + 1}
-              data-track-location="featured_work"
-            >
-              <div className={styles.miniTop}>
-                <span className={styles.miniIdx}>{p.idx}</span>
+              <div className={styles.sliderBar}>
+                <div className={styles.dots} role="group" aria-label="Case study slides">
+                  {FEATURED.map((study, index) => (
+                    <button
+                      key={study.slug}
+                      type="button"
+                      className={index === activeSlide ? styles.dotOn : styles.dot}
+                      aria-label={`Go to case study ${index + 1}`}
+                      aria-current={index === activeSlide ? "true" : undefined}
+                      onClick={() => goToSlide(index)}
+                    />
+                  ))}
+                </div>
+                <div className={styles.sliderArrows}>
+                  <button
+                    type="button"
+                    className={styles.arrow}
+                    aria-label="Previous case study"
+                    disabled={activeSlide === 0}
+                    data-track="carousel_scroll"
+                    data-track-direction="left"
+                    data-track-location="featured_work"
+                    onClick={() => goToSlide(activeSlide - 1)}
+                  >
+                    <span className={styles.arrowFlip}>
+                      <ForwardArrow />
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.arrow}
+                    aria-label="Next case study"
+                    disabled={activeSlide === FEATURED.length - 1}
+                    data-track="carousel_scroll"
+                    data-track-direction="right"
+                    data-track-location="featured_work"
+                    onClick={() => goToSlide(activeSlide + 1)}
+                  >
+                    <ForwardArrow />
+                  </button>
+                </div>
               </div>
-              <span className={styles.miniTag}>{p.tag}</span>
-              <h4 className={styles.miniTitle}>{p.title}</h4>
-              <p className={styles.miniMetric}>{p.metric}</p>
-            </Link>
-          ))}
+            </div>
+
+            <div className={styles.index}>
+              <div className={styles.previewColumn}>
+                <div
+                  className={styles.preview}
+                  aria-hidden="true"
+                  style={{ ["--preview-ratio" as string]: FEATURED[preview].ratio ?? "1 / 1" }}
+                >
+                  {FEATURED.map((study, index) => (
+                    <div
+                      key={study.slug}
+                      className={styles.previewFrame}
+                      data-active={index === preview ? "true" : "false"}
+                      data-accent={study.accent}
+                    >
+                      {study.image ? (
+                        <Image
+                          src={study.image}
+                          alt=""
+                          fill
+                          sizes="(max-width: 979px) 100vw, 46vw"
+                          className={styles.photo}
+                        />
+                      ) : (
+                        <div className={styles.fallback}>
+                          <p className={styles.fallbackCode}>{study.code}</p>
+                          <p className={styles.fallbackMetric}>{study.metric}</p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <p className={styles.previewCaption}>
+                  Previewing — {FEATURED[preview].code}
+                </p>
+              </div>
+              <div className={styles.rows}>
+                {FEATURED.map((study, index) => (
+                  <Link
+                    key={study.slug}
+                    href={`/work/${study.slug}`}
+                    className={styles.row}
+                    onMouseEnter={() => setPreview(index)}
+                    onFocus={() => setPreview(index)}
+                    {...trackProps(study, "index", index + 1)}
+                  >
+                    <span className={styles.num} data-accent={study.accent}>
+                      {pad(index)}
+                    </span>
+                    <span className={styles.rowBody}>
+                      <span className={styles.rowCat}>{study.category}</span>
+                      <h3 className={styles.rowTitle}>{study.title}</h3>
+                      <span className={styles.rowMetric}>{study.metric}</span>
+                    </span>
+                    <span className={styles.rowArrow}>
+                      <ForwardArrow />
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+        <div className={styles.footer}>
+          <p className={styles.footerAccent}>UXR · AI/ML · Product</p>
         </div>
       </div>
     </section>

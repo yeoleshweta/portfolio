@@ -47,7 +47,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     description:
       "Eight interviews with John Deere product managers led to a community forum and a monthly PM cohort for teams working without dedicated UX support.",
     category: "Qualitative Research",
-    cover: "/assets/mural-pm-interviews.jpg",
+    cover: "/assets/pm-persona-board.jpg",
   },
   "dorothy-perkins": {
     title: "Why Were Students Not Saving?",

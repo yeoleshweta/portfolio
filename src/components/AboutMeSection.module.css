@@ -1,64 +1,206 @@
 .section {
   position: relative;
-  width: 100%;
-  background-color: rgba(242, 242, 242, 0.7);
   z-index: 10;
+  overflow: hidden;
+  background: #f2f2f2;
   scroll-margin-top: var(--header-height);
 }
 
-.content {
+.grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  background-image:
+    linear-gradient(rgba(139, 105, 250, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 105, 250, 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.inner {
   position: relative;
-  z-index: 10;
-  max-width: 840px;
+  z-index: 1;
+  max-width: 1360px;
   margin: 0 auto;
-  padding: 4.5rem 1.5rem 3.5rem;
-  text-align: center;
+  padding: 4.5rem 1.5rem 4rem;
+}
+
+.header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
 }
 
-.heading {
-  font-family: var(--font-display);
-  font-size: 3.5rem;
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--color-accent-text);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
   font-weight: 700;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
-  color: #1a1a1a;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
 }
 
-.italicSerif {
+.title {
+  margin: 0;
+  color: #1a1a1a;
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6vw, 4.75rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.titleAccent {
   font-family: var(--font-script);
   font-style: italic;
   font-weight: 400;
+  letter-spacing: -0.04em;
   color: var(--color-lilac);
 }
 
-.paragraph {
-  font-family: var(--font-primary);
-  font-size: 1.25rem;
-  line-height: 1.8;
-  margin: 0;
-  color: #333;
-  max-width: 800px;
-  font-weight: 400;
-  letter-spacing: -0.02em;
+.controls {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
 }
 
-@media (max-width: 768px) {
-  .content {
+.navButton {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid #d2d1d7;
+  border-radius: 999px;
+  background: #fff;
+  color: #1c1c1c;
+  cursor: pointer;
+}
+
+.navButton svg {
+  width: 22px;
+  height: 22px;
+}
+
+.navButton:hover:not(:disabled) {
+  border-color: #1c1c1c;
+}
+
+.navButton:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.navButton:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.scroller {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  padding: 12px 2px 18px;
+  scroll-padding-inline: 2px;
+  scrollbar-width: thin;
+}
+
+.section[data-motion="off"] .scroller {
+  scroll-behavior: auto;
+}
+
+.card {
+  display: flex;
+  flex: 0 0 280px;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 248px;
+  scroll-snap-align: start;
+  padding: 22px 20px 20px;
+  border: 1px solid #e6e6e6;
+  border-radius: 20px;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card:hover {
+  border-color: #cfc6ee;
+}
+
+.card:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.section:not([data-motion="off"]) .card {
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.section:not([data-motion="off"]) .card:hover {
+  transform: translateY(-4px);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #f4f0ff;
+  color: var(--color-accent-text);
+}
+
+.icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.category {
+  margin: 4px 0 0;
+  color: var(--color-accent-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+}
+
+.cardTitle {
+  margin: 0;
+  color: #1a1a1a;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.outcome {
+  margin: auto 0 0;
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+  .inner {
     padding: 3rem 1.25rem 2.5rem;
   }
 
-  .heading {
-    font-size: 1.8rem;
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  .italicSerif {
-    font-size: 2.4rem;
-  }
-
-  .paragraph {
-    font-size: 1rem;
+  .card {
+    flex-basis: min(280px, 82vw);
   }
 }

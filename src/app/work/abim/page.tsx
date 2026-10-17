@@ -12,6 +12,11 @@ import {
   SkillSpotlight,
   SkillConstellation,
 } from "@/components/casestudy/CaseStudyContent";
+import {
+  ChartData,
+  ChartFigure,
+  ShowDetails,
+} from "@/components/casestudy/CaseStudyExtras";
 
 const sections = [
   { id: "overview", label: "Overview" },
@@ -125,7 +130,7 @@ function GovernanceCard({
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-        <span style={{ fontSize: "20px" }}>{icon}</span>
+        <span style={{ fontSize: "20px" }} aria-hidden="true">{icon}</span>
         <h4 style={{ margin: 0, fontSize: "15px", fontWeight: 700 }}>{title}</h4>
       </div>
       <p style={{ margin: 0, fontSize: "14px", color: "var(--color-text-secondary)", lineHeight: 1.6 }}>
@@ -369,6 +374,20 @@ function ClassifierPerformanceChart() {
   ];
 
   return (
+    <ChartFigure
+      summary="Macro-F1 is 0.76. Per-construct F1 runs from 0.61 (NURSE: Explore) to 0.87 (NURSE: Name)."
+      columns={["Construct", "Tag", "F1", "Precision", "Recall"]}
+      rows={[
+        ...metrics.map((metric) => [
+          metric.construct,
+          metric.tag,
+          metric.f1.toFixed(2),
+          metric.p.toFixed(2),
+          metric.r.toFixed(2),
+        ]),
+        ["Macro-F1 (unweighted mean)", "—", "0.76", "—", "—"],
+      ]}
+    >
     <div style={{ marginTop: "32px", padding: "24px", background: "#ffffff", borderRadius: "16px", border: "1px solid rgba(0,0,0,0.05)" }}>
       {/* Legend */}
       <div style={{ display: "flex", gap: "16px", marginBottom: "24px", fontSize: "12px", fontWeight: 600 }}>
@@ -431,6 +450,7 @@ function ClassifierPerformanceChart() {
         </div>
       </div>
     </div>
+    </ChartFigure>
   );
 }
 
@@ -457,6 +477,15 @@ function IRRChart() {
   };
 
   return (
+    <ChartFigure
+      summary="Cohen's kappa runs from 0.47 (NURSE: Explore) to 0.78 (NURSE: Name). Scores at or above 0.61 are in the substantial band."
+      columns={["Construct", "Tag", "Kappa"]}
+      rows={kappaScores.map((score) => [
+        score.construct,
+        score.tag,
+        score.val.toFixed(2),
+      ])}
+    >
     <div style={{ marginTop: "32px", padding: "24px", background: "#ffffff", borderRadius: "16px", border: "1px solid rgba(0,0,0,0.05)" }}>
       {/* Legend */}
       <div style={{ display: "flex", gap: "16px", marginBottom: "28px", fontSize: "12px", fontWeight: 600 }}>
@@ -515,12 +544,22 @@ function IRRChart() {
         ))}
       </div>
     </div>
+    </ChartFigure>
   );
 }
 
 /* ─────── Calibration View ─────── */
 function CalibrationVisual() {
   return (
+    <>
+    <ChartData
+      summary="Expected calibration error is 0.08, under the 0.10 target. Brier score is 0.12, under the 0.15 target."
+      columns={["Metric", "Value", "Target"]}
+      rows={[
+        ["Expected calibration error", "0.08", "under 0.10"],
+        ["Brier score", "0.12", "under 0.15"],
+      ]}
+    />
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", marginTop: "24px" }}>
       <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,0.05)", borderRadius: "16px", padding: "24px" }}>
         <span style={{ fontSize: "10px", fontWeight: 800, color: "var(--color-text-secondary)", textTransform: "uppercase" }}>
@@ -566,14 +605,22 @@ function CalibrationVisual() {
         </div>
       </div>
     </div>
+    </>
   );
 }
-
-/* ─────── Interactive Confusion Matrix & Error Chart ─────── */
 function ConfusionMatrixAndErrorChart() {
   const [activeTab, setActiveTab] = useState<"matrix" | "errors">("matrix");
 
   return (
+    <>
+    <ChartData
+      summary="Representative matrix for a sparse construct such as nurse_explore: true positive 72%, false negative 12%, false positive 11%, true negative 88%."
+      columns={["", "Predicted present", "Predicted absent"]}
+      rows={[
+        ["Actual present", "True positive 72%", "False negative 12%"],
+        ["Actual absent", "False positive 11%", "True negative 88%"],
+      ]}
+    />
     <div style={{ marginTop: "32px", padding: "24px", background: "#ffffff", borderRadius: "16px", border: "1px solid rgba(0,0,0,0.05)" }}>
       {/* Selector */}
       <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
@@ -708,6 +755,7 @@ function ConfusionMatrixAndErrorChart() {
         )}
       </AnimatePresence>
     </div>
+    </>
   );
 }
 
@@ -724,6 +772,13 @@ function NERDeIdentificationFlow() {
 
   return (
     <div style={{ marginTop: "32px", padding: "24px", background: "#ffffff", borderRadius: "16px", border: "1px solid rgba(0,0,0,0.05)" }}>
+      <ol className="sr-only">
+        {steps.map((step) => (
+          <li key={step.num}>
+            {step.label}: {step.desc}
+          </li>
+        ))}
+      </ol>
       {/* Steps Menu */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px", marginBottom: "20px" }}>
         {steps.map((s) => (
@@ -806,7 +861,7 @@ function NERDeIdentificationFlow() {
 
 export default function ABIMCaseStudy() {
   return (
-    <main>
+    <>
       <CaseStudyHero
         title="From Frameworks to F1 Scores: Designing a Scalable Communication Assessment System"
         category="AI / ML Research"
@@ -984,6 +1039,7 @@ export default function ABIMCaseStudy() {
             The study used a two-strand structure (an enabling qualitative strand feeding into a primary quantitative strand):
           </p>
 
+          <ShowDetails summary="Show details: study strands">
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
               <thead>
@@ -1010,6 +1066,7 @@ export default function ABIMCaseStudy() {
               </tbody>
             </table>
           </div>
+          </ShowDetails>
 
           <p>
             <strong>Why qual enables quant here:</strong> The rubric design phase is the equivalent of instrument design in survey research: it is qual work, but its purpose is to enable the quant phase.
@@ -1017,6 +1074,7 @@ export default function ABIMCaseStudy() {
 
 
 
+          <ShowDetails summary="Show details: qualitative methods map">
           <h4 style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-text-secondary)", textTransform: "uppercase", marginTop: "24px", marginBottom: "12px" }}>Qualitative Methods Map</h4>
           <div style={{ overflowX: "auto", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
@@ -1051,7 +1109,9 @@ export default function ABIMCaseStudy() {
               </tbody>
             </table>
           </div>
+          </ShowDetails>
 
+          <ShowDetails summary="Show details: quantitative methods map">
           <h4 style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-text-secondary)", textTransform: "uppercase", marginTop: "32px", marginBottom: "12px" }}>Quantitative Methods Map</h4>
           <div style={{ overflowX: "auto", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)", marginBottom: "32px" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
@@ -1086,6 +1146,7 @@ export default function ABIMCaseStudy() {
               </tbody>
             </table>
           </div>
+          </ShowDetails>
 
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>3.1 Framework Selection</h3>
@@ -1268,6 +1329,7 @@ export default function ABIMCaseStudy() {
           id="governance"
         >
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>7.1 Types of Validity Addressed</h3>
+          <ShowDetails summary="Show details: validity">
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
               <thead>
@@ -1301,8 +1363,10 @@ export default function ABIMCaseStudy() {
               </tbody>
             </table>
           </div>
+          </ShowDetails>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>7.2 Known Threats to Validity</h3>
+          <ShowDetails summary="Show details: threats to validity">
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
               <thead>
@@ -1331,6 +1395,7 @@ export default function ABIMCaseStudy() {
               </tbody>
             </table>
           </div>
+          </ShowDetails>
 
           <h3 style={{ color: "#8b69fa", fontWeight: 800, marginTop: "40px" }}>7.3 Governance: Built In From the Start</h3>
           <p>
@@ -1409,6 +1474,7 @@ export default function ABIMCaseStudy() {
           id="limitations"
         >
           <h3 style={{ color: "#8b69fa", fontWeight: 800 }}>Acknowledged Gaps</h3>
+          <ShowDetails summary="Show details: gaps">
           <div style={{ overflowX: "auto", margin: "24px 0", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.06)" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
               <thead>
@@ -1437,6 +1503,7 @@ export default function ABIMCaseStudy() {
               </tbody>
             </table>
           </div>
+          </ShowDetails>
 
 
         </CaseStudySection>
@@ -1458,6 +1525,6 @@ export default function ABIMCaseStudy() {
 
         </CaseStudySection>
       </CaseStudyLayout>
-    </main>
+    </>
   );
 }

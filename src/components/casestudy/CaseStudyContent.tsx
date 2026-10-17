@@ -77,17 +77,20 @@ export function CaseStudyImage({
   src,
   alt,
   caption,
+  embed = false,
 }: {
   src: string;
   alt: string;
   caption?: string;
+  /** Sit the image on the page's light grid at its own aspect ratio. */
+  embed?: boolean;
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className={styles.imageContainer}
+      className={embed ? styles.imageEmbed : styles.imageContainer}
     >
       <img src={src} alt={alt} className={styles.image} />
       {caption && <div className={styles.imageCaption}>{caption}</div>}

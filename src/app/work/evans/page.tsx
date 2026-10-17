@@ -151,7 +151,7 @@ function ExperimentBarChart() {
 
 export default function EvansCaseStudy() {
   return (
-    <main>
+    <>
       <CaseStudyHero
         title="Do small wins compound? Six measured experiments, one revenue per visitor discipline at Evans"
         category="Quantitative / Experimentation"
@@ -348,6 +348,6 @@ export default function EvansCaseStudy() {
           </div>
         </CaseStudySection>
       </CaseStudyLayout>
-    </main>
+    </>
   );
 }

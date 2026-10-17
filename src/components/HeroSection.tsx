@@ -11,8 +11,8 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { useMotionOff } from "@/components/MotionControl";
+import { scrollToSection } from "@/lib/scrollToSection";
 import styles from "./HeroSection.module.css";
-import BeeTrail, { BEE_PATHS } from "@/components/casestudy/BeeTrail";
 
 const CUBE_SIZE = 112;
 const CUBE_STEP = 118;
@@ -179,9 +179,6 @@ export default function HeroSection() {
     [0, 0.92, 1],
     [1, 1, 0.8],
   );
-  const scriptX = useTransform(heroScrollYProgress, [0, 1], [0, 130]);
-  const scriptY = useTransform(heroScrollYProgress, [0, 1], [0, -34]);
-  const scriptRotate = useTransform(heroScrollYProgress, [0, 1], [0, -7]);
   const bioY = useTransform(heroScrollYProgress, [0, 1], [0, 26]);
   const bioOpacity = useTransform(
     heroScrollYProgress,
@@ -333,17 +330,19 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: reduceMotion ? 0 : 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h1 className={styles.heading}>
+              <h1 className={styles.heading} aria-label="A researcher who designs, and a designer who measures.">
                 <motion.span
                   className={styles.line}
+                  aria-hidden="true"
                   initial={reduceMotion ? false : { y: 120 }}
                   animate={{ y: 0 }}
                   transition={{ duration: reduceMotion ? 0 : 1, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  DESIGNING
+                  A researcher who designs,
                 </motion.span>
                 <motion.span
-                  className={styles.line}
+                  className={`${styles.line} ${styles.lineScript}`}
+                  aria-hidden="true"
                   initial={reduceMotion ? false : { y: 120 }}
                   animate={{ y: 0 }}
                   transition={{
@@ -352,32 +351,7 @@ export default function HeroSection() {
                     ease: [0.16, 1, 0.3, 1],
                   }}
                 >
-                  EXPERIENCES
-                </motion.span>
-                <motion.span
-                  className={styles.script}
-                  style={
-                    reduceMotion
-                      ? undefined
-                      : { x: scriptX, y: scriptY, rotate: scriptRotate }
-                  }
-                >
-                  <motion.span
-                    className={styles.scriptInner}
-                    initial={
-                      reduceMotion
-                        ? false
-                        : { opacity: 0, x: -48, y: 32, rotate: -5 }
-                    }
-                    animate={{ opacity: 1, x: 0, y: 0, rotate: 0 }}
-                    transition={{
-                      duration: reduceMotion ? 0 : 1.1,
-                      delay: reduceMotion ? 0 : 0.18,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                  >
-                    research
-                  </motion.span>
+                  and a designer who measures.
                 </motion.span>
               </h1>
             </motion.div>
@@ -399,24 +373,50 @@ export default function HeroSection() {
             >
               <div className={styles.profilePic}>
                 <Image
-                  src="/assets/IMG_1191.jpg"
-                  alt="Shweta Sharma"
-                  width={112}
-                  height={112}
+                  src="/assets/shweta-headshot-rust.jpg"
+                  alt="Shweta Sharma, head and shoulders, wearing a rust turtleneck, smiling"
+                  width={943}
+                  height={1024}
+                  priority
+                  sizes="280px"
                 />
               </div>
-              <p className={styles.description}>
-                <strong>Shweta Sharma</strong> is a UX researcher with a
-                background in AI experiences. She cares about the
-                &apos;why&apos; behind human behavior and the &apos;how&apos;
-                behind the systems meant to support it.
-              </p>
-              <div className={styles.beeTrail} aria-hidden>
-                <BeeTrail
-                  {...BEE_PATHS.homeHero}
-                  decorative
-                  label="Decorative bee trail"
-                />
+              <div className={styles.intro}>
+                <p className={styles.role}>
+                  UX Researcher &amp; Designer · Research, Design, Data &amp; AI Systems
+                </p>
+                <p className={styles.description}>
+                  I’ve always been curious about why people do what they do. Now
+                  I bring that to AI: researching real behaviour, designing for
+                  trust, and making sure the AI actually gets people, not just
+                  the prompt.
+                </p>
+                <div className={styles.actions}>
+                  <button
+                    type="button"
+                    className={styles.primaryCta}
+                    onClick={() => scrollToSection("work")}
+                  >
+                    View my work
+                  </button>
+                  <a
+                    className={styles.secondaryCta}
+                    href="/assets/UX_Researcher_Resume.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Download CV (PDF)
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </div>
+                <ul className={styles.proof} aria-label="Highlights">
+                  <li>UX Research</li>
+                  <li>Interaction design</li>
+                  <li>Behavioral data</li>
+                  <li>NLP</li>
+                  <li>Design for trust</li>
+                  <li>Interior cognitive</li>
+                </ul>
               </div>
             </motion.div>
           </motion.div>

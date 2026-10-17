@@ -47,7 +47,7 @@ function TechBadge({ name, color }: { name: string; color: string }) {
 
 export default function CryptoSecureCaseStudy() {
   return (
-    <main>
+    <>
       <CaseStudyHero
         title="CryptoSecure: AI-Powered Smart Contract Security"
         category="AI / ML Research"
@@ -1389,6 +1389,6 @@ export default function CryptoSecureCaseStudy() {
           </div>
         </CaseStudySection>
       </CaseStudyLayout>
-    </main>
+    </>
   );
 }

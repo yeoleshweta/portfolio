@@ -46,7 +46,7 @@ function TechBadge({ name, color }: { name: string; color: string }) {
 
 export default function MyAIfriendsCaseStudy() {
   return (
-    <main>
+    <>
       <CaseStudyHero
         title="myAIfriends: Context-Aware Conversational AI Platform"
         category="AI / ML Research"
@@ -357,6 +357,6 @@ export default function MyAIfriendsCaseStudy() {
           </p>
         </CaseStudySection>
       </CaseStudyLayout>
-    </main>
+    </>
   );
 }

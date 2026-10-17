@@ -150,6 +150,7 @@ export default function DesignThinkingPage() {
             src={gathering.image.src}
             alt={gathering.image.alt}
             caption={gathering.image.caption}
+            embed
           />
         </CaseStudySection>
 

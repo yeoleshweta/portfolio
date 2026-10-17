@@ -165,7 +165,7 @@ function WeatherPersonalizationDemo() {
 
 export default function BurtonCaseStudy() {
   return (
-    <main>
+    <>
       <CaseStudyHero
         title="Should the homepage check the forecast? Weather and geolocation at Burton"
         category="Quantitative / Experimentation"
@@ -377,6 +377,6 @@ export default function BurtonCaseStudy() {
           </div>
         </CaseStudySection>
       </CaseStudyLayout>
-    </main>
+    </>
   );
 }

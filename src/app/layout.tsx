@@ -10,6 +10,7 @@ import BackgroundScene from "@/components/BackgroundScene";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 import ConsentBanner from "@/components/analytics/ConsentBanner";
+import ChatHeadingFix from "@/components/ChatHeadingFix";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.shwetasharma.tech"),
@@ -50,6 +51,7 @@ export default function RootLayout({
         </SmoothScroll>
         </MotionControl>
         <ConsentBanner />
+        <ChatHeadingFix />
         <Script
           src="https://unpkg.com/@klyro/widget/dist/widget.js"
           data-widget-key="1kr1f9xRlnhy"

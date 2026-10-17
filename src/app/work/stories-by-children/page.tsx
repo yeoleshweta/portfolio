@@ -183,7 +183,7 @@ function FeatureStrip({
 
 export default function StoriesByChildrenCaseStudy() {
   return (
-    <main>
+    <>
       <CaseStudyHero
         title="Redesigning a Storytelling Platform for Young Creators"
         category="Qualitative Research"
@@ -543,6 +543,6 @@ export default function StoriesByChildrenCaseStudy() {
           </div>
         </CaseStudySection>
       </CaseStudyLayout>
-    </main>
+    </>
   );
 }

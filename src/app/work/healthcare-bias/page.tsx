@@ -161,7 +161,7 @@ function ArchitectureBox({
 
 export default function HealthcareBiasCaseStudy() {
   return (
-    <main>
+    <>
       <CaseStudyHero
         title="Detecting Healthcare Bias with NLP"
         category="AI / ML Research"
@@ -468,6 +468,6 @@ export default function HealthcareBiasCaseStudy() {
           </div>
         </CaseStudySection>
       </CaseStudyLayout>
-    </main>
+    </>
   );
 }

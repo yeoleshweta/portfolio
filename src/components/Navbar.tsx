@@ -150,7 +150,7 @@ export default function Navbar() {
               data-track-location="navbar"
             >
               <Download size={16} aria-hidden />
-              Download CV
+              Download CV (PDF)
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
           </div>
@@ -217,7 +217,7 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 data-track-location="navbar_mobile"
               >
-                Download CV
+                Download CV (PDF)
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </div>

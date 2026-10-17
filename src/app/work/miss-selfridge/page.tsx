@@ -160,7 +160,7 @@ function ArchitectureVisual() {
 
 export default function MissSelfridgeCaseStudy() {
   return (
-    <main>
+    <>
       <CaseStudyHero
         title="Would they have bought anyway? Measuring true incrementality for Miss Selfridge"
         category="Quantitative / Experimentation"
@@ -367,6 +367,6 @@ export default function MissSelfridgeCaseStudy() {
           </div>
         </CaseStudySection>
       </CaseStudyLayout>
-    </main>
+    </>
   );
 }

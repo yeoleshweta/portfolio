@@ -1,79 +1,389 @@
 .section {
   position: relative;
   z-index: 30;
-  scroll-margin-top: var(--header-height);
-  padding: 4.5rem 1.5rem 3rem;
+  background: var(--color-bg);
+  isolation: isolate;
+  /* Sticky viewport, then 62vh of scroll for each of the 14 ring photos
+     (7 unique images, shown twice) so every photo can sit in the center. */
+  --carousel-steps: 14;
+  --carousel-step: 62vh;
+  height: calc(
+    100svh - var(--header-height) + var(--carousel-steps) * var(--carousel-step)
+  );
+  margin-top: 0;
+  margin-bottom: 8vh;
 }
 
-.inner {
-  max-width: 1100px;
+.scene {
+  position: relative;
+  height: 100%;
+}
+
+.sticky {
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100svh - var(--header-height));
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-bg);
+}
+
+.backdropWash {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: transparent;
+}
+
+.header {
+  position: relative;
+  z-index: 4;
+  display: flex;
   margin: 0 auto;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 28px 48px 0;
+  text-align: center;
 }
 
 .title {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.28em;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: 3.5rem;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.05;
   letter-spacing: -0.02em;
   color: #1a1a1a;
-  text-align: center;
-  margin: 0;
+  text-transform: none;
+  max-width: 100%;
+  padding-inline: 24px;
 }
 
 .italic {
   font-family: var(--font-script);
   font-style: italic;
   font-weight: 400;
-  color: var(--color-lilac);
+  color: #444;
+  line-height: 1.15;
+  padding-inline: 0.08em;
 }
 
 .description {
-  max-width: 42rem;
-  margin: 1rem auto 2rem;
-  color: #333;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  text-align: center;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 168px;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: min(820px, 100%);
   margin: 0;
-  padding: 0;
-  list-style: none;
+  color: #444;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.75;
 }
 
-.cell {
+.descriptionLine {
+  display: block;
+}
+
+.heartSlot {
   position: relative;
-  border-radius: 18px;
+  z-index: 12;
+  flex: 0 0 auto;
+  width: 100%;
+  height: 56px;
+  margin-top: 28px;
+}
+
+.heartStage {
+  position: absolute;
+  z-index: 12;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  perspective: 600px;
+}
+
+.smallCube {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(17, 17, 17, 0.18);
+  border-radius: 5px;
+  background: rgba(231, 214, 255, 0.72);
+}
+
+.heartCube {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
+  transform-style: preserve-3d;
+}
+
+.heartCubeFace {
+  position: absolute;
+  inset: 0;
+  background: var(--color-lilac);
+  border: 1px solid rgba(90, 60, 160, 0.45);
+  border-radius: 1px;
+  backface-visibility: hidden;
+}
+
+.heartFront {
+  transform: translateZ(3px);
+}
+.heartBack {
+  transform: rotateY(180deg) translateZ(3px);
+}
+.heartRight {
+  transform: rotateY(90deg) translateZ(3px);
+}
+.heartLeft {
+  transform: rotateY(-90deg) translateZ(3px);
+}
+.heartTop {
+  transform: rotateX(90deg) translateZ(3px);
+}
+.heartBottom {
+  transform: rotateX(-90deg) translateZ(3px);
+}
+
+.carouselContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  z-index: 10;
+  padding-top: 380px;
+  perspective: 1600px;
+  perspective-origin: center 62%;
+  pointer-events: none;
+}
+
+.galleryTrack {
+  position: relative;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  pointer-events: auto;
+}
+
+.galleryCard {
+  position: absolute;
+  width: 240px;
+  height: 324px;
+  /* Centering formula */
+  left: 50%;
+  top: 50%;
+  margin-left: -120px;
+  margin-top: -162px;
+  border: 0;
+  padding: 0;
+  border-radius: 12px;
   overflow: hidden;
-  background: #e7e4ea;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  background: #111;
+  color: inherit;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  pointer-events: auto;
 }
 
-.cell:first-child {
-  grid-column: span 2;
-  grid-row: span 2;
+.galleryCard:focus-visible {
+  outline: 3px solid var(--color-accent-text);
+  outline-offset: 4px;
 }
 
-.photo {
+.stillRow {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  margin-top: 28px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding: 8px max(24px, calc(50% - 130px)) 48px;
+}
+
+.stillCard {
+  position: relative;
+  flex: 0 0 260px;
+  height: 340px;
+  scroll-snap-align: center;
+  border: 0;
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #111;
+  cursor: pointer;
+}
+
+.stillCard:focus-visible {
+  outline: 3px solid var(--color-accent-text);
+  outline-offset: 4px;
+}
+
+.cardImageInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.galleryCard:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.galleryCard img,
+.cardCover {
   object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
-@media (max-width: 800px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+.stageScatterCube {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(2px);
+}
+
+/* Layout adjustments for laptops to prevent 3D cards overlapping text */
+@media (max-width: 1440px) {
+  .header {
+    padding-top: 24px;
+    gap: 12px;
+  }
+  .title {
+    font-size: 2.8rem;
+  }
+  .description {
+    font-size: 1.05rem;
+  }
+  .heartSlot {
+    margin-top: 28px;
   }
 
-  .grid {
-    grid-auto-rows: 140px;
+  .galleryCard {
+    width: 220px;
+    height: 296px;
+    margin-left: -110px;
+    margin-top: -148px;
+  }
+}
+
+@media (max-width: 1180px), (max-height: 800px) {
+  .header {
+    padding-top: 28px;
+    gap: 20px;
   }
 
-  .cell:first-child {
-    grid-column: span 2;
-    grid-row: span 2;
+  .title {
+    font-size: 2.4rem;
+    gap: 10px;
+  }
+
+  .description {
+    gap: 6px;
+    font-size: 1.05rem;
+  }
+
+  .heartSlot {
+    height: 52px;
+    margin-top: 24px;
+  }
+
+  .galleryCard,
+  .stillCard {
+    width: 200px;
+    height: 270px;
+    margin-left: -100px;
+    margin-top: -135px;
+  }
+
+  .stillCard {
+    margin: 0;
+    flex-basis: 220px;
+  }
+}
+
+.section[data-motion="off"],
+.section[data-motion="off"] .scene {
+  height: auto;
+}
+
+.section[data-motion="off"] .sticky {
+  position: relative;
+  top: auto;
+  height: auto;
+  min-height: calc(100svh - var(--header-height));
+  overflow: visible;
+}
+
+@media (max-width: 768px) {
+
+  .header {
+    width: 100%;
+    gap: 18px;
+    padding: 28px 24px 0;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    line-height: 1.3;
+  }
+
+  .italic {
+    font-size: 1.15em;
+  }
+
+  .description {
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .heartSlot,
+  .heartStage,
+  .stageScatterCube {
+    display: none;
+  }
+
+  .carouselContainer {
+    padding-top: 120px;
+  }
+
+  .galleryCard {
+    width: 176px;
+    height: 236px;
+    margin-left: -88px;
+    margin-top: -118px;
+  }
+
+  .stillCard {
+    flex-basis: 200px;
+    height: 270px;
   }
 }
