@@ -72,6 +72,12 @@
     justify-content: flex-start;
     padding-top: 8px;
   }
+  /* .meta is a flex row (not text), so .header's text-align: left above
+     doesn't reach it — without this it stays centered as a group even
+     when it wraps, landing off-kilter under the left-aligned header. */
+  .hasAside .header .meta {
+    justify-content: flex-start;
+  }
 }
 
 .chips {

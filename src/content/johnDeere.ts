@@ -9,27 +9,26 @@ import type { Tldr } from "./caseStudyBriefs";
 export const hero = {
   category: 'Case study · John Deere Financial · Jan–Aug 2021',
   title: "When did 'better' actually mean better?",
-  subtitle: "A new web version of ABTools, a credit tool used all day by John Deere Financial analysts, looked cleaner. I ran a two-wave study with the same four power users to find out whether it was actually easier to use, and where it still got in the way.",
+  subtitle: "John Deere Financial's credit analysts work in ABTools all day. The new web version looked cleaner, but was it actually easier to use? I tested the same four power users before and after launch. Usability jumped. Satisfaction barely moved, and the reason came down to one feature.",
   chips: [
     'Longitudinal study',
-    'Within-subjects',
     'SUS benchmark',
     'Interviews',
     'Thematic analysis',
   ],
   meta: [
-    { label: 'Role', value: 'UX Researcher' },
-    { label: 'Team', value: 'UX Researcher (self), embedded product team' },
-    { label: 'Timeline', value: 'Jan to Aug 2021' },
+    { label: 'Role', value: 'UX Researcher (sole researcher on the study)' },
+    { label: 'Team', value: 'JDF UX team + ABTools product team' },
+    { label: 'Timeline', value: 'Jan–Aug 2021 · 2 waves, 4 power users' },
   ],
 };
 
 /** SusScoreCard, hero aside (§3.0). */
 export const susScoreCard = {
-  eyebrow: 'System Usability Scale (SUS)',
+  eyebrow: 'Usability score (SUS, out of 100)',
   before: { label: 'Old desktop', value: '60' },
   after: { label: 'New web app', value: '85.6' },
-  body: 'This is a standard 0 to 100 score for how easy a tool is to use. A score above 68 is considered good. The old desktop tool scored 60, just below that line. The new web app scored 85.6, well into excellent territory. Only 4 people were tested, so treat this as a strong signal rather than final proof.',
+  body: "68 is the industry average. The old tool sat below it; the new one scored well above. Four users, so it's a strong signal, not final proof.",
   note: 'same 4 people, 8 months apart ↑',
   srLabel: 'SUS rose from 60 to 85.6',
 };
@@ -50,7 +49,7 @@ export const facts = [
 
 /** New TL;DR card (§3.2), rendered via the shared TldrCard. */
 export const tldr: Tldr & { summary: string } = {
-  summary: 'A redesign that looked better needed proof that it worked better. I measured the same four experts before and after launch.',
+  summary: 'Usability rose from 60 to 85.6 and improved on all six dimensions. Satisfaction moved least (+3.8), and the interviews traced it to one feature: Notes.',
   problem: "A redesign that looks newer isn't proof it works better, especially for experts with up to 20 years of habits.",
   role: 'UX Researcher. Planned the study with the JDF product team, ran both waves, analysed and presented the results.',
   team: 'JDF UX team, ABTools product team',
