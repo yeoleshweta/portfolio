@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ABTools case study: When did better actually mean better?</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&amp;family=Hanken+Grotesk:wght@400;600;800&amp;family=Instrument+Serif:ital@1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background-color:#F3F2F5;background-image:linear-gradient(#E7E4ED 1px,transparent 1px),linear-gradient(90deg,#E7E4ED 1px,transparent 1px);background-size:56px 56px;color:#141218;font-family:'Hanken Grotesk',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;font-size:18px;line-height:1.6}
+a{color:#5B3FBF;text-underline-offset:3px}a:hover{color:#3F2A8F}
+:focus-visible{outline:3px solid #5B3FBF;outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:8px}.skip:focus{left:16px;background:#141218;color:#FFFFFF;padding:12px 18px;border-radius:8px;z-index:20}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:24px;box-sizing:border-box}
+h1,h2,h3,h4{margin:0;font-weight:800;line-height:1.08;letter-spacing:-0.02em;text-wrap:balance}
+h2{font-size:clamp(32px,4.2vw,50px)}
+h3{font-size:22px;letter-spacing:-0.01em;line-height:1.25}
+p{margin:0;max-width:68ch}
+ul,ol{margin:0;padding-left:22px}
+li{margin-bottom:6px}
+.eyebrow{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#57525F}
+.ser{font-family:'Instrument Serif',Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;letter-spacing:0;color:#5B3FBF}
+.hand{font-family:'Caveat','Comic Sans MS',cursive;font-size:26px;line-height:1.15;color:#3F2A8F;font-weight:700}
+.lead{font-size:21px;line-height:1.55;color:#2B2732;max-width:66ch}
+.muted{color:#57525F}
+.num{font-variant-numeric:tabular-nums}
+.card{background:#FFFFFF;border:1px solid #DCD6E6;border-radius:18px;padding:24px;box-sizing:border-box}
+.sticky{background:#FFF3B8;color:#141218;border-radius:4px;padding:18px 20px;box-shadow:0 3px 0 rgba(20,18,24,0.10);box-sizing:border-box}
+.ph{border:2px dashed #8E86A0;border-radius:18px;background:#FBFAFD;color:#4A4553;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:28px;font-size:15px;line-height:1.45;box-sizing:border-box}
+.chapter{padding-block:104px;border-top:2px dashed #CFC8DC}
+.chip{display:inline-flex;align-items:center;min-height:32px;padding:4px 12px;border-radius:999px;border:1px solid #CFC6E8;background:#F4F0FF;color:#3F2A8F;font-size:14px;font-weight:600}
+table{border-collapse:collapse;font-size:15px;margin-top:12px}
+th,td{text-align:left;padding:8px 14px;border-bottom:1px solid #E4DFEC}
+th{font-weight:600}
+details{margin-top:12px}
+summary{cursor:pointer;font-weight:600;color:#5B3FBF;min-height:44px;display:flex;align-items:center;font-size:16px}
+figure{margin:0}
+figcaption{font-size:15px;color:#57525F;margin-top:12px}
+blockquote{margin:0}
+.nav a{color:#141218;text-decoration:none;font-weight:600;font-size:16px;padding:10px 6px;display:inline-block}
+.nav a:hover{color:#5B3FBF}
+@media (max-width:760px){body{font-size:17px}.chapter{padding-block:72px}.hand{font-size:23px}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important;scroll-behavior:auto !important}}
+</style>
+</helmet>
+
+<div style="min-width: 0">
+<a class="skip" href="#main">Skip to content</a>
+
+<header style="background: rgba(243,242,245,0.92); border-bottom: 1px solid #DCD6E6">
+<div class="wrap" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-block: 14px">
+<a href="https://www.shwetasharma.tech/" aria-label="Shweta Sharma, home" style="text-decoration: none; color: #141218; font-weight: 800; font-size: 24px; letter-spacing: -0.02em">Shweta <span class="ser" style="font-size: 28px">Sharma</span></a>
+<nav class="nav" aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 18px; align-items: center">
+<a href="https://www.shwetasharma.tech/#work">Work</a>
+<a href="https://www.shwetasharma.tech/experience">Experience</a>
+<a href="https://www.shwetasharma.tech/#contact">Contact</a>
+<a href="https://www.shwetasharma.tech/assets/UX_Researcher_Resume.pdf" style="border: 1.5px solid #141218; border-radius: 999px; padding: 8px 18px">Download CV (PDF)</a>
+</nav>
+</div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section aria-labelledby="title" style="padding-block: 72px 88px">
+<div class="wrap" style="display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<p class="eyebrow">Case study · John Deere Financial · Jan–Aug 2021</p>
+<h1 id="title" style="font-size: clamp(44px, 6.4vw, 84px)">When did <span class="ser">‘better’</span> actually mean better?</h1>
+<p class="lead">A new web version of ABTools, a credit tool used all day by John Deere Financial analysts, looked cleaner. I ran a two-wave study with the same four power users to find out whether it was actually easier to use, and where it still got in the way.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<span class="chip">Longitudinal study</span><span class="chip">Within-subjects</span><span class="chip">SUS benchmark</span><span class="chip">Interviews</span><span class="chip">Thematic analysis</span>
+</div>
+<p class="muted" style="font-size: 15px">12 min read</p>
+</div>
+<div style="flex: 1 1 380px; min-width: 0; position: relative">
+<div class="card" style="position: relative; padding: 32px 28px 28px; transform: rotate(-1.2deg)">
+<p class="eyebrow">System Usability Scale (SUS)</p>
+<div style="display: flex; align-items: flex-end; gap: 18px; margin-top: 12px; flex-wrap: wrap">
+<div>
+<p class="muted" style="font-size: 15px">Old desktop</p>
+<p class="num" style="font-size: 64px; font-weight: 800; line-height: 1; color: #57525F">60</p>
+</div>
+<svg aria-hidden="true" focusable="false" width="96" height="48" viewBox="0 0 96 48" style="margin-bottom: 14px"><path d="M4 34 C 26 8, 58 6, 86 22" stroke="#5B3FBF" stroke-width="3" fill="none" stroke-linecap="round"></path><path d="M74 12 L88 23 L72 30" stroke="#5B3FBF" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<div style="position: relative">
+<p class="muted" style="font-size: 15px">New web app</p>
+<p class="num" style="font-size: 84px; font-weight: 800; line-height: 1; color: #141218">85.6</p>
+<svg aria-hidden="true" focusable="false" width="190" height="16" viewBox="0 0 190 16" style="display: block; margin-top: 4px"><path d="M3 10 C 48 3, 118 14, 187 6" stroke="#A78BFA" stroke-width="4" fill="none" stroke-linecap="round"></path></svg>
+</div>
+</div>
+<p style="margin-top: 16px; font-size: 16px">+25.6 points, above the Global IT average (63), the FY21 target (67) and the industry average (68). Four participants, so read it as direction, not proof.</p>
+</div>
+<p class="hand" style="margin-top: 18px; transform: rotate(-2deg)">same 4 people, 8 months apart ↑</p>
+</div>
+</div>
+</section>
+
+<!-- TLDR -->
+<section aria-labelledby="tldr" style="padding-bottom: 96px">
+<div class="wrap">
+<div class="card" style="padding: 36px; display: flex; flex-direction: column; gap: 28px">
+<h2 id="tldr" style="font-size: 28px">The short version</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 28px">
+<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 8px"><p class="eyebrow">Problem</p><p>A redesign that looks newer isn’t proof it works better, especially for experts with up to 20 years of habits.</p></div>
+<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 8px"><p class="eyebrow">My role</p><p>UX Researcher. Planned the study with the JDF product team, ran both waves, analysed and presented the results.</p></div>
+<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 8px"><p class="eyebrow">What changed</p><p>SUS 60 → 85.6. All six usability dimensions improved. 35 remaining issues found, 16 of them about Notes.</p></div>
+<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 8px"><p class="eyebrow">Decision it informed</p><p>Notes became a high-priority backlog item, and the team moved toward continuous research after launch.</p></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 28px; border-top: 1px solid #E4DFEC; padding-top: 20px">
+<p style="font-size: 15px"><strong>Team</strong> <span class="muted">JDF UX team, ABTools product team</span></p>
+<p style="font-size: 15px"><strong>Participants</strong> <span class="muted">4 daily power users, one per role</span></p>
+<p style="font-size: 15px"><strong>Timeline</strong> <span class="muted">January to August 2021</span></p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH 0 -->
+<section class="chapter" aria-labelledby="ch0">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Prologue</p>
+<h2 id="ch0">A UX team people liked, but didn’t yet <span class="ser">rely on for evidence</span></h2>
+<p class="lead">While this study was running, the JDF UX team surveyed 40 product team members about working with UX (June 28 to July 6, 2021). The answers showed a gap this study could help close.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+<figure class="card" style="flex: 999 1 520px; min-width: 0">
+<p class="eyebrow">What benefits have you experienced from UX? (multi-select, 40 respondents)</p>
+<div style="display: flex; flex-direction: column; gap: 14px; margin-top: 20px">
+<div><div style="display: flex; justify-content: space-between; gap: 12px; font-size: 16px"><span>Helps me think with a user-centred mindset</span><strong class="num">33</strong></div><div style="height: 14px; background: #EEEAF5; border-radius: 8px"><div style="width: 82.5%; height: 14px; background: #7A7484; border-radius: 8px"></div></div></div>
+<div><div style="display: flex; justify-content: space-between; gap: 12px; font-size: 16px"><span>Helps me plan product development efficiently</span><strong class="num">22</strong></div><div style="height: 14px; background: #EEEAF5; border-radius: 8px"><div style="width: 55%; height: 14px; background: #7A7484; border-radius: 8px"></div></div></div>
+<div><div style="display: flex; justify-content: space-between; gap: 12px; font-size: 16px"><span>Helps me plan the roadmap</span><strong class="num">19</strong></div><div style="height: 14px; background: #EEEAF5; border-radius: 8px"><div style="width: 47.5%; height: 14px; background: #7A7484; border-radius: 8px"></div></div></div>
+<div><div style="display: flex; justify-content: space-between; gap: 12px; font-size: 16px"><span><strong>Helps me make evidence-based decisions</strong></span><strong class="num">11</strong></div><div style="height: 14px; background: #EEEAF5; border-radius: 8px"><div style="width: 27.5%; height: 14px; background: #5B3FBF; border-radius: 8px"></div></div></div>
+</div>
+<figcaption>Bars show counts out of 40. Source: JDF UX Engagement Survey, 2021. Directional only. Image version: Fig 01 on this canvas.</figcaption>
+</figure>
+<div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<div class="sticky" style="transform: rotate(1.5deg)"><p><strong class="num">35 of 40</strong> had worked with a UX practitioner, and <strong class="num">27</strong> were very satisfied.</p></div>
+<div class="sticky" style="transform: rotate(-1deg)"><p>Top asks: <strong>more dedicated UX resources (22)</strong> and <strong>UX coaching (14)</strong>.</p></div>
+<p class="hand" style="transform: rotate(-1.5deg)">liked for mindset… rarely for evidence. This study had to show the numbers.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH 1 -->
+<section class="chapter" aria-labelledby="ch1">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Chapter 01 · The problem</p>
+<h2 id="ch1">Experts don’t forgive <span class="ser">a pretty slowdown</span></h2>
+<p class="lead">Credit analysts make same-day decisions, sometimes in a 15-minute review, while taking 10 to 20 calls a day. Some had used the desktop ABTools for over 20 years. A post-launch survey alone couldn’t tell real improvement apart from novelty or change aversion.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<figure style="flex: 1 1 420px; min-width: 0">
+<img src="/work/john-deere/abtools-before-agreement.jpg" alt="Previous ABTools desktop app on the Agreement tab: ten tabs across the top and dozens of loan fields packed into three columns. Customer details are blurred." style="width: 100%; height: auto; aspect-ratio: 906 / 696; display: block; background: #FFFFFF; border: 2px dashed #8E86A0; border-radius: 14px; box-sizing: border-box">
+<figcaption>Before: the desktop app’s Agreement tab. Dense tabs and fields, many never used in underwriting. Customer data blurred.</figcaption>
+</figure>
+<figure style="flex: 1 1 420px; min-width: 0">
+<img src="/work/john-deere/abtools-after-agreement.png" alt="Current ABTools web app on the Agreement tab: customer summary at the top, five tabs, and merchant details grouped under a side menu of four sections. Customer details are blurred." style="width: 100%; height: auto; aspect-ratio: 1098 / 845; display: block; background: #FFFFFF; border: 2.5px solid #5B3FBF; border-radius: 14px; box-sizing: border-box">
+<figcaption>After: the web app’s Agreement tab. Fewer fields, grouped into sections, same tab names. Customer data blurred.</figcaption>
+</figure>
+</div>
+<div class="card" style="display: flex; flex-direction: column; gap: 16px">
+<h3>The questions I set out to answer</h3>
+<ol style="display: flex; flex-direction: column; gap: 6px">
+<li>Did usability actually improve across the six dimensions the team cared about?</li>
+<li>Which dimensions improved most, and which barely moved?</li>
+<li>Where does friction remain in the daily workflow?</li>
+</ol>
+</div>
+</div>
+</section>
+
+<!-- CH 2 -->
+<section class="chapter" aria-labelledby="ch2">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Chapter 02 · The plan</p>
+<h2 id="ch2">Measure the same people <span class="ser">before and after</span></h2>
+<p class="lead">I planned the study with the JDF product team inside our usual discover → define → develop → deliver process. The key choice was timing: capture a baseline before launch, then wait until people had really used the new tool.</p>
+</div>
+
+<figure class="card" style="padding: 36px">
+<p class="eyebrow">Study timeline</p>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch; margin-top: 24px">
+<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 20px; border: 2px solid #7A7484; border-radius: 18px">
+<p class="eyebrow">January 2021</p><h3>Wave 1: baseline</h3><p style="font-size: 16px">Interviews, SUS and the six-dimension questionnaire on the old desktop tool.</p>
+</div>
+<div aria-hidden="true" style="display: flex; align-items: center; justify-content: center; flex: 0 0 48px"><svg width="48" height="24" viewBox="0 0 48 24" focusable="false"><path d="M3 13 C 15 5, 28 19, 42 11" stroke="#141218" stroke-width="2.5" fill="none" stroke-linecap="round"></path><path d="M34 5 L44 11 L35 18" stroke="#141218" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 20px; border: 2px dashed #A78BFA; border-radius: 18px; background: #F8F5FF">
+<p class="eyebrow">May–June 2021</p><h3>Familiarity window</h3><p style="font-size: 16px">Participants used the new web tool in their real jobs for 2–3 months.</p>
+</div>
+<div aria-hidden="true" style="display: flex; align-items: center; justify-content: center; flex: 0 0 48px"><svg width="48" height="24" viewBox="0 0 48 24" focusable="false"><path d="M3 13 C 15 5, 28 19, 42 11" stroke="#141218" stroke-width="2.5" fill="none" stroke-linecap="round"></path><path d="M34 5 L44 11 L35 18" stroke="#141218" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 20px; border: 2px solid #5B3FBF; border-radius: 18px">
+<p class="eyebrow">August 2021</p><h3>Wave 2: post-evaluation</h3><p style="font-size: 16px">The same instruments, the same four people, on the new tool.</p>
+</div>
+</div>
+<p class="hand" style="margin-top: 18px">waiting = fewer “it’s new, I hate it” answers</p>
+<figcaption>Fig. 1. Two waves, eight months apart, with a familiarity window in between.</figcaption>
+</figure>
+
+<figure>
+<img src="/work/john-deere/sus-questionnaire.png" alt="The SUS questionnaire as used in the sessions: ten statements rated from 1, strongly disagree, to 5, strongly agree, with a comment column to understand each rating." style="width: 100%; max-width: 760px; height: auto; aspect-ratio: 843 / 674; display: block; background: #FFFFFF; border: 1px solid #DCD6E6; border-radius: 14px; padding: 12px; box-sizing: border-box">
+<figcaption>The SUS sheet as used in both waves, with a comment column beside every rating.</figcaption>
+</figure>
+
+<figure>
+<div class="ph" style="min-height: 280px">
+<svg aria-hidden="true" focusable="false" width="120" height="48" viewBox="0 0 120 48"><path d="M4 24 L30 4 L56 24 L30 44 Z M64 24 L90 4 L116 24 L90 44 Z" stroke="#57525F" stroke-width="2.5" fill="none" stroke-linejoin="round"></path></svg>
+<p><strong>Insert Fig 03: where the study sat in the process</strong><br>Discovery and Delivery diamonds with Wave 1 and Wave 2 pinned. Built on this canvas.</p>
+</div>
+<figcaption>Where the study sat in the UX team’s process.</figcaption>
+</figure>
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<h3 style="font-size: 26px">Design decisions, and what each one cost</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">Decision 1</p><h3>Within-subjects</h3><p style="font-size: 16px"><strong>Why:</strong> each person is their own comparison, so role and tenure don’t muddy the change.</p><p style="font-size: 16px" class="muted"><strong>Cost:</strong> fixed order. The old tool was always rated first.</p></div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">Decision 2</p><h3>Familiarity window</h3><p style="font-size: 16px"><strong>Why:</strong> lets novelty and change aversion fade before wave 2.</p><p style="font-size: 16px" class="muted"><strong>Cost:</strong> other things change over months, too.</p></div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">Decision 3</p><h3>One power user per role</h3><p style="font-size: 16px"><strong>Why:</strong> depth and full role coverage from people who live in the tool.</p><p style="font-size: 16px" class="muted"><strong>Cost:</strong> four people can’t be generalised.</p></div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">Decision 4</p><h3>SUS + custom dimensions</h3><p style="font-size: 16px"><strong>Why:</strong> SUS gives a benchmark; six JDF dimensions show where it changed.</p><p style="font-size: 16px" class="muted"><strong>Cost:</strong> the custom scale isn’t validated.</p></div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">Decision 5</p><h3>% favourable reporting</h3><p style="font-size: 16px"><strong>Why:</strong> easy for leadership to read at a glance.</p><p style="font-size: 16px" class="muted"><strong>Cost:</strong> hides the spread of answers.</p></div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">Decision 6</p><h3>Interviews alongside scores</h3><p style="font-size: 16px"><strong>Why:</strong> scores say how much; open probes say why.</p><p style="font-size: 16px" class="muted"><strong>Cost:</strong> one coder, no second check.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH 3 -->
+<section class="chapter" aria-labelledby="ch3">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Chapter 03 · The people</p>
+<h2 id="ch3">Four roles, <span class="ser">decades of muscle memory</span></h2>
+<p class="lead">One daily power user per role, from 3.5 to more than 20 years with ABTools.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<div class="card" style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<svg aria-hidden="true" focusable="false" width="52" height="52" viewBox="0 0 52 52"><circle cx="26" cy="19" r="10" stroke="#141218" stroke-width="2.5" fill="#ECE6FD"></circle><path d="M8 48 C 10 34, 42 34, 44 48" stroke="#141218" stroke-width="2.5" fill="none" stroke-linecap="round"></path></svg>
+<p class="eyebrow">P1</p><h3>Senior Credit Analyst</h3><p style="font-size: 16px">3.5 years · 4–6 hours a day. Same-day decisions, 10–20 calls a day.</p>
+</div>
+<div class="card" style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<svg aria-hidden="true" focusable="false" width="52" height="52" viewBox="0 0 52 52"><circle cx="26" cy="19" r="10" stroke="#141218" stroke-width="2.5" fill="#FFF3B8"></circle><path d="M8 48 C 10 34, 42 34, 44 48" stroke="#141218" stroke-width="2.5" fill="none" stroke-linecap="round"></path></svg>
+<p class="eyebrow">P2</p><h3>Credit Analyst, credit admin</h3><p style="font-size: 16px">Long-time user · in ABTools all day. Spreads financials, sends annual reviews.</p>
+</div>
+<div class="card" style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<svg aria-hidden="true" focusable="false" width="52" height="52" viewBox="0 0 52 52"><circle cx="26" cy="19" r="10" stroke="#141218" stroke-width="2.5" fill="#E3F1EA"></circle><path d="M8 48 C 10 34, 42 34, 44 48" stroke="#141218" stroke-width="2.5" fill="none" stroke-linecap="round"></path></svg>
+<p class="eyebrow">P3</p><h3>Credit Processing Specialist</h3><p style="font-size: 16px">15+ years · 2–3 hours a day. Turndown letters, bank ratings, imports.</p>
+</div>
+<div class="card" style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<svg aria-hidden="true" focusable="false" width="52" height="52" viewBox="0 0 52 52"><circle cx="26" cy="19" r="10" stroke="#141218" stroke-width="2.5" fill="#FCE7DC"></circle><path d="M8 48 C 10 34, 42 34, 44 48" stroke="#141218" stroke-width="2.5" fill="none" stroke-linecap="round"></path></svg>
+<p class="eyebrow">P4</p><h3>Manager, Retail Credit Delivery Admin</h3><p style="font-size: 16px">20+ years · 2–4 hours a day. Sets worklists, priorities and training.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH 4 -->
+<section class="chapter" aria-labelledby="ch4">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Chapter 04 · The workflow</p>
+<h2 id="ch4">Following one credit decision <span class="ser">from queue to handoff</span></h2>
+<p class="lead">I mapped what participants told me onto their daily workflow. Most remaining friction clustered around reading history and moving through queues.</p>
+</div>
+<figure style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: stretch">
+<div class="card" style="flex: 1 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 12px"><p class="eyebrow">Step 1</p><h3>Work the queue</h3><div class="sticky" style="font-size: 15px; padding: 12px 14px; transform: rotate(-1deg)">Can’t find own name in employee search</div><div class="sticky" style="font-size: 15px; padding: 12px 14px; transform: rotate(1deg)">Queue position lost after leaving</div></div>
+<div class="card" style="flex: 1 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 12px"><p class="eyebrow">Step 2</p><h3>Open an application</h3><div class="sticky" style="font-size: 15px; padding: 12px 14px; transform: rotate(1deg)">“Create new credit request” button didn’t work</div></div>
+<div class="card" style="flex: 1 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 12px; border: 2.5px solid #5B3FBF"><p class="eyebrow">Step 3 · hotspot</p><h3>Read history</h3><div class="sticky" style="font-size: 15px; padding: 12px 14px; transform: rotate(-1.5deg)">Notes squashed into one paragraph</div><div class="sticky" style="font-size: 15px; padding: 12px 14px; transform: rotate(1deg)">Notes text doesn’t scale with zoom</div></div>
+<div class="card" style="flex: 1 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 12px"><p class="eyebrow">Step 4</p><h3>Decide and route</h3><div class="sticky" style="font-size: 15px; padding: 12px 14px; transform: rotate(-1deg)">Route-to-bottom option removed</div><div class="sticky" style="font-size: 15px; padding: 12px 14px; transform: rotate(1.5deg)">Overlays close only with X</div></div>
+<div class="card" style="flex: 1 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 12px"><p class="eyebrow">Step 5</p><h3>Letters and handoff</h3><div class="sticky" style="font-size: 15px; padding: 12px 14px; transform: rotate(1deg)">FileNet opens in a separate tab</div></div>
+</div>
+<figcaption>Fig. 2. A simplified workflow, left to right, with the friction participants described pinned to each step. Step 3 is the hotspot.</figcaption>
+</figure>
+<figure style="display: flex; flex-wrap: wrap; gap: 24px">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">Step 1 before</p><img src="/work/john-deere/abtools-before-parties.jpg" alt="Previous ABTools desktop app on the Involved Parties tab: a small parties table on the left and a long form of party details on the right. Names, tax ID, address and phone are blurred." style="width: 100%; height: auto; aspect-ratio: 908 / 699; display: block; background: #FFFFFF; border: 2px dashed #8E86A0; border-radius: 14px; box-sizing: border-box"></div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">Step 1 after</p><img src="/work/john-deere/abtools-after-parties.png" alt="Current ABTools web app on the Involved Parties tab: customer summary at the top and a clear table of parties with name, role and CIP status, with paging. Names and IDs are blurred." style="width: 100%; height: auto; aspect-ratio: 898 / 846; display: block; background: #FFFFFF; border: 2.5px solid #5B3FBF; border-radius: 14px; box-sizing: border-box"></div>
+<figcaption style="flex: 1 1 100%">The Involved Parties tab, where step 1 starts. Real screens, customer data blurred.</figcaption>
+</figure>
+</div>
+</section>
+
+<!-- CH 5 -->
+<section class="chapter" aria-labelledby="ch5">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Chapter 05 · What the numbers said</p>
+<h2 id="ch5">Usability went up. <span class="ser">Satisfaction barely moved.</span></h2>
+<p class="lead">SUS rose from below every benchmark to above all of them. Every dimension improved, but by very different amounts. With four people, these are descriptive results, not statistical proof.</p>
+</div>
+
+<figure class="card" style="padding: 32px">
+<p class="eyebrow">SUS score against benchmarks (0–100)</p>
+<div style="overflow-x: auto; margin-top: 16px">
+<svg role="img" aria-label="SUS score rose from 60.0 on the previous ABTools to 85.6 on the current ABTools, passing the Global IT average of 63, the FY21 target of 67 and the industry average of 68." viewBox="0 0 800 210" style="width: 100%; min-width: 560px; height: auto; font-family: 'Hanken Grotesk', sans-serif">
+<g stroke="#DCD6E6" stroke-width="1"><line x1="200" y1="56" x2="200" y2="176"></line><line x1="312" y1="56" x2="312" y2="176"></line><line x1="424" y1="56" x2="424" y2="176"></line><line x1="536" y1="56" x2="536" y2="176"></line><line x1="648" y1="56" x2="648" y2="176"></line><line x1="760" y1="56" x2="760" y2="176"></line></g>
+<rect x="200" y="72" width="336" height="36" rx="6" fill="#7A7484"></rect>
+<rect x="200" y="124" width="479.4" height="36" rx="6" fill="#5B3FBF"></rect>
+<text x="526" y="96" text-anchor="end" font-size="16" font-weight="700" fill="#FFFFFF">60.0</text>
+<text x="669" y="148" text-anchor="end" font-size="16" font-weight="700" fill="#FFFFFF">85.6</text>
+<text x="188" y="88" text-anchor="end" font-size="15" font-weight="600" fill="#141218">Previous ABTools</text>
+<text x="188" y="104" text-anchor="end" font-size="13" fill="#57525F">Jan 2021</text>
+<text x="188" y="140" text-anchor="end" font-size="15" font-weight="600" fill="#141218">Current ABTools</text>
+<text x="188" y="156" text-anchor="end" font-size="13" fill="#57525F">Aug 2021</text>
+<g stroke="#141218" stroke-width="1.5" stroke-dasharray="4 4"><line x1="552.8" y1="54" x2="552.8" y2="172"></line><line x1="575.2" y1="54" x2="575.2" y2="172"></line><line x1="580.8" y1="54" x2="580.8" y2="172"></line></g>
+<text x="548" y="44" text-anchor="end" font-size="13" fill="#141218">Global IT avg 63</text>
+<text x="586" y="28" font-size="13" fill="#141218">FY21 target 67</text>
+<text x="586" y="46" font-size="13" fill="#141218">Industry avg 68</text>
+<g font-size="13" fill="#57525F" text-anchor="middle"><text x="200" y="198">0</text><text x="312" y="198">20</text><text x="424" y="198">40</text><text x="536" y="198">60</text><text x="648" y="198">80</text><text x="760" y="198">100</text></g>
+</svg>
+</div>
+<figcaption>Fig. 3. SUS score, n = 4. Benchmarks: Global IT average and FY21 target (internal), industry average 68 (usability.gov).</figcaption>
+</figure>
+
+<figure class="card" style="padding: 32px">
+<p class="eyebrow">% favourable by dimension, before → after, sorted by gain</p>
+<div style="overflow-x: auto; margin-top: 16px">
+<svg role="img" aria-label="Percent favourable by dimension, before and after: System performance 62.5 to 97.5 (+35.0); Human error support 56.6 to 75.0 (+18.4); Ease of use 75.0 to 88.7 (+13.7); Learnability 80.0 to 92.5 (+12.5); Productivity 71.2 to 82.5 (+11.3); Satisfaction 71.2 to 75.0 (+3.8)." viewBox="0 0 820 372" style="width: 100%; min-width: 600px; height: auto; font-family: 'Hanken Grotesk', sans-serif">
+<g stroke="#E4DFEC" stroke-width="1"><line x1="200" y1="20" x2="200" y2="324"></line><line x1="304" y1="20" x2="304" y2="324"></line><line x1="408" y1="20" x2="408" y2="324"></line><line x1="512" y1="20" x2="512" y2="324"></line><line x1="616" y1="20" x2="616" y2="324"></line><line x1="720" y1="20" x2="720" y2="324"></line></g>
+<g font-size="15" fill="#141218" text-anchor="end" font-weight="600"><text x="188" y="45">System performance</text><text x="188" y="97">Human error support</text><text x="188" y="149">Ease of use</text><text x="188" y="201">Learnability</text><text x="188" y="253">Productivity</text><text x="188" y="305">Satisfaction</text></g>
+<g stroke="#5B3FBF" stroke-width="3"><line x1="330" y1="40" x2="694" y2="40"></line><line x1="268.6" y1="92" x2="460" y2="92"></line><line x1="460" y1="144" x2="602.5" y2="144"></line><line x1="512" y1="196" x2="642" y2="196"></line><line x1="420.5" y1="248" x2="538" y2="248"></line><line x1="420.5" y1="300" x2="460" y2="300"></line></g>
+<g fill="#FFFFFF" stroke="#7A7484" stroke-width="3"><circle cx="330" cy="40" r="8"></circle><circle cx="268.6" cy="92" r="8"></circle><circle cx="460" cy="144" r="8"></circle><circle cx="512" cy="196" r="8"></circle><circle cx="420.5" cy="248" r="8"></circle><circle cx="420.5" cy="300" r="8"></circle></g>
+<g fill="#5B3FBF"><circle cx="694" cy="40" r="9"></circle><circle cx="460" cy="92" r="9"></circle><circle cx="602.5" cy="144" r="9"></circle><circle cx="642" cy="196" r="9"></circle><circle cx="538" cy="248" r="9"></circle><circle cx="460" cy="300" r="9"></circle></g>
+<g font-size="14" fill="#57525F" text-anchor="end"><text x="316" y="45">62.5</text><text x="255" y="97">56.6</text><text x="446" y="149">75.0</text><text x="498" y="201">80.0</text><text x="407" y="253">71.2</text><text x="407" y="305">71.2</text></g>
+<g font-size="14" fill="#141218" font-weight="700"><text x="708" y="45">97.5</text><text x="474" y="97">75.0</text><text x="616" y="149">88.7</text><text x="656" y="201">92.5</text><text x="552" y="253">82.5</text><text x="474" y="305">75.0</text></g>
+<g font-size="14" fill="#3F2A8F" font-weight="700" text-anchor="end"><text x="812" y="45">+35.0</text><text x="812" y="97">+18.4</text><text x="812" y="149">+13.7</text><text x="812" y="201">+12.5</text><text x="812" y="253">+11.3</text><text x="812" y="305">+3.8</text></g>
+<g font-size="13" fill="#57525F" text-anchor="middle"><text x="200" y="346">50%</text><text x="304" y="346">60%</text><text x="408" y="346">70%</text><text x="512" y="346">80%</text><text x="616" y="346">90%</text><text x="720" y="346">100%</text></g>
+<g font-size="13" fill="#57525F"><circle cx="210" cy="364" r="6" fill="#FFFFFF" stroke="#7A7484" stroke-width="2.5"></circle><text x="222" y="368">Before (hollow)</text><circle cx="350" cy="364" r="6" fill="#5B3FBF"></circle><text x="362" y="368">After (filled)</text></g>
+</svg>
+</div>
+<p class="hand" style="margin-top: 8px">performance was the big win · satisfaction lagged → why? see chapter 06</p>
+<figcaption>Fig. 4. Percent favourable on the custom six-dimension questionnaire, n = 4.</figcaption>
+<details>
+<summary>Show the data as a table</summary>
+<table>
+<thead><tr><th scope="col">Dimension</th><th scope="col">Before</th><th scope="col">After</th><th scope="col">Change</th></tr></thead>
+<tbody>
+<tr><th scope="row">System performance</th><td class="num">62.5%</td><td class="num">97.5%</td><td class="num">+35.0</td></tr>
+<tr><th scope="row">Human error support</th><td class="num">56.6%</td><td class="num">75.0%</td><td class="num">+18.4</td></tr>
+<tr><th scope="row">Ease of use</th><td class="num">75.0%</td><td class="num">88.7%</td><td class="num">+13.7</td></tr>
+<tr><th scope="row">Learnability</th><td class="num">80.0%</td><td class="num">92.5%</td><td class="num">+12.5</td></tr>
+<tr><th scope="row">Productivity</th><td class="num">71.2%</td><td class="num">82.5%</td><td class="num">+11.3</td></tr>
+<tr><th scope="row">Satisfaction</th><td class="num">71.2%</td><td class="num">75.0%</td><td class="num">+3.8</td></tr>
+<tr><th scope="row">SUS score</th><td class="num">60.0</td><td class="num">85.6</td><td class="num">+25.6</td></tr>
+</tbody>
+</table>
+</details>
+</figure>
+</div>
+</section>
+
+<!-- CH 6 -->
+<section class="chapter" aria-labelledby="ch6">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Chapter 06 · What people said</p>
+<h2 id="ch6">The scores said how much. <span class="ser">The words said why.</span></h2>
+<p class="lead">Interviews explained every number. Here is what the same people said before and after.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch">
+<p class="eyebrow" style="flex: 1 1 100%">System performance</p>
+<blockquote class="card" style="flex: 1 1 380px; min-width: 0; border-style: dashed"><p class="eyebrow">Before</p><p style="margin-top: 8px">“It will spin and it will close out.”</p></blockquote>
+<blockquote class="card" style="flex: 1 1 380px; min-width: 0; border-color: #5B3FBF; border-width: 2px"><p class="eyebrow">After</p><p style="margin-top: 8px">“It hasn’t been down, and it is quicker than old ABTools.”</p></blockquote>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch">
+<p class="eyebrow" style="flex: 1 1 100%">Ease of use</p>
+<blockquote class="card" style="flex: 1 1 380px; min-width: 0; border-style: dashed"><p class="eyebrow">Before</p><p style="margin-top: 8px">“Intimidating and overwhelming.”</p></blockquote>
+<blockquote class="card" style="flex: 1 1 380px; min-width: 0; border-color: #5B3FBF; border-width: 2px"><p class="eyebrow">After</p><p style="margin-top: 8px">“They got away from a lot of information we never looked at. It is cleaned up.”</p></blockquote>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch">
+<p class="eyebrow" style="flex: 1 1 100%">Satisfaction, the one that lagged</p>
+<blockquote class="card" style="flex: 1 1 380px; min-width: 0; border-style: dashed"><p class="eyebrow">Before</p><p style="margin-top: 8px">“It is not great, but it is what we have.”</p></blockquote>
+<blockquote class="card" style="flex: 1 1 380px; min-width: 0; border-color: #5B3FBF; border-width: 2px"><p class="eyebrow">After</p><p style="margin-top: 8px">“I don’t feel the notes, they are not convenient.”</p></blockquote>
+</div>
+</div>
+
+<figure>
+<div class="ph" style="min-height: 220px">
+<p><strong>Insert Fig 05: the synthesis board</strong><br>35 issues sorted into 5 themes, with shortened quotes and no names. Built on this canvas.</p>
+</div>
+<figcaption>How the interview notes were grouped before counting.</figcaption>
+</figure>
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+<figure class="card" style="flex: 999 1 520px; min-width: 0">
+<p class="eyebrow">35 remaining issues by theme</p>
+<div style="display: flex; flex-direction: column; gap: 14px; margin-top: 20px">
+<div><div style="display: flex; justify-content: space-between; font-size: 16px"><strong>Notes</strong><strong class="num">16</strong></div><div style="height: 16px; background: #EEEAF5; border-radius: 8px"><div style="width: 100%; height: 16px; background: #5B3FBF; border-radius: 8px"></div></div></div>
+<div><div style="display: flex; justify-content: space-between; font-size: 16px"><span>Usability</span><span class="num">6</span></div><div style="height: 16px; background: #EEEAF5; border-radius: 8px"><div style="width: 37.5%; height: 16px; background: #7A7484; border-radius: 8px"></div></div></div>
+<div><div style="display: flex; justify-content: space-between; font-size: 16px"><span>Efficiency</span><span class="num">5</span></div><div style="height: 16px; background: #EEEAF5; border-radius: 8px"><div style="width: 31.25%; height: 16px; background: #7A7484; border-radius: 8px"></div></div></div>
+<div><div style="display: flex; justify-content: space-between; font-size: 16px"><span>New features</span><span class="num">5</span></div><div style="height: 16px; background: #EEEAF5; border-radius: 8px"><div style="width: 31.25%; height: 16px; background: #7A7484; border-radius: 8px"></div></div></div>
+<div><div style="display: flex; justify-content: space-between; font-size: 16px"><span>Not working as expected</span><span class="num">3</span></div><div style="height: 16px; background: #EEEAF5; border-radius: 8px"><div style="width: 18.75%; height: 16px; background: #7A7484; border-radius: 8px"></div></div></div>
+</div>
+<figcaption>Fig. 5. Issues from thematic analysis of both waves. Frequency, not severity.</figcaption>
+</figure>
+<div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<div class="sticky" style="transform: rotate(-1.5deg)"><p><strong>Every participant</strong> raised Notes, unprompted.</p></div>
+<p class="hand" style="transform: rotate(1deg)">16 of 35 → the clearest signal in the whole study</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH 7 -->
+<section class="chapter" aria-labelledby="ch7">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Chapter 07 · Design deep dive</p>
+<h2 id="ch7">The Notes problem: <span class="ser">formatting is information</span></h2>
+<p class="lead">Analysts typed comments with careful spacing so others could scan them quickly. The new tool squeezed every note into one paragraph, in a small box, with text that didn’t grow when they zoomed.</p>
+</div>
+<blockquote class="card" style="padding: 32px; border-width: 2px; border-color: #A78BFA">
+<p style="font-size: 22px; line-height: 1.45">“The comments are all together. I typed in very well layout with spaces, but it shows us as a big chunk. It is hard to read.”</p>
+<p class="muted" style="margin-top: 10px; font-size: 15px">Participant, wave 2</p>
+</blockquote>
+<figure style="display: flex; flex-wrap: wrap; gap: 24px">
+<div class="card" style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 14px; border-style: dashed">
+<p class="eyebrow">As shipped</p>
+<div style="border: 1.5px solid #7A7484; border-radius: 10px; padding: 12px; height: 92px; overflow: hidden; font-size: 13px; line-height: 1.35; color: #2B2732">Called dealer re: docs. Waiting on tax returns 2019 and 2020. Bank rating requested. Follow up Friday. Spoke with customer, confirmed address. Counteroffer discussed, needs manager review before sending…</div>
+<ul style="font-size: 16px"><li>One run-on paragraph</li><li>Small fixed box</li><li>Text ignores browser zoom</li></ul>
+</div>
+<div class="card" style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 14px; border: 2px solid #5B3FBF">
+<p class="eyebrow">Recommended pattern</p>
+<div style="border: 1.5px solid #5B3FBF; border-radius: 10px; padding: 14px; font-size: 1rem; line-height: 1.5; white-space: pre-line; color: #141218">Called dealer re: docs.
+– Waiting on tax returns 2019, 2020
+– Bank rating requested
+
+Follow up Friday.</div>
+<ul style="font-size: 16px"><li>Keeps the writer’s line breaks</li><li>Expands in place, or opens a side panel</li><li>Sized in relative units, so it scales with zoom (WCAG 1.4.4)</li></ul>
+</div>
+<figcaption style="flex: 1 1 100%">Fig. 6. Illustrative mock with made-up text, not real customer data. Polished image version: Fig 06 on this canvas.</figcaption>
+</figure>
+</div>
+</section>
+
+<!-- CH 8 -->
+<section class="chapter" aria-labelledby="ch8">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Chapter 08 · The verdict</p>
+<h2 id="ch8">What the redesign got right, <span class="ser">and what it missed</span></h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<div class="card" style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<h3>Keep (4)</h3>
+<ul style="display: flex; flex-direction: column; gap: 4px">
+<li>Same tab layout and labels as the old tool, so experts needed no retraining</li>
+<li>Unused fields removed</li>
+<li>Moved to the web: faster and stable</li>
+<li>Simpler error messages</li>
+</ul>
+<p class="hand">continuity is a feature for experts</p>
+</div>
+<div class="card" style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 16px; border: 2px solid #5B3FBF">
+<h3>Fix (10)</h3>
+<ul style="display: flex; flex-direction: column; gap: 4px">
+<li>Notes display and zoom</li>
+<li>Overlays that close only with X</li>
+<li>Errors with no next step</li>
+<li>Split queues and lost queue position</li>
+<li>Removed route-to-bottom option</li>
+<li>A “don’t touch” cursor on a loan number people need to copy</li>
+<li>Buttons that fail silently</li>
+<li>No default comment type</li>
+<li>Employee search that misses the user</li>
+<li>FileNet in a separate browser tab</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CH 9 -->
+<section class="chapter" aria-labelledby="ch9">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Chapter 09 · From findings to patterns</p>
+<h2 id="ch9">Fix it once, <span class="ser">in the design system</span></h2>
+<p class="lead">Instead of a list of bugs, I framed the findings as six reusable patterns, so other JDF tools wouldn’t repeat them. Fig 07 on this canvas shows each one as a before/after sketch.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><svg aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 40 40"><rect x="5" y="6" width="30" height="28" rx="4" stroke="#141218" stroke-width="2.5" fill="none"></rect><path d="M11 14 h14 M11 20 h8 M11 26 h16" stroke="#5B3FBF" stroke-width="2.5" stroke-linecap="round"></path></svg><h3>Comment display</h3><p style="font-size: 16px">Keeps line breaks and spacing; expands in place.</p></div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><svg aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 40 40"><path d="M8 30 L15 10 L22 30 M11 23 h8" stroke="#141218" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M25 30 L29 18 L33 30" stroke="#5B3FBF" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg><h3>Relative type</h3><p style="font-size: 16px">All text in rem, so it scales with browser zoom.</p></div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><svg aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 40 40"><rect x="4" y="6" width="32" height="28" rx="4" stroke="#141218" stroke-width="2.5" fill="none"></rect><rect x="22" y="6" width="14" height="28" rx="2" stroke="#5B3FBF" stroke-width="2.5" fill="#ECE6FD"></rect></svg><h3>Modal standard</h3><p style="font-size: 16px">Close on outside click or Esc; side panel when people need to compare.</p></div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><svg aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 40 40"><path d="M20 5 L36 33 H4 Z" stroke="#141218" stroke-width="2.5" fill="none" stroke-linejoin="round"></path><path d="M20 15 v8 M20 28 v0.5" stroke="#5B3FBF" stroke-width="3" stroke-linecap="round"></path></svg><h3>One error pattern</h3><p style="font-size: 16px">What happened, why, and what to do next.</p></div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><svg aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 40 40"><path d="M8 11 h24 M8 20 h24 M8 29 h24" stroke="#141218" stroke-width="2.5" stroke-linecap="round"></path><circle cx="32" cy="11" r="4" fill="#5B3FBF"></circle></svg><h3>List patterns</h3><p style="font-size: 16px">Inclusive search, kept queue state, pin, refresh and export.</p></div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><svg aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 40 40"><rect x="6" y="12" width="28" height="16" rx="8" stroke="#141218" stroke-width="2.5" fill="none" stroke-dasharray="4 3"></rect></svg><h3>Clear states</h3><p style="font-size: 16px">Disabled and read-only look and behave clearly; nothing fails silently.</p></div>
+</div>
+</div>
+</section>
+
+<!-- CH 10 -->
+<section class="chapter" aria-labelledby="ch10">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Chapter 10 · Impact</p>
+<h2 id="ch10">Evidence, <span class="ser">not just a launch</span></h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">01</p><h3>Leadership got proof</h3><p style="font-size: 16px">A benchmarked before/after result instead of “users seem to like it”.</p></div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">02</p><h3>Notes went to the top</h3><p style="font-size: 16px">The Notes issue became a high-priority backlog item.</p></div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">03</p><h3>Research kept going</h3><p style="font-size: 16px">I recommended a feedback loop, behavioural analytics and research before each release.</p></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: center">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<h3 style="font-size: 26px">Where it led</h3>
+<p>Later, the UX team’s FY24 objective was to “pave the path for Elite Product UX”. Two of its strategic initiatives were defining UX metrics and building research operations. Studies like this one were the kind of evidence those goals asked for.</p>
+</div>
+<figure style="flex: 1 1 420px; min-width: 0">
+<div class="ph" style="min-height: 240px">
+<svg aria-hidden="true" focusable="false" width="52" height="44" viewBox="0 0 52 44"><rect x="4" y="4" width="20" height="16" rx="2" stroke="#57525F" stroke-width="2.5" fill="#FFF3B8"></rect><rect x="28" y="4" width="20" height="16" rx="2" stroke="#57525F" stroke-width="2.5" fill="#ECE6FD"></rect><rect x="16" y="24" width="20" height="16" rx="2" stroke="#57525F" stroke-width="2.5" fill="#E3F1EA"></rect></svg>
+<p><strong>Insert Fig 08: the FY24 UX goals</strong><br>Objective, key results and initiatives, redrawn without names. Built on this canvas.</p>
+</div>
+</figure>
+</div>
+</div>
+</section>
+
+<!-- CH 11 -->
+<section class="chapter" aria-labelledby="ch11">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Chapter 11 · Looking back</p>
+<h2 id="ch11">What I’d keep, <span class="ser">and what I’d add</span></h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<div class="card" style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<h3>Limitations</h3>
+<ul><li>Four participants, no control group</li><li>The old tool was always rated first</li><li>I was embedded with the team, which may bias answers</li><li>Self-reported attitudes, not observed behaviour</li><li>One coder for the themes</li></ul>
+</div>
+<div class="card" style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<h3>Next time</h3>
+<ul><li>A diary study during the familiarity window</li><li>Task metrics: time on task, error rate, SEQ</li><li>Severity ratings for every issue, not just frequency</li></ul>
+</div>
+<div class="card" style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px; background: #F8F5FF; border-color: #CFC6E8">
+<h3>What this taught me</h3>
+<ul><li>Timing is a method decision</li><li>Small samples give depth, not proof</li><li>The most useful finding was qualitative</li><li>For experts, continuity is part of good design</li></ul>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer style="border-top: 2px dashed #CFC8DC; padding-block: 56px">
+<nav aria-label="More case studies" class="wrap" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between">
+<a href="https://www.shwetasharma.tech/work/design-thinking" class="card" style="flex: 1 1 320px; min-width: 0; text-decoration: none; color: #141218; display: flex; flex-direction: column; gap: 6px"><span class="eyebrow">← Previous case study</span><span style="font-weight: 800; font-size: 20px">No UX, No Problem?</span></a>
+<a href="https://www.shwetasharma.tech/work/abim" class="card" style="flex: 1 1 320px; min-width: 0; text-decoration: none; color: #141218; display: flex; flex-direction: column; gap: 6px; text-align: right"><span class="eyebrow">Next case study →</span><span style="font-weight: 800; font-size: 20px">From Frameworks to F1 Scores</span></a>
+</nav>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":12400}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

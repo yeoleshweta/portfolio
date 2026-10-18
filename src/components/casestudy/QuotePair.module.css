@@ -1,0 +1,52 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dimension {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent-text);
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+.quote {
+  margin: 0;
+  padding: 20px 22px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.before {
+  border: 2px dashed var(--color-border);
+}
+
+.after {
+  border: 2px solid var(--color-accent-text);
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  margin: 0 0 8px;
+}
+
+.text {
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--color-text);
+  margin: 0;
+}

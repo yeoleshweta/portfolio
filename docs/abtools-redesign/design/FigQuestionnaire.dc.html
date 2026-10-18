@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fig 04: the study instrument</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&amp;family=Hanken+Grotesk:wght@400;600;800&amp;family=Instrument+Serif:ital@1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.eb{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;color:#57525F;margin:0}
+.q{display:flex;align-items:center;gap:14px;font-size:16px;padding:7px 0;border-bottom:1px solid #ECE8F2}
+.q span:first-child{flex:1}
+.dots{display:flex;gap:10px}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid #7A7484;display:block}
+.step{display:flex;gap:14px;align-items:flex-start;font-size:17px;line-height:1.4}
+.n{flex:0 0 34px;height:34px;border-radius:50%;border:2px solid #141218;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
+</style>
+</helmet>
+<div style="width: 1600px; height: 1000px; box-sizing: border-box; padding: 64px 80px; background-color: #F3F2F5; background-image: linear-gradient(#E7E4ED 1px, transparent 1px), linear-gradient(90deg, #E7E4ED 1px, transparent 1px); background-size: 64px 64px; color: #141218; font-family: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif; display: flex; flex-direction: column; gap: 28px">
+<h1 style="margin: 0; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1">One instrument, <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #5B3FBF">used twice, unchanged</span></h1>
+<div style="display: flex; gap: 40px; align-items: flex-start">
+<div style="flex: 1.25; background: #FFFFFF; border: 1px solid #DCD6E6; border-radius: 18px; padding: 24px 28px; display: flex; flex-direction: column; gap: 6px; transform: rotate(-0.6deg)">
+<div style="display: flex; justify-content: space-between; align-items: center"><p class="eb">System Usability Scale · 10 items</p><p style="margin: 0; font-size: 13px; color: #57525F">1 strongly disagree → 5 strongly agree</p></div>
+<div class="q"><span>1. I think that I would like to use this system frequently.</span><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="q"><span>2. I found the system unnecessarily complex.</span><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="q"><span>3. I thought the system was easy to use.</span><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="q"><span>4. I think that I would need the support of a technical person to be able to use this system.</span><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="q"><span>5. I found the various functions in this system were well integrated.</span><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="q"><span>6. I thought there was too much inconsistency in this system.</span><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="q"><span>7. I would imagine that most people would learn to use this system very quickly.</span><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="q"><span>8. I found the system very cumbersome to use.</span><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="q"><span>9. I felt very confident using the system.</span><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="q" style="border-bottom: none"><span>10. I needed to learn a lot of things before I could get going with this system.</span><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
+<p style="margin: 6px 0 0; font-size: 14px; color: #57525F">Plus a comment box beside every item: “help us understand the rating”. Standard SUS (Brooke, 1986; factor structure: Lewis &amp; Sauro, 2009).</p>
+</div>
+<div style="flex: 1; display: flex; flex-direction: column; gap: 22px">
+<div style="background: #FFFFFF; border: 2px solid #5B3FBF; border-radius: 18px; padding: 24px 28px; display: flex; flex-direction: column; gap: 16px">
+<p class="eb">Session flow · both waves</p>
+<div class="step"><span class="n">1</span><span>Intro, role, years with ABTools, hours a day</span></div>
+<div class="step"><span class="n">2</span><span>Six JDF dimensions, each rated, then “why?”: satisfaction, ease of use, learnability, performance, human error support, productivity</span></div>
+<div class="step"><span class="n">3</span><span>Improvement opportunities, open-ended</span></div>
+<div class="step"><span class="n">4</span><span>SUS, the 10 items on the left</span></div>
+</div>
+<div style="background: #FFF3B8; padding: 18px 22px; border-radius: 4px; transform: rotate(1.5deg); box-shadow: 0 4px 0 rgba(20,18,24,0.10); font-size: 18px; line-height: 1.4">Ratings show <b>how much</b>. The “why?” after each one shows <b>what to fix</b>.</div>
+<p style="margin: 0; font-family: 'Caveat', cursive; font-size: 32px; font-weight: 700; color: #3F2A8F; transform: rotate(-1.5deg)">same wording in Jan and Aug, or the comparison breaks</p>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":1000}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

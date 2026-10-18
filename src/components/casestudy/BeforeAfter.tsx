@@ -1,8 +1,10 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Image from "next/image";
 import BeeTrail, { BEE_PATHS } from "./BeeTrail";
 import Figure from "./Figure";
+import HandNote from "./doodles/HandNote";
 import styles from "./BeforeAfter.module.css";
 
 type Shot = {
@@ -10,15 +12,27 @@ type Shot = {
   alt: string;
   title: string;
   text: string;
+  width?: number;
+  height?: number;
 };
 
 type BeforeAfterProps = {
   caption: string;
   before: Shot;
   after: Shot;
+  /** Hand-written aside under the before image, e.g. a participant quote. */
+  beforeNote?: ReactNode;
+  /** Hand-written aside under the after image. */
+  afterNote?: ReactNode;
 };
 
-export default function BeforeAfter({ caption, before, after }: BeforeAfterProps) {
+export default function BeforeAfter({
+  caption,
+  before,
+  after,
+  beforeNote,
+  afterNote,
+}: BeforeAfterProps) {
   return (
     <Figure caption={caption}>
       <BeeTrail
@@ -27,8 +41,8 @@ export default function BeforeAfter({ caption, before, after }: BeforeAfterProps
         label="Bee flying from before screenshot to after screenshot"
       />
       <div className={styles.grid}>
-        <ShotColumn shot={before} variant="before" />
-        <ShotColumn shot={after} variant="after" />
+        <ShotColumn shot={before} variant="before" note={beforeNote} />
+        <ShotColumn shot={after} variant="after" note={afterNote} />
       </div>
     </Figure>
   );
@@ -37,9 +51,11 @@ export default function BeforeAfter({ caption, before, after }: BeforeAfterProps
 function ShotColumn({
   shot,
   variant,
+  note,
 }: {
   shot: Shot;
   variant: "before" | "after";
+  note?: ReactNode;
 }) {
   return (
     <div className={styles.col}>
@@ -47,10 +63,10 @@ function ShotColumn({
         <Image
           src={shot.img}
           alt={shot.alt}
-          width={1600}
-          height={1000}
+          width={shot.width ?? 1600}
+          height={shot.height ?? 1000}
           className={styles.img}
-          sizes="(max-width: 768px) 100vw, 420px"
+          sizes="(min-width: 1100px) 50vw, 100vw"
         />
       </div>
       <div className={styles.meta}>
@@ -60,6 +76,11 @@ function ShotColumn({
         <h3 className={styles.title}>{shot.title}</h3>
       </div>
       <p className={styles.text}>{shot.text}</p>
+      {note ? (
+        <HandNote rotate={variant === "before" ? -1.5 : 1.5} className={styles.note}>
+          {note}
+        </HandNote>
+      ) : null}
     </div>
   );
 }

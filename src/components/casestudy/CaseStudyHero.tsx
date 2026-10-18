@@ -7,13 +7,15 @@ import { motion, useReducedMotion } from "framer-motion";
 import { studyFromPath } from "@/content/caseStudyBriefs";
 
 interface CaseStudyHeroProps {
-  title: string;
+  title: React.ReactNode;
   category: string;
   role: string;
   team: string;
   timeline: string;
   method?: string;
   subtitle?: string;
+  /** Method chips rendered under the subtitle, e.g. "Longitudinal study". */
+  chips?: string[];
   children?: React.ReactNode;
   image?: string;
   isVideo?: boolean;
@@ -21,6 +23,8 @@ interface CaseStudyHeroProps {
   isSmallImage?: boolean;
   /** Soft grid + purple glow used by ABTools hero */
   variant?: "default" | "abtools";
+  /** Right-hand slot (e.g. SusScoreCard) beside the title on wide screens, below it on narrow. */
+  aside?: React.ReactNode;
 }
 
 export default function CaseStudyHero({
@@ -31,12 +35,14 @@ export default function CaseStudyHero({
   timeline,
   method,
   subtitle,
+  chips,
   children,
   image,
   isVideo = false,
   videoUrl,
   isSmallImage = false,
   variant = "default",
+  aside,
 }: CaseStudyHeroProps) {
   const reduceMotion = useReducedMotion() ?? false;
   const pathname = usePathname();
@@ -89,6 +95,9 @@ export default function CaseStudyHero({
       id="top"
       data-case-study-hero
     >
+      <div
+        className={`${styles.headerRow}${aside ? ` ${styles.hasAside}` : ""}`}
+      >
       <div className={styles.header}>
         {category && (
           <motion.span
@@ -122,6 +131,16 @@ export default function CaseStudyHero({
           >
             {summaryLine}
           </motion.p>
+        ) : null}
+
+        {chips && chips.length > 0 ? (
+          <ul className={styles.chips}>
+            {chips.map((chip) => (
+              <li key={chip} className={styles.chip}>
+                {chip}
+              </li>
+            ))}
+          </ul>
         ) : null}
 
         {children ? (
@@ -162,6 +181,18 @@ export default function CaseStudyHero({
         </motion.div>
       </div>
 
+      {aside ? (
+        <motion.div
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          className={styles.aside}
+        >
+          {aside}
+        </motion.div>
+      ) : null}
+      </div>
+
       {(image || (isVideo && videoUrl)) && (
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, scale: 0.9, y: 40 }}
@@ -197,7 +228,11 @@ export default function CaseStudyHero({
               </div>
             </div>
           ) : (
-            <img src={image} alt={title} className={styles.mockup} />
+            <img
+              src={image}
+              alt={typeof title === "string" ? title : "Case study preview"}
+              className={styles.mockup}
+            />
           )}
         </motion.div>
       )}

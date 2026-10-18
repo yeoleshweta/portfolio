@@ -1,12 +1,35 @@
 "use client";
 
+import type { ReactNode } from "react";
+import Image from "next/image";
 import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
 import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
-import { CaseStudySection } from "@/components/casestudy/CaseStudyContent";
+import {
+  CaseStudySection,
+  Accent,
+  Blockquote,
+} from "@/components/casestudy/CaseStudyContent";
+import {
+  TldrCard,
+  ChartFigure,
+  ShowDetails,
+} from "@/components/casestudy/CaseStudyExtras";
 import BeeTrail, { BEE_PATHS } from "@/components/casestudy/BeeTrail";
 import CountUp from "@/components/casestudy/CountUp";
 import Figure from "@/components/casestudy/Figure";
 import BeforeAfter from "@/components/casestudy/BeforeAfter";
+import HandNote from "@/components/casestudy/doodles/HandNote";
+import StickyNote from "@/components/casestudy/doodles/StickyNote";
+import DoodleAvatar from "@/components/casestudy/doodles/DoodleAvatar";
+import type { DoodleAvatarTint } from "@/components/casestudy/doodles/DoodleAvatar";
+import SusScoreCard from "@/components/casestudy/SusScoreCard";
+import SurveyBars from "@/components/casestudy/SurveyBars";
+import ProcessDiagram from "@/components/casestudy/ProcessDiagram";
+import QuotePair from "@/components/casestudy/QuotePair";
+import AffinityBoard from "@/components/casestudy/AffinityBoard";
+import NotesMock from "@/components/casestudy/NotesMock";
+import PatternTiles from "@/components/casestudy/PatternTiles";
+import OkrBoard from "@/components/casestudy/OkrBoard";
 import {
   BarRow,
   DimensionRow,
@@ -14,17 +37,23 @@ import {
 } from "@/components/casestudy/AbtoolsCharts";
 import {
   hero,
+  susScoreCard,
   stats,
   facts,
-  overview,
+  tldr,
+  prologue,
   background,
   beforeAfter,
+  beforeAfterParties,
   problem,
   design,
   participants,
   workflow,
   results,
   qualitative,
+  quotes,
+  affinity,
+  notesChapter,
   rightWrong,
   designSystem,
   org,
@@ -35,22 +64,21 @@ import {
 } from "@/content/johnDeere";
 import styles from "./johnDeere.module.css";
 
+// Final section order, §1.1. stats-strip stays out of the TOC.
 const sections = [
-  { id: "overview", label: "Overview" },
-  { id: "background", label: "Background" },
-  { id: "problem", label: "01: The Research Problem" },
-  { id: "design", label: "02: Study Design" },
-  { id: "participants", label: "03: Participants" },
-  { id: "workflow", label: "04: The Workflow" },
-  { id: "results", label: "05: Results" },
-  { id: "findings", label: "06: Qualitative Findings" },
-  { id: "decisions", label: "07: Right and Wrong" },
-  { id: "patterns", label: "08: Design System" },
-  { id: "context", label: "09: Org Context" },
-  { id: "impact", label: "10: Impact" },
-  { id: "limitations", label: "11: Limitations" },
-  { id: "next", label: "12: Next Time" },
-  { id: "lessons", label: "13: Lessons" },
+  { id: "overview", label: "The short version" },
+  { id: "context", label: "Prologue: why evidence" },
+  { id: "problem", label: "01 · The problem" },
+  { id: "design", label: "02 · The plan" },
+  { id: "participants", label: "03 · The people" },
+  { id: "workflow", label: "04 · The workflow" },
+  { id: "results", label: "05 · The numbers" },
+  { id: "findings", label: "06 · What people said" },
+  { id: "notes", label: "07 · The Notes problem" },
+  { id: "decisions", label: "08 · The verdict" },
+  { id: "patterns", label: "09 · Design system" },
+  { id: "impact", label: "10 · Impact" },
+  { id: "lessons", label: "11 · Looking back" },
 ];
 
 function colStart(start: number) {
@@ -58,6 +86,17 @@ function colStart(start: number) {
 }
 function colWidth(start: number, end: number) {
   return `${(end - start + 1) * 12.5}%`;
+}
+
+/** Renders `**bold**` markers in content strings as real <strong> text. */
+function renderBold(text: string): ReactNode {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i}>{part.slice(2, -2)}</strong>
+    ) : (
+      part
+    ),
+  );
 }
 
 export default function JohnDeerePage() {
@@ -69,12 +108,19 @@ export default function JohnDeerePage() {
     <div className={styles.page}>
       <CaseStudyHero
         category={hero.category}
-        title={hero.title}
+        title={
+          <>
+            When did <Accent>&lsquo;better&rsquo;</Accent> actually mean
+            better?
+          </>
+        }
         subtitle={hero.subtitle}
+        chips={hero.chips}
         role={role}
         team={team}
         timeline={timeline}
         variant="abtools"
+        aside={<SusScoreCard {...susScoreCard} />}
       >
         <BeeTrail
           {...BEE_PATHS.hero}
@@ -147,52 +193,85 @@ export default function JohnDeerePage() {
           </div>
         </CaseStudySection>
 
-        <CaseStudySection id="overview" heading="Overview">
-          {overview.map((p) => (
-            <p key={p.slice(0, 24)} className={styles.body}>
-              {p}
-            </p>
-          ))}
+        {/* The short version — TL;DR card, §3.2 */}
+        <CaseStudySection id="overview" label="The short version">
+          <TldrCard summary={tldr.summary} tldr={tldr} />
         </CaseStudySection>
 
-        <CaseStudySection id="background" heading="Background">
-          <p className={styles.lead}>{background.lead}</p>
-          <p className={styles.body}>{background.p1}</p>
-          <div className={styles.contextGrid}>
-            {background.context.map((c) => (
-              <div key={c.label} className={styles.contextCard}>
-                <div
-                  className={`${styles.contextValue}${c.highlight ? ` ${styles.contextValueHot}` : ""}`}
-                >
-                  {c.value}
-                </div>
-                <div className={styles.contextLabel}>{c.label}</div>
-              </div>
-            ))}
+        {/* Prologue — §3.3 */}
+        <CaseStudySection
+          id="context"
+          label="Prologue"
+          heading={
+            <>
+              A UX team people liked, but didn&rsquo;t yet{" "}
+              <Accent>rely on for evidence</Accent>
+            </>
+          }
+        >
+          <p className={styles.lead}>{prologue.lead}</p>
+          <div className={styles.prologueGrid}>
+            <ChartFigure
+              summary="Of 40 respondents, 33 valued UX for a user-centred mindset but only 11 for evidence-based decisions."
+              columns={["Benefit", "Count (of 40)"]}
+              rows={prologue.survey.rows.map((r) => [r.label, String(r.count)])}
+            >
+              <Figure caption={prologue.caption} className={styles.prologueChart}>
+                <SurveyBars
+                  title={prologue.survey.title}
+                  total={prologue.survey.total}
+                  rows={prologue.survey.rows}
+                  circleHighlight
+                />
+              </Figure>
+            </ChartFigure>
+            <div className={styles.prologueStickies}>
+              {prologue.stickies.map((s, i) => (
+                <StickyNote key={s} rotate={i % 2 === 0 ? 1.5 : -1}>
+                  {renderBold(s)}
+                </StickyNote>
+              ))}
+              <HandNote rotate={-1.5}>{prologue.note}</HandNote>
+            </div>
           </div>
-          <p className={styles.body}>{background.p2}</p>
-          <div className={styles.chips}>
-            {background.systems.map((s, i) => (
-              <span
-                key={s}
-                className={`${styles.chip}${i === 0 ? ` ${styles.chipHot}` : ""}`}
-              >
-                {s}
-              </span>
-            ))}
-          </div>
-          <p className={styles.body}>{background.p3}</p>
-          <BeforeAfter
-            caption={beforeAfter.caption}
-            before={beforeAfter.before}
-            after={beforeAfter.after}
-          />
         </CaseStudySection>
 
+        {/* 01 · The problem — §3.4, merges the old Background section */}
         <div className={styles.tintSection}>
-          <CaseStudySection id="problem" heading="01: The Research Problem">
+          <CaseStudySection
+            id="problem"
+            label="Chapter 01 · The problem"
+            heading={
+              <>
+                Experts don&rsquo;t forgive{" "}
+                <Accent>a pretty slowdown</Accent>
+              </>
+            }
+          >
             <p className={styles.lead}>{problem.lead}</p>
             <p className={styles.body}>{problem.p}</p>
+
+            <div className={styles.contextGrid}>
+              {background.context.map((c) => (
+                <div key={c.label} className={styles.contextCard}>
+                  <div
+                    className={`${styles.contextValue}${c.highlight ? ` ${styles.contextValueHot}` : ""}`}
+                  >
+                    {c.value}
+                  </div>
+                  <div className={styles.contextLabel}>{c.label}</div>
+                </div>
+              ))}
+            </div>
+
+            <BeforeAfter
+              caption={beforeAfter.caption}
+              before={beforeAfter.before}
+              after={beforeAfter.after}
+              beforeNote={beforeAfter.beforeNote}
+              afterNote={beforeAfter.afterNote}
+            />
+
             <div className={styles.forceGrid}>
               {problem.forces.map((f) => (
                 <div
@@ -205,6 +284,8 @@ export default function JohnDeerePage() {
                 </div>
               ))}
             </div>
+
+            <h3 className={styles.h3}>The questions I set out to answer</h3>
             {problem.rqs.map((rq, i) => (
               <div key={rq} className={styles.rq}>
                 <span className={styles.rqLabel}>RQ. {i + 1}</span>
@@ -214,7 +295,16 @@ export default function JohnDeerePage() {
           </CaseStudySection>
         </div>
 
-        <CaseStudySection id="design" heading="02: Study Design">
+        {/* 02 · The plan — §3.5. ProcessDiagram comes in Phase 4. */}
+        <CaseStudySection
+          id="design"
+          label="Chapter 02 · The plan"
+          heading={
+            <>
+              Measure the same people <Accent>before and after</Accent>
+            </>
+          }
+        >
           <p className={styles.lead}>{design.lead}</p>
           {design.paras.map((p) => (
             <p key={p.strong} className={styles.body}>
@@ -274,6 +364,16 @@ export default function JohnDeerePage() {
               ))}
             </div>
           </Figure>
+          <HandNote rotate={-1.5}>{design.timeline.note}</HandNote>
+
+          <Figure caption={design.process.caption}>
+            <ProcessDiagram
+              stickies={design.process.stickies}
+              steps={design.process.steps}
+              loopLabel={design.process.loopLabel}
+            />
+          </Figure>
+          <HandNote rotate={1}>{design.process.note}</HandNote>
 
           <h3 className={styles.h3}>Instruments</h3>
           <div className={styles.cardGrid}>
@@ -285,36 +385,91 @@ export default function JohnDeerePage() {
             ))}
           </div>
 
-          <h3 className={styles.h3}>Research decisions and trade-offs</h3>
-          <div className={styles.tableWrap}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th scope="col">Decision</th>
-                  <th scope="col">Why</th>
-                  <th scope="col">Trade-off</th>
-                </tr>
-              </thead>
-              <tbody>
-                {design.tradeoffs.map((row) => (
-                  <tr key={row[0]}>
-                    <td>{row[0]}</td>
-                    <td>{row[1]}</td>
-                    <td>{row[2]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <Figure
+            caption={design.questionnaire.caption}
+            className={styles.questionnaireFigure}
+          >
+            <Image
+              src={design.questionnaire.image}
+              alt={design.questionnaire.alt}
+              width={design.questionnaire.imageWidth}
+              height={design.questionnaire.imageHeight}
+              className={styles.questionnaireImg}
+              sizes="(min-width: 1100px) 50vw, 100vw"
+            />
+          </Figure>
+          <div className={styles.questionnaireFlow}>
+            <ol className={styles.flowList}>
+              {design.questionnaire.flow.map((step, i) => (
+                <li key={step}>
+                  <span className={styles.flowNum}>{i + 1}</span> {step}
+                </li>
+              ))}
+            </ol>
+            <StickyNote rotate={-1}>
+              {renderBold(design.questionnaire.sticky)}
+            </StickyNote>
           </div>
+
+          <h3 className={styles.h3}>Design decisions, and what each one cost</h3>
+          <div className={styles.decisionGrid}>
+            {design.tradeoffs.map((row, i) => (
+              <div key={row[0]} className={styles.decisionCard}>
+                <span className={styles.decisionEyebrow}>Decision {i + 1}</span>
+                <h3 className={styles.miniTitle}>{row[0]}</h3>
+                <p className={styles.miniText}>
+                  <strong>Why:</strong> {row[1]}
+                </p>
+                <p className={`${styles.miniText} ${styles.decisionCost}`}>
+                  <strong>Cost:</strong> {row[2]}
+                </p>
+              </div>
+            ))}
+          </div>
+          <ShowDetails summary="Show as a table">
+            <div className={styles.tableWrap}>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th scope="col">Decision</th>
+                    <th scope="col">Why</th>
+                    <th scope="col">Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {design.tradeoffs.map((row) => (
+                    <tr key={row[0]}>
+                      <td>{row[0]}</td>
+                      <td>{row[1]}</td>
+                      <td>{row[2]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </ShowDetails>
         </CaseStudySection>
 
+        {/* 03 · The people — §3.6 */}
         <div className={styles.tintSection}>
-          <CaseStudySection id="participants" heading="03: Participants">
+          <CaseStudySection
+            id="participants"
+            label="Chapter 03 · The people"
+            heading={
+              <>
+                Four roles, <Accent>decades of muscle memory</Accent>
+              </>
+            }
+          >
             <p className={styles.lead}>{participants.lead}</p>
             <p className={styles.body}>{participants.p}</p>
             <div className={styles.profileGrid}>
               {participants.profiles.map((p) => (
                 <div key={p.role} className={styles.profile}>
+                  <div className={styles.profileHead}>
+                    <DoodleAvatar tint={p.avatarTint as DoodleAvatarTint} />
+                    <span className={styles.profilePid}>{p.pid}</span>
+                  </div>
                   <span className={styles.profileRole}>{p.role}</span>
                   <h3 className={styles.profileName}>{p.name}</h3>
                   <span className={styles.profileHours}>{p.hours}</span>
@@ -334,70 +489,120 @@ export default function JohnDeerePage() {
           </CaseStudySection>
         </div>
 
-        <CaseStudySection id="workflow" heading="04: The Workflow">
+        {/* 04 · The workflow — §3.7 */}
+        <CaseStudySection
+          id="workflow"
+          label="Chapter 04 · The workflow"
+          heading={
+            <>
+              Following one credit decision{" "}
+              <Accent>from queue to handoff</Accent>
+            </>
+          }
+        >
           <p className={styles.lead}>{workflow.lead}</p>
-          <p className={styles.body}>{workflow.p}</p>
           <Figure caption={workflow.caption}>
-            {workflow.steps.map((step, i) => (
-              <div key={step.title} className={styles.workflowStep}>
-                <div>
-                  <span className={styles.stepMono}>Step {i + 1}</span>
-                  <h3 className={styles.stepTitle}>{step.title}</h3>
-                </div>
-                <div className={styles.findings}>
-                  {step.findings.map((f, fi) => (
-                    <span
-                      key={f}
-                      className={`${styles.findChip}${
-                        step.emphasis === fi ? ` ${styles.findChipHot}` : ""
-                      }`}
-                    >
-                      {f}
+            {workflow.steps.map((step, i) => {
+              const isHotspot = i === workflow.hotspotIndex;
+              return (
+                <div
+                  key={step.title}
+                  className={`${styles.workflowStep}${isHotspot ? ` ${styles.workflowStepHot}` : ""}`}
+                >
+                  <div>
+                    <span className={styles.stepMono}>
+                      Step {i + 1}
+                      {isHotspot ? " · hotspot" : ""}
                     </span>
-                  ))}
+                    <h3 className={styles.stepTitle}>{step.title}</h3>
+                  </div>
+                  <ul className={styles.findings}>
+                    {step.findings.map((f, fi) => (
+                      <StickyNote
+                        key={f}
+                        as="li"
+                        size="sm"
+                        rotate={fi % 2 === 0 ? -1 : 1}
+                      >
+                        {f}
+                      </StickyNote>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </Figure>
+
+          <BeforeAfter
+            caption={beforeAfterParties.caption}
+            before={beforeAfterParties.before}
+            after={beforeAfterParties.after}
+          />
         </CaseStudySection>
 
+        {/* 05 · The numbers — §3.8 */}
         <div className={styles.tintSection}>
-          <CaseStudySection id="results" heading="05: Results">
+          <CaseStudySection
+            id="results"
+            label="Chapter 05 · What the numbers said"
+            heading={
+              <>
+                Usability went up. <Accent>Satisfaction barely moved.</Accent>
+              </>
+            }
+          >
             <p className={styles.lead}>{results.lead}</p>
-            <p className={styles.body}>{results.p}</p>
 
-            <Figure
-              caption={results.sus.caption}
-              ariaLabel="SUS scores: previous 60, current 85.6"
+            <ChartFigure
+              summary={results.sus.summary}
+              columns={["Measure", "Score"]}
+              rows={results.sus.rows.map((r) => [r.label, String(r.value)])}
             >
-              {results.sus.rows.map((r) => (
-                <BarRow
-                  key={r.label}
-                  label={r.label}
-                  value={r.value}
-                  kind={r.kind as "prev" | "bench" | "current"}
-                />
-              ))}
-            </Figure>
+              <Figure
+                caption={results.sus.caption}
+                ariaLabel="SUS scores: previous 60, current 85.6"
+              >
+                {results.sus.rows.map((r) => (
+                  <BarRow
+                    key={r.label}
+                    label={r.label}
+                    value={r.value}
+                    kind={r.kind as "prev" | "bench" | "current"}
+                  />
+                ))}
+              </Figure>
+            </ChartFigure>
 
-            <Figure caption={results.dimensions.caption}>
-              <div className={styles.dimLegend}>
-                <span className={styles.legPrev}>Previous</span>
-                <span className={styles.legCurrent}>Current</span>
-              </div>
-              {results.dimensions.rows.map((r) => (
-                <DimensionRow
-                  key={r.label}
-                  label={r.label}
-                  before={r.before}
-                  after={r.after}
-                  change={r.change}
-                  highlight={r.highlight}
-                  muted={r.muted}
-                  delayCurrent
-                />
-              ))}
-            </Figure>
+            <ChartFigure
+              summary={results.dimensions.summary}
+              columns={["Dimension", "Before %", "After %", "Change"]}
+              rows={results.dimensions.rows.map((r) => [
+                r.label,
+                `${r.before}%`,
+                `${r.after}%`,
+                `+${r.change}`,
+              ])}
+            >
+              <Figure caption={results.dimensions.caption}>
+                <div className={styles.dimLegend}>
+                  <span className={styles.legPrev}>Previous</span>
+                  <span className={styles.legCurrent}>Current</span>
+                </div>
+                {results.dimensions.rows.map((r) => (
+                  <DimensionRow
+                    key={r.label}
+                    label={r.label}
+                    before={r.before}
+                    after={r.after}
+                    change={r.change}
+                    highlight={r.highlight}
+                    muted={r.muted}
+                    delayCurrent
+                  />
+                ))}
+              </Figure>
+            </ChartFigure>
+            <HandNote rotate={1.5}>{results.note}</HandNote>
 
             <div className={styles.storyGrid}>
               {results.stories.map((s) => (
@@ -418,51 +623,43 @@ export default function JohnDeerePage() {
           </CaseStudySection>
         </div>
 
-        <CaseStudySection id="findings" heading="06: Qualitative Findings">
+        {/* 06 · What people said — §3.9. Quote pairs + AffinityBoard come in Phase 4/5. */}
+        <CaseStudySection
+          id="findings"
+          label="Chapter 06 · What people said"
+          heading={
+            <>
+              The scores said how much. <Accent>The words said why.</Accent>
+            </>
+          }
+        >
           <p className={styles.lead}>{qualitative.lead}</p>
           <p className={styles.body}>{qualitative.p}</p>
+
+          <div className={styles.quotePairs}>
+            {quotes.map((q) => (
+              <QuotePair
+                key={q.dimension}
+                dimension={q.dimension}
+                before={q.before}
+                after={q.after}
+              />
+            ))}
+          </div>
 
           <Figure caption={qualitative.themes.caption}>
             <ThemeStack rows={qualitative.themes.rows} />
           </Figure>
+          <div className={styles.themeNoteRow}>
+            <StickyNote rotate={-1.5}>{qualitative.note.sticky}</StickyNote>
+            <HandNote rotate={1}>{qualitative.note.hand}</HandNote>
+          </div>
 
-          <h3 className={styles.notesTitle}>{qualitative.notes.title}</h3>
-          <p className={styles.body}>{qualitative.notes.p}</p>
-
-          <Figure caption={qualitative.notes.caption}>
-            <div className={styles.notesGrid}>
-              <div className={styles.notesBefore}>
-                <span className={styles.notesMono}>
-                  {qualitative.notes.beforeTitle}
-                </span>
-                {qualitative.notes.mock.map((m) => (
-                  <div key={m.head} className={styles.noteBlock}>
-                    <div className={styles.noteHead}>{m.head}</div>
-                    {m.lines.map((line) => (
-                      <div key={line} className={styles.noteLine}>
-                        {line}
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-              <div className={styles.notesAfter}>
-                <span className={styles.notesMono}>
-                  {qualitative.notes.afterTitle}
-                </span>
-                <div className={styles.afterBox}>
-                  {qualitative.notes.mock
-                    .flatMap((m) => m.lines)
-                    .join(" ")}
-                </div>
-                <p className={styles.miniText} style={{ marginTop: 12 }}>
-                  {qualitative.notes.afterNote}
-                </p>
-              </div>
-            </div>
+          <h3 className={styles.h3}>{affinity.heading}</h3>
+          <Figure caption={affinity.caption}>
+            <AffinityBoard columns={affinity.columns} />
           </Figure>
-
-          <p className={styles.body}>{qualitative.notes.gestalt}</p>
+          <HandNote rotate={-1}>{affinity.note}</HandNote>
 
           <h3 className={styles.h3}>Beyond the headline</h3>
           <div className={styles.cardGrid}>
@@ -475,15 +672,78 @@ export default function JohnDeerePage() {
           </div>
         </CaseStudySection>
 
+        {/* 07 · The Notes problem — §3.10, new chapter */}
+        <div className={styles.tintSection}>
+          <CaseStudySection
+            id="notes"
+            label="Chapter 07 · Design deep dive"
+            heading={
+              <>
+                The Notes problem: <Accent>formatting is information</Accent>
+              </>
+            }
+          >
+            <p className={styles.lead}>{notesChapter.lead}</p>
+
+            <Blockquote
+              text={notesChapter.pullQuote.text}
+              author={notesChapter.pullQuote.cite}
+            />
+
+            <Figure caption={notesChapter.caption}>
+              <NotesMock
+                label={notesChapter.label}
+                shipped={{
+                  title: notesChapter.shipped.title,
+                  appBar: notesChapter.shipped.appBar,
+                  paragraph: qualitative.notes.mock
+                    .flatMap((m) => m.lines)
+                    .join(" "),
+                  viewAllLabel: notesChapter.shipped.viewAllLabel,
+                  chips: notesChapter.shipped.chips,
+                }}
+                recommended={{
+                  title: notesChapter.recommended.title,
+                  cards: [
+                    {
+                      author: notesChapter.recommended.cardAuthors[0],
+                      body: qualitative.notes.mock
+                        .slice(0, 2)
+                        .map((m) => m.lines.join("\n"))
+                        .join("\n\n"),
+                    },
+                    {
+                      author: notesChapter.recommended.cardAuthors[1],
+                      body: qualitative.notes.mock[2].lines.join(" "),
+                    },
+                  ],
+                  showFullLabel: notesChapter.recommended.showFullLabel,
+                  sidePanel: notesChapter.recommended.sidePanel,
+                  chips: notesChapter.recommended.chips,
+                }}
+              />
+            </Figure>
+            <HandNote rotate={-2}>{notesChapter.note}</HandNote>
+
+            <p className={styles.body}>{qualitative.notes.gestalt}</p>
+          </CaseStudySection>
+        </div>
+
+        {/* 08 · The verdict — §3.11 */}
         <div className={styles.darkSection}>
           <CaseStudySection
             id="decisions"
-            heading="07: What the Redesign Got Right and Wrong"
+            label="Chapter 08 · The verdict"
+            heading={
+              <>
+                What the redesign got right, <Accent>and what it missed</Accent>
+              </>
+            }
           >
             <p className={styles.body}>{rightWrong.intro}</p>
             <div className={styles.twoCol}>
               <div>
-                <h3 className={styles.colHead}>Got right · 4</h3>
+                <h3 className={styles.colHead}>Keep · 4</h3>
                 {rightWrong.right.map((item) => (
                   <div key={item.title} className={styles.rightItem}>
                     <h3 className={styles.rightTitle}>{item.title}</h3>
@@ -491,10 +751,11 @@ export default function JohnDeerePage() {
                     <span className={styles.principle}>{item.principle}</span>
                   </div>
                 ))}
+                <HandNote rotate={-1.5}>{rightWrong.keepNote}</HandNote>
               </div>
               <div>
                 <h3 className={`${styles.colHead} ${styles.colHeadWrong}`}>
-                  Got wrong · 10
+                  Fix · 10
                 </h3>
                 {rightWrong.wrong.map(([title, principle]) => (
                   <div key={title} className={styles.wrongItem}>
@@ -507,125 +768,147 @@ export default function JohnDeerePage() {
           </CaseStudySection>
         </div>
 
-        <CaseStudySection id="patterns" heading="08: Design System Implications">
+        {/* 09 · Design system — §3.12 */}
+        <CaseStudySection
+          id="patterns"
+          label="Chapter 09 · From findings to patterns"
+          heading={
+            <>
+              Fix it once, <Accent>in the design system</Accent>
+            </>
+          }
+        >
           <p className={styles.lead}>{designSystem.lead}</p>
-          <p className={styles.body}>{designSystem.p}</p>
-          <div className={styles.tableWrap}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th scope="col" style={{ width: "40%" }}>
-                    Finding
-                  </th>
-                  <th scope="col">Pattern to fix it once</th>
-                </tr>
-              </thead>
-              <tbody>
-                {designSystem.rows.map((row) => (
-                  <tr key={row[0]}>
-                    <td>{row[0]}</td>
-                    <td>{row[1]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </CaseStudySection>
 
-        <div className={styles.tintSection}>
-          <CaseStudySection id="context" heading="09: Organizational Context">
-            <p className={styles.lead}>{org.lead}</p>
-            <p className={styles.body}>{org.p}</p>
-            <div className={styles.orgStats}>
-              {org.stats.map((s) => (
-                <div
-                  key={s.value}
-                  className={`${styles.orgStat}${s.solid ? ` ${styles.orgStatSolid}` : ""}`}
-                >
-                  <div className={styles.orgStatValue}>{s.value}</div>
-                  <div className={styles.orgStatText}>{s.text}</div>
-                </div>
-              ))}
-            </div>
+          <p className={styles.patternsLabel}>{designSystem.tilesLabel}</p>
+          <PatternTiles tiles={designSystem.tiles} />
+          <HandNote rotate={-1.5}>{designSystem.tilesNote}</HandNote>
+
+          <ShowDetails summary="Show findings and patterns as a table">
             <div className={styles.tableWrap}>
               <table className={styles.table}>
                 <thead>
                   <tr>
-                    <th scope="col">Recommendation</th>
-                    <th scope="col">Survey evidence</th>
-                    <th scope="col">Of 40</th>
+                    <th scope="col" style={{ width: "40%" }}>
+                      Finding
+                    </th>
+                    <th scope="col">Pattern to fix it once</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {org.rows.map((row) => (
-                    <tr key={`${row[0]}-${row[1]}`}>
+                  {designSystem.rows.map((row) => (
+                    <tr key={row[0]}>
                       <td>{row[0]}</td>
                       <td>{row[1]}</td>
-                      <td className={styles.countCell}>{row[2]}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <p className={styles.caveat}>{org.caveat}</p>
+          </ShowDetails>
+        </CaseStudySection>
+
+        {/* 10 · Impact — §3.13. "Where it led" + OkrBoard come in Phase 5. */}
+        <div className={styles.tintSection}>
+          <CaseStudySection
+            id="impact"
+            label="Chapter 10 · Impact"
+            heading={
+              <>
+                Evidence, <Accent>not just a launch</Accent>
+              </>
+            }
+          >
+            <div className={styles.impactGrid}>
+              {impact.cards.map((c) => (
+                <div key={c.kicker} className={styles.impactCard}>
+                  <span className={styles.impactKicker}>{c.kicker}</span>
+                  <h3 className={styles.miniTitle}>{c.title}</h3>
+                  {c.paras.map((para) => (
+                    <p key={para.slice(0, 24)} className={styles.miniText}>
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <blockquote className={styles.quote}>{impact.quote}</blockquote>
+
+            <ShowDetails summary="See the survey evidence behind each recommendation">
+              <div className={styles.tableWrap}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      <th scope="col">Recommendation</th>
+                      <th scope="col">Survey evidence</th>
+                      <th scope="col">Of 40</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {org.rows.map((row) => (
+                      <tr key={`${row[0]}-${row[1]}`}>
+                        <td>{row[0]}</td>
+                        <td>{row[1]}</td>
+                        <td className={styles.countCell}>{row[2]}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className={styles.caveat}>{org.caveat}</p>
+            </ShowDetails>
+
+            <h3 className={styles.h3}>{impact.whereItLed.heading}</h3>
+            <p className={styles.body}>{impact.whereItLed.text}</p>
+            <Figure caption={impact.okr.caption}>
+              <OkrBoard
+                objective={impact.okr.objective}
+                keyResults={impact.okr.keyResults}
+                initiatives={impact.okr.initiatives}
+                note={impact.okr.note}
+              />
+            </Figure>
           </CaseStudySection>
         </div>
 
-        <CaseStudySection id="impact" heading="10: Impact and Recommendations">
-          <div className={styles.impactGrid}>
-            {impact.cards.map((c) => (
-              <div key={c.kicker} className={styles.impactCard}>
-                <span className={styles.impactKicker}>{c.kicker}</span>
-                <h3 className={styles.miniTitle}>{c.title}</h3>
-                {c.paras.map((para) => (
-                  <p key={para.slice(0, 24)} className={styles.miniText}>
-                    {para}
-                  </p>
-                ))}
-              </div>
-            ))}
-          </div>
-          <blockquote className={styles.quote}>{impact.quote}</blockquote>
-        </CaseStudySection>
-
+        {/* 11 · Looking back — §3.14, merges Limitations + Next time + Lessons */}
         <CaseStudySection
-          id="limitations"
-          heading="11: Limitations"
-          // no top padding so quote sits directly above
+          id="lessons"
+          label="Chapter 11 · Looking back"
+          heading={
+            <>
+              What I&rsquo;d keep, <Accent>and what I&rsquo;d add</Accent>
+            </>
+          }
         >
-          <div className={styles.noTopPad}>
-            <p className={styles.lead}>{limitations.lead}</p>
-            {limitations.rows.map(([title, text]) => (
-              <div key={title} className={styles.limitRow}>
-                <h3 className={styles.limitTitle}>{title}</h3>
-                <p className={styles.limitText}>{text}</p>
-              </div>
-            ))}
-          </div>
-        </CaseStudySection>
-
-        <div className={styles.tintSection}>
-          <CaseStudySection id="next" heading="12: What I'd Add Next Time">
-            <div className={styles.cardGrid}>
+          <div className={styles.lookingBackGrid}>
+            <div className={styles.lookingBackCol}>
+              <h3 className={styles.lookingBackTitle}>Limitations</h3>
+              <ul className={styles.limitBullets}>
+                {limitations.rows.map(([title]) => (
+                  <li key={title}>{title}</li>
+                ))}
+              </ul>
+            </div>
+            <div className={styles.lookingBackCol}>
+              <h3 className={styles.lookingBackTitle}>Next time</h3>
               {nextTime.map((n) => (
-                <div key={n.title} className={styles.miniCard}>
+                <div key={n.title} className={styles.nextItem}>
                   <span className={styles.when}>{n.when}</span>
-                  <h3 className={styles.miniTitle}>{n.title}</h3>
+                  <h4 className={styles.miniTitle}>{n.title}</h4>
                   <p className={styles.miniText}>{n.text}</p>
                 </div>
               ))}
             </div>
-          </CaseStudySection>
-        </div>
-
-        <CaseStudySection id="lessons" heading="13: What This Project Taught Me">
-          <div className={styles.lessonsGrid}>
-            {lessons.map((l) => (
-              <div key={l.title} className={styles.lesson}>
-                <h3 className={styles.lessonTitle}>{l.title}</h3>
-                <p className={styles.lessonText}>{l.text}</p>
-              </div>
-            ))}
+            <div className={`${styles.lookingBackCol} ${styles.lookingBackTint}`}>
+              <h3 className={styles.lookingBackTitle}>What this taught me</h3>
+              {lessons.map((l) => (
+                <div key={l.title} className={styles.lessonItem}>
+                  <h4 className={styles.miniTitle}>{l.title}</h4>
+                  <p className={styles.miniText}>{l.text}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </CaseStudySection>
       </CaseStudyLayout>

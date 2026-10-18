@@ -7,7 +7,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 interface SectionProps {
   id?: string;
   label?: string;
-  heading?: string;
+  heading?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -32,6 +32,16 @@ export function CaseStudySection({
       </motion.div>
     </section>
   );
+}
+
+/**
+ * Italic script accent word/phrase for inside a heading, e.g. the
+ * `'better'` in a hero title or the emphasized clause of a chapter H2.
+ * Only safe inside large text (≥24px): --color-lilac clears 3:1 but not
+ * 4.5:1 on this page's light and dark section backgrounds.
+ */
+export function Accent({ children }: { children: React.ReactNode }) {
+  return <span className={styles.accent}>{children}</span>;
 }
 
 export function ContextCard({ title, text }: { title: string; text: string }) {

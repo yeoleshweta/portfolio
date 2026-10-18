@@ -1,0 +1,75 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.title {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.row {
+  position: relative;
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 16px;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.label {
+  font-weight: 400;
+}
+
+.labelHighlight {
+  font-weight: 700;
+}
+
+.count {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.track {
+  height: 14px;
+  border-radius: 999px;
+  background: var(--color-border);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-before);
+}
+
+.fillHighlight {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-accent-text);
+}
+
+.circle {
+  position: absolute;
+  left: -24px;
+  top: -14px;
+  width: 300px;
+  height: 100px;
+  pointer-events: none;
+}

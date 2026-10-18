@@ -1,0 +1,85 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 420px;
+}
+
+.card {
+  width: 100%;
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+  padding: 32px 28px 28px;
+  transform: rotate(-1.2deg);
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.35);
+}
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent-text);
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.label {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.before {
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-before);
+  margin: 0;
+}
+
+.after {
+  font-size: 84px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.arrow {
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.underline {
+  display: block;
+  margin-top: 4px;
+}
+
+.body {
+  margin: 16px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.note {
+  margin-top: 18px;
+}
+
+@media (max-width: 480px) {
+  .after {
+    font-size: 64px;
+  }
+  .before {
+    font-size: 48px;
+  }
+}

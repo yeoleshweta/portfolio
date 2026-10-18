@@ -1,0 +1,62 @@
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.column {
+  flex: 1 1 200px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 16px;
+  border: 2px dashed var(--color-border);
+  background: rgba(255, 255, 255, 0.6);
+  box-sizing: border-box;
+}
+
+.wide {
+  flex-basis: 300px;
+  flex-grow: 1.5;
+  background: var(--color-surface);
+  border: 2.5px solid var(--color-accent-text);
+}
+
+.heading {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.count {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notesSticky {
+  background: var(--color-sticky-accent);
+}
+
+.more {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent-text);
+}

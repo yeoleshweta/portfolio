@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fig 07: six design system patterns, before and after</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&amp;family=Hanken+Grotesk:wght@400;600;800&amp;family=Instrument+Serif:ital@1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.tile{background:#FFFFFF;border:1px solid #DCD6E6;border-radius:18px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;box-sizing:border-box}
+.tile h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-0.01em}
+.pair{display:flex;gap:12px;flex:1}
+.b,.a{flex:1;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.4;box-sizing:border-box}
+.b{border:2px dashed #8E86A0;color:#4A4553}
+.a{border:2px solid #5B3FBF;background:#FAF8FE;color:#141218}
+.lb{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#57525F}
+.pill{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600}
+</style>
+</helmet>
+<div style="width: 1600px; height: 1000px; box-sizing: border-box; padding: 56px 80px; background-color: #F3F2F5; background-image: linear-gradient(#E7E4ED 1px, transparent 1px), linear-gradient(90deg, #E7E4ED 1px, transparent 1px); background-size: 64px 64px; color: #141218; font-family: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end">
+<h1 style="margin: 0; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1">Fix it once, <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #5B3FBF">in the design system</span></h1>
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: #57525F">Illustrative sketches · dashed = before, solid = after</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; flex: 1">
+
+<div class="tile"><h2>1 · Comment display</h2><div class="pair">
+<div class="b"><span class="lb">Before</span><span>Called dealer. Waiting on returns. Bank rating requested. Follow up Friday. Spoke with…</span></div>
+<div class="a"><span class="lb">After</span><span style="white-space: pre-line">Called dealer.
+– Waiting on returns
+– Bank rating requested
+Follow up Friday.</span></div>
+</div></div>
+
+<div class="tile"><h2>2 · Relative type</h2><div class="pair">
+<div class="b"><span class="lb">Before · 200% zoom</span><span style="font-size: 12px">Notes text stays 12px</span><span style="font-size: 20px; font-weight: 700">Other UI grows</span></div>
+<div class="a"><span class="lb">After · 200% zoom</span><span style="font-size: 20px">Notes text grows too</span><span style="font-size: 20px; font-weight: 700">Everything in rem</span></div>
+</div></div>
+
+<div class="tile"><h2>3 · Modal standard</h2><div class="pair">
+<div class="b"><span class="lb">Before</span><div style="border: 1.5px solid #9A94A6; border-radius: 8px; padding: 8px; display: flex; justify-content: space-between"><span>Status history</span><b>X</b></div><span>Only the X closes it. Can’t see the page behind.</span></div>
+<div class="a"><span class="lb">After</span><div style="display: flex; gap: 6px"><div style="flex: 1; border: 1.5px solid #DCD6E6; border-radius: 8px; height: 60px"></div><div style="width: 40%; border: 1.5px solid #5B3FBF; border-radius: 8px; padding: 6px">Side panel</div></div><span>Esc or outside click closes. Compare side by side.</span></div>
+</div></div>
+
+<div class="tile"><h2>4 · One error pattern</h2><div class="pair">
+<div class="b"><span class="lb">Before</span><div style="border: 1.5px solid #9A94A6; border-radius: 8px; padding: 8px">Error. Operation failed.</div><span>No reason, no next step.</span></div>
+<div class="a"><span class="lb">After</span><div style="border: 1.5px solid #5B3FBF; border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 4px"><b>We couldn’t save this note.</b><span>The connection dropped.</span><span class="pill" style="align-self: flex-start; background: #5B3FBF; color: #FFFFFF">Try again</span></div><span>What happened · why · what to do.</span></div>
+</div></div>
+
+<div class="tile"><h2>5 · List patterns</h2><div class="pair">
+<div class="b"><span class="lb">Before</span><span>Search: my name → no results</span><span>Leave and come back: back to the top of 136 items</span></div>
+<div class="a"><span class="lb">After</span><div style="display: flex; gap: 6px; flex-wrap: wrap"><span class="pill" style="background: #ECE6FD; color: #3F2A8F">Pinned: My worklist</span><span class="pill" style="border: 1.5px solid #5B3FBF; color: #3F2A8F">Refresh</span><span class="pill" style="border: 1.5px solid #5B3FBF; color: #3F2A8F">Export</span></div><span>Search includes you, even with 0 items. Your place is kept.</span></div>
+</div></div>
+
+<div class="tile"><h2>6 · Clear states</h2><div class="pair">
+<div class="b"><span class="lb">Before</span><span class="pill" style="align-self: flex-start; background: #5B3FBF; color: #FFFFFF">Create credit request</span><span>Looks active, does nothing.</span></div>
+<div class="a"><span class="lb">After</span><span class="pill" style="align-self: flex-start; background: #E7E3EF; color: #4A4553; border: 1.5px dashed #8E86A0">Create credit request</span><span>Disabled look, plus the reason: “Available after the application is saved.”</span></div>
+</div></div>
+
+</div>
+<p style="margin: 0; font-family: 'Caveat', cursive; font-size: 32px; font-weight: 700; color: #3F2A8F; transform: rotate(-1deg)">10 bugs in one tool → 6 patterns every JDF tool can reuse</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":1000}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

@@ -33,6 +33,15 @@
   color: var(--jd-accent-soft) !important;
 }
 
+/* The shared .label class is hashed by CSS Modules, so target it by a
+   substring match (same trick the .heading rule above relies on via its
+   plain `h2` fallback, which .label has no tag equivalent for). It uses
+   --color-accent-text, which is near-invisible on this near-black
+   background, so swap in the same soft accent used for the heading. */
+.darkSection [class*="CaseStudyContent-module"][class*="__label"] {
+  color: var(--jd-accent-soft) !important;
+}
+
 .lead {
   font-size: clamp(22px, 2.4vw, 26px);
   line-height: 1.35;
@@ -450,6 +459,20 @@
   box-shadow: 0 12px 28px rgba(121, 82, 245, 0.12);
 }
 
+.profileHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profilePid {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-accent-text);
+}
+
 .profileRole {
   font-family: "JetBrains Mono", monospace;
   font-size: 12px;
@@ -527,6 +550,13 @@
   margin: 8px 0;
 }
 
+/* Step 3, the friction hotspot (§3.7). */
+.workflowStepHot {
+  border-left: 3px solid var(--color-accent-text);
+  background: var(--jd-tint-1);
+  border-radius: 0 12px 12px 0;
+}
+
 .stepMono {
   font-family: "JetBrains Mono", monospace;
   font-size: 12px;
@@ -577,6 +607,7 @@
 .dimLegend span::before {
   content: "";
   display: inline-block;
+  box-sizing: border-box;
   width: 10px;
   height: 10px;
   border-radius: 999px;
@@ -584,8 +615,11 @@
   vertical-align: middle;
 }
 
+/* Previous = outlined/hollow, Current = filled, so the pair reads by shape
+   as well as colour (§3.8). */
 .legPrev::before {
-  background: var(--jd-prev);
+  background: transparent;
+  border: 2px solid var(--jd-prev);
 }
 
 .legCurrent::before {
@@ -890,4 +924,225 @@
   .meta {
     gap: 28px;
   }
+}
+
+/* Chapter 11 · Looking back (§3.14) — limitations / next time / lessons,
+   merged into three side-by-side cards. */
+.lookingBackGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 24px;
+  margin-top: 12px;
+  align-items: start;
+}
+
+.lookingBackCol {
+  background: #fff;
+  border: 1px solid var(--jd-line);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lookingBackTint {
+  background: var(--jd-tint-1);
+  border-color: transparent;
+}
+
+.lookingBackTitle {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--jd-ink);
+  margin: 0;
+}
+
+.limitBullets {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--jd-body);
+}
+
+.nextItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nextItem + .nextItem {
+  padding-top: 12px;
+  border-top: 1px solid var(--jd-line);
+}
+
+.lessonItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lessonItem + .lessonItem {
+  padding-top: 12px;
+  border-top: 1px solid rgba(121, 82, 245, 0.18);
+}
+
+/* SUS sheet image (§3.5), centered and capped like the design figures. */
+.questionnaireFigure {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid var(--jd-line);
+}
+
+.questionnaireImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+/* HandNote's default --color-accent-text fails contrast on this near-black
+   background; reuse the same soft accent as the heading/label overrides. */
+.darkSection [class*="doodles-module"][class*="__handNote"] {
+  color: var(--jd-accent-soft);
+}
+
+/* Prologue (§3.3): chart 60% / stickies 40% ≥900px, stacked below. */
+.prologueGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-top: 8px;
+}
+
+.prologueChart {
+  background: #fff;
+  border: 1px solid var(--jd-line);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.prologueStickies {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+@media (min-width: 900px) {
+  .prologueGrid {
+    grid-template-columns: 3fr 2fr;
+    align-items: start;
+  }
+}
+
+/* SUS questionnaire session flow (§3.5) */
+.questionnaireFlow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+.flowList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--jd-body);
+  flex: 1 1 280px;
+}
+
+.flowNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--jd-tint-1);
+  color: var(--color-accent-text);
+  font-size: 12px;
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quote pairs (§3.9) */
+.quotePairs {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 8px 0 32px;
+}
+
+/* Pattern tiles label (§3.12) */
+.patternsLabel {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--jd-label);
+  margin: 16px 0 12px;
+}
+
+/* Design decisions cards (§3.5): 3 cols ≥1100px, 2 cols ≥700px, 1 below. */
+.decisionGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.decisionCard {
+  background: #fff;
+  border: 1px solid var(--jd-line);
+  border-radius: 12px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.decisionEyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--jd-label);
+}
+
+.decisionCost {
+  color: var(--jd-body);
+}
+
+@media (min-width: 700px) {
+  .decisionGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .decisionGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Sticky + hand note beside Fig. 5 (§ findings/themes) */
+.themeNoteRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  margin-top: 16px;
 }

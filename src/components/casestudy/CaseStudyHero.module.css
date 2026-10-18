@@ -29,9 +29,73 @@
   pointer-events: none;
 }
 
+.headerRow {
+  display: flex;
+  flex-direction: column;
+}
+
 .header {
   max-width: 1000px;
   margin: 0 auto;
+}
+
+/* Only engages when an `aside` (e.g. SusScoreCard) is passed; otherwise
+   .header keeps its original centered single-column layout. */
+.hasAside {
+  gap: 40px;
+  align-items: center;
+}
+
+.aside {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .hasAside {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .hasAside .header {
+    flex: 0 0 56%;
+    max-width: 56%;
+    text-align: left;
+    margin: 0;
+  }
+  .hasAside .aside {
+    flex: 0 0 38%;
+    max-width: 38%;
+    justify-content: flex-start;
+    padding-top: 8px;
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 760px;
+  margin: 0 auto 20px;
+  list-style: none;
+}
+
+.hasAside .header .chips {
+  margin-left: 0;
+}
+
+.chip {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-accent);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
 }
 
 .category {

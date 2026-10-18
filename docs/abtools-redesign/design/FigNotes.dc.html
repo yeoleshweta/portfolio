@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fig 06: Notes, as shipped and recommended</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&amp;family=Hanken+Grotesk:wght@400;600;800&amp;family=Instrument+Serif:ital@1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.eb{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;color:#57525F;margin:0}
+.win{background:#FFFFFF;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #E4DFEC;font-size:15px}
+.tabs{display:flex;gap:8px;padding:14px 20px 0}
+.t{font-size:13px;padding:6px 12px;border-radius:999px;background:#F1EEF6;color:#4A4553}
+.ton{background:#5B3FBF;color:#FFFFFF}
+.meta{font-size:13px;color:#57525F}
+.hand{font-family:'Caveat',cursive;font-size:30px;font-weight:700;color:#3F2A8F;line-height:1.05;margin:0}
+.btn{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:999px;border:1.5px solid #5B3FBF;color:#3F2A8F;font-size:14px;font-weight:600;background:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 1600px; height: 1000px; box-sizing: border-box; padding: 64px 80px; background-color: #F3F2F5; background-image: linear-gradient(#E7E4ED 1px, transparent 1px), linear-gradient(90deg, #E7E4ED 1px, transparent 1px); background-size: 64px 64px; color: #141218; font-family: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end">
+<h1 style="margin: 0; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1">Formatting <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #5B3FBF">is information</span></h1>
+<p class="eb">Illustrative mock · made-up text, not customer data</p>
+</div>
+<div style="display: flex; gap: 48px; align-items: flex-start">
+
+<div style="width: 620px; display: flex; flex-direction: column; gap: 16px">
+<p class="eb">As shipped</p>
+<div class="win" style="border: 2px dashed #8E86A0; height: 560px">
+<div class="bar"><b>ABTools</b><span class="meta">Credit request · Comments</span></div>
+<div class="tabs"><span class="t">Involved Parties</span><span class="t">Agreement</span><span class="t">Status History</span><span class="t ton">Comments</span></div>
+<div style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div class="meta">Latest comment</div>
+<div style="border: 1.5px solid #9A94A6; border-radius: 8px; padding: 10px 12px; height: 74px; overflow: hidden; font-size: 12px; line-height: 1.35; color: #2B2732">Called dealer re: documents. Waiting on 2019 and 2020 tax returns. Bank rating requested. Follow up Friday. Spoke with customer, confirmed mailing address. Counteroffer discussed, needs manager review before sending. Dealer asked about timing for…</div>
+<span class="btn" style="align-self: flex-start; border-color: #9A94A6; color: #4A4553">View all comments</span>
+<div style="margin-top: 10px; border: 1.5px solid #9A94A6; border-radius: 8px; padding: 10px 12px; font-size: 12px; line-height: 1.35; color: #2B2732; height: 150px; overflow: hidden">Called dealer re: documents. Waiting on 2019 and 2020 tax returns. Bank rating requested. Follow up Friday. Spoke with customer, confirmed mailing address. Counteroffer discussed, needs manager review before sending. Received bank rating, imported. Routed to analyst review queue. Analyst requested updated financial statements. Dealer confirmed delivery date. Customer called back with questions about terms and rate options…</div>
+</div>
+</div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap"><span class="t">one run-on paragraph</span><span class="t">fixed 12px text</span><span class="t">closes only with X</span></div>
+</div>
+
+<div style="width: 760px; display: flex; flex-direction: column; gap: 16px">
+<p class="eb">Recommended pattern</p>
+<div class="win" style="border: 2.5px solid #5B3FBF; height: 560px">
+<div class="bar"><b>ABTools</b><span class="meta">Credit request · Comments</span></div>
+<div class="tabs"><span class="t">Involved Parties</span><span class="t">Agreement</span><span class="t">Status History</span><span class="t ton">Comments</span></div>
+<div style="display: flex; flex: 1; min-height: 0">
+<div style="flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="border: 1.5px solid #DCD6E6; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between"><span style="font-weight: 700; font-size: 15px">Credit analyst</span><span class="meta">Today, general</span></div>
+<div style="font-size: 1rem; line-height: 1.5; white-space: pre-line">Called dealer re: documents.
+– Waiting on 2019, 2020 tax returns
+– Bank rating requested
+
+Follow up Friday.</div>
+</div>
+<div style="border: 1.5px solid #DCD6E6; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between"><span style="font-weight: 700; font-size: 15px">Processing specialist</span><span class="meta">Yesterday, bank</span></div>
+<div style="font-size: 1rem; line-height: 1.5">Bank rating received and imported.</div>
+<span class="btn" style="align-self: flex-start">Show full note</span>
+</div>
+</div>
+<div style="width: 240px; border-left: 1px solid #E4DFEC; background: #FAF8FE; padding: 20px; display: flex; flex-direction: column; gap: 10px">
+<span class="eb" style="font-size: 12px">Side panel</span>
+<span style="font-size: 14px; line-height: 1.45">Open notes next to the application, so analysts can read and compare without losing their place.</span>
+<span class="btn" style="align-self: flex-start">Close (Esc)</span>
+</div>
+</div>
+</div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap"><span class="t" style="background: #ECE6FD; color: #3F2A8F">keeps line breaks</span><span class="t" style="background: #ECE6FD; color: #3F2A8F">rem text scales with zoom</span><span class="t" style="background: #ECE6FD; color: #3F2A8F">expand or side panel</span><span class="t" style="background: #ECE6FD; color: #3F2A8F">Esc or outside click closes</span></div>
+</div>
+</div>
+<p class="hand" style="position: absolute; left: 600px; top: 120px; transform: rotate(-3deg)">analysts type spacing on purpose →</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":1000}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

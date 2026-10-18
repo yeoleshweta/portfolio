@@ -12,7 +12,9 @@
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--color-accent);
+  /* --color-accent-text, not --color-accent: this renders as body text and
+     needs 4.5:1 on the page's light/tint backgrounds. */
+  color: var(--color-accent-text);
   margin-bottom: 16px;
   display: block;
 }
@@ -23,6 +25,15 @@
   line-height: 1.2;
   margin-bottom: 32px;
   color: #7952f5;
+}
+
+/* Italic script accent word/phrase inside an .heading (large text, so the
+   contrast threshold is 3:1 — --color-lilac clears it here). */
+.accent {
+  font-family: var(--font-script);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-lilac);
 }
 
 .content {

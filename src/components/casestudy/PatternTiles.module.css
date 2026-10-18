@@ -1,0 +1,64 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 20px;
+}
+
+.tile {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.pair {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.box {
+  flex: 1;
+  min-width: 0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+.before {
+  border: 2px dashed var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.after {
+  border: 2px solid var(--color-accent-text);
+  background: var(--jd-tint-1, #faf8fe);
+  color: var(--color-text);
+}
+
+.boxLabel {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.boxLine {
+  display: block;
+}

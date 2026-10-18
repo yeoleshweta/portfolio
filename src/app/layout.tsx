@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Caveat } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -22,13 +23,24 @@ export const metadata: Metadata = {
     "Shweta Sharma — UX Researcher and AI/ML Grad Student at Drexel. 6+ years across UX, behavioral analytics, and data science. Building things that respond to how people actually behave.",
 };
 
+const caveat = Caveat({
+  weight: ["700"],
+  subsets: ["latin"],
+  variable: "--font-caveat",
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" style={{ scrollBehavior: "auto" }}>
+    <html
+      lang="en"
+      className={caveat.variable}
+      style={{ scrollBehavior: "auto" }}
+    >
       <body>
         {/* GA4 + Consent Mode v2. Must be first so consent defaults are set
             before any measurement hit leaves the browser. */}

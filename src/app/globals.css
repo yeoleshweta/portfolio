@@ -46,11 +46,22 @@
   /* AA-safe accent for small/normal text and filled buttons on light bg */
   --color-accent-text: #5b3fd4;
   --color-border: #e8e8e8;
+  /* Sticky notes (ABTools case study doodle kit); text on it uses --color-text */
+  --color-sticky: #fff3b8;
+  --color-sticky-shadow: rgba(28, 28, 28, 0.1);
+  /* "Before" marks; ≥3:1 on --color-bg and on white */
+  --color-before: #6f6f6f;
+  /* ProcessDiagram diamonds (ABTools case study) */
+  --color-diamond-1: #e1dcea;
+  --color-diamond-2: #dcd0fb;
+  /* Notes-themed sticky notes (AffinityBoard Notes column, tinted cards) */
+  --color-sticky-accent: #e6ddfd;
 
   /* Typography */
   --font-primary: "Inter", "IBM Plex Sans", sans-serif;
   --font-display: "Inter Display", sans-serif;
   --font-script: "Kepler Std Extended Italic Display", serif;
+  --font-hand: var(--font-caveat), "Comic Sans MS", cursive;
   /* Darkened lilac for brand script on light chrome (~4.5:1 on #f2f2f2) */
   --color-lilac: #7a5fd4;
 
@@ -70,6 +81,7 @@
   /* Radius */
   --radius-card: 32px;
   --radius-pill: 999px;
+  --radius-sm: 18px;
 
   /* Focus */
   --focus-ring: 2px solid var(--color-accent-text);
