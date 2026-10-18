@@ -15,6 +15,8 @@ import {
 interface CaseStudyLayoutProps {
   children: React.ReactNode;
   sections: { id: string; label: string }[];
+  /** Skip the auto-rendered micro/TL;DR teaser — for a page that builds its own overview section. */
+  hideBrief?: boolean;
 }
 
 function readingMinutes(text: string) {
@@ -56,6 +58,7 @@ function TocList({
 export default function CaseStudyLayout({
   children,
   sections,
+  hideBrief = false,
 }: CaseStudyLayoutProps) {
   const pathname = usePathname();
   const brief = studyFromPath(pathname);
@@ -144,10 +147,10 @@ export default function CaseStudyLayout({
           </p>
         ) : null}
 
-        {brief?.kind === "featured" && brief.tldr ? (
+        {!hideBrief && brief?.kind === "featured" && brief.tldr ? (
           <TldrCard summary={brief.summary} tldr={brief.tldr} />
         ) : null}
-        {brief?.kind === "micro" && brief.micro ? (
+        {!hideBrief && brief?.kind === "micro" && brief.micro ? (
           <MicroTemplate micro={brief.micro} />
         ) : null}
 

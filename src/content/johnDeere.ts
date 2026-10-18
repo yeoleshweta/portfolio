@@ -29,7 +29,7 @@ export const susScoreCard = {
   eyebrow: 'System Usability Scale (SUS)',
   before: { label: 'Old desktop', value: '60' },
   after: { label: 'New web app', value: '85.6' },
-  body: '+25.6 points, above the Global IT average (63), the FY21 target (67) and the industry average (68). Four participants, so read it as direction, not proof.',
+  body: 'It cleared every benchmark we had — the company average, the yearly goal, even the industry standard. With just 4 participants, call it a strong signal, not proof.',
   note: 'same 4 people, 8 months apart ↑',
   srLabel: 'SUS rose from 60 to 85.6',
 };
@@ -162,18 +162,14 @@ export const design = {
     { strong: 'Two waves, same people.', text: 'The same four participants evaluated both systems with identical instruments, in January (old ABTools) and August (new ABTools). Using the same people removes differences between groups as an explanation for any change.' },
     { strong: 'A familiarization window.', text: 'Participants began using the new ABTools in their real jobs in May and June. By the August evaluation they had about 2 to 3 months of working experience with it, enough for novelty and change aversion to fade.' },
   ],
+  // Matches the "Study timeline" figure on the design canvas: a 3-card wave
+  // sequence with curved arrows, not a month-by-month bar.
   timeline: {
     caption: 'Fig. 2. Two waves, eight months apart, with a familiarity window in between.',
-    months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-    spans: [ // 8-column grid, 1-indexed
-      { start: 1, end: 1, style: 'prev' },
-      { start: 5, end: 6, style: 'hatch' },
-      { start: 8, end: 8, style: 'current' },
-    ],
-    legend: [
-      { style: 'prev', title: 'Baseline evaluation', text: 'January. Structured interviews, SUS and questionnaire on the previous ABTools.' },
-      { style: 'hatch', title: 'Familiarization', text: 'May to June. Participants start using the new ABTools in their real jobs.' },
-      { style: 'current', title: 'Post evaluation', text: 'August. Identical instruments on the current ABTools.' },
+    waves: [
+      { eyebrow: 'January 2021', title: 'Wave 1: baseline', text: 'Interviews, SUS and the six-dimension questionnaire on the old desktop tool.', style: 'prev' },
+      { eyebrow: 'May–June 2021', title: 'Familiarity window', text: 'Participants used the new web tool in their real jobs for 2–3 months.', style: 'hatch' },
+      { eyebrow: 'August 2021', title: 'Wave 2: post-evaluation', text: 'The same instruments, the same four people, on the new tool.', style: 'current' },
     ],
     note: 'waiting = fewer "it\'s new, I hate it" answers',
   },
@@ -257,12 +253,12 @@ export const results = {
     caption: 'Fig. 7. SUS score, n = 4. Benchmarks: Global IT average and FY21 target (internal), industry average 68 (usability.gov).',
     summary: 'SUS rose from 60.0 to 85.6, passing the Global IT average (63), the FY21 target (67) and the industry average (68). n = 4.',
     rows: [
-      { label: 'Previous ABTools', value: 60.0, kind: 'prev' },
+      { label: 'Previous ABTools', value: 60.0, kind: 'prev', date: 'Jan 2021' },
       { label: 'Global IT average', value: 63, kind: 'bench' },
       { label: 'FY21 target', value: 67, kind: 'bench' },
       { label: 'Industry average', value: 68, kind: 'bench' },
-      { label: 'Current ABTools', value: 85.6, kind: 'current' },
-    ], // bar width = value%
+      { label: 'Current ABTools', value: 85.6, kind: 'current', date: 'Aug 2021' },
+    ],
   },
   dimensions: {
     caption: 'Fig. 8. Percent favorable on the custom six-dimension questionnaire, n = 4.',

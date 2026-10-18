@@ -42,6 +42,20 @@
   color: var(--jd-accent-soft) !important;
 }
 
+/* The shared `.content h3` rule (CaseStudyContent.module.css) has higher
+   specificity (.class + h3) than a single local class on the same h3, so it
+   silently wins and renders dark ink on this near-black background — nearly
+   invisible. Re-assert the intended colour with matching/higher specificity. */
+.darkSection .colHead {
+  color: var(--jd-accent-soft) !important;
+}
+
+.darkSection .colHeadWrong,
+.darkSection .rightTitle,
+.darkSection .wrongTitle {
+  color: #fff !important;
+}
+
 .lead {
   font-size: clamp(22px, 2.4vw, 26px);
   line-height: 1.35;
@@ -273,77 +287,105 @@
   color: var(--jd-ink);
 }
 
-.months {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
+/* Study timeline (§3.5): 3-card wave sequence matching the design canvas. */
+.waveEyebrowLabel {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--jd-label);
+  margin: 0 0 4px;
+}
+
+.waveRow {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+}
+
+.waveCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.waveCard {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wavePrev {
+  border: 2px solid var(--jd-prev);
+}
+
+.waveHatch {
+  border: 2px dashed var(--color-accent);
+  background: var(--jd-tint-1);
+}
+
+.waveCurrent {
+  border: 2px solid var(--color-accent-text);
+}
+
+.waveEyebrow {
   font-family: "JetBrains Mono", monospace;
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--jd-label);
-  gap: 4px;
 }
 
-.track {
-  position: relative;
-  height: 12px;
-  background: var(--jd-track);
-  border-radius: 6px;
-  overflow: hidden;
-  margin-top: 12px;
-}
-
-.spanPrev {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  background: var(--jd-prev);
-}
-
-.spanHatch {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    -45deg,
-    rgba(139, 105, 250, 0.35) 0 6px,
-    rgba(139, 105, 250, 0.12) 6px 12px
-  );
-}
-
-.spanCurrent {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  background: var(--jd-accent);
-}
-
-.legend {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-  gap: 24px;
-  margin-top: 28px;
-}
-
-.legendSwatch {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
-  margin-bottom: 10px;
-}
-
-.legendTitle {
-  font-size: 15px;
-  font-weight: 700;
+.waveTitle {
+  font-size: 18px;
+  font-weight: 800;
   color: var(--jd-ink);
-  margin: 0 0 6px;
+  margin: 0;
 }
 
-.legendText {
-  font-size: 14px;
-  line-height: 1.45;
+.waveText {
+  font-size: 15px;
+  line-height: 1.5;
   color: var(--jd-body);
   margin: 0;
+}
+
+.waveArrow {
+  transform: rotate(90deg);
+}
+
+@media (min-width: 760px) {
+  .waveRow {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .waveCol {
+    flex: 1 1 0;
+    min-width: 0;
+    position: relative;
+  }
+
+  .waveCard {
+    flex: 1;
+    height: 100%;
+  }
+
+  .waveArrow {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
 }
 
 .h3 {
@@ -595,35 +637,20 @@
   font-weight: 600;
 }
 
-.dimLegend {
-  display: flex;
-  justify-content: flex-end;
-  gap: 16px;
-  font-size: 13px;
-  color: var(--jd-label);
-  margin-bottom: -8px;
+/* Custom SVG chart card (§3.8 SUS + dimension charts) */
+.chartCard {
+  background: #fff;
+  border: 1px solid var(--jd-line);
+  border-radius: 12px;
+  padding: 24px;
 }
 
-.dimLegend span::before {
-  content: "";
-  display: inline-block;
-  box-sizing: border-box;
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  margin-right: 6px;
-  vertical-align: middle;
-}
-
-/* Previous = outlined/hollow, Current = filled, so the pair reads by shape
-   as well as colour (§3.8). */
-.legPrev::before {
-  background: transparent;
-  border: 2px solid var(--jd-prev);
-}
-
-.legCurrent::before {
-  background: var(--jd-accent);
+/* The chart SVGs keep a minimum readable width; this lets them scroll
+   horizontally within their own card at narrow viewports instead of
+   forcing the whole page wider (matches the design canvas's own pattern). */
+.chartScroll {
+  overflow-x: auto;
+  margin-top: 16px;
 }
 
 .storyGrid {

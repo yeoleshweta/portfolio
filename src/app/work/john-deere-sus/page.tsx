@@ -19,6 +19,7 @@ import CountUp from "@/components/casestudy/CountUp";
 import Figure from "@/components/casestudy/Figure";
 import BeforeAfter from "@/components/casestudy/BeforeAfter";
 import HandNote from "@/components/casestudy/doodles/HandNote";
+import SketchArrow from "@/components/casestudy/doodles/SketchArrow";
 import StickyNote from "@/components/casestudy/doodles/StickyNote";
 import DoodleAvatar from "@/components/casestudy/doodles/DoodleAvatar";
 import type { DoodleAvatarTint } from "@/components/casestudy/doodles/DoodleAvatar";
@@ -30,11 +31,9 @@ import AffinityBoard from "@/components/casestudy/AffinityBoard";
 import NotesMock from "@/components/casestudy/NotesMock";
 import PatternTiles from "@/components/casestudy/PatternTiles";
 import OkrBoard from "@/components/casestudy/OkrBoard";
-import {
-  BarRow,
-  DimensionRow,
-  ThemeStack,
-} from "@/components/casestudy/AbtoolsCharts";
+import SusBenchmarkChart from "@/components/casestudy/SusBenchmarkChart";
+import DimensionLollipopChart from "@/components/casestudy/DimensionLollipopChart";
+import { ThemeStack } from "@/components/casestudy/AbtoolsCharts";
 import {
   hero,
   susScoreCard,
@@ -81,13 +80,6 @@ const sections = [
   { id: "lessons", label: "11 · Looking back" },
 ];
 
-function colStart(start: number) {
-  return `${(start - 1) * 12.5}%`;
-}
-function colWidth(start: number, end: number) {
-  return `${(end - start + 1) * 12.5}%`;
-}
-
 /** Renders `**bold**` markers in content strings as real <strong> text. */
 function renderBold(text: string): ReactNode {
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
@@ -129,7 +121,7 @@ export default function JohnDeerePage() {
         />
       </CaseStudyHero>
 
-      <CaseStudyLayout sections={sections}>
+      <CaseStudyLayout sections={sections} hideBrief>
         {/* Stats + facts */}
         <CaseStudySection id="stats-strip">
           <div className={styles.stats}>
@@ -317,52 +309,34 @@ export default function JohnDeerePage() {
               {...BEE_PATHS.timeline}
               label="Bee trail along the study timeline"
             />
-            <div className={styles.months}>
-              {design.timeline.months.map((m) => (
-                <div key={m}>{m}</div>
-              ))}
-            </div>
-            <div className={styles.track} aria-hidden>
-              {design.timeline.spans.map((s) => (
-                <div
-                  key={`${s.start}-${s.style}`}
-                  className={
-                    s.style === "prev"
-                      ? styles.spanPrev
-                      : s.style === "hatch"
-                        ? styles.spanHatch
-                        : styles.spanCurrent
-                  }
-                  style={{
-                    left: colStart(s.start),
-                    width: colWidth(s.start, s.end),
-                  }}
-                />
-              ))}
-            </div>
-            <div className={styles.legend}>
-              {design.timeline.legend.map((l) => (
-                <div key={l.title}>
+            <p className={styles.waveEyebrowLabel}>Study timeline</p>
+            <ol className={styles.waveRow}>
+              {design.timeline.waves.map((w, i) => (
+                <li key={w.title} className={styles.waveCol}>
                   <div
-                    className={styles.legendSwatch}
-                    style={{
-                      background:
-                        l.style === "prev"
-                          ? "#8a8a8a"
-                          : l.style === "current"
-                            ? "#8b69fa"
-                            : undefined,
-                      backgroundImage:
-                        l.style === "hatch"
-                          ? "repeating-linear-gradient(-45deg, rgba(139,105,250,.35) 0 6px, rgba(139,105,250,.12) 6px 12px)"
-                          : undefined,
-                    }}
-                  />
-                  <h3 className={styles.legendTitle}>{l.title}</h3>
-                  <p className={styles.legendText}>{l.text}</p>
-                </div>
+                    className={`${styles.waveCard}${
+                      w.style === "prev"
+                        ? ` ${styles.wavePrev}`
+                        : w.style === "hatch"
+                          ? ` ${styles.waveHatch}`
+                          : ` ${styles.waveCurrent}`
+                    }`}
+                  >
+                    <span className={styles.waveEyebrow}>{w.eyebrow}</span>
+                    <h3 className={styles.waveTitle}>{w.title}</h3>
+                    <p className={styles.waveText}>{w.text}</p>
+                  </div>
+                  {i < design.timeline.waves.length - 1 ? (
+                    <SketchArrow
+                      width={40}
+                      height={24}
+                      tone="ink"
+                      className={styles.waveArrow}
+                    />
+                  ) : null}
+                </li>
               ))}
-            </div>
+            </ol>
           </Figure>
           <HandNote rotate={-1.5}>{design.timeline.note}</HandNote>
 
@@ -558,18 +532,27 @@ export default function JohnDeerePage() {
               columns={["Measure", "Score"]}
               rows={results.sus.rows.map((r) => [r.label, String(r.value)])}
             >
-              <Figure
-                caption={results.sus.caption}
-                ariaLabel="SUS scores: previous 60, current 85.6"
-              >
-                {results.sus.rows.map((r) => (
-                  <BarRow
-                    key={r.label}
-                    label={r.label}
-                    value={r.value}
-                    kind={r.kind as "prev" | "bench" | "current"}
+              <Figure caption={results.sus.caption} className={styles.chartCard}>
+                <p className={styles.waveEyebrowLabel}>SUS score against benchmarks (0–100)</p>
+                <div className={styles.chartScroll}>
+                  <SusBenchmarkChart
+                    previous={{
+                      label: results.sus.rows[0].label,
+                      date: results.sus.rows[0].date ?? "",
+                      value: results.sus.rows[0].value,
+                    }}
+                    current={{
+                      label: results.sus.rows[4].label,
+                      date: results.sus.rows[4].date ?? "",
+                      value: results.sus.rows[4].value,
+                    }}
+                    benchmarks={results.sus.rows.slice(1, 4).map((r) => ({
+                      label: r.label,
+                      value: r.value,
+                    }))}
+                    ariaLabel="SUS score rose from 60.0 on the previous ABTools to 85.6 on the current ABTools, passing the Global IT average of 63, the FY21 target of 67 and the industry average of 68."
                   />
-                ))}
+                </div>
               </Figure>
             </ChartFigure>
 
@@ -583,23 +566,16 @@ export default function JohnDeerePage() {
                 `+${r.change}`,
               ])}
             >
-              <Figure caption={results.dimensions.caption}>
-                <div className={styles.dimLegend}>
-                  <span className={styles.legPrev}>Previous</span>
-                  <span className={styles.legCurrent}>Current</span>
-                </div>
-                {results.dimensions.rows.map((r) => (
-                  <DimensionRow
-                    key={r.label}
-                    label={r.label}
-                    before={r.before}
-                    after={r.after}
-                    change={r.change}
-                    highlight={r.highlight}
-                    muted={r.muted}
-                    delayCurrent
+              <Figure caption={results.dimensions.caption} className={styles.chartCard}>
+                <p className={styles.waveEyebrowLabel}>
+                  % favourable by dimension, before → after, sorted by gain
+                </p>
+                <div className={styles.chartScroll}>
+                  <DimensionLollipopChart
+                    rows={results.dimensions.rows}
+                    ariaLabel="Percent favourable by dimension, before and after: System performance 62.5 to 97.5 (+35.0); Human error support 56.6 to 75.0 (+18.4); Ease of use 75.0 to 88.7 (+13.7); Learnability 80.0 to 92.5 (+12.5); Productivity 71.2 to 82.5 (+11.3); Satisfaction 71.2 to 75.0 (+3.8)."
                   />
-                ))}
+                </div>
               </Figure>
             </ChartFigure>
             <HandNote rotate={1.5}>{results.note}</HandNote>
