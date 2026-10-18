@@ -1,5 +1,5 @@
 .hero {
-  padding: 140px 24px 80px;
+  padding: calc(var(--header-height) + 56px) 24px 80px;
   background: #06070a;
   text-align: center;
   position: relative;
@@ -309,7 +309,7 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding-top: 120px;
+    padding-top: calc(var(--header-height) + 40px);
   }
   .meta {
     flex-wrap: wrap;

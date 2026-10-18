@@ -86,8 +86,12 @@
 
 /* Tighter chapter rhythm on this long page (was 100px top + 100px bottom
    on every section ≈ 3,000px of padding). Scoped here so other case
-   studies keep the shared spacing. The hero (#top) keeps its own. */
-.page section[id]:not(#top) {
+   studies keep the shared spacing. The hero (#top) keeps its own —
+   :global() is required: CSS Modules hashes a bare #top the same as a
+   class, so :not(#top) would match nothing and this rule would (and
+   did) wrongly apply to the hero too, fighting its header-clearing
+   padding and hiding content behind the fixed navbar on mobile. */
+.page section[id]:not(:global(#top)) {
   padding-top: clamp(56px, 7vw, 88px);
   padding-bottom: clamp(56px, 7vw, 88px);
 }
