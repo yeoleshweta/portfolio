@@ -29,7 +29,7 @@ export const susScoreCard = {
   eyebrow: 'System Usability Scale (SUS)',
   before: { label: 'Old desktop', value: '60' },
   after: { label: 'New web app', value: '85.6' },
-  body: 'It cleared every benchmark we had — the company average, the yearly goal, even the industry standard. With just 4 participants, call it a strong signal, not proof.',
+  body: 'This is a standard 0 to 100 score for how easy a tool is to use. A score above 68 is considered good. The old desktop tool scored 60, just below that line. The new web app scored 85.6, well into excellent territory. Only 4 people were tested, so treat this as a strong signal rather than final proof.',
   note: 'same 4 people, 8 months apart ↑',
   srLabel: 'SUS rose from 60 to 85.6',
 };
