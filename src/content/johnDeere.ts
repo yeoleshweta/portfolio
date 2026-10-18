@@ -34,17 +34,11 @@ export const susScoreCard = {
 };
 
 export const stats = [
-  { value: '60 → 85.6', label: 'SUS, before → after' },
-  { value: '+35 pts', label: 'System Performance, % favorable', highlight: true },
-  { value: '6 of 6', label: 'Dimensions improved' },
-  { value: '35', label: 'Issues surfaced' },
-];
-
-export const facts = [
-  { label: 'Organization', value: 'John Deere Financial (JDF)' },
-  { label: 'Exposure', value: 'About 2 to 3 months on the new system before the post-test' },
-  { label: 'Methods', value: 'SUS · six-dimension Likert questionnaire · open-ended probes · thematic analysis' },
-  { label: 'Participants', value: '4 power users, one per role, 3.5 to 20+ years with ABTools' },
+  // Four beats of the story: big gain → biggest win → the twist → the reason.
+  { display: '+25.6', ariaLabel: 'Plus twenty-five point six SUS points', from: 0, to: 25.6, decimals: 1, prefix: '+', suffix: '', label: 'SUS points, 60 → 85.6', highlight: false },
+  { display: '+35', ariaLabel: 'Plus thirty-five points', from: 0, to: 35, decimals: 0, prefix: '+', suffix: '', label: 'System performance, the biggest gain', highlight: false },
+  { display: '+3.8', ariaLabel: 'Plus three point eight points', from: 0, to: 3.8, decimals: 1, prefix: '+', suffix: '', label: 'Satisfaction, the smallest gain', highlight: false },
+  { display: '16 of 35', ariaLabel: 'Sixteen of thirty-five issues', from: 0, to: 16, decimals: 0, prefix: '', suffix: ' of 35', label: 'Remaining issues were about Notes', highlight: true },
 ];
 
 /** New TL;DR card (§3.2), rendered via the shared TldrCard. */
@@ -54,7 +48,7 @@ export const tldr: Tldr & { summary: string } = {
   role: 'UX Researcher. Planned the study with the JDF product team, ran both waves, analysed and presented the results.',
   team: 'JDF UX team, ABTools product team',
   timeline: 'January to August 2021',
-  methods: 'Two-wave within-subjects study · SUS · six-dimension questionnaire · interviews · thematic analysis',
+  methods: 'Two-wave within-subjects study · SUS · six-dimension questionnaire · interviews · thematic analysis. Wave 2 came after 2–3 months of real use.',
   outcome: 'SUS 60 → 85.6. All six usability dimensions improved. 35 remaining issues found, 16 of them about Notes.',
   decision: 'Notes became a high-priority backlog item, and the team moved toward continuous research after launch.',
 };

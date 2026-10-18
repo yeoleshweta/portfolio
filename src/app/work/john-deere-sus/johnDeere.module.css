@@ -35,57 +35,61 @@
 }
 
 .stats {
+  list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
-  border-top: 2px solid var(--jd-ink);
-  margin: 0 0 28px;
+  grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+  margin: 4px 0 28px;
+  padding: 0;
+  border-top: 1px solid var(--jd-line);
+  border-bottom: 1px solid var(--jd-line);
 }
 
 .stat {
-  padding: 28px 20px 32px;
-  border-bottom: 1px solid var(--jd-line);
-  border-right: 1px solid var(--jd-line);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 20px 20px 22px 0;
 }
 
-.stat:last-child {
-  border-right: none;
+.stat + .stat {
+  padding-left: 20px;
+  border-left: 1px solid var(--jd-line);
+}
+
+@media (max-width: 760px) {
+  .stat + .stat {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--jd-line);
+  }
 }
 
 .statValue {
   font-family: var(--font-display);
-  font-size: 44px;
+  font-size: clamp(32px, 3.2vw, 40px);
   line-height: 1.1;
   font-weight: 700;
-  color: var(--jd-body);
+  color: var(--jd-ink);
   font-variant-numeric: tabular-nums;
 }
 
 .statValueHot {
-  color: var(--jd-accent-strong);
+  color: var(--color-accent-text);
 }
 
 .statLabel {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--jd-label);
-  margin-top: 8px;
-}
-
-.facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 20px;
-  font-size: 15px;
+  font-size: 14px;
+  line-height: 1.4;
   color: var(--jd-body);
-  margin-bottom: 48px;
-  line-height: 1.5;
 }
 
-.factLabel {
-  font-weight: 700;
-  color: var(--jd-ink);
+/* Tighter chapter rhythm on this long page (was 100px top + 100px bottom
+   on every section ≈ 3,000px of padding). Scoped here so other case
+   studies keep the shared spacing. The hero (#top) keeps its own. */
+.page section[id]:not(#top) {
+  padding-top: clamp(56px, 7vw, 88px);
+  padding-bottom: clamp(56px, 7vw, 88px);
 }
 
 .contextGrid {

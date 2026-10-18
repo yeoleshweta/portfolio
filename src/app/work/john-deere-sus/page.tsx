@@ -38,7 +38,6 @@ import {
   hero,
   susScoreCard,
   stats,
-  facts,
   tldr,
   prologue,
   background,
@@ -123,72 +122,35 @@ export default function JohnDeerePage() {
       </CaseStudyHero>
 
       <CaseStudyLayout sections={sections} hideBrief>
-        {/* Stats + facts */}
-        <CaseStudySection id="stats-strip">
-          <div className={styles.stats}>
-            <div className={styles.stat}>
-              <div className={styles.statValue}>
-                <CountUp
-                  display="60 → 85.6"
-                  ariaLabel="SUS sixty to eighty-five point six"
-                  from={60}
-                  to={85.6}
-                  decimals={1}
-                  prefix="60 → "
-                />
-              </div>
-              <div className={styles.statLabel}>{stats[0].label}</div>
-            </div>
-            <div className={styles.stat}>
-              <div className={`${styles.statValue} ${styles.statValueHot}`}>
-                <CountUp
-                  display="+35 pts"
-                  ariaLabel="Plus thirty-five points"
-                  from={0}
-                  to={35}
-                  prefix="+"
-                  suffix=" pts"
-                  highlight
-                />
-              </div>
-              <div className={styles.statLabel}>{stats[1].label}</div>
-            </div>
-            <div className={styles.stat}>
-              <div className={styles.statValue}>
-                <CountUp
-                  display="6 of 6"
-                  ariaLabel="Six of six dimensions improved"
-                  from={0}
-                  to={6}
-                  suffix=" of 6"
-                />
-              </div>
-              <div className={styles.statLabel}>{stats[2].label}</div>
-            </div>
-            <div className={styles.stat}>
-              <div className={styles.statValue}>
-                <CountUp
-                  display="35"
-                  ariaLabel="Thirty-five issues surfaced"
-                  from={0}
-                  to={35}
-                />
-              </div>
-              <div className={styles.statLabel}>{stats[3].label}</div>
-            </div>
-          </div>
-          <div className={styles.facts}>
-            {facts.map((f) => (
-              <span key={f.label}>
-                <span className={styles.factLabel}>{f.label}:</span> {f.value}
-              </span>
-            ))}
-          </div>
-        </CaseStudySection>
-
-        {/* The short version — TL;DR card, §3.2 */}
-        <CaseStudySection id="overview" label="The short version">
-          <TldrCard summary={tldr.summary} tldr={tldr} />
+        {/* The short version — summary, four story beats, then the facts */}
+        <CaseStudySection id="overview">
+          <TldrCard
+            title="The short version"
+            summary={tldr.summary}
+            tldr={tldr}
+          >
+            <ul className={styles.stats} aria-label="Key results">
+              {stats.map((st) => (
+                <li key={st.label} className={styles.stat}>
+                  <span
+                    className={`${styles.statValue}${st.highlight ? ` ${styles.statValueHot}` : ""}`}
+                  >
+                    <CountUp
+                      display={st.display}
+                      ariaLabel={st.ariaLabel}
+                      from={st.from}
+                      to={st.to}
+                      decimals={st.decimals}
+                      prefix={st.prefix}
+                      suffix={st.suffix}
+                      highlight={st.highlight}
+                    />
+                  </span>
+                  <span className={styles.statLabel}>{st.label}</span>
+                </li>
+              ))}
+            </ul>
+          </TldrCard>
         </CaseStudySection>
 
         {/* Prologue — §3.3 */}

@@ -16,16 +16,23 @@ const TLDR_FIELDS: { key: keyof Tldr; label: string }[] = [
 export function TldrCard({
   summary,
   tldr,
+  title = "TL;DR",
+  children,
 }: {
   summary: string;
   tldr: Tldr;
+  /** Card heading; defaults to "TL;DR". */
+  title?: string;
+  /** Optional block (e.g. a stats row) rendered between summary and fields. */
+  children?: ReactNode;
 }) {
   return (
     <section className={styles.tldr} aria-labelledby="tldr-title">
       <h2 id="tldr-title" className={styles.tldrTitle}>
-        TL;DR
+        {title}
       </h2>
       <p className={styles.tldrSummary}>{summary}</p>
+      {children}
       <dl className={styles.tldrList}>
         {TLDR_FIELDS.map((field) => (
           <div key={field.key}>
