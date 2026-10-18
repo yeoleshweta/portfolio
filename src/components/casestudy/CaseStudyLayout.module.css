@@ -17,11 +17,11 @@
 .tocHeading {
   margin: 0 0 12px;
   font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-accent-text);
+  color: var(--color-text-secondary);
 }
 
 .tocList {
@@ -57,6 +57,104 @@
 .tocLink:focus-visible {
   outline: var(--focus-ring);
   outline-offset: 2px;
+}
+
+/* Desktop rail: thin line, one dot per section, the line fills to the active dot.
+   Rows are a fixed 32px so dot centres sit at 16px + n * 32px and the fill maps 1:1 to progress. */
+.tocRail {
+  --toc-row: 32px;
+  --toc-dot: 10px;
+  position: relative;
+  gap: 0;
+}
+
+.tocRail::before,
+.tocRail::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--toc-dot) / 2 - 1px);
+  top: calc(var(--toc-row) / 2);
+  width: 2px;
+  border-radius: 1px;
+}
+
+.tocRail::before {
+  bottom: calc(var(--toc-row) / 2);
+  background: var(--color-border);
+}
+
+.tocRail::after {
+  height: calc((100% - var(--toc-row)) * var(--toc-progress, 0));
+  background: var(--color-accent);
+  transition: height 0.3s ease;
+}
+
+.tocRail .tocLink {
+  position: relative;
+  height: var(--toc-row);
+  min-height: 0;
+  padding: 0 0 0 calc(var(--toc-dot) + 14px);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  font-size: 13px;
+}
+
+.tocRail .tocLink::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(50% - var(--toc-dot) / 2);
+  width: var(--toc-dot);
+  height: var(--toc-dot);
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.tocRail .tocLink:hover::before {
+  border-color: var(--color-accent);
+}
+
+.tocRail .tocLink[aria-current="true"]::before {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  transform: scale(1.4);
+}
+
+/* Labels: only the active one is shown, the rest appear while the rail is hovered or focused. */
+.tocLabel {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tocRail .tocLabel {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.tocRail:hover .tocLabel,
+.tocRail:focus-within .tocLabel,
+.tocRail .tocLink[aria-current="true"] .tocLabel {
+  opacity: 1;
+  transform: none;
+}
+
+.tocRail .tocLink[aria-current="true"] .tocLabel {
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tocRail::after,
+  .tocRail .tocLink::before,
+  .tocRail .tocLabel {
+    transition: none;
+  }
 }
 
 .tocCompact {

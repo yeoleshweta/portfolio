@@ -29,13 +29,25 @@ function TocList({
   sections,
   activeSection,
   onNavigate,
+  rail = false,
 }: {
   sections: { id: string; label: string }[];
   activeSection: string;
   onNavigate: (event: React.MouseEvent<HTMLAnchorElement>, id: string) => void;
+  /** Desktop rail: a thin line with a dot per section, labels shown for the active one. */
+  rail?: boolean;
 }) {
+  const activeIndex = Math.max(
+    0,
+    sections.findIndex((s) => s.id === activeSection),
+  );
+  const progress = sections.length > 1 ? activeIndex / (sections.length - 1) : 0;
+
   return (
-    <ul className={styles.tocList}>
+    <ul
+      className={rail ? `${styles.tocList} ${styles.tocRail}` : styles.tocList}
+      style={rail ? ({ "--toc-progress": progress } as React.CSSProperties) : undefined}
+    >
       {sections.map((section) => (
         <li key={section.id}>
           <a
@@ -47,7 +59,7 @@ function TocList({
             data-track-link-label={`toc:${section.label}`}
             data-track-location="case_study_toc"
           >
-            {section.label}
+            <span className={styles.tocLabel}>{section.label}</span>
           </a>
         </li>
       ))}
@@ -128,6 +140,7 @@ export default function CaseStudyLayout({
           sections={sections}
           activeSection={activeSection}
           onNavigate={onNavigate}
+          rail
         />
       </nav>
 
