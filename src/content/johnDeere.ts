@@ -17,7 +17,7 @@ export const hero = {
     'Thematic analysis',
   ],
   meta: [
-    { label: 'Role', value: 'UX Researcher (sole researcher on the study)' },
+    { label: 'Role', value: 'UX Researcher' },
     { label: 'Team', value: 'JDF UX team + ABTools product team' },
     { label: 'Timeline', value: 'Jan–Aug 2021 · 2 waves, 4 power users' },
   ],

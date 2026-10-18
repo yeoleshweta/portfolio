@@ -61,6 +61,7 @@ import {
   nextTime,
   lessons,
 } from "@/content/johnDeere";
+import { Check, Wrench } from "lucide-react";
 import styles from "./johnDeere.module.css";
 
 // Final section order, §1.1. stats-strip stays out of the TOC.
@@ -706,7 +707,7 @@ export default function JohnDeerePage() {
         </div>
 
         {/* 08 · The verdict — §3.11 */}
-        <div className={styles.darkSection}>
+        <div>
           <CaseStudySection
             id="decisions"
             label="Chapter 08 · The verdict"
@@ -717,34 +718,57 @@ export default function JohnDeerePage() {
             }
           >
             <p className={styles.body}>{rightWrong.intro}</p>
-            <div className={styles.twoCol}>
-              <div>
-                <h3 className={styles.colHead}>Keep · 4</h3>
-                {rightWrong.right.map((item) => (
-                  <div key={item.title} className={styles.rightItem}>
-                    <h3 className={styles.rightTitle}>{item.title}</h3>
-                    <p className={styles.rightText}>{item.text}</p>
-                    <span className={styles.principle}>{item.principle}</span>
-                  </div>
-                ))}
-                <HandNote rotate={-1.5}>{rightWrong.keepNote}</HandNote>
-              </div>
-              <div>
-                <h3 className={`${styles.colHead} ${styles.colHeadWrong}`}>
-                  Fix · 10
+            <div className={styles.verdictGrid}>
+              <section
+                className={`${styles.verdictCol} ${styles.verdictKeep}`}
+                aria-labelledby="verdict-keep"
+              >
+                <h3 id="verdict-keep" className={styles.verdictHead}>
+                  <Check className={styles.verdictIcon} aria-hidden="true" />
+                  Keep
+                  <span className={styles.verdictCount}>
+                    {rightWrong.right.length}
+                  </span>
                 </h3>
-                {rightWrong.wrong.map(([title, principle]) => (
-                  <div key={title} className={styles.wrongItem}>
-                    <h3 className={styles.wrongTitle}>{title}</h3>
-                    <span className={styles.principle}>{principle}</span>
-                  </div>
-                ))}
-              </div>
+                <ul className={styles.verdictList}>
+                  {rightWrong.right.map((item) => (
+                    <li key={item.title} className={styles.verdictItem}>
+                      <h4 className={styles.verdictTitle}>{item.title}</h4>
+                      <p className={styles.verdictText}>{item.text}</p>
+                      <span className={styles.verdictPrinciple}>
+                        {item.principle}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <HandNote rotate={-1.5}>{rightWrong.keepNote}</HandNote>
+              </section>
+              <section
+                className={`${styles.verdictCol} ${styles.verdictFix}`}
+                aria-labelledby="verdict-fix"
+              >
+                <h3 id="verdict-fix" className={styles.verdictHead}>
+                  <Wrench className={styles.verdictIcon} aria-hidden="true" />
+                  Fix
+                  <span className={styles.verdictCount}>
+                    {rightWrong.wrong.length}
+                  </span>
+                </h3>
+                <ul className={styles.verdictList}>
+                  {rightWrong.wrong.map(([title, principle]) => (
+                    <li key={title} className={styles.verdictItem}>
+                      <h4 className={styles.verdictTitle}>{title}</h4>
+                      <span className={styles.verdictPrinciple}>{principle}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
             </div>
           </CaseStudySection>
         </div>
 
         {/* 09 · Design system — §3.12 */}
+        <div className={styles.tintSection}>
         <CaseStudySection
           id="patterns"
           label="Chapter 09 · From findings to patterns"
@@ -783,9 +807,10 @@ export default function JohnDeerePage() {
             </div>
           </ShowDetails>
         </CaseStudySection>
+        </div>
 
         {/* 10 · Impact — §3.13. "Where it led" + OkrBoard come in Phase 5. */}
-        <div className={styles.tintSection}>
+        <div>
           <CaseStudySection
             id="impact"
             label="Chapter 10 · Impact"
@@ -848,6 +873,7 @@ export default function JohnDeerePage() {
         </div>
 
         {/* 11 · Looking back — §3.14, merges Limitations + Next time + Lessons */}
+        <div className={styles.tintSection}>
         <CaseStudySection
           id="lessons"
           label="Chapter 11 · Looking back"
@@ -887,6 +913,7 @@ export default function JohnDeerePage() {
             </div>
           </div>
         </CaseStudySection>
+        </div>
       </CaseStudyLayout>
     </div>
   );
