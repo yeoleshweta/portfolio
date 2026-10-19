@@ -1,0 +1,322 @@
+/* LanguagePreviewShowcase mock — tokens from globals.css; --deere-green and
+   --deere-yellow come from the Fuel page wrapper (fuelSurvey.module.css).
+   Controls and notes live in PhasedShowcase.module.css. */
+
+/* Lists and paragraphs here opt out of the case-study section's prose styles. */
+.picker .checklist,
+.picker .chips,
+.toolbar .menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.picker .checklist li,
+.picker .chips li,
+.toolbar .menu li {
+  margin: 0;
+  padding-left: 0;
+}
+
+.picker .checklist li::before,
+.picker .chips li::before,
+.toolbar .menu li::before {
+  content: none;
+}
+
+.label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* ── 1 · language picker ──────────────────────────────────────────────────── */
+.picker {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.search {
+  padding: 8px 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 7px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.picker .checklist {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 16px;
+}
+
+.picker .checklist li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.box {
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border: 1.5px solid var(--color-text-secondary);
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-surface);
+}
+
+.checked .box {
+  background: var(--deere-green);
+  border-color: var(--deere-green);
+  animation: tick 0.3s ease-out both;
+  animation-delay: inherit;
+}
+
+@keyframes tick {
+  from { transform: scale(0.6); opacity: 0.3; }
+  to { transform: none; opacity: 1; }
+}
+
+.picker .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border);
+}
+
+.picker .chips li {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--deere-green) 12%, var(--color-surface));
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--deere-green);
+}
+
+/* ── 2–4 · survey preview ─────────────────────────────────────────────────── */
+.frame {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.select {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: border-color 0.2s;
+}
+
+.selectOpen {
+  border-color: var(--deere-green);
+}
+
+.caret {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+}
+
+.close,
+.next {
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--deere-yellow);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.toolbar .menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 2;
+  min-width: 170px;
+  padding: 4px 0;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  animation: menuIn 0.22s ease-out both;
+}
+
+.toolbar .menu li {
+  padding: 6px 12px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.toolbar .menu .menuHit {
+  background: color-mix(in srgb, var(--deere-green) 12%, var(--color-surface));
+  font-weight: 700;
+  color: var(--deere-green);
+  animation: hit 0.3s ease-out 0.9s both;
+}
+
+@keyframes menuIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes hit {
+  from { background: transparent; color: var(--color-text); font-weight: 400; }
+}
+
+.survey {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-text);
+  border-radius: 6px;
+  animation: swap 0.35s ease-out both;
+}
+
+@keyframes swap {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+.surveyHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 4px solid var(--deere-green);
+}
+
+.surveyTitle {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+.brand {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--deere-green);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-surface);
+}
+
+.survey .question {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-text);
+}
+
+.scale {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 11px;
+}
+
+.scale th {
+  hyphens: auto;
+  overflow-wrap: anywhere;
+}
+
+.scale thead th {
+  padding: 6px 4px;
+  background: var(--deere-green);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-surface);
+  text-align: center;
+}
+
+.scale thead td {
+  width: 22%;
+  background: var(--deere-green);
+}
+
+.scale tbody th {
+  padding: 8px 6px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--color-text);
+}
+
+.scale tbody td {
+  text-align: center;
+}
+
+.scale tbody tr + tr {
+  border-top: 1px solid var(--color-border);
+}
+
+.radio {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--color-text-secondary);
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.surveyFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pager {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 559px) {
+  .picker .checklist { grid-template-columns: 1fr; }
+  .scale { font-size: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .checked .box,
+  .toolbar .menu,
+  .toolbar .menu .menuHit,
+  .survey {
+    animation: none;
+  }
+  .select { transition: none; }
+}

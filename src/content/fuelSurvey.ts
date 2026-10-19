@@ -172,22 +172,140 @@ export const prototype = {
 
 export const components = {
   lead: "The heart of the tool is the question card: one Fuel-based component with clear states, so every question type behaves the same way whether a PM is using it for the first time or editing it live.",
-  badgeNote: "edit a standard question → it becomes Custom, in words, not just colour",
-  badgeCaption:
-    "A standard question changes to Custom the moment a PM edits it. IT Quality can then tell which results compare across products and which don't.",
-  typesTitle: "Seven answer types, one pattern",
-  types: ["Choice", "Text", "Rating", "Ranking", "Likert", "NPS", "Date"],
-  typesText:
-    "Switching type keeps the question text and swaps only the answer area. Each card has four states: collapsed, disabled, expanded and editing.",
-  figures: [
-    { src: `${IMG}/c-question-builder.jpg`, w: 1600, h: 835, alt: "Question card in every answer type: choice, text, rating, ranking, Likert, NPS and date.", caption: "The question card across all seven answer types." },
-    { src: `${IMG}/c-standard-questions.jpg`, w: 1600, h: 1288, alt: "Component states: collapsed, disabled, expanded, plus the language picker and locked standard questions.", caption: "States of the card, the language picker, and the two locked standard questions." },
+  caption: "One question card, seven jobs. Each opens, then shows a sample answer.",
+  /* Each phase is one answer type; `question` is the card's sample question. */
+  phases: [
+    {
+      id: "likert-freq",
+      label: "Frequency",
+      question: "How often do you use this product?",
+      notes: [
+        "Radio matrix locks column widths so answers align across all rows, easy to compare at a glance.",
+        "Standard badge means IT Quality can compare results across products. PMs can't edit it.",
+      ],
+    },
+    {
+      id: "likert-sat",
+      label: "Satisfaction",
+      question: "How satisfied are you with the product overall?",
+      notes: [
+        "Five-point scale from Very satisfied to Very dissatisfied, consistent across every survey.",
+        "Anchoring both ends in words removes ambiguity about which end is 'good'.",
+      ],
+    },
+    {
+      id: "text-improve",
+      label: "Open text",
+      question: "What would most improve your experience?",
+      notes: [
+        "250-character limit keeps answers actionable. PMs asked for shorter responses they'd actually read.",
+        "Custom badge: this question was edited by the PM, so results only apply to this survey.",
+      ],
+    },
+    {
+      id: "dropdown",
+      label: "Dropdown",
+      question: "Which country are you located in?",
+      notes: [
+        "Standardised country, unit and job-role lists mean answers group the same way in every survey.",
+        "Standard questions: locked so IT Quality can roll up global data without normalising later.",
+      ],
+    },
+    {
+      id: "contact",
+      label: "Contact",
+      question: "Would you like us to follow up with you?",
+      notes: [
+        "Three inline fields, name, phone and email, all optional. No question forces contact details.",
+        "Opt-in follow-up respects privacy and raises response quality on the other questions.",
+      ],
+    },
+    {
+      id: "loop",
+      label: "Loop",
+      question: "Rate the quality of documentation for this product.",
+      notes: [
+        "The loop badge shows how many products this question repeats for. No copy-paste needed.",
+        "PMs survey multiple products in one build. The loop handles repetition automatically.",
+      ],
+    },
+    {
+      id: "custom-badge",
+      label: "Standard → Custom",
+      question: "What would most improve your experience?",
+      notes: [
+        "Editing a locked question flips the badge from Standard (green) to Custom (orange) instantly.",
+        "The badge is text, not just colour, so screen readers and colour-blind users see the difference.",
+      ],
+    },
   ],
 };
 
 export const reach = {
   lead: "John Deere's users are dealers, customers, staff and suppliers around the world. Before, a translated survey meant another developer build. Now a PM ticks the languages and previews each one.",
-  main: { src: `${IMG}/c-modal-language.jpg`, w: 1600, h: 835, alt: "Survey preview in English and Spanish with the language menu open.", caption: "The live preview switches language in place. Shown here in English and Spanish." },
+  caption: "The live preview switches language in place. Shown here in English and Spanish.",
+  preview: {
+    languages: [
+      { code: "EN", name: "English" },
+      { code: "DE", name: "German" },
+      { code: "ES", name: "Spanish" },
+      { code: "FR", name: "French" },
+      { code: "PT", name: "Portuguese" },
+      { code: "SV", name: "Swedish" },
+      { code: "ZH", name: "Chinese" },
+    ],
+    picked: ["EN", "ES", "PT", "SV", "ZH"],
+    rows: ["App 1", "App 2"],
+    copy: {
+      EN: {
+        lang: "en",
+        title: "We want your feedback!",
+        question: "How often do you use these IT products?",
+        scale: ["Daily", "Weekly", "Monthly", "Less often"],
+        close: "Close",
+        next: "Next",
+      },
+      ES: {
+        lang: "es",
+        title: "¡Queremos sus comentarios!",
+        question: "¿Con qué frecuencia usa estos productos de TI?",
+        scale: ["A diario", "Semanal", "Mensual", "Con menos frecuencia"],
+        close: "Cerrar",
+        next: "Siguiente",
+      },
+    },
+  },
+  phases: [
+    {
+      id: "pick",
+      label: "Pick languages",
+      notes: [
+        "A PM ticks the languages. Before, every translated survey meant another developer build.",
+        "Picked languages stay in view as chips, so a missing one is easy to spot.",
+      ],
+    },
+    {
+      id: "english",
+      label: "Preview",
+      notes: [
+        "Every survey is previewed before it goes live, in each language it ships in.",
+        "The language menu sits on the preview itself, so checking a translation is one click.",
+      ],
+    },
+    {
+      id: "menu",
+      label: "Switch",
+      notes: ["Languages are listed by name and code, like Spanish · ES."],
+    },
+    {
+      id: "spanish",
+      label: "Spanish",
+      notes: [
+        "The preview switches language in place. Same survey, same page.",
+        "Dealers, customers, staff and suppliers each read it in their own language.",
+      ],
+    },
+  ],
   small: [
     { src: `${IMG}/s14m-departments.jpg`, w: 760, h: 688, alt: "Standard department list.", caption: "A standard department list, so answers group the same way in every survey." },
     { src: `${IMG}/s06m-message.jpg`, w: 760, h: 471, alt: "Message dialog for people who don't use the products.", caption: "A polite exit for people who don't use the products being surveyed." },
@@ -197,11 +315,74 @@ export const reach = {
 
 export const results = {
   lead: "A survey only helps if the answers come back in a form people use. Each survey row opens into its numbers, its trends and its comments, without exporting anything.",
-  figure: { src: `${IMG}/c-preview-results.jpg`, w: 1600, h: 835, alt: "Survey row expanded into details, a bar chart of responses by product, a line chart of responses and abandons over time, and comments.", caption: "The survey row: collapsed, then details, charts and comments. Owner names are blurred." },
-  cards: [
-    { title: "Responses vs abandons", text: "Shown together over time, so a PM sees when people start but don't finish." },
-    { title: "Responses by product", text: "One bar per product, so PMs covering several tools can compare them." },
-    { title: "Comments in context", text: "Each comment shows the product, product family and how it was submitted." },
+  caption: "The survey row: collapsed, then details, charts and comments. Prototype data; owner names withheld.",
+  /* Prototype data from the Figma file. Monthly responses sum to 345, abandons to 59. */
+  survey: {
+    name: "Channel IT",
+    audience: "Internal",
+    closes: "20.12.2024",
+    stats: [
+      { label: "Responses", value: "345" },
+      { label: "Abandons", value: "59" },
+      { label: "Comments", value: "24" },
+      { label: "USAT", value: "72%" },
+    ],
+    others: ["Digital Transformation", "Forestry"],
+    details: [
+      { label: "Pages", value: "3" },
+      { label: "Products", value: "17" },
+      { label: "Custom questions", value: "2" },
+    ],
+    byProduct: [
+      { label: "A", value: 96 },
+      { label: "B", value: 74 },
+      { label: "C", value: 61 },
+      { label: "D", value: 48 },
+      { label: "E", value: 39 },
+      { label: "F", value: 27 },
+    ],
+    months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+    received: [22, 35, 41, 30, 48, 44, 39, 46, 40],
+    abandons: [4, 6, 9, 5, 8, 7, 6, 8, 6],
+    comment: [
+      { label: "Product family", value: "Dealer operations" },
+      { label: "Digital product", value: "Dealer profile admin" },
+      { label: "Submitted", value: "In app" },
+    ],
+  },
+  phases: [
+    {
+      id: "collapsed",
+      label: "Collapsed",
+      notes: [
+        "Every survey is one row: responses, abandons, comments and USAT, readable without opening it.",
+        "Active or Paused sits on the row, so a PM can stop a survey without digging through settings.",
+      ],
+    },
+    {
+      id: "details",
+      label: "Details",
+      notes: [
+        "Two owners on every survey, so none get orphaned.",
+        "The custom-question count shows how much of this survey still compares with other products.",
+      ],
+    },
+    {
+      id: "charts",
+      label: "Charts",
+      notes: [
+        "Responses and abandons shown together over time, so a PM sees when people start but don't finish.",
+        "One bar per product, so PMs covering several tools can compare them.",
+      ],
+    },
+    {
+      id: "comments",
+      label: "Comments",
+      notes: [
+        "Each comment shows the product, product family and how it was submitted.",
+        "All of it reads in the tool. Nothing has to be exported first.",
+      ],
+    },
   ],
 };
 

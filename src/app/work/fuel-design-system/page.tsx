@@ -9,6 +9,9 @@ import Figure from "@/components/casestudy/Figure";
 import StickyNote from "@/components/casestudy/doodles/StickyNote";
 import HandNote from "@/components/casestudy/doodles/HandNote";
 import LaptopPrototype from "@/components/casestudy/LaptopPrototype";
+import QuestionCardShowcase from "@/components/casestudy/QuestionCardShowcase";
+import SurveyRowShowcase from "@/components/casestudy/SurveyRowShowcase";
+import LanguagePreviewShowcase from "@/components/casestudy/LanguagePreviewShowcase";
 import {
   hero,
   timeCard,
@@ -272,27 +275,9 @@ export default function FuelSurveyPage() {
             heading={<>One question card, <Accent>many jobs</Accent></>}
           >
             <p className={styles.lead}>{components.lead}</p>
-            <Figure caption={components.badgeCaption} className={styles.card}>
-              <div className={styles.qRow}>
-                <span className={styles.qTitle}>1. Frequency</span>
-                <span className={styles.badgeStd}>Standard</span>
-              </div>
-              <div className={styles.qRow}>
-                <span className={styles.qTitle}>1. Frequency (edited)</span>
-                <span className={styles.badgeCus}>Custom</span>
-              </div>
-              <HandNote rotate={-1}>{components.badgeNote}</HandNote>
+            <Figure caption={components.caption}>
+              <QuestionCardShowcase phases={components.phases} />
             </Figure>
-            <h3 className={styles.h3}>{components.typesTitle}</h3>
-            <ul className={styles.chips} aria-label="Answer types">
-              {components.types.map((t) => <li key={t}>{t}</li>)}
-            </ul>
-            <p className={styles.body}>{components.typesText}</p>
-            {components.figures.map((f) => (
-              <Figure key={f.src} caption={f.caption}>
-                <Image src={f.src} alt={f.alt} width={f.w} height={f.h} className={styles.shot} sizes="(max-width: 900px) 100vw, 900px" />
-              </Figure>
-            ))}
           </CaseStudySection>
         </div>
 
@@ -303,8 +288,8 @@ export default function FuelSurveyPage() {
           heading={<>One survey, <Accent>any audience, any language</Accent></>}
         >
           <p className={styles.lead}>{reach.lead}</p>
-          <Figure caption={reach.main.caption}>
-            <Image src={reach.main.src} alt={reach.main.alt} width={reach.main.w} height={reach.main.h} className={styles.shot} sizes="(max-width: 900px) 100vw, 900px" />
+          <Figure caption={reach.caption}>
+            <LanguagePreviewShowcase preview={reach.preview} phases={reach.phases} />
           </Figure>
           <div className={styles.grid3}>
             {reach.small.map((f) => (
@@ -323,17 +308,9 @@ export default function FuelSurveyPage() {
             heading={<>Results a PM <Accent>can actually read</Accent></>}
           >
             <p className={styles.lead}>{results.lead}</p>
-            <Figure caption={results.figure.caption}>
-              <Image src={results.figure.src} alt={results.figure.alt} width={results.figure.w} height={results.figure.h} className={styles.shot} sizes="(max-width: 900px) 100vw, 900px" />
+            <Figure caption={results.caption}>
+              <SurveyRowShowcase survey={results.survey} phases={results.phases} />
             </Figure>
-            <div className={styles.grid3}>
-              {results.cards.map((c) => (
-                <div key={c.title} className={styles.card}>
-                  <h3 className={styles.cardTitle}>{c.title}</h3>
-                  <p className={styles.body}>{c.text}</p>
-                </div>
-              ))}
-            </div>
           </CaseStudySection>
         </div>
 

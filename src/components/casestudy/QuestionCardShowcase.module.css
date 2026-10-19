@@ -1,0 +1,366 @@
+/* QuestionCardShowcase mock — tokens from globals.css; --deere-green and
+   --deere-yellow come from the Fuel page wrapper (fuelSurvey.module.css).
+   Controls and notes live in PhasedShowcase.module.css.
+
+   Every rule's resting style is the final, answered state. Animations only
+   play the way in: the card opens at --open, the sample answer lands at
+   --answer. With reduced motion the animations are off and the answered
+   state shows straight away. */
+
+.cardWrap {
+  --open: 0.4s;
+  --answer: 1.4s;
+  position: relative;
+}
+
+/* ── card ─────────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 10px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.09);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+}
+
+.drag {
+  font-size: 14px;
+  line-height: 1;
+  color: var(--color-text-secondary);
+}
+
+.num {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.chevron {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--color-text-secondary);
+  transform: rotate(270deg);
+  animation: chevronOpen 0.25s ease-out var(--open) both;
+}
+
+@keyframes chevronOpen {
+  from { transform: rotate(90deg); }
+}
+
+.body {
+  padding: 14px 16px 16px;
+  border-top: 1px solid var(--color-border);
+  animation: bodyOpen 0.3s ease-out var(--open) both;
+}
+
+@keyframes bodyOpen {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+
+/* ── badges ───────────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.badgeStd {
+  background: var(--deere-green);
+  color: var(--color-surface);
+}
+
+.badgeCus {
+  background: var(--deere-yellow);
+  color: var(--color-text);
+}
+
+.loopBadge {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  z-index: 1;
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--color-surface);
+  background: var(--color-accent-text);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-surface);
+  animation: fadeIn 0.3s ease-out var(--open) both;
+}
+
+/* ── placeholder → sample answer ──────────────────────────────────────────── */
+.swap {
+  display: inline-grid;
+}
+
+.swapOut,
+.swapIn {
+  grid-area: 1 / 1;
+}
+
+.swapOut {
+  opacity: 0;
+  color: var(--color-text-secondary);
+  animation: fadeOut 0.3s ease-out var(--answer) both;
+}
+
+.swapIn {
+  animation: fadeIn 0.3s ease-out var(--answer) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ── radio matrix ─────────────────────────────────────────────────────────── */
+.matrix {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 12px;
+}
+
+.matrix thead td {
+  width: 24%;
+}
+
+.matrix thead th {
+  padding: 0 2px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  hyphens: auto;
+  overflow-wrap: anywhere;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.matrix tbody th {
+  padding: 6px 8px 6px 0;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  color: var(--color-text);
+}
+
+.matrix tbody td {
+  text-align: center;
+}
+
+.radio {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.radioPicked {
+  border-color: var(--color-accent-text);
+  background: var(--color-accent-text);
+  box-shadow: inset 0 0 0 3px var(--color-surface);
+  animation: pick 0.25s ease-out var(--answer) both;
+}
+
+@keyframes pick {
+  from { border-color: var(--color-border); background: transparent; }
+}
+
+/* ── fields ───────────────────────────────────────────────────────────────── */
+.fields,
+.contact {
+  margin: 0;
+}
+
+.fields {
+  display: grid;
+  gap: 10px;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.fields dt,
+.contact dt {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
+  padding: 7px 10px;
+  min-height: 34px;
+  box-sizing: border-box;
+  border: 1.5px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.caret {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.contact > div {
+  display: grid;
+  gap: 5px;
+  flex: 1 1 120px;
+}
+
+.contact dt {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.optional {
+  margin-left: 4px;
+  padding: 1px 5px;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.textarea {
+  position: relative;
+  display: grid;
+  min-height: 80px;
+  padding: 10px 12px 28px;
+  box-sizing: border-box;
+  border: 1.5px solid var(--color-border);
+  border-radius: 7px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.count {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  animation: fadeIn 0.3s ease-out var(--answer) both;
+}
+
+/* ── footer ───────────────────────────────────────────────────────────────── */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.move {
+  padding: 4px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+}
+
+.required {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 17px;
+  border-radius: 9px;
+  background: var(--color-accent-text);
+  animation: toggleOn 0.2s ease-out var(--answer) both;
+}
+
+.toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateX(13px);
+  animation: knobOn 0.2s ease-out var(--answer) both;
+}
+
+@keyframes toggleOn {
+  from { background: var(--color-border); }
+}
+
+@keyframes knobOn {
+  from { transform: none; }
+}
+
+@media (max-width: 559px) {
+  .fieldRow { grid-template-columns: 1fr; gap: 4px; }
+  .matrix { font-size: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron,
+  .body,
+  .loopBadge,
+  .swapOut,
+  .swapIn,
+  .radioPicked,
+  .count,
+  .toggle,
+  .toggle::after {
+    animation: none;
+  }
+}
