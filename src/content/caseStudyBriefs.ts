@@ -110,11 +110,11 @@ const MICRO: Record<string, MicroBrief> = {
       "Weather and location personalization shipped without adding sitewide clutter.",
   },
   "fuel-design-system": {
-    question: "Can more than 100 screens share one specification?",
-    method: "Fuel component system for John Deere. Role: UI/UX designer.",
+    question: "Could PMs build their own surveys without a developer?",
+    method: "Process research, then a survey builder made from the Fuel design system. Role: UX researcher and designer.",
     found:
-      "A shared Fuel system brought more than 100 John Deere screens onto one specification.",
-    changed: "Time to spec fell by about 25%.",
+      "Every survey needed a developer. Deere Survey, built from Fuel, let 250 internal product teams do it themselves.",
+    changed: "A survey took about 30 minutes instead of about 3 days (reported by PMs and observed).",
     visual: cover("fuel-design-system", "Fuel design system dashboard"),
   },
   "team-contract": {

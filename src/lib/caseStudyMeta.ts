@@ -64,9 +64,9 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
   "fuel-design-system": {
     title: "Fuel Design System",
     description:
-      "A shared Fuel component system brought more than 100 John Deere screens onto one specification and cut time to spec by about 25%.",
+      "Deere Survey, built from the Fuel design system, let 250 internal product teams build their own surveys: about 30 minutes instead of about 3 days, as PMs reported.",
     category: "Design Systems",
-    cover: "/assets/fuel/hires-dashboard.jpg",
+    cover: "/work/fuel-survey/survey-prototype-poster.jpg",
   },
   gesturepro: {
     title: "GesturePro",

@@ -1,791 +1,417 @@
 "use client";
 
-import React from "react";
+import Image from "next/image";
 import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
+import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
+import { CaseStudySection, Accent } from "@/components/casestudy/CaseStudyContent";
+import { TldrCard } from "@/components/casestudy/CaseStudyExtras";
+import Figure from "@/components/casestudy/Figure";
+import StickyNote from "@/components/casestudy/doodles/StickyNote";
+import HandNote from "@/components/casestudy/doodles/HandNote";
+import LaptopPrototype from "@/components/casestudy/LaptopPrototype";
+import {
+  hero,
+  timeCard,
+  tldr,
+  stats,
+  problem,
+  okr,
+  fuel,
+  prototype,
+  components,
+  reach,
+  results,
+  accessibility,
+  givingBack,
+  impact,
+} from "@/content/fuelSurvey";
+import styles from "./fuelSurvey.module.css";
 
-/* ─────────── Design tokens ─────────── */
-const T = {
-  green: "#367C2B",
-  yellow: "#FFDE00",
-  text: "#1c1b17",
-  muted: "#6e6b60",
-  border: "#e3e0d6",
-  surface: "#f8f7f4",
-  white: "#ffffff",
-};
-
-/* ─────────── Layout wrapper — constrains all content to readable max-width ─────────── */
-function Wrap({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
-  return (
-    <div style={{
-      maxWidth: "860px",
-      margin: "0 auto",
-      padding: "0 40px",
-      width: "100%",
-      boxSizing: "border-box" as const,
-      ...style,
-    }}>
-      {children}
-    </div>
-  );
-}
-
-/* ─────────── Shared primitives ─────────── */
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div style={{
-      fontFamily: "JetBrains Mono, monospace",
-      fontSize: "11px",
-      letterSpacing: "0.18em",
-      textTransform: "uppercase" as const,
-      color: T.green,
-      fontWeight: 600,
-      marginBottom: "14px",
-    }}>
-      {children}
-    </div>
-  );
-}
-
-function SectionTitle({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 style={{
-      fontFamily: "var(--font-display)",
-      fontSize: "clamp(24px, 3vw, 36px)",
-      fontWeight: 800,
-      lineHeight: 1.15,
-      letterSpacing: "-0.02em",
-      color: T.text,
-      margin: "0 0 24px 0",
-    }}>
-      {children}
-    </h2>
-  );
-}
-
-function BodyText({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
-  return (
-    <p style={{
-      fontSize: "16px",
-      lineHeight: 1.75,
-      color: T.muted,
-      margin: "0 0 18px 0",
-      ...style,
-    }}>
-      {children}
-    </p>
-  );
-}
-
-function PullQuote({ children }: { children: React.ReactNode }) {
-  return (
-    <blockquote style={{
-      borderLeft: `3px solid ${T.green}`,
-      paddingLeft: "24px",
-      margin: "32px 0",
-      fontStyle: "italic",
-      fontSize: "17px",
-      lineHeight: 1.65,
-      color: T.text,
-      fontWeight: 500,
-    }}>
-      {children}
-    </blockquote>
-  );
-}
-
-function InsightItem({ num, title, text }: { num: string; title: string; text: string }) {
-  return (
-    <div style={{
-      display: "flex",
-      gap: "24px",
-      alignItems: "flex-start",
-      padding: "24px 0",
-      borderBottom: `1px solid ${T.border}`,
-    }}>
-      <div style={{
-        fontFamily: "var(--font-display)",
-        fontSize: "32px",
-        fontWeight: 900,
-        color: T.border,
-        lineHeight: 1,
-        flexShrink: 0,
-        width: "44px",
-      }}>
-        {num}
-      </div>
-      <div>
-        <div style={{ fontSize: "15px", fontWeight: 700, color: T.text, marginBottom: "6px" }}>{title}</div>
-        <p style={{ fontSize: "14.5px", lineHeight: 1.65, color: T.muted, margin: 0 }}>{text}</p>
-      </div>
-    </div>
-  );
-}
-
-function KeyDecision({ title, rationale, text }: { title: string; rationale: string; text: string }) {
-  return (
-    <div style={{
-      background: T.surface,
-      borderLeft: `4px solid ${T.yellow}`,
-      padding: "22px 26px",
-      borderRadius: "0 6px 6px 0",
-      margin: "28px 0",
-    }}>
-      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase" as const, color: T.green, fontWeight: 700, marginBottom: "8px" }}>Key Decision</div>
-      <div style={{ fontSize: "15px", fontWeight: 700, color: T.text, marginBottom: "5px" }}>{title}</div>
-      <div style={{ fontSize: "13px", color: T.muted, fontStyle: "italic", marginBottom: "10px" }}>Rationale: {rationale}</div>
-      <p style={{ fontSize: "14.5px", lineHeight: 1.65, color: T.muted, margin: 0 }}>{text}</p>
-    </div>
-  );
-}
-
-/* Images — always full-width within their Wrap container */
-function CsImage({ src, alt, caption }: { src: string; alt: string; caption: string }) {
-  const isSlice = src.includes("slice-");
-  return (
-    <div style={{ margin: "32px 0" }}>
-      <img
-        src={src}
-        alt={alt}
-        style={{ width: "100%", height: "auto", display: "block", borderRadius: "6px", clipPath: isSlice ? "inset(1.5px)" : "none" }}
-      />
-      <div style={{ fontSize: "13px", color: T.muted, marginTop: "10px", fontStyle: "italic", lineHeight: 1.5 }}>
-        {caption}
-      </div>
-    </div>
-  );
-}
-
-function CsImageGrid2({ items }: { items: { src: string; alt: string; caption: string }[] }) {
-  return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", margin: "32px 0" }}>
-      {items.map((item, i) => {
-        const isSlice = item.src.includes("slice-");
-        return (
-          <div key={i}>
-            <img src={item.src} alt={item.alt} style={{ width: "100%", height: "auto", display: "block", borderRadius: "6px", clipPath: isSlice ? "inset(1.5px)" : "none" }} />
-            <div style={{ fontSize: "12.5px", color: T.muted, marginTop: "9px", fontStyle: "italic", lineHeight: 1.5 }}>{item.caption}</div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function CsImageGrid3({ items }: { items: { src: string; alt: string; caption: string }[] }) {
-  return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px", margin: "32px 0" }}>
-      {items.map((item, i) => {
-        const isSlice = item.src.includes("slice-");
-        return (
-          <div key={i}>
-            <img src={item.src} alt={item.alt} style={{ width: "100%", height: "auto", display: "block", borderRadius: "6px", clipPath: isSlice ? "inset(1.5px)" : "none" }} />
-            <div style={{ fontSize: "12px", color: T.muted, marginTop: "8px", fontStyle: "italic", lineHeight: 1.5 }}>{item.caption}</div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function ImpactGrid() {
-  const items = [
-    { val: "100+", label: "Screens held to one consistent system" },
-    { val: "6+", label: "Product teams aligned on shared components" },
-    { val: "−25%", label: "Time to specification via developer-ready components" },
-  ];
-  return (
-    <div style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
-      gap: "1px",
-      background: T.border,
-      border: `1px solid ${T.border}`,
-      borderRadius: "8px",
-      overflow: "hidden",
-      margin: "32px 0",
-    }}>
-      {items.map((item, i) => (
-        <div key={i} style={{ background: T.white, padding: "28px 24px" }}>
-          <div style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "44px",
-            fontWeight: 900,
-            letterSpacing: "-0.03em",
-            color: T.green,
-            lineHeight: 1,
-            marginBottom: "10px",
-          }}>
-            {item.val}
-          </div>
-          <div style={{ fontSize: "13px", color: T.muted, lineHeight: 1.55 }}>{item.label}</div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ─────────── Section divider ─────────── */
-function SectionDivider() {
-  return <div style={{ borderTop: `1px solid ${T.border}` }} />;
-}
-
-/* ─────────── Sections nav ─────────── */
 const sections = [
-  { id: "overview", label: "Overview" },
-  { id: "challenge", label: "The Challenge" },
-  { id: "userflow", label: "User Flows" },
-  { id: "system", label: "The Design System" },
-  { id: "tokens", label: "Token Layer" },
-  { id: "anatomy", label: "Component Anatomy" },
-  { id: "screens", label: "Screens" },
-  { id: "impact", label: "Impact" },
+  { id: "overview", label: "The short version" },
+  { id: "problem", label: "01 · The problem" },
+  { id: "bet", label: "02 · The Fuel bet" },
+  { id: "fuel", label: "03 · Inside Fuel" },
+  { id: "product", label: "04 · The product" },
+  { id: "components", label: "05 · The components" },
+  { id: "reach", label: "06 · Reach" },
+  { id: "results", label: "07 · Closing the loop" },
+  { id: "accessibility", label: "08 · Accessibility" },
+  { id: "giving-back", label: "09 · Giving it back" },
+  { id: "impact", label: "10 · Impact" },
 ];
 
-/* ─────────── Password gate ─────────── */
-function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
+const Arrow = () => (
+  <svg className={styles.laneArrow} width="26" height="16" viewBox="0 0 26 16" aria-hidden="true">
+    <path d="M2 8h20M16 2l6 6-6 6" />
+  </svg>
+);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === "deere2026") {
-      localStorage.setItem("fuel_access", "deere2026");
-      onUnlock();
-    } else {
-      setError("Incorrect password. Please try again.");
-    }
-  };
-
+function TimeCard() {
   return (
-    <div role="region" aria-label="Password protected case study" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f5f3", padding: "24px" }}>
-      <div style={{ background: T.white, border: `1px solid ${T.border}`, borderRadius: "12px", width: "100%", maxWidth: "440px", overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}>
-        <div style={{ height: "6px", background: T.yellow }} />
-        <div style={{ background: T.green, padding: "28px 24px", textAlign: "center" as const, color: T.white }}>
-          <div style={{ fontSize: "18px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase" as const }}>John Deere</div>
-          <div style={{ fontSize: "11px", marginTop: "5px", opacity: 0.75, fontFamily: "JetBrains Mono, monospace", letterSpacing: "0.1em" }}>FUEL DESIGN SYSTEM</div>
+    <div className={styles.timeCard}>
+      <p className={styles.eyebrow}>{timeCard.label}</p>
+      <div className={styles.timeRow}>
+        <div>
+          <span className={styles.timeSmall}>Before</span>
+          <span className={styles.timeBefore}>{timeCard.before}</span>
         </div>
-        <form onSubmit={handleSubmit} style={{ padding: "36px 32px", display: "flex", flexDirection: "column" as const, gap: "20px" }}>
-          <div style={{ textAlign: "center" as const }}>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: T.text, margin: "0 0 8px 0" }}>Protected Case Study</h3>
-            <p style={{ fontSize: "13.5px", color: T.muted, margin: 0, lineHeight: 1.55 }}>
-              This case study contains proprietary materials under NDA. Please enter the password to view.
-            </p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" as const, gap: "6px" }}>
-            <label htmlFor="fuel-password" style={{ fontSize: "12px", fontWeight: 600, color: T.text }}>
-              Password
-            </label>
-            <input
-              id="fuel-password"
-              type="password"
-              autoComplete="current-password"
-              placeholder="Enter password..."
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              aria-invalid={Boolean(error)}
-              aria-describedby={error ? "fuel-password-error" : undefined}
-              style={{ padding: "12px 16px", border: `1px solid ${T.border}`, borderRadius: "4px", fontSize: "14px", width: "100%", color: T.text, boxSizing: "border-box" as const }}
-              onFocus={(e) => { e.target.style.borderColor = T.green; }}
-              onBlur={(e) => { e.target.style.borderColor = T.border; }}
-            />
-            {error && (
-              <span id="fuel-password-error" role="alert" style={{ fontSize: "12.5px", color: "#b91c1c", fontWeight: 600 }}>
-                {error}
-              </span>
-            )}
-          </div>
-          <button
-            type="submit"
-            style={{ background: T.yellow, color: T.text, border: "none", padding: "14px", borderRadius: "4px", fontWeight: 700, fontSize: "13px", textTransform: "uppercase" as const, letterSpacing: "0.1em", cursor: "pointer" }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#e5c800"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = T.yellow; }}
-          >
-            Unlock Case Study
-          </button>
-        </form>
+        <svg className={styles.timeArrow} width="56" height="34" viewBox="0 0 56 34" aria-hidden="true">
+          <path d="M3 24 C 18 6,34 30,50 12" />
+          <path d="M41 10 L 51 11 L 49 21" />
+        </svg>
+        <div>
+          <span className={styles.timeSmall}>After</span>
+          <span className={styles.timeAfter}>
+            {timeCard.after}
+            <small> {timeCard.afterUnit}</small>
+          </span>
+        </div>
       </div>
+      <p className={styles.timeBody}>{timeCard.body}</p>
+      <HandNote rotate={-1.5}>{timeCard.note}</HandNote>
     </div>
   );
 }
 
-/* ─────────── Main page ─────────── */
-export default function FuelDesignSystemCaseStudy() {
-  const [unlocked, setUnlocked] = React.useState(false);
-
-  React.useEffect(() => {
-    if (localStorage.getItem("fuel_access") === "deere2026") {
-      setUnlocked(true);
-    }
-  }, []);
-
-  if (!unlocked) {
-    return <PasswordGate onUnlock={() => setUnlocked(true)} />;
-  }
-
+function Lane({ label, items }: { label: string; items: { who: string; what: string; removed?: boolean; hot?: boolean }[] }) {
   return (
-    <CaseStudyLayout sections={sections}>
+    <div className={styles.laneBlock}>
+      <p className={styles.eyebrow}>{label}</p>
+      <ol className={styles.lane}>
+        {items.map((n, i) => (
+          <li key={n.who + i} className={styles.laneItem}>
+            {i > 0 ? <Arrow /> : null}
+            <span className={`${styles.node}${n.removed ? ` ${styles.nodeDead}` : ""}${n.hot ? ` ${styles.nodeHot}` : ""}`}>
+              <b>{n.who}</b>
+              {n.what}
+              {n.removed ? <span className={styles.srOnly}> (removed by the new tool)</span> : null}
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
 
-      {/* ════════════════════════════════════════════════════ */}
-      {/*  HERO                                               */}
-      {/* ════════════════════════════════════════════════════ */}
-      <section style={{ paddingTop: "56px", paddingBottom: "0", background: T.white, borderBottom: `1px solid ${T.border}` }}>
-        <Wrap>
-          {/* Company tag */}
-          <div style={{ display: "inline-block", background: T.green, color: T.white, fontFamily: "JetBrains Mono, monospace", fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase" as const, padding: "5px 12px", borderRadius: "2px", marginBottom: "24px" }}>
-            Design Systems
+export default function FuelSurveyPage() {
+  return (
+    <div className={styles.page}>
+      <CaseStudyHero
+        category={hero.category}
+        title={
+          <>
+            From a 3-day ticket to a <Accent>30-minute</Accent> survey
+          </>
+        }
+        subtitle={hero.subtitle}
+        chips={hero.chips}
+        role={hero.role}
+        team={hero.team}
+        timeline={hero.timeline}
+        aside={<TimeCard />}
+      />
+
+      <CaseStudyLayout sections={sections} hideBrief>
+        <CaseStudySection id="overview">
+          <TldrCard title="The short version" summary={tldr.summary} tldr={tldr}>
+            <ul className={styles.stats} aria-label="Key results">
+              {stats.map((s) => (
+                <li key={s.label} className={styles.stat}>
+                  <span className={`${styles.statValue}${s.highlight ? ` ${styles.statHot}` : ""}`}>{s.value}</span>
+                  <span className={styles.statLabel}>{s.label}</span>
+                </li>
+              ))}
+            </ul>
+          </TldrCard>
+        </CaseStudySection>
+
+        {/* 01 · Problem */}
+        <div className={styles.tint}>
+          <CaseStudySection
+            id="problem"
+            label="Chapter 01 · The problem"
+            heading={<>Every survey <Accent>needed a developer</Accent></>}
+          >
+            <p className={styles.lead}>{problem.lead}</p>
+            <Figure caption={problem.caption} className={styles.card}>
+              <Lane label="Before · about 3 days per survey" items={problem.before} />
+              <Lane label="After · about 30 minutes per survey" items={problem.after} />
+            </Figure>
+            <ul className={styles.stickyRow} aria-label="What I heard">
+              {problem.stickies.map((s, i) => (
+                <StickyNote key={s} as="li" rotate={[-1.5, 1, -0.5, 1.5][i % 4]}>
+                  {s}
+                </StickyNote>
+              ))}
+            </ul>
+            <div className={styles.hmw}>
+              <h3>The question I designed for</h3>
+              <p>{problem.hmw}</p>
+            </div>
+          </CaseStudySection>
+        </div>
+
+        {/* 02 · The Fuel bet */}
+        <CaseStudySection
+          id="bet"
+          label="Chapter 02 · Why it mattered beyond one tool"
+          heading={<>The team&rsquo;s bet: <Accent>more products on Fuel</Accent></>}
+        >
+          <p className={styles.lead}>{okr.lead}</p>
+          <div className={styles.okr}>
+            <div className={styles.objective}>
+              <p className={styles.eyebrowOnDark}>FY24 Q2 objective</p>
+              <p>{okr.objective}</p>
+            </div>
+            <div className={styles.card}>
+              <p className={styles.eyebrow}>Key results this work fed</p>
+              <ul className={styles.krList}>
+                {okr.keyResults.map((k) => (
+                  <li key={k.title}>
+                    <strong>{k.title}</strong> {k.text}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
+          <div className={styles.tableWrap}>
+            <table className={styles.table}>
+              <caption className={styles.eyebrow}>Where my work landed</caption>
+              <thead>
+                <tr>{okr.mapColumns.map((c) => <th key={c} scope="col">{c}</th>)}</tr>
+              </thead>
+              <tbody>
+                {okr.mapRows.map((r) => (
+                  <tr key={r[0]}>{r.map((c) => <td key={c}>{c}</td>)}</tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </CaseStudySection>
 
-          <h1 style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(28px, 4vw, 48px)",
-            fontWeight: 900,
-            lineHeight: 1.1,
-            letterSpacing: "-0.025em",
-            color: T.text,
-            margin: "0 0 36px 0",
-          }}>
-            Building at Scale Inside John Deere&apos;s Enterprise Design System
-          </h1>
+        {/* 03 · Inside Fuel */}
+        <div className={styles.tint}>
+          <CaseStudySection
+            id="fuel"
+            label="Chapter 03 · Inside Fuel"
+            heading={<>How a component <Accent>gets to production</Accent></>}
+          >
+            <p className={styles.lead}>{fuel.lead}</p>
+            <Figure caption={fuel.stagesCaption} className={styles.card}>
+              <HandNote rotate={-1}>{fuel.quote}</HandNote>
+              <ol className={styles.stages}>
+                {fuel.stages.map((s) => (
+                  <li key={s.n} className={`${styles.node}${s.hot ? ` ${styles.nodeHot}` : ""}`}>
+                    <b>{s.n}</b>
+                    {s.text}
+                  </li>
+                ))}
+              </ol>
+            </Figure>
+            <div className={styles.tokens}>
+              <p className={styles.eyebrowOnDark}>Token architecture · three layers</p>
+              <p className={styles.tokensIntro}>{fuel.tokensIntro}</p>
+              <ol className={styles.tokenRow}>
+                {fuel.tokens.map((t, i) => (
+                  <li key={t.layer} className={styles.token} data-level={i}>
+                    <b>{t.layer}</b>
+                    <span>{t.role}</span>
+                    {t.examples.map((e) => <code key={e}>{e}</code>)}
+                  </li>
+                ))}
+              </ol>
+              <p className={styles.tokensNote} aria-hidden="true">{fuel.tokensNote} →</p>
+              <div className={styles.tokenCards}>
+                {fuel.cards.map((c) => (
+                  <div key={c.title}>
+                    <h3>{c.title}</h3>
+                    <p>{c.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CaseStudySection>
+        </div>
 
-          {/* Meta strip */}
-          <div style={{ display: "flex", gap: "0", borderTop: `1px solid ${T.border}`, flexWrap: "wrap" as const }}>
-            {[
-              { label: "Project", value: "B2B Enterprise Platform" },
-              { label: "Role", value: "UI/UX Designer" },
-              { label: "System", value: "Fuel (John Deere)" },
-              { label: "Tools", value: "Figma" },
-            ].map((m, i) => (
-              <div key={m.label} style={{ padding: "18px 32px 18px 0", marginRight: "32px", borderRight: i < 3 ? `1px solid ${T.border}` : "none", paddingRight: i < 3 ? "32px" : "0" }}>
-                <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase" as const, color: T.muted, marginBottom: "4px" }}>{m.label}</div>
-                <div style={{ fontSize: "14px", fontWeight: 600, color: T.text }}>{m.value}</div>
+        {/* 04 · The product — animated prototype */}
+        <CaseStudySection
+          id="product"
+          label="Chapter 04 · The product"
+          heading={<>Designing for PMs, <Accent>not developers</Accent></>}
+        >
+          <p className={styles.lead}>{prototype.lead}</p>
+          <div className={styles.protoBleed}>
+            <LaptopPrototype steps={prototype.steps} ariaLabel={prototype.ariaLabel} note={prototype.note} />
+          </div>
+          <p className={styles.caption}>{prototype.caption}</p>
+          <h3 className={styles.h3}>{prototype.decisionsTitle}</h3>
+          <ol className={styles.decisions}>
+            {prototype.steps.map((s, i) => (
+              <li key={s.id}>
+                <b>{String(i + 1).padStart(2, "0")}</b>
+                <span>{s.decision}</span>
+              </li>
+            ))}
+          </ol>
+          <div className={styles.fuelCallout}>
+            <p className={styles.eyebrow}>{prototype.fuelTitle}</p>
+            <p>{prototype.fuelText}</p>
+            <ul className={styles.chips} aria-label="Fuel components used">
+              {prototype.fuelParts.map((p) => <li key={p}>{p}</li>)}
+            </ul>
+            <HandNote rotate={-1}>{prototype.fuelNote}</HandNote>
+          </div>
+        </CaseStudySection>
+
+        {/* 05 · Components */}
+        <div className={styles.tint}>
+          <CaseStudySection
+            id="components"
+            label="Chapter 05 · The components"
+            heading={<>One question card, <Accent>many jobs</Accent></>}
+          >
+            <p className={styles.lead}>{components.lead}</p>
+            <Figure caption={components.badgeCaption} className={styles.card}>
+              <div className={styles.qRow}>
+                <span className={styles.qTitle}>1. Frequency</span>
+                <span className={styles.badgeStd}>Standard</span>
+              </div>
+              <div className={styles.qRow}>
+                <span className={styles.qTitle}>1. Frequency (edited)</span>
+                <span className={styles.badgeCus}>Custom</span>
+              </div>
+              <HandNote rotate={-1}>{components.badgeNote}</HandNote>
+            </Figure>
+            <h3 className={styles.h3}>{components.typesTitle}</h3>
+            <ul className={styles.chips} aria-label="Answer types">
+              {components.types.map((t) => <li key={t}>{t}</li>)}
+            </ul>
+            <p className={styles.body}>{components.typesText}</p>
+            {components.figures.map((f) => (
+              <Figure key={f.src} caption={f.caption}>
+                <Image src={f.src} alt={f.alt} width={f.w} height={f.h} className={styles.shot} sizes="(max-width: 900px) 100vw, 900px" />
+              </Figure>
+            ))}
+          </CaseStudySection>
+        </div>
+
+        {/* 06 · Reach */}
+        <CaseStudySection
+          id="reach"
+          label="Chapter 06 · Reach"
+          heading={<>One survey, <Accent>any audience, any language</Accent></>}
+        >
+          <p className={styles.lead}>{reach.lead}</p>
+          <Figure caption={reach.main.caption}>
+            <Image src={reach.main.src} alt={reach.main.alt} width={reach.main.w} height={reach.main.h} className={styles.shot} sizes="(max-width: 900px) 100vw, 900px" />
+          </Figure>
+          <div className={styles.grid3}>
+            {reach.small.map((f) => (
+              <Figure key={f.src} caption={f.caption}>
+                <Image src={f.src} alt={f.alt} width={f.w} height={f.h} className={styles.shot} sizes="(max-width: 900px) 100vw, 300px" />
+              </Figure>
+            ))}
+          </div>
+        </CaseStudySection>
+
+        {/* 07 · Results */}
+        <div className={styles.tint}>
+          <CaseStudySection
+            id="results"
+            label="Chapter 07 · Closing the loop"
+            heading={<>Results a PM <Accent>can actually read</Accent></>}
+          >
+            <p className={styles.lead}>{results.lead}</p>
+            <Figure caption={results.figure.caption}>
+              <Image src={results.figure.src} alt={results.figure.alt} width={results.figure.w} height={results.figure.h} className={styles.shot} sizes="(max-width: 900px) 100vw, 900px" />
+            </Figure>
+            <div className={styles.grid3}>
+              {results.cards.map((c) => (
+                <div key={c.title} className={styles.card}>
+                  <h3 className={styles.cardTitle}>{c.title}</h3>
+                  <p className={styles.body}>{c.text}</p>
+                </div>
+              ))}
+            </div>
+          </CaseStudySection>
+        </div>
+
+        {/* 08 · Accessibility */}
+        <CaseStudySection
+          id="accessibility"
+          label="Chapter 08 · Accessibility"
+          heading={<>Accessible <Accent>by default</Accent></>}
+        >
+          <p className={styles.lead}>{accessibility.lead}</p>
+          <div className={styles.grid2}>
+            {accessibility.principles.map((p) => (
+              <div key={p.label} className={styles.card}>
+                <h3 className={styles.eyebrow}>{p.label}</h3>
+                <p className={styles.body}>{p.text}</p>
               </div>
             ))}
           </div>
-        </Wrap>
-
-      </section>
-
-      {/* ════════════════════════════════════════════════════ */}
-      {/*  OVERVIEW                                           */}
-      {/* ════════════════════════════════════════════════════ */}
-      <section id="overview" style={{ padding: "72px 0 64px", background: T.white }}>
-        <Wrap>
-          <SectionLabel>Overview</SectionLabel>
-          <SectionTitle>A sprawling B2B platform. One design system to hold it together.</SectionTitle>
-
-          <BodyText>
-            John Deere&apos;s internal manufacturing platform — Common Segmentation — spans program creation, scheduling, release management, system exports, and compliance documentation. Over 100 screens across 6+ product teams, each dense with tables, forms, status chips, Gantt charts, and comparison views.
-          </BodyText>
-          <BodyText>
-            <strong>Fuel</strong> is John Deere&apos;s enterprise design system — the shared component library, token layer, and documentation that keeps the product consistent across all those teams. My role: design within Fuel, contribute to it, and extend it where the product needed patterns the library didn&apos;t yet cover.
-          </BodyText>
-
-          <PullQuote>
-            &ldquo;My contribution, precisely. I was not the original author of Fuel. I worked within it — assembling screens from existing components, building and extending several, and contributing back to tokens and documentation so additions stayed part of the system.&rdquo;
-          </PullQuote>
-
-          <ImpactGrid />
-        </Wrap>
-      </section>
-
-      {/* ════════════════════════════════════════════════════ */}
-      {/*  THE CHALLENGE                                      */}
-      {/* ════════════════════════════════════════════════════ */}
-      <section id="challenge" style={{ padding: "64px 0", background: T.white }}>
-        <Wrap>
-          <SectionDivider />
-          <div style={{ paddingTop: "56px" }}>
-            <SectionLabel>The Challenge</SectionLabel>
-            <SectionTitle>Without a shared system, three failure modes appear fast.</SectionTitle>
-
-            <BodyText>
-              The platform spans creation flows (Program, Project, System), dashboards, health cards, comparison views, reports, and modals — well over a hundred screens. Without a system anchoring every team, the product falls apart in predictable ways.
-            </BodyText>
-
-            <div style={{ marginTop: "8px" }}>
-              <InsightItem
-                num="01"
-                title="Visual drift"
-                text="Every team styles buttons, tables, and forms slightly differently. The product stops feeling like one tool — users navigate between micro-inconsistencies on every screen."
-              />
-              <InsightItem
-                num="02"
-                title="Redesign debt"
-                text="New features get designed from scratch instead of composed from a library. Work multiplies, inconsistency compounds, and every sprint starts from zero rather than from a foundation."
-              />
-              <InsightItem
-                num="03"
-                title="Slow, ambiguous handoff"
-                text="Without documented components with redlined measurements and defined states, engineering reinterprets the same patterns repeatedly — and specs become conversations instead of deliverables."
-              />
-            </div>
-
-            <KeyDecision
-              title="Make the right pattern the easy pattern"
-              rationale="Fuel exists so a new screen is an act of assembly, not invention."
-              text="The system defines components, tokens, and states so that the fastest way to build a screen is also the correct way. That constraint turns consistency from a discipline into a default."
-            />
+          <div className={styles.hmw}>
+            <h3>{accessibility.targetsTitle}</h3>
+            <ul>
+              {accessibility.targets.map((t) => <li key={t}>{t}</li>)}
+            </ul>
           </div>
-        </Wrap>
-      </section>
+        </CaseStudySection>
 
-      {/* ════════════════════════════════════════════════════ */}
-      {/*  USER FLOWS                                         */}
-      {/* ════════════════════════════════════════════════════ */}
-      <section id="userflow" style={{ padding: "64px 0", background: T.white }}>
-        <Wrap>
-          <SectionDivider />
-          <div style={{ paddingTop: "56px" }}>
-            <SectionLabel>User Flows &amp; Research</SectionLabel>
-            <SectionTitle>Mapping 20+ jobs-to-be-done across the platform.</SectionTitle>
-
-            <BodyText>
-              Before assembling screens, we mapped the full scope of the product — every flow from log-in to action completion. The platform serves multiple roles: program managers uploading SDF files, engineers defining releases, administrators assigning EPH roles, and translators managing localisation. Each job has a distinct flow with different touchpoints.
-            </BodyText>
-
-            <CsImage
-              src="/assets/fuel/hires-userflows.jpg?v=3"
-              alt="User flow map for the Common Segmentation platform"
-              caption="Fig: Complete user flow map — 20+ jobs-to-be-done across Upload, Release, Export, Translation, and Admin flows. Color-coded by complexity and EPH selection requirements."
-            />
-
-            <BodyText>
-              The color-coding (red-yellow-green circles) indicates effort and complexity per task. EPH selection — the pivot point for most flows — is highlighted in yellow throughout, because it was the most common source of user error in early testing.
-            </BodyText>
-
-            <CsImageGrid2
-              items={[
-                {
-                  src: "/assets/fuel/hires-program-details.jpg?v=3",
-                  alt: "Program details screen",
-                  caption: "Fig: Program Details — Organization, Team, Program, and Tool Mapping sections. Each field group is a Fuel card component with defined padding and section hierarchy.",
-                },
-                {
-                  src: "/assets/fuel/hires-create-project.jpg?v=3",
-                  alt: "Create project flow",
-                  caption: "Fig: Create Project — dense multi-section form assembled entirely from Fuel form fields, dropdowns, section cards, and side navigation.",
-                },
-              ]}
-            />
-          </div>
-        </Wrap>
-      </section>
-
-      {/* ════════════════════════════════════════════════════ */}
-      {/*  THE DESIGN SYSTEM                                  */}
-      {/* ════════════════════════════════════════════════════ */}
-      <section id="system" style={{ padding: "64px 0", background: T.white }}>
-        <Wrap>
-          <SectionDivider />
-          <div style={{ paddingTop: "56px" }}>
-            <SectionLabel>The Design System</SectionLabel>
-            <SectionTitle>Fuel is specified at every layer — from variables to screen.</SectionTitle>
-
-            <BodyText>
-              Fuel is a full-stack design system: design tokens (colors, spacing, type), a primitive component library (buttons, inputs, badges, tables), and higher-order compositions (cards, toolbars, sidebars). Every component is documented with states — default, active, disabled, error, success — and redlined with pixel measurements for developer handoff.
-            </BodyText>
-            <BodyText>
-              Working within Fuel meant I was always composing, not inventing. My judgment was applied to which components assembled into a screen that served the user&apos;s job — not to re-specifying every pixel from scratch.
-            </BodyText>
-
-            <CsImageGrid2
-              items={[
-                {
-                  src: "/assets/fuel/slice-11.jpg?v=3",
-                  alt: "Color system",
-                  caption: "Fig: Color System — Primary brand colors, semantic UI messaging (success, warning, error), and neutral scales mapped as tokens.",
-                },
-                {
-                  src: "/assets/fuel/slice-12.jpg?v=3",
-                  alt: "Typography scale",
-                  caption: "Fig: Typography — Font families, heading scales, body sizes, and line-heights fully specified for developer handoff.",
-                },
-              ]}
-            />
-
-            <BodyText>
-              <strong>2. Controls &amp; Inputs</strong>
-            </BodyText>
-            
-            <CsImageGrid2
-              items={[
-                {
-                  src: "/assets/fuel/slice-1.jpg?v=3",
-                  alt: "Button components",
-                  caption: "Fig: Buttons — Primary, secondary, and tertiary styles with active, disabled, and hover states defined.",
-                },
-                {
-                  src: "/assets/fuel/slice-8.jpg?v=3",
-                  alt: "Selection controls",
-                  caption: "Fig: Selection Controls — Checkboxes, radio buttons, and toggles to handle boolean inputs consistently.",
-                },
-              ]}
-            />
-
-            <CsImageGrid2
-              items={[
-                {
-                  src: "/assets/fuel/slice-9.jpg?v=3",
-                  alt: "Form components",
-                  caption: "Fig: Forms — Text inputs, dropdowns, and textareas showing focus, filled, and error states.",
-                },
-                {
-                  src: "/assets/fuel/slice-2.jpg?v=3",
-                  alt: "Date Picker",
-                  caption: "Fig: Date Picker — Standardized calendar inputs for scheduling and phase planning.",
-                },
-              ]}
-            />
-
-            <BodyText>
-              <strong>3. Navigation &amp; Feedback</strong>
-            </BodyText>
-            
-            <CsImageGrid3
-              items={[
-                {
-                  src: "/assets/fuel/slice-10.jpg?v=3",
-                  alt: "Tab navigation",
-                  caption: "Fig: Tabs — Used for switching contexts within complex dashboard views.",
-                },
-                {
-                  src: "/assets/fuel/slice-6.jpg?v=3",
-                  alt: "Breadcrumbs",
-                  caption: "Fig: Breadcrumbs — Ensuring clear hierarchical navigation across multi-step flows.",
-                },
-                {
-                  src: "/assets/fuel/slice-7.jpg?v=3",
-                  alt: "Notifications",
-                  caption: "Fig: Notifications — System alerts, toast messages, and inline feedback patterns.",
-                },
-              ]}
-            />
-
-            <BodyText>
-              <strong>4. Data Display &amp; Layout</strong>
-            </BodyText>
-
-            <CsImageGrid2
-              items={[
-                {
-                  src: "/assets/fuel/slice-0.jpg?v=3",
-                  alt: "Table components",
-                  caption: "Fig: Tables — The workhorse of the B2B platform. Handles sorting, selection, and dense data displays.",
-                },
-                {
-                  src: "/assets/fuel/slice-3.jpg?v=3",
-                  alt: "Graph components",
-                  caption: "Fig: Graphs — Standardized data visualization components for reporting dashboards.",
-                },
-              ]}
-            />
-
-            <CsImage
-              src="/assets/fuel/slice-5.jpg?v=3"
-              alt="Launchpad Cards"
-              caption="Fig: Launchpad Cards — Entry points for different system modules and applications."
-            />
-
-            <CsImage
-              src="/assets/fuel/slice-4.jpg?v=3"
-              alt="Dashboard Cards"
-              caption="Fig: Dashboard Cards — Modular containers for KPIs and status summaries. Placed full-width to prevent uneven blank space."
-            />
-
-            <KeyDecision
-              title="Developer-ready specs are the deliverable, not just the picture"
-              rationale="A design without redlines is a conversation starter; a design with them is a handoff."
-              text="Each component carries exact pixel dimensions, spacing values, font weights, and all states. That is what makes a component developer-ready — and what cut specification time by 25% across the project lifecycle."
-            />
-          </div>
-        </Wrap>
-      </section>
-
-      {/* ════════════════════════════════════════════════════ */}
-      {/*  TOKEN LAYER                                        */}
-      {/* ════════════════════════════════════════════════════ */}
-      <section id="tokens" style={{ padding: "64px 0", background: T.white }}>
-        <Wrap>
-          <SectionDivider />
-          <div style={{ paddingTop: "56px" }}>
-            <SectionLabel>Token Layer</SectionLabel>
-            <SectionTitle>Status expressed once, inherited everywhere.</SectionTitle>
-
-            <BodyText>
-              Beneath the visible components sits a tokenized color system — semantic names mapped to values, so a status color is defined once and inherited everywhere. I contributed to this layer: mapping process and sub-process status colors to Fuel&apos;s messaging tokens (success, info, warning, error) so that state was expressed consistently across dashboards, health cards, and comparison views.
-            </BodyText>
-
-            <CsImage
-              src="/assets/fuel/hires-tokens-colours.png"
-              alt="Sub-process color tokens mapped to Fuel messaging color names"
-              caption="Fig: Sub-process color tokens — each process phase mapped to a Fuel semantic messaging token. When warning changes, every screen inherits the update automatically."
-            />
-
-            <BodyText>
-              Tokens turn a visual decision into a systemic one. When{" "}
-              <code style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "13px", background: T.surface, padding: "2px 6px", borderRadius: "3px" }}>
-                fuel-color-status-warning
-              </code>{" "}
-              is a token rather than a hex value copied into forty screens, changing it is one edit — and every table row, status chip, and health card stays correct automatically.
-            </BodyText>
-
-            <PullQuote>
-              &ldquo;Tokens turn a visual decision into a systemic one. The leverage is not in the screen — it is in the library.&rdquo;
-            </PullQuote>
-          </div>
-        </Wrap>
-      </section>
-
-      {/* ════════════════════════════════════════════════════ */}
-      {/*  COMPONENT ANATOMY                                  */}
-      {/* ════════════════════════════════════════════════════ */}
-      <section id="anatomy" style={{ padding: "64px 0", background: T.white }}>
-        <Wrap>
-          <SectionDivider />
-          <div style={{ paddingTop: "56px" }}>
-            <SectionLabel>Component Anatomy</SectionLabel>
-            <SectionTitle>How a Fuel component actually gets built.</SectionTitle>
-
-            <BodyText>
-              The interactive below reconstructs the full workflow in Figma&apos;s own visual language — watch a button go from variables to frame, auto layout, token binding, variants, composition, and finally into screens. It uses Fuel&apos;s real values: the 150×48 redline, Source Sans Pro, and{" "}
-              <code style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "13px", background: T.surface, padding: "2px 6px", borderRadius: "3px" }}>
-                fuel-color-background-action-primary
-              </code>.
-            </BodyText>
-
-          </div>
-        </Wrap>
-
-        {/* Full-width container for interactive anatomy walkthrough */}
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px" }}>
-          <iframe
-            src="/assets/fuel/fuel-component-anatomy.html"
-            width="100%"
-            height="720"
-            style={{ border: `1px solid ${T.border}`, borderRadius: "8px", background: T.white, display: "block", margin: "28px 0 10px", boxShadow: "0 10px 40px rgba(0,0,0,0.08)" }}
-            title="How a Fuel component is built — from variables to screens"
-            loading="lazy"
-          />
-          <div style={{ fontSize: "14px", color: T.muted, fontStyle: "italic", textAlign: "center" as const, marginBottom: "16px" }}>
-            Interactive walkthrough — press play or step through the seven stages. Stage 4 is the key beat: the fill stops being a hex value and becomes a bound variable.
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════ */}
-      {/*  SCREENS                                            */}
-      {/* ════════════════════════════════════════════════════ */}
-      <section id="screens" style={{ padding: "64px 0", background: T.white }}>
-        <Wrap>
-          <SectionDivider />
-          <div style={{ paddingTop: "56px" }}>
-            <SectionLabel>Building Within the System</SectionLabel>
-            <SectionTitle>100+ screens composed from one shared library.</SectionTitle>
-
-            <BodyText>
-              Every screen below is assembled from Fuel components — cards, tables, tabs, forms, status chips, buttons, breadcrumbs. The value of the system shows in how different these screens are in function, yet how consistent they are in execution.
-            </BodyText>
-
-            <div style={{ margin: "48px -40px" }}>
-              <CsImage
-                src="/assets/fuel/hires-dashboard.jpg?v=3"
-                alt="Common Segmentation program dashboard"
-                caption="Fig: Program dashboard — health cards, status indicators (messaging tokens in action), linked data tables, and toolbar actions, all composed from library components."
-              />
-            </div>
-
-            <CsImageGrid2
-              items={[
-                {
-                  src: "/assets/fuel/hires-schedule.jpg?v=3",
-                  alt: "Schedule view with Gantt chart",
-                  caption: "Fig: Schedule — Gantt-style phase view showing program phases across 2022–2023. Phase bars use the sub-process color tokens.",
-                },
-                {
-                  src: "/assets/fuel/hires-compare-releases.jpg?v=3",
-                  alt: "Release comparison view",
-                  caption: "Fig: Release comparison — two releases shown side by side using the same Fuel table, form, and status components.",
-                },
-              ]}
-            />
-
-            <div style={{ margin: "48px -40px" }}>
-              <CsImage
-                src="/assets/fuel/hires-userflows.jpg?v=3"
-                alt="Figma board interactions and logic flows"
-                caption="Fig: Figma Board Overview — showing how components, cards, and page modules link together across the platform with interaction flows."
-              />
-            </div>
-
-            <PullQuote>
-              &ldquo;My part across these screens: assembling from existing components, and building or extending several where the product needed patterns Fuel didn&apos;t yet cover — then contributing those additions back with documentation so they became reusable, not one-offs.&rdquo;
-            </PullQuote>
-          </div>
-        </Wrap>
-      </section>
-
-      {/* ════════════════════════════════════════════════════ */}
-      {/*  IMPACT                                             */}
-      {/* ════════════════════════════════════════════════════ */}
-      <section id="impact" style={{ padding: "64px 0 80px", background: T.white }}>
-        <Wrap>
-          <SectionDivider />
-          <div style={{ paddingTop: "56px" }}>
-            <SectionLabel>Outcome &amp; Impact</SectionLabel>
-            <SectionTitle>Working within Fuel kept a large, multi-team platform coherent — and shipped faster.</SectionTitle>
-
-            <ImpactGrid />
-
-            <BodyText>
-              The system approach meant new screens were acts of composition, not invention. Design decisions were made at the token and component level, so every screen inherited them automatically. Engineering handoff was faster because specs were complete — redlined components with defined states, not vague intent.
-            </BodyText>
-
-            <div style={{ marginTop: "8px" }}>
-              <InsightItem
-                num="01"
-                title="Consistency at scale"
-                text="Dashboards, creation flows, schedule views, reports, and comparison screens all read as one product because they share components and tokens. No screen is an island."
-              />
-              <InsightItem
-                num="02"
-                title="Faster engineering handoff"
-                text="Redlined, state-documented components meant engineers could implement without reinterpreting every pattern. Specification became a deliverable, not a conversation."
-              />
-              <InsightItem
-                num="03"
-                title="A system that stays alive"
-                text="Contributing extensions back to Fuel with documentation is what separates using a system from strengthening one. Each addition became reusable for the next designer — not a one-off."
-              />
-            </div>
-
-            {/* Reflections */}
-            <div style={{ marginTop: "56px", paddingTop: "48px", borderTop: `1px solid ${T.border}` }}>
-              <SectionLabel>Reflections</SectionLabel>
-              <div style={{ display: "flex", flexDirection: "column" as const, gap: "28px", marginTop: "8px" }}>
-                <div>
-                  <div style={{ fontSize: "16px", fontWeight: 700, color: T.text, marginBottom: "8px" }}>Design system work is a discipline of restraint</div>
-                  <BodyText>
-                    The instinct as a designer is to make each screen its best self. The systems mindset is to make each screen consistent, and to invest creativity into the components and tokens that every screen inherits. The leverage is not in the screen — it is in the library.
-                  </BodyText>
-                </div>
-                <div>
-                  <div style={{ fontSize: "16px", fontWeight: 700, color: T.text, marginBottom: "8px" }}>Contributing back separates users from strengtheners</div>
-                  <BodyText>
-                    Building a component the product needed, then documenting it and returning it to Fuel so the next designer composes with it — that is how a system stays alive instead of fragmenting. That governance instinct: build within constraints, extend deliberately, document always.
-                  </BodyText>
-                </div>
+        {/* 09 · Giving back */}
+        <div className={styles.tint}>
+          <CaseStudySection
+            id="giving-back"
+            label="Chapter 09 · Giving it back"
+            heading={<>From one product <Accent>back into the system</Accent></>}
+          >
+            <p className={styles.lead}>{givingBack.lead}</p>
+            <div className={styles.grid2}>
+              <div className={styles.card}>
+                <h3 className={styles.cardTitle}>{givingBack.handedTitle}</h3>
+                <ul className={styles.list}>
+                  {givingBack.handed.map((h) => <li key={h}>{h}</li>)}
+                </ul>
+              </div>
+              <div className={styles.card}>
+                <h3 className={styles.cardTitle}>{givingBack.teachingTitle}</h3>
+                <p className={styles.body}>{givingBack.teaching}</p>
               </div>
             </div>
+            <StickyNote rotate={-1}>{givingBack.honest}</StickyNote>
+          </CaseStudySection>
+        </div>
 
-            {/* Confidentiality note */}
-            <div style={{ marginTop: "48px", padding: "18px 22px", background: T.surface, borderRadius: "6px", border: `1px solid ${T.border}`, fontSize: "12.5px", color: T.muted, fontStyle: "italic", textAlign: "center" as const, lineHeight: 1.6 }}>
-              Fuel Design System · John Deere — confidential work shared under access control. Screen content uses prototype data. Prepared as a portfolio case study under NDA.
+        {/* 10 · Impact */}
+        <CaseStudySection
+          id="impact"
+          label="Chapter 10 · Impact, and what I'd do next"
+          heading={<>What changed, <Accent>and what I&rsquo;d measure next</Accent></>}
+        >
+          <div className={styles.grid3}>
+            {impact.cards.map((c) => (
+              <div key={c.value} className={styles.card}>
+                <span className={styles.impactValue}>{c.value}</span>
+                <p className={styles.body}>{c.text}</p>
+              </div>
+            ))}
+          </div>
+          <div className={styles.grid2}>
+            <div className={styles.card}>
+              <h3 className={styles.cardTitle}>{impact.limitsTitle}</h3>
+              <p className={styles.body}>{impact.limits}</p>
+            </div>
+            <div className={styles.card}>
+              <h3 className={styles.cardTitle}>{impact.nextTitle}</h3>
+              <ul className={styles.list}>
+                {impact.next.map((n) => <li key={n}>{n}</li>)}
+              </ul>
             </div>
           </div>
-        </Wrap>
-      </section>
-
-    </CaseStudyLayout>
+        </CaseStudySection>
+      </CaseStudyLayout>
+    </div>
   );
 }
