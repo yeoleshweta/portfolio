@@ -78,7 +78,7 @@ export function FuelCover() {
           </div>
 
           <div className={styles.c2Screens}>
-            <span>100+ screens</span>
+            <span>250 teams</span>
             <svg viewBox="0 0 72 36" aria-hidden="true">
               <path d="M64 8 C 40 6, 28 28, 8 24" />
               <path d="M18 16 L8 24 L20 28" />
