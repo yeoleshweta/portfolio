@@ -1,18 +1,18 @@
 import { CASE_STUDIES } from "@/lib/caseStudyMeta";
 
-/** Homepage order: four featured studies, then the micro slider. */
+/** Previous and next links on each case study follow this order. */
 export const CASE_STUDY_ORDER = [
+  "fuel-design-system",
+  "john-deere-sus",
   "abim",
   "pm-ux-study",
   "healthcare-bias",
   "personalization",
-  "john-deere-sus",
   "gesturepro",
   "miss-selfridge",
   "dorothy-perkins",
   "evans",
   "burton",
-  "fuel-design-system",
   "team-contract",
   "crypto-secure",
   "my-ai-friends",

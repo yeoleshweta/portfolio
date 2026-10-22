@@ -4,6 +4,23 @@ import React from "react";
 import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
 import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
 import { CaseStudySection, Blockquote } from "@/components/casestudy/CaseStudyContent";
+import {
+  personalizationMeta,
+  overview,
+  myContributions,
+  problem,
+  searchConversion,
+  analysis,
+  interceptInsights,
+  decision,
+  variantMatrix,
+  execution,
+  designDecisions,
+  impact,
+  lessonsLearned,
+  type Rich,
+} from "@/content/personalization";
+import styles from "./personalization.module.css";
 
 const sections = [
   { id: "overview", label: "Overview" },
@@ -14,6 +31,10 @@ const sections = [
   { id: "impact", label: "05: The Impact" },
 ];
 
+/* Topshop mock colours used only inside VariantSelector, approximating the
+   retailer's header: #ffffff (#fff) page, #1c1b17 ink, #f5f5f3 utility bar,
+   #e3e0d6 rules, plus the greys #6e6b60, #b5b0a3, #d3d1c7, #e8e7e3 and #555.
+   No other component on this page uses a hex value. */
 function VariantSelector() {
   const [activeVariant, setActiveVariant] = React.useState("D");
 
@@ -175,217 +196,273 @@ function VariantSelector() {
   );
 }
 
-export default function TopshopCaseStudy() {
+function RichText({ parts }: { parts: Rich }) {
   return (
     <>
+      {parts.map((part, i) =>
+        typeof part === "string" ? (
+          <React.Fragment key={i}>{part}</React.Fragment>
+        ) : (
+          <strong key={i}>{part.strong}</strong>
+        ),
+      )}
+    </>
+  );
+}
+
+function MyRoleCallout() {
+  return (
+    <div className={styles.callout}>
+      <h3 className={styles.eyebrow}>{overview.contributionsTitle}</h3>
+      <dl className={styles.contributions}>
+        {myContributions.map((item) => (
+          <div key={item.area} className={styles.contribution}>
+            <dt>{item.area}</dt>
+            <dd>{item.detail}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+function SearchConversionChart() {
+  const max = Math.max(...searchConversion.bars.map((bar) => bar.value));
+  return (
+    <figure className={styles.chart}>
+      <figcaption className={styles.eyebrow}>{searchConversion.title}</figcaption>
+      <div className={styles.bars}>
+        {searchConversion.bars.map((bar) => (
+          <div key={bar.label} className={styles.barRow}>
+            <span className={styles.barLabel}>{bar.label}</span>
+            <span className={styles.barTrack} aria-hidden="true">
+              <span
+                className={bar.highlight ? `${styles.bar} ${styles.barHighlight}` : styles.bar}
+                style={{ width: `${(bar.value / max) * 100}%` }}
+              />
+            </span>
+            <span className={styles.barValue}>{bar.display}</span>
+          </div>
+        ))}
+      </div>
+      <p className={styles.note}>{searchConversion.caption}</p>
+    </figure>
+  );
+}
+
+function InterceptInsights() {
+  return (
+    <div className={styles.block}>
+      <h3 className={styles.eyebrow}>{analysis.themesTitle}</h3>
+      <ul className={styles.themes}>
+        {interceptInsights.map((item) => (
+          <li key={item.theme} className={styles.theme}>
+            <h4 className={styles.themeTitle}>{item.theme}</h4>
+            <p className={styles.themeDetail}>{item.detail}</p>
+            {item.paraphrase ? (
+              <figure className={styles.paraphrase}>
+                <figcaption className={styles.paraphraseLabel}>Paraphrased response</figcaption>
+                <blockquote>
+                  <p>&ldquo;{item.paraphrase}&rdquo;</p>
+                </blockquote>
+              </figure>
+            ) : null}
+            <p className={styles.action}>
+              <strong>Action taken:</strong> {item.action}
+            </p>
+          </li>
+        ))}
+      </ul>
+      <p className={styles.note}>{analysis.themesNote}</p>
+    </div>
+  );
+}
+
+function VariantMatrix2x2() {
+  return (
+    <div className={styles.block}>
+      <table className={styles.matrix}>
+        <caption className={styles.eyebrow}>{variantMatrix.title}</caption>
+        <thead>
+          <tr>
+            {variantMatrix.columnHeads.map((head) => (
+              <th key={head} scope="col">
+                {head}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        {/* Each row label sits on its own row, so the cells keep the full width on phones. */}
+        {variantMatrix.rows.map((row) => (
+          <tbody key={row.head}>
+            <tr>
+              <th scope="rowgroup" colSpan={2}>
+                {row.head}
+              </th>
+            </tr>
+            <tr>
+              {row.cells.map((cell) => (
+                <td key={cell.name} className={cell.winner ? styles.winner : undefined}>
+                  <span className={styles.cellName}>{cell.name}</span>
+                  <span className={styles.cellDetail}>{cell.detail}</span>
+                  {cell.result ? <span className={styles.cellResult}>{cell.result}</span> : null}
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        ))}
+      </table>
+      <p className={styles.note}>{variantMatrix.note}</p>
+    </div>
+  );
+}
+
+function DesignDecisionsSection() {
+  return (
+    <div className={styles.block}>
+      <h3 className={styles.subhead}>{execution.decisionsTitle}</h3>
+      <p className={styles.body}>{execution.decisionsIntro}</p>
+      <ol className={styles.decisions}>
+        {designDecisions.map((item, i) => (
+          <li key={item.decision} className={styles.decision}>
+            <span className={styles.decisionNumber} aria-hidden="true">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <h4 className={styles.cardTitle}>{item.decision}</h4>
+              <p className={styles.cardBody}>{item.reasoning}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+function ImpactGrid() {
+  return (
+    <ul className={styles.impact}>
+      {impact.metrics.map((metric) => (
+        <li key={metric.value} className={styles.metric}>
+          <span className={styles.metricValue}>{metric.value}</span>
+          <span className={styles.metricLabel}>{metric.label}</span>
+          <span className={styles.metricDetail}>{metric.detail}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export default function TopshopCaseStudy() {
+  return (
+    <div className={styles.page}>
       <CaseStudyHero
-        title="What Analytics Couldn't Tell Us: Pairing Exit Intercepts with Behavioral Data at Topshop"
-        category="Quantitative / Experimentation"
-        role="Analyst / Optimization Specialist"
-        team="Qubit · Topshop"
-        timeline="A/B/n Testing Cycle"
+        title={personalizationMeta.title}
+        category={personalizationMeta.category}
+        role={personalizationMeta.role}
+        team={personalizationMeta.team}
+        timeline={personalizationMeta.timeline}
       />
 
       <CaseStudyLayout sections={sections}>
-        {/* ============================================ */}
-        {/* SECTION: OVERVIEW                            */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="overview"
-          heading="Overview"
-        >
-          <p>
-            How intercept survey feedback and behavioral analytics were triangulated to find a hidden conversion lever, and how a four variant experiment turned it into measurable revenue.
-          </p>
+        <CaseStudySection id="overview" heading="Overview">
+          <p>{overview.lead}</p>
 
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: "24px",
-            background: "var(--color-surface)",
-            padding: "32px",
-            borderRadius: "16px",
-            border: "1px solid var(--color-border)",
-            margin: "32px 0"
-          }}>
-            <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Role</span>
-              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Analyst / Optimization Specialist</p>
-            </div>
-            <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Team</span>
-              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Qubit · Topshop</p>
-            </div>
-            <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Methods</span>
-              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Exit Intercepts, Funnel analysis, and A/B/n testing</p>
-            </div>
-            <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Outcome</span>
-              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px", color: "var(--color-accent)" }}>+5.8% conversion uplift</p>
-            </div>
-          </div>
+          <dl className={styles.stats}>
+            {overview.stats.map((stat) => (
+              <div key={stat.label}>
+                <dt className={styles.eyebrow}>{stat.label}</dt>
+                <dd className={stat.highlight ? `${styles.statValue} ${styles.statHighlight}` : styles.statValue}>
+                  {stat.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <MyRoleCallout />
         </CaseStudySection>
 
-        {/* ============================================ */}
-        {/* SECTION: 01: THE PROBLEM                     */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="problem"
-          heading="01: The Problem"
-        >
-          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px" }}>Numbers tell you the scale of a problem. Feedback tells you how to deal with it.</h3>
-          <p>
-            Topshop&apos;s search bar sat on every user&apos;s path to purchase, but it was underperforming. We knew something was wrong from the behavioral data alone: search adoption was low relative to comparable retailers, and sessions that never touched search converted at a fraction of those that did.
-          </p>
-          <p style={{ marginTop: "16px" }}>
-            What the quantitative data couldn&apos;t tell us was why. Was it discoverability? Usability? Result quality? Pushing a sitewide redesign on a guess would have burned IT resources on an unvalidated hypothesis. We needed the user&apos;s voice before touching the interface.
-          </p>
+        <CaseStudySection id="problem" heading="01: The Problem">
+          <h3 className={styles.subhead}>{problem.heading}</h3>
+          <p>{problem.lead}</p>
+          <SearchConversionChart />
+          <p>{problem.why}</p>
         </CaseStudySection>
 
-        {/* ============================================ */}
-        {/* SECTION: 02: THE ANALYSIS                    */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="analysis"
-          heading="02: The Analysis"
-        >
-          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "24px" }}>Triangulating intercept feedback with behavioral data</h3>
-          
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", margin: "24px 0" }}>
-            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px" }}>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Qualitative Signal: Exit Intercepts</span>
-              <p style={{ margin: "14px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
-                Using Qubit&apos;s Visitor Opinion exit feedback tool, which was an on site intercept survey triggered as users left, we captured open ended feedback at the moment of abandonment. A recurring theme emerged: <strong>users struggled to both find and use the search bar</strong>. It read as a low contrast text element with no visual affordance signaling &quot;type here&quot;.
-              </p>
-            </div>
-            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px" }}>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Quantitative Signal: Analytics</span>
-              <p style={{ margin: "14px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
-                Qubit&apos;s behavioral analytics quantified the stakes: visitors who used search converted <strong>roughly 10 times higher</strong> than those who did not. Search was not a convenience feature; it was the single highest intent behavior on the site, and friction there was directly suppressing revenue.
-              </p>
-            </div>
+        <CaseStudySection id="analysis" heading="02: The Analysis">
+          <h3 className={styles.subhead}>{analysis.heading}</h3>
+
+          <div className={styles.signals}>
+            {analysis.signals.map((signal) => (
+              <div key={signal.label} className={styles.card}>
+                <h4 className={styles.eyebrow}>{signal.label}</h4>
+                <p className={styles.cardBody}>
+                  <RichText parts={signal.body} />
+                </p>
+              </div>
+            ))}
           </div>
 
-          <Blockquote text="The intercept feedback gave us the diagnostic; the analytics gave us the business case. Neither alone would have justified the work, but together they made it the obvious next test." />
+          <Blockquote text={analysis.quote} />
+
+          <InterceptInsights />
+
+          <p>{analysis.setup}</p>
         </CaseStudySection>
 
-        {/* ============================================ */}
-        {/* SECTION: 03: THE DECISION                    */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="decision"
-          heading="03: The Decision"
-        >
-          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px" }}>Test the hypotheses, do not ship the guess</h3>
-          <p>
-            The feedback pointed at two candidate fixes: <strong>visibility</strong> (the field did not look like an input) and <strong>affordance copy</strong> (the placeholder did not invite action). Rather than allocating expensive IT resources to push a full sitewide change based on either hypothesis, we designed four search variations testing both dimensions: changes in copy, and the addition of a border to the search box.
-          </p>
-          <p style={{ marginTop: "16px" }}>
-            The test was split evenly across all users, with the existing design as control, so any change would carry statistical evidence into the IT prioritization conversation, not opinion.
-          </p>
+        <CaseStudySection id="decision" heading="03: The Decision">
+          <h3 className={styles.subhead}>{decision.heading}</h3>
+          {decision.body.map((parts, i) => (
+            <p key={i}>
+              <RichText parts={parts} />
+            </p>
+          ))}
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", marginTop: "32px" }}>
-            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
-              <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-accent)", fontWeight: 700 }}>H1</span>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", fontWeight: 600 }}>Visual affordance to border</p>
-            </div>
-            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
-              <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-accent)", fontWeight: 700 }}>H2</span>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", fontWeight: 600 }}>Invitation to copy change</p>
-            </div>
-            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
-              <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-accent)", fontWeight: 700 }}>H3</span>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", fontWeight: 600 }}>Combined effect</p>
-            </div>
-          </div>
+          <ul className={styles.hypotheses}>
+            {decision.hypotheses.map((hypothesis) => (
+              <li key={hypothesis.id} className={styles.hypothesis}>
+                <span className={styles.hypothesisId}>{hypothesis.id}</span>
+                <span className={styles.hypothesisLabel}>{hypothesis.label}</span>
+              </li>
+            ))}
+          </ul>
+
+          <VariantMatrix2x2 />
+
+          <p>{decision.build}</p>
         </CaseStudySection>
 
-        {/* ============================================ */}
-        {/* SECTION: 04: THE EXECUTION                   */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="execution"
-          heading="04: The Execution"
-        >
-          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px" }}>Four variants, one control, evenly split</h3>
-          <p>
-            Explore the test cells below. Each variant isolates or combines the two hypotheses so the winning treatment could be attributed to a specific mechanism, not just the new one.
-          </p>
+        <CaseStudySection id="execution" heading="04: The Execution">
+          <h3 className={styles.subhead}>{execution.heading}</h3>
+          <p>{execution.intro}</p>
 
           <VariantSelector />
+
+          <DesignDecisionsSection />
         </CaseStudySection>
 
-        {/* ============================================ */}
-        {/* SECTION: 05: THE IMPACT                      */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="impact"
-          heading="05: The Impact"
-        >
-          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "24px" }}>Evidence, not opinion, went to the roadmap</h3>
+        <CaseStudySection id="impact" heading="05: The Impact">
+          <h3 className={styles.subhead}>{impact.heading}</h3>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "24px", margin: "24px 0" }}>
-            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>+5.8%</div>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)" }}>conversion uplift from the winning search design.</p>
-            </div>
-            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>10 times</div>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)" }}>higher conversion rate for search users, the metric that prioritized the work.</p>
-            </div>
-            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>9 to 11%</div>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)" }}>cumulative uplift once the same feedback method was applied to product pages.</p>
-            </div>
+          <ImpactGrid />
+
+          <p>{impact.body}</p>
+
+          <div className={styles.lessons}>
+            <h3 className={styles.subhead}>{impact.lessonsTitle}</h3>
+            <ul className={styles.lessonList}>
+              {lessonsLearned.map((lesson) => (
+                <li key={lesson.title}>
+                  <h4 className={styles.cardTitle}>{lesson.title}</h4>
+                  <p className={styles.cardBody}>{lesson.body}</p>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <p>
-            The winning variant shipped sitewide with a quantified business case attached. Just as importantly, the method stuck: the same intercept feedback to hypothesis to controlled test loop was applied to a series of product page micro changes, size selectors, delivery tabs, confirmation popups, and add to bag buttons, which together added between 9 and 11% uplift in conversion rate, without committing IT resources to anything unproven.
-          </p>
-
-          <div style={{ borderTop: "2px solid var(--color-text)", marginTop: "48px", paddingTop: "40px" }}>
-            <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "24px" }}>What this project taught me</h3>
-            
-            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-              <div>
-                <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>Intercepts earn their place at the moment of intent</h4>
-                <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)" }}>
-                  Intercept feedback captured intent, not general attitude. Targeting logic, who sees the survey, when, and how often, determined whether the signal was usable at all.
-                </p>
-              </div>
-              <div>
-                <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>Triangulation is what makes feedback actionable</h4>
-                <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)" }}>
-                  Qualitative feedback without behavioral data is a mystery. Joining them turned a vague complaint into a prioritized, sized, testable hypothesis.
-                </p>
-              </div>
-              <div>
-                <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>Small tests protect big resources</h4>
-                <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)" }}>
-                  The business case required to settle an argument should always run before engineering commits. Evidence travels further with stakeholders than any deck of opinions.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            style={{
-              marginTop: "64px",
-              padding: "24px",
-              background: "rgba(0,0,0,0.015)",
-              borderRadius: "8px",
-              border: "1px solid var(--color-border)",
-              fontSize: "13px",
-              color: "var(--color-text-secondary)",
-              fontStyle: "italic",
-              textAlign: "center",
-            }}
-          >
-            Case study conducted with Qubit for Arcadia Group. Metrics as publicly reported.
-          </div>
+          <p className={styles.footnote}>{impact.footnote}</p>
         </CaseStudySection>
       </CaseStudyLayout>
-    </>
+    </div>
   );
 }

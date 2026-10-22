@@ -12,7 +12,14 @@ export type Article = {
   date?: string;
 };
 
-export const ARTICLES: Article[] = [];
+export const ARTICLES: Article[] = [
+  {
+    title: "Should AI be Used for Job Recruitment?",
+    source: "linkedin",
+    url: "https://www.linkedin.com/pulse/should-ai-used-job-recruitment-shweta-sharma-osdrf/",
+    date: "2024-10-30",
+  },
+];
 
 export function articleSourceLabel(source: ArticleSource) {
   return source === "medium" ? "Medium" : "LinkedIn";

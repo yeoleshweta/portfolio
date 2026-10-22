@@ -10,6 +10,7 @@ import {
   useInView,
   type MotionValue,
 } from "framer-motion";
+import { Tag } from "lucide-react";
 import { useMotionOff } from "@/components/MotionControl";
 import { scrollToSection } from "@/lib/scrollToSection";
 import styles from "./HeroSection.module.css";
@@ -410,12 +411,12 @@ export default function HeroSection() {
                   </a>
                 </div>
                 <ul className={styles.proof} aria-label="Highlights">
-                  <li>UX Research</li>
-                  <li>Interaction design</li>
-                  <li>Behavioral data</li>
-                  <li>NLP</li>
-                  <li>Design for trust</li>
-                  <li>Interior cognitive</li>
+                  <li><Tag aria-hidden="true" className={styles.proofIcon} />UX Research</li>
+                  <li><Tag aria-hidden="true" className={styles.proofIcon} />Interaction design</li>
+                  <li><Tag aria-hidden="true" className={styles.proofIcon} />Behavioral data</li>
+                  <li><Tag aria-hidden="true" className={styles.proofIcon} />NLP</li>
+                  <li><Tag aria-hidden="true" className={styles.proofIcon} />Design for trust</li>
+                  <li><Tag aria-hidden="true" className={styles.proofIcon} />Interior cognition</li>
                 </ul>
               </div>
             </motion.div>

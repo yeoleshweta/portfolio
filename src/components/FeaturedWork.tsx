@@ -23,18 +23,18 @@ type FeaturedStudy = {
 
 const FEATURED: FeaturedStudy[] = [
   {
-    slug: "john-deere-sus",
-    outcome: CASE_STUDIES["john-deere-sus"].description,
-    coverLabel:
-      "Animated cover: When Did Better Actually Mean Better? A lilac SUS chart from 60 to 85.6 over eight months.",
-    Cover: JohnDeereSusCover,
-  },
-  {
     slug: "fuel-design-system",
     outcome: CASE_STUDIES["fuel-design-system"].description,
     coverLabel:
       "Animated cover: Fuel Design System times Survey Platform. Tokens and components feed a survey card.",
     Cover: FuelCover,
+  },
+  {
+    slug: "john-deere-sus",
+    outcome: CASE_STUDIES["john-deere-sus"].description,
+    coverLabel:
+      "Animated cover: When Did Better Actually Mean Better? A lilac SUS chart from 60 to 85.6 over eight months.",
+    Cover: JohnDeereSusCover,
   },
   {
     slug: "personalization",

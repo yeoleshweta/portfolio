@@ -3,13 +3,11 @@
   z-index: 30;
   background: var(--color-bg);
   isolation: isolate;
-  /* Sticky viewport, then 62vh of scroll for each of the 14 ring photos
-     (7 unique images, shown twice) so every photo can sit in the center. */
-  --carousel-steps: 14;
-  --carousel-step: 62vh;
-  height: calc(
-    100svh - var(--header-height) + var(--carousel-steps) * var(--carousel-step)
-  );
+  /* Sticky viewport, then one viewport of scroll for a single full turn of
+     the ring (14 photos, 7 unique images shown twice). The page then scrolls
+     on to the next section. */
+  --rotation-scroll: 100vh;
+  height: calc(100svh - var(--header-height) + var(--rotation-scroll));
   margin-top: 0;
   margin-bottom: 8vh;
 }
