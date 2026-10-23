@@ -81,14 +81,6 @@ const MICRO: Record<string, MicroBrief> = {
       "ABTools usability study, SUS moving from 60 to 85.6",
     ),
   },
-  gesturepro: {
-    question: "Can sign language be translated in real time without extra hardware?",
-    method: "Camera-based prototype. Team of 4 engineers.",
-    found:
-      "A real-time sign-language translation prototype that runs on a camera, with no extra hardware.",
-    changed: "The prototype runs on a camera alone.",
-    visual: cover("gesturepro", "GesturePro sign-language translation prototype"),
-  },
   "miss-selfridge": {
     question: "Would they have bought anyway?",
     method: "Incrementality test with Qubit for Miss Selfridge.",

@@ -3,8 +3,7 @@
  * Source: PM Persona Study.md — do not reword.
  */
 
-/** Plain text with inline bold runs. */
-export type Rich = (string | { strong: string })[];
+import type { Rich } from "@/components/casestudy/RichText";
 
 export const hero = {
   title: "Keeping the PM Persona Current: A Quarterly Refinement Study",

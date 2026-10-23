@@ -13,19 +13,31 @@ const TLDR_FIELDS: { key: keyof Tldr; label: string }[] = [
   { key: "decision", label: "Decision it informed" },
 ];
 
+export type TldrField = { label: string; value: ReactNode };
+
 export function TldrCard({
   summary,
   tldr,
+  fields,
   title = "TL;DR",
   children,
 }: {
-  summary: string;
-  tldr: Tldr;
+  summary: ReactNode;
+  /** The seven standard rows (problem, role, team, ...). */
+  tldr?: Tldr;
+  /** Custom rows, for a study whose brief doesn't fit the standard seven. Used instead of `tldr`. */
+  fields?: TldrField[];
   /** Card heading; defaults to "TL;DR". */
   title?: string;
   /** Optional block (e.g. a stats row) rendered between summary and fields. */
   children?: ReactNode;
 }) {
+  const rows: TldrField[] =
+    fields ??
+    (tldr
+      ? TLDR_FIELDS.map((field) => ({ label: field.label, value: tldr[field.key] }))
+      : []);
+
   return (
     <section className={styles.tldr} aria-labelledby="tldr-title">
       <h2 id="tldr-title" className={styles.tldrTitle}>
@@ -34,10 +46,10 @@ export function TldrCard({
       <p className={styles.tldrSummary}>{summary}</p>
       {children}
       <dl className={styles.tldrList}>
-        {TLDR_FIELDS.map((field) => (
-          <div key={field.key}>
-            <dt>{field.label}</dt>
-            <dd>{tldr[field.key]}</dd>
+        {rows.map((row) => (
+          <div key={row.label}>
+            <dt>{row.label}</dt>
+            <dd>{row.value}</dd>
           </div>
         ))}
       </dl>

@@ -71,7 +71,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
   gesturepro: {
     title: "GesturePro",
     description:
-      "A real-time sign-language translation prototype that runs on a camera, with no extra hardware.",
+      "A camera-based sign-language prototype designed after reading what Deaf people have said about translation tools, so the signer stays in charge of every word that leaves the screen.",
     category: "AI / ML Research",
     cover: "/assets/gesturepro-hero.png",
   },

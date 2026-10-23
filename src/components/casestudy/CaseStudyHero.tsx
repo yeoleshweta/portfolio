@@ -11,8 +11,11 @@ interface CaseStudyHeroProps {
   category: string;
   role: string;
   team: string;
-  timeline: string;
+  /** Omit for a study with no fixed timeline. */
+  timeline?: string;
   method?: string;
+  /** Technology stack, shown as the last meta item. */
+  stack?: string;
   subtitle?: string;
   /** Method chips rendered under the subtitle, e.g. "Longitudinal study". */
   chips?: string[];
@@ -34,6 +37,7 @@ export default function CaseStudyHero({
   team,
   timeline,
   method,
+  stack,
   subtitle,
   chips,
   children,
@@ -174,10 +178,18 @@ export default function CaseStudyHero({
               <span className={styles.metaValue}>{method}</span>
             </div>
           ) : null}
-          <div className={styles.metaItem}>
-            <span className={styles.metaLabel}>Timeline</span>
-            <span className={styles.metaValue}>{timeline}</span>
-          </div>
+          {timeline ? (
+            <div className={styles.metaItem}>
+              <span className={styles.metaLabel}>Timeline</span>
+              <span className={styles.metaValue}>{timeline}</span>
+            </div>
+          ) : null}
+          {stack ? (
+            <div className={styles.metaItem}>
+              <span className={styles.metaLabel}>Stack</span>
+              <span className={styles.metaValue}>{stack}</span>
+            </div>
+          ) : null}
         </motion.div>
       </div>
 

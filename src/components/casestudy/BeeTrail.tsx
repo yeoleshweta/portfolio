@@ -124,6 +124,15 @@ export default function BeeTrail({
   );
 }
 
+/** A bee trail used as the divider between two case study sections. */
+export function BeeBreak({ path }: { path: keyof typeof BEE_PATHS }) {
+  return (
+    <div className={styles.divider}>
+      <BeeTrail {...BEE_PATHS[path]} decorative />
+    </div>
+  );
+}
+
 /** Paths from the ABTools case study spec. */
 export const BEE_PATHS = {
   hero: {

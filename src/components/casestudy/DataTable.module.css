@@ -1,0 +1,96 @@
+.table {
+  width: 100%;
+  margin: 32px 0 0;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-surface);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.table th,
+.table td {
+  padding: 16px 20px;
+  vertical-align: top;
+  text-align: left;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table thead th {
+  padding-block: 12px;
+  background: var(--color-bg);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.table tbody th {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.table tbody tr:last-child > * {
+  border-bottom: none;
+}
+
+@media (max-width: 720px) {
+  .table,
+  .table tbody,
+  .table tr,
+  .table th,
+  .table td {
+    display: block;
+    width: auto;
+  }
+
+  /* The header row stays for assistive tech; each cell carries its own label. */
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .table tbody tr {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .table th,
+  .table td {
+    padding: 0;
+    border: none;
+  }
+
+  .table td {
+    margin-top: 12px;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+}

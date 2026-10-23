@@ -1,594 +1,406 @@
-"use client";
-
-import React from "react";
-import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
 import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
+import { CaseStudySection } from "@/components/casestudy/CaseStudyContent";
+import { TldrCard } from "@/components/casestudy/CaseStudyExtras";
+import { BeeBreak } from "@/components/casestudy/BeeTrail";
+import DataTable from "@/components/casestudy/DataTable";
+import { RichText } from "@/components/casestudy/RichText";
 import {
-  CaseStudySection,
-  ContextCard,
-  ResultsGrid,
-  BaselineTargetMetrics,
-  SkillSpotlight,
-  SkillConstellation,
-} from "@/components/casestudy/CaseStudyContent";
+  hero,
+  tldr,
+  overview,
+  reframe,
+  empathize,
+  define,
+  principles,
+  decisions,
+  loop,
+  test,
+  community,
+  accessibility,
+  evidence,
+  next,
+  sources,
+  type LeadIn,
+} from "@/content/gesturePro";
+import styles from "./gesturepro.module.css";
 
 const sections = [
   { id: "overview", label: "Overview" },
-  { id: "architecture", label: "Architecture" },
-  { id: "features", label: "Features" },
-  { id: "impact", label: "Impact" },
+  { id: "reframe", label: "The reframe" },
+  { id: "empathize", label: "Empathize" },
+  { id: "define", label: "Define" },
+  { id: "principles", label: "HCAI principles" },
+  { id: "decisions", label: "Design decisions" },
+  { id: "loop", label: "The interaction loop" },
+  { id: "test", label: "Prototype and test" },
+  { id: "community", label: "Community" },
+  { id: "accessibility", label: "Accessibility" },
+  { id: "evidence", label: "Evidence" },
+  { id: "next", label: "Next steps" },
+  { id: "sources", label: "Sources" },
 ];
 
-/* ─────── Tech Badge ─────── */
-function TechBadge({ name, color }: { name: string; color: string }) {
+const cx = (...names: (string | false | undefined)[]) =>
+  names.filter(Boolean).join(" ");
+
+function Status({ built, children }: { built: boolean; children: string }) {
   return (
-    <span
-      style={{
-        display: "inline-block",
-        padding: "6px 14px",
-        borderRadius: "20px",
-        fontSize: "12px",
-        fontWeight: 600,
-        background: `${color}12`,
-        color: color,
-        border: `1px solid ${color}30`,
-        marginRight: "8px",
-        marginBottom: "8px",
-      }}
-    >
-      {name}
+    <span className={cx(styles.status, built ? styles.statusBuilt : styles.statusDesigned)}>
+      {children}
     </span>
   );
 }
 
-/* ─────── Architecture Layer Card ─────── */
-function ArchitectureLayer({
-  icon,
-  title,
-  tech,
-  description,
-  index,
+const leadIn = ({ lead, text }: LeadIn) => (
+  <>
+    <strong>{lead}</strong> {text}
+  </>
+);
+
+function ProsAndCons({
+  columns,
 }: {
-  icon: string;
-  title: string;
-  tech: string;
-  description: string;
-  index: number;
+  columns: { title: string; items: ReactNode[] }[];
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.12 }}
-      style={{
-        background: "#ffffff",
-        borderRadius: "16px",
-        padding: "24px",
-        border: "1px solid rgba(0,0,0,0.05)",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.03)",
-      }}
-    >
-      <div style={{ fontSize: "28px", marginBottom: "12px" }}>{icon}</div>
-      <h4 style={{ margin: "0 0 4px 0", fontSize: "15px" }}>{title}</h4>
-      <p
-        style={{
-          margin: "0 0 10px 0",
-          fontSize: "12px",
-          color: "#8b5cf6",
-          fontWeight: 600,
-          textTransform: "uppercase",
-          letterSpacing: "0.05em",
-        }}
-      >
-        {tech}
-      </p>
-      <p
-        style={{
-          margin: 0,
-          fontSize: "13px",
-          color: "var(--color-text-secondary)",
-          lineHeight: 1.5,
-        }}
-      >
-        {description}
-      </p>
-    </motion.div>
+    <div className={cx(styles.panel, styles.two)}>
+      {columns.map((column) => (
+        <div key={column.title}>
+          <h3 className={styles.eyebrow}>{column.title}</h3>
+          <ul className={cx(styles.plain, styles.stack)}>
+            {column.items.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
   );
 }
 
 export default function GestureProCaseStudy() {
   return (
-    <>
+    <div className={styles.page}>
       <CaseStudyHero
-        title="GesturePro — Real-Time Sign Language Translation"
-        category="AI / ML Research"
-        role="Full-Stack Developer & ML Engineer"
-        team="4 Engineers"
-        timeline="Ongoing"
+        category={hero.category}
+        title={hero.title}
+        subtitle={hero.subtitle}
+        role={hero.role}
+        team={hero.team}
+        method={hero.method}
+        stack={hero.stack}
       />
 
-      <CaseStudyLayout sections={sections}>
-        {/* ============================================ */}
-        {/* SECTION 1: OVERVIEW                          */}
-        {/* ============================================ */}
+      <CaseStudyLayout sections={sections} hideBrief>
+        <TldrCard summary={<RichText parts={tldr.summary} />} fields={tldr.fields} />
+
         <CaseStudySection
           id="overview"
-          label="Overview"
-          heading="Breaking the Communication Barrier"
+          label={overview.label}
+          heading={overview.heading}
         >
-          <SkillConstellation
-            primary={["Computer Vision (MediaPipe)", "ML Model Training (TensorFlow)", "Full-Stack Engineering"]}
-            supporting={["Real-Time Inference", "Docker Containerization"]}
-            emerging={["Accessibility Engineering", "Open-Source Development"]}
-          />
-
-          <p>
-            <strong>GesturePro</strong> is an interactive sign language
-            translator that empowers hearing-impaired and aphonic individuals by
-            using advanced AI to instantly translate sign language gestures into{" "}
-            <strong>real-time text and speech</strong>. The platform uses
-            computer vision and deep learning to recognize hand gestures through
-            a webcam feed and convert them into readable text — bridging the
-            communication gap in real time.
-          </p>
-
-          <div
-            style={{
-              display: "flex",
-              gap: "16px",
-              marginTop: "24px",
-              marginBottom: "32px",
-            }}
-          >
-            <a
-              href="https://gesturepro-dev.vercel.app/signin"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "12px 24px",
-                borderRadius: "100px",
-                background: "#8b5cf6",
-                color: "#ffffff",
-                fontWeight: 600,
-                textDecoration: "none",
-                transition: "transform 0.2s",
-              }}
-              onMouseOver={(e) =>
-                (e.currentTarget.style.transform = "scale(1.05)")
-              }
-              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-            >
-              Live Demo →
-            </a>
-            <a
-              href="https://github.com/khushboohpatel/gesturepro"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "12px 24px",
-                borderRadius: "100px",
-                background: "rgba(0,0,0,0.05)",
-                color: "var(--color-text-primary)",
-                fontWeight: 600,
-                textDecoration: "none",
-                border: "1px solid rgba(0,0,0,0.1)",
-                transition: "transform 0.2s",
-              }}
-              onMouseOver={(e) =>
-                (e.currentTarget.style.transform = "scale(1.05)")
-              }
-              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-            >
-              GitHub Repo →
-            </a>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "4px",
-              marginTop: "24px",
-              marginBottom: "24px",
-            }}
-          >
-            <TechBadge name="Next.js" color="#000000" />
-            <TechBadge name="FastAPI" color="#009688" />
-            <TechBadge name="Python" color="#3776AB" />
-            <TechBadge name="TensorFlow" color="#FF6F00" />
-            <TechBadge name="MediaPipe" color="#0097A7" />
-            <TechBadge name="PostgreSQL" color="#336791" />
-            <TechBadge name="Docker" color="#2496ED" />
-            <TechBadge name="Vercel" color="#000000" />
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "24px",
-              marginTop: "16px",
-              marginBottom: "16px",
-            }}
-          >
-            <ContextCard
-              title="Problem"
-              text="Hearing-impaired individuals face daily communication barriers. Existing translation tools are either expensive, non-real-time, or require specialized hardware."
-            />
-            <ContextCard
-              title="Solution"
-              text="A browser-based, real-time sign language translator using just a webcam — no special hardware needed. Powered by ML hand-tracking and gesture recognition."
-            />
-          </div>
-        </CaseStudySection>
-
-        {/* ============================================ */}
-        {/* SECTION 2: ARCHITECTURE                      */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="architecture"
-          label="The Craft"
-          heading="Full-Stack AI Architecture"
-        >
-          <p>
-            GesturePro is built as a three-tier architecture — a Next.js
-            frontend for real-time video capture, a FastAPI backend for
-            authentication and data management, and an ML pipeline for gesture
-            recognition. The entire system is containerized with Docker for
-            consistent deployment.
-          </p>
-
-          <SkillSpotlight
-            skill="Three-Tier System Design"
-            description="Architected full-stack system separating real-time frontend, API backend, and ML inference pipeline into independently deployable services."
-            evidence="Docker Compose orchestration with health checks across 3 services."
-          />
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "16px",
-              marginTop: "32px",
-              marginBottom: "32px",
-            }}
-          >
-            <ArchitectureLayer
-              index={0}
-              icon="🖥️"
-              title="Frontend"
-              tech="Next.js + TailwindCSS"
-              description="Real-time webcam capture, video streaming UI, authentication flow (sign-in/sign-up), and responsive gesture translation display."
-            />
-            <ArchitectureLayer
-              index={1}
-              icon="⚡"
-              title="Backend"
-              tech="FastAPI + PostgreSQL"
-              description="RESTful API with user authentication, session management, translation history storage, and health-checked Docker services."
-            />
-            <ArchitectureLayer
-              index={2}
-              icon="🧠"
-              title="ML Pipeline"
-              tech="Python + TensorFlow"
-              description="Hand landmark detection via MediaPipe, processed training data, Jupyter notebooks for experimentation, and saved models for inference."
-            />
-          </div>
-
-          <SkillSpotlight
-            skill="Computer Vision Pipeline (MediaPipe)"
-            description="Implemented MediaPipe hand landmark detection extracting 21 key points per frame, creating skeletal hand representations for ML classification."
-            evidence="Real-time 21-landmark tracking powering gesture recognition at webcam speed."
-          />
-
-          <h3 style={{ marginTop: "48px" }}>Project Structure</h3>
-          <div
-            style={{
-              marginTop: "16px",
-              padding: "24px",
-              background: "rgba(0,0,0,0.02)",
-              borderRadius: "12px",
-              border: "1px solid rgba(0,0,0,0.06)",
-              fontFamily: "monospace",
-              fontSize: "13px",
-              lineHeight: 1.8,
-              color: "var(--color-text-secondary)",
-            }}
-          >
-            <div>
-              <strong style={{ color: "var(--color-text-primary)" }}>
-                gesturepro/
-              </strong>
-            </div>
-            <div style={{ paddingLeft: "20px" }}>
-              ├── <strong>client/</strong> — Next.js frontend (signin, signup,
-              video capture)
-            </div>
-            <div style={{ paddingLeft: "20px" }}>
-              ├── <strong>server/</strong> — FastAPI backend (auth, API, models,
-              services)
-            </div>
-            <div style={{ paddingLeft: "20px" }}>
-              ├── <strong>ml/</strong> — ML pipeline (notebooks, saved models,
-              processed data)
-            </div>
-            <div style={{ paddingLeft: "20px" }}>
-              ├── <strong>data/</strong> — Training datasets
-            </div>
-            <div style={{ paddingLeft: "20px" }}>
-              └── <strong>docker-compose.yml</strong> — Full-stack orchestration
-            </div>
-          </div>
-
-          <BaselineTargetMetrics
-            items={[
-              {
-                label: "Languages",
-                baseline: "JavaScript 51.5%",
-                target: "Python 31.9%",
-                fillPercentage: 52,
-              },
-              {
-                label: "Codebase",
-                baseline: "56 commits",
-                target: "3 services",
-                fillPercentage: 80,
-              },
-              {
-                label: "Deployment",
-                baseline: "Docker Compose",
-                target: "Vercel + Cloud",
-                fillPercentage: 90,
-              },
-            ]}
-          />
-        </CaseStudySection>
-
-        {/* ============================================ */}
-        {/* SECTION 3: FEATURES                          */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="features"
-          label="Key Features"
-          heading="What GesturePro Does"
-        >
-          <p>
-            The platform combines real-time computer vision with a clean,
-            accessible interface to create a seamless translation experience.
-          </p>
-
-          <SkillSpotlight
-            skill="ML Model Training (TensorFlow)"
-            description="Trained TensorFlow classifier on MediaPipe landmark data to recognize ASL gestures with real-time inference capability."
-            evidence="Working real-time gesture → text translation pipeline."
-          />
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "16px",
-              marginTop: "32px",
-            }}
-          >
-            {[
-              {
-                icon: "📹",
-                title: "Real-Time Video Capture",
-                desc: "Browser-based webcam access streams hand gestures directly to the ML model — no downloads or special hardware required.",
-              },
-              {
-                icon: "✋",
-                title: "Hand Landmark Detection",
-                desc: "MediaPipe extracts 21 hand landmarks per frame, creating a skeleton representation of hand position and finger orientation.",
-              },
-              {
-                icon: "🤖",
-                title: "AI Gesture Classification",
-                desc: "TensorFlow model classifies hand landmarks into sign language letters and words with real-time inference.",
-              },
-              {
-                icon: "💬",
-                title: "Instant Text Translation",
-                desc: "Recognized gestures are immediately converted to on-screen text, enabling fluid conversation without delays.",
-              },
-              {
-                icon: "🔐",
-                title: "User Authentication",
-                desc: "Secure sign-in/sign-up flow with session management, enabling personalized translation history and preferences.",
-              },
-              {
-                icon: "🐳",
-                title: "Containerized Deployment",
-                desc: "Docker Compose orchestrates all services (frontend, backend, database) with health checks for reliable deployment.",
-              },
-            ].map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                style={{
-                  background: "#ffffff",
-                  borderRadius: "16px",
-                  padding: "24px",
-                  border: "1px solid rgba(0,0,0,0.05)",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.03)",
-                  textAlign: "center",
-                }}
-              >
-                <div style={{ fontSize: "28px", marginBottom: "12px" }}>
-                  {item.icon}
-                </div>
-                <h4 style={{ margin: "0 0 6px 0", fontSize: "15px" }}>
-                  {item.title}
-                </h4>
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "13px",
-                    color: "var(--color-text-secondary)",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {item.desc}
-                </p>
-              </motion.div>
+          {overview.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+          <dl className={cx(styles.panel, styles.stats)}>
+            {overview.stats.map((stat) => (
+              <div key={stat.label} className={styles.stat}>
+                <dt>{stat.label}</dt>
+                <dd>{stat.value}</dd>
+              </div>
             ))}
+          </dl>
+        </CaseStudySection>
+
+        <BeeBreak path="timeline" />
+
+        <CaseStudySection id="reframe" label={reframe.label} heading={reframe.heading}>
+          <p>{reframe.body}</p>
+          <div className={styles.versus}>
+            <div className={styles.before}>
+              <p className={styles.eyebrow}>{reframe.before.label}</p>
+              <p className={styles.question}>{reframe.before.question}</p>
+              <p className={styles.small}>{reframe.before.note}</p>
+            </div>
+            <div className={styles.after}>
+              <p className={styles.eyebrow}>{reframe.after.label}</p>
+              <p className={styles.question}>{reframe.after.question}</p>
+              <p className={styles.small}>{reframe.after.note}</p>
+            </div>
           </div>
         </CaseStudySection>
 
-        {/* ============================================ */}
-        {/* SECTION 4: IMPACT                            */}
-        {/* ============================================ */}
+        <BeeBreak path="homeFeatured" />
+
         <CaseStudySection
-          id="impact"
-          label="The Evidence & Growth"
-          heading="Accessibility Through Technology"
+          id="empathize"
+          label={empathize.label}
+          heading={empathize.heading}
+        >
+          <p>{empathize.intro}</p>
+          <ul className={cx(styles.plain, styles.panel, styles.three)}>
+            {empathize.sources.map((source) => (
+              <li key={source.title}>
+                <p className={styles.eyebrow}>{source.kicker}</p>
+                <h3 className={styles.cardTitle}>{source.title}</h3>
+                <p className={styles.small}>{source.body}</p>
+                <p className={styles.cite}>{source.cite}</p>
+              </li>
+            ))}
+          </ul>
+
+          <h3 className={styles.subhead}>{empathize.survey.title}</h3>
+          <p>{empathize.survey.intro}</p>
+          <DataTable
+            caption={empathize.survey.caption}
+            heads={empathize.survey.heads}
+            className={styles.survey}
+          >
+            {empathize.survey.rows.map(([finding, ...counts]) => (
+              <tr key={finding}>
+                <th scope="row">{finding}</th>
+                {counts.map((count, i) => (
+                  <td key={i} data-label={empathize.survey.heads[i + 1]}>
+                    {count}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </DataTable>
+          <p className={styles.note}>{empathize.survey.note}</p>
+
+          <div className={styles.callout}>
+            <p className={styles.calloutLabel}>{empathize.changed.label}</p>
+            <h3 className={styles.calloutTitle}>{empathize.changed.title}</h3>
+            <p className={styles.calloutBody}>{empathize.changed.body}</p>
+          </div>
+        </CaseStudySection>
+
+        <BeeBreak path="homeBridge" />
+
+        <CaseStudySection id="define" label={define.label} heading={define.heading}>
+          <p>{define.intro}</p>
+          <ul className={cx(styles.plain, styles.panel, styles.one)}>
+            {define.statements.map((item) => (
+              <li
+                key={item.statement}
+                className={item.chosen ? styles.chosen : undefined}
+              >
+                <span
+                  className={cx(styles.tag, item.chosen ? styles.tagRoot : styles.tagSymptom)}
+                >
+                  {item.tag}
+                </span>
+                <p className={styles.statement}>{item.statement}</p>
+                <p className={styles.small}>{item.note}</p>
+              </li>
+            ))}
+          </ul>
+
+          <h3 className={styles.subhead}>{define.hmw.title}</h3>
+          <ul className={cx(styles.plain, styles.panel, styles.three)}>
+            {define.hmw.items.map((item) => (
+              <li key={item}>
+                <p className={styles.hmw}>{item}</p>
+              </li>
+            ))}
+          </ul>
+        </CaseStudySection>
+
+        <BeeBreak path="timeline" />
+
+        <CaseStudySection
+          id="principles"
+          label={principles.label}
+          heading={principles.heading}
+        >
+          <p>{principles.intro}</p>
+          <ul className={cx(styles.plain, styles.panel, styles.two)}>
+            {principles.items.map((item) => (
+              <li key={item.id}>
+                <p className={styles.eyebrow}>
+                  {item.id} · {item.source}
+                </p>
+                <h3 className={styles.cardTitle}>{item.title}</h3>
+                <p className={styles.small}>{item.body}</p>
+              </li>
+            ))}
+          </ul>
+        </CaseStudySection>
+
+        <BeeBreak path="homeFeatured" />
+
+        <CaseStudySection
+          id="decisions"
+          label={decisions.label}
+          heading={decisions.heading}
         >
           <p>
-            GesturePro represents a step toward making communication universally
-            accessible. By combining browser-based computer vision with deep
-            learning, the platform removes the cost and hardware barriers that
-            have historically limited sign language translation tools.
+            Each decision is tagged by status. <Status built>In prototype</Status> means
+            it runs in the build today. <Status built={false}>Designed</Status> means it
+            was specified from research and testing but not built in the capstone
+            timeframe.
           </p>
-
-          <ResultsGrid
-            items={[
-              {
-                value: "Real-Time",
-                label: "Translation Speed",
-                description:
-                  "Gestures are recognized and displayed as text within milliseconds of capture.",
-              },
-              {
-                value: "Zero",
-                label: "Hardware Cost",
-                description:
-                  "Works with any standard webcam — no specialized sensors or gloves needed.",
-              },
-              {
-                value: "Full-Stack",
-                label: "Production Architecture",
-                description:
-                  "Containerized 3-tier system with auth, persistence, and ML inference.",
-              },
-              {
-                value: "Open",
-                label: "Source Code",
-                description:
-                  "Fully open-source on GitHub for community contribution and extension.",
-              },
-            ]}
-          />
-
-          <SkillSpotlight
-            skill="Accessibility-First Engineering"
-            description="Built an accessible-by-default platform — zero cost, zero hardware, browser-only deployment democratizing ASL translation."
-            evidence="Open-source, zero-hardware-cost solution deployed on Vercel."
-          />
-
-          <h3 style={{ marginTop: "48px" }}>Future Roadmap</h3>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "16px",
-              marginTop: "24px",
-            }}
+          <DataTable
+            caption={decisions.caption}
+            heads={decisions.heads}
+            className={styles.decisions}
           >
-            {[
-              {
-                icon: "🌍",
-                title: "Multi-Language ASL Support",
-                desc: "Expand beyond ASL to include BSL, ISL, and other sign language systems for global accessibility.",
-              },
-              {
-                icon: "🗣️",
-                title: "Text-to-Speech Output",
-                desc: "Add voice synthesis so translated text can be spoken aloud for two-way communication.",
-              },
-              {
-                icon: "📱",
-                title: "Mobile-First PWA",
-                desc: "Progressive Web App for on-the-go translation using smartphone cameras.",
-              },
-              {
-                icon: "📊",
-                title: "Learning Analytics",
-                desc: "Track user progress in learning sign language with personalized practice recommendations.",
-              },
-            ].map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                style={{
-                  background: "rgba(139, 92, 246, 0.04)",
-                  border: "1px solid rgba(139, 92, 246, 0.15)",
-                  borderRadius: "16px",
-                  padding: "24px",
-                }}
-              >
-                <div style={{ fontSize: "24px", marginBottom: "10px" }}>
-                  {item.icon}
-                </div>
-                <h4 style={{ margin: "0 0 6px 0", fontSize: "15px" }}>
-                  {item.title}
-                </h4>
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "13px",
-                    color: "var(--color-text-secondary)",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {item.desc}
-                </p>
-              </motion.div>
+            {decisions.rows.map((row) => (
+              <tr key={row.decision}>
+                <th scope="row">{row.decision}</th>
+                <td data-label={decisions.heads[1]}>{row.why}</td>
+                <td data-label={decisions.heads[2]}>{row.principle}</td>
+                <td data-label={decisions.heads[3]}>{row.tradeoff}</td>
+                <td data-label={decisions.heads[4]}>
+                  <Status built={row.built}>{row.status}</Status>
+                </td>
+              </tr>
             ))}
-          </div>
+          </DataTable>
+          <p className={styles.note}>{decisions.note}</p>
+        </CaseStudySection>
 
-          <div
-            style={{
-              marginTop: "48px",
-              padding: "24px",
-              background: "rgba(0,0,0,0.02)",
-              borderRadius: "8px",
-              border: "1px solid rgba(0,0,0,0.05)",
-              fontSize: "14px",
-              color: "var(--color-text-secondary)",
-              fontStyle: "italic",
-              textAlign: "center",
-            }}
-          >
-            GesturePro is an open-source project. Contributions, feedback, and
-            feature requests are welcome on{" "}
-            <a
-              href="https://github.com/khushboohpatel/gesturepro"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "#8b5cf6" }}
-            >
-              GitHub
-            </a>
-            .
+        <BeeBreak path="homeBridge" />
+
+        <CaseStudySection id="loop" label={loop.label} heading={loop.heading}>
+          <p>{loop.intro}</p>
+          <ol className={cx(styles.plain, styles.loop)}>
+            {loop.steps.map((step) => (
+              <li
+                key={step.title}
+                className={step.actor === "Person" ? styles.person : styles.model}
+              >
+                <p className={styles.actor}>{step.actor}</p>
+                <h3 className={styles.stepTitle}>{step.title}</h3>
+                <p className={styles.stepText}>{step.text}</p>
+              </li>
+            ))}
+          </ol>
+          <p className={styles.note}>{loop.note}</p>
+
+          <h3 className={styles.subhead}>{loop.hypothesis.title}</h3>
+          <div className={styles.hypothesis}>
+            <p className={styles.believe}>{loop.hypothesis.believe}</p>
+            <p className={styles.small}>
+              <strong>{loop.hypothesis.know.label}</strong> {loop.hypothesis.know.text}
+            </p>
+            <p className={styles.small}>
+              <strong>{loop.hypothesis.wrong.label}</strong> {loop.hypothesis.wrong.text}
+            </p>
           </div>
+        </CaseStudySection>
+
+        <BeeBreak path="timeline" />
+
+        <CaseStudySection id="test" label={test.label} heading={test.heading}>
+          <p>{test.intro}</p>
+          <ul className={cx(styles.plain, styles.panel, styles.three)}>
+            {test.setup.map((item) => (
+              <li key={item.label}>
+                <p className={styles.eyebrow}>{item.label}</p>
+                <p className={styles.small}>{item.text}</p>
+              </li>
+            ))}
+          </ul>
+          <DataTable
+            caption={test.caption}
+            heads={test.heads}
+            className={styles.findings}
+          >
+            {test.rows.map((row) => (
+              <tr key={row.finding}>
+                <th scope="row">{row.finding}</th>
+                <td data-label={test.heads[1]}>{row.count}</td>
+                <td data-label={test.heads[2]}>{row.ledTo}</td>
+              </tr>
+            ))}
+          </DataTable>
+          <p className={styles.note}>{test.note}</p>
+        </CaseStudySection>
+
+        <BeeBreak path="homeFeatured" />
+
+        <CaseStudySection
+          id="community"
+          label={community.label}
+          heading={community.heading}
+        >
+          <p>{community.intro}</p>
+          <ProsAndCons
+            columns={[community.help, community.harm].map((column) => ({
+              title: column.title,
+              items: column.items.map(leadIn),
+            }))}
+          />
+        </CaseStudySection>
+
+        <BeeBreak path="homeBridge" />
+
+        <CaseStudySection
+          id="accessibility"
+          label={accessibility.label}
+          heading={accessibility.heading}
+        >
+          <p>{accessibility.intro}</p>
+          <DataTable
+            caption={accessibility.caption}
+            heads={accessibility.heads}
+            className={styles.requirements}
+          >
+            {accessibility.rows.map((row) => (
+              <tr key={row.requirement}>
+                <th scope="row">{row.requirement}</th>
+                <td data-label={accessibility.heads[1]}>{row.why}</td>
+              </tr>
+            ))}
+          </DataTable>
+        </CaseStudySection>
+
+        <BeeBreak path="timeline" />
+
+        <CaseStudySection
+          id="evidence"
+          label={evidence.label}
+          heading={evidence.heading}
+        >
+          <ProsAndCons columns={[evidence.supported, evidence.unsupported]} />
+        </CaseStudySection>
+
+        <BeeBreak path="homeFeatured" />
+
+        <CaseStudySection id="next" label={next.label} heading={next.heading}>
+          <ol className={cx(styles.plain, styles.panel, styles.three, styles.numbered)}>
+            {next.steps.map((step) => (
+              <li key={step.title}>
+                <h3 className={styles.cardTitle}>{step.title}</h3>
+                <p className={styles.small}>{step.text}</p>
+              </li>
+            ))}
+          </ol>
+
+          <h3 className={styles.subhead}>{next.lessons.title}</h3>
+          {next.lessons.items.map((item) => (
+            <p key={item.lead}>{leadIn(item)}</p>
+          ))}
+        </CaseStudySection>
+
+        <CaseStudySection id="sources">
+          <h2 className={styles.sourcesTitle}>{sources.title}</h2>
+          <ul className={cx(styles.plain, styles.sources)}>
+            {sources.items.map((source) => (
+              <li key={source.href}>
+                <a href={source.href} target="_blank" rel="noopener noreferrer">
+                  {source.text}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </CaseStudySection>
       </CaseStudyLayout>
-    </>
+    </div>
   );
 }

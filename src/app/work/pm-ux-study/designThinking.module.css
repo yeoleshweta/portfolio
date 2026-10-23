@@ -88,11 +88,6 @@
   border-radius: 16px;
 }
 
-.page .bee {
-  max-width: 640px;
-  margin: 0 auto;
-}
-
 /* ── Overview ── */
 .page .stats {
   display: grid;
@@ -133,47 +128,8 @@
   color: var(--color-surface);
 }
 
-/* ── Tables: quarterly cycle, themes, decision flow, impact ── */
-.page .table {
-  width: 100%;
-  margin: 32px 0 0;
-  table-layout: fixed;
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  overflow: hidden;
-  background: var(--color-surface);
-  font-size: 15px;
-  line-height: 1.55;
-}
-.page .table th,
-.page .table td {
-  padding: 16px 20px;
-  vertical-align: top;
-  text-align: left;
-  font-weight: 400;
-  color: var(--color-text-secondary);
-  border-bottom: 1px solid var(--color-border);
-}
-.page .table thead th {
-  padding-block: 12px;
-  background: var(--color-bg);
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.page .table tbody th {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-text);
-}
-.page .table tbody tr:last-child > * {
-  border-bottom: none;
-}
-
+/* ── Tables: quarterly cycle, themes, decision flow, impact ──
+   Base table and the phone layout come from the shared DataTable. */
 .page .quarters thead th:nth-child(1) { width: 19%; }
 .page .quarters thead th:nth-child(2) { width: 22%; }
 .page .quarters thead th:nth-child(3) { width: 29%; }
@@ -244,12 +200,12 @@
 }
 
 /* Decision flow: what the programme adds, tinted; the gap is outlined. */
-.page .table td.add {
+.page .flow td.add {
   background: var(--tint);
   font-weight: 600;
   color: var(--color-text);
 }
-.page .table td.addNone {
+.page .flow td.addNone {
   background: transparent;
   font-style: italic;
   font-weight: 400;
@@ -608,55 +564,12 @@
 }
 
 @media (max-width: 720px) {
-  /* Each row becomes a labelled card; the header row stays for assistive tech. */
-  .page .table,
-  .page .table tbody,
-  .page .table tr,
-  .page .table th,
-  .page .table td {
-    display: block;
-    width: auto;
-  }
-  .page .table thead {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-  }
-  .page .table tbody tr {
-    padding: 18px 20px;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .page .table tbody tr:last-child {
-    border-bottom: none;
-  }
-  .page .table th,
-  .page .table td {
-    padding: 0;
-    border: none;
-  }
-  .page .table td {
-    margin-top: 12px;
-  }
-  .page .table td::before {
-    content: attr(data-label);
-    display: block;
-    margin-bottom: 2px;
-    font-family: var(--mono);
-    font-size: 11px;
-    font-style: normal;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-  }
-  .page .table td.add {
+  /* Stacked rows: the what-the-programme-adds cell keeps its box. */
+  .page .flow td.add {
     padding: 10px 12px;
     border-radius: 8px;
   }
-  .page .table td.addNone {
+  .page .flow td.addNone {
     border: 1px dashed var(--color-text-secondary);
   }
   .page .current > th {

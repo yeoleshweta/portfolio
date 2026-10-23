@@ -1,8 +1,9 @@
-import React from "react";
 import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
 import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
 import { CaseStudySection } from "@/components/casestudy/CaseStudyContent";
-import BeeTrail, { BEE_PATHS } from "@/components/casestudy/BeeTrail";
+import { BeeBreak } from "@/components/casestudy/BeeTrail";
+import DataTable from "@/components/casestudy/DataTable";
+import { RichText } from "@/components/casestudy/RichText";
 import StickyNote from "@/components/casestudy/doodles/StickyNote";
 import {
   hero,
@@ -16,7 +17,6 @@ import {
   delivery,
   impact,
   nextSteps,
-  type Rich,
 } from "@/content/designThinking";
 import styles from "./designThinking.module.css";
 
@@ -32,28 +32,6 @@ const sections = [
   { id: "impact", label: "Impact" },
   { id: "next", label: "Next Steps" },
 ];
-
-function RichText({ parts }: { parts: Rich }) {
-  return (
-    <>
-      {parts.map((part, i) =>
-        typeof part === "string" ? (
-          <React.Fragment key={i}>{part}</React.Fragment>
-        ) : (
-          <strong key={i}>{part.strong}</strong>
-        ),
-      )}
-    </>
-  );
-}
-
-function Bee({ path }: { path: keyof typeof BEE_PATHS }) {
-  return (
-    <div className={styles.bee}>
-      <BeeTrail {...BEE_PATHS[path]} decorative />
-    </div>
-  );
-}
 
 function ModeIcon({ mode }: { mode: "diverge" | "converge" }) {
   return (
@@ -73,35 +51,6 @@ function ModeIcon({ mode }: { mode: "diverge" | "converge" }) {
         </svg>
       )}
     </span>
-  );
-}
-
-/** Rows stack into labelled cards on phones; each data cell needs a `data-label`. */
-function DataTable({
-  caption,
-  heads,
-  className,
-  children,
-}: {
-  caption: string;
-  heads: string[];
-  className: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <table className={`${styles.table} ${className}`}>
-      <caption className="sr-only">{caption}</caption>
-      <thead>
-        <tr>
-          {heads.map((head) => (
-            <th key={head} scope="col">
-              {head}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>{children}</tbody>
-    </table>
   );
 }
 
@@ -173,7 +122,7 @@ export default function PmPersonaStudyPage() {
           </dl>
         </CaseStudySection>
 
-        <Bee path="timeline" />
+        <BeeBreak path="timeline" />
 
         <CaseStudySection id="rhythm" heading="Quarterly Cycle">
           <p>{rhythm.intro}</p>
@@ -206,7 +155,7 @@ export default function PmPersonaStudyPage() {
           </DataTable>
         </CaseStudySection>
 
-        <Bee path="homeFeatured" />
+        <BeeBreak path="homeFeatured" />
 
         <CaseStudySection id="process" heading="The Process">
           <p>
@@ -224,7 +173,7 @@ export default function PmPersonaStudyPage() {
           </ol>
         </CaseStudySection>
 
-        <Bee path="homeBridge" />
+        <BeeBreak path="homeBridge" />
 
         <CaseStudySection id="gathering" heading="Gathering Insights">
           {gathering.paragraphs.map((paragraph) => (
@@ -242,7 +191,7 @@ export default function PmPersonaStudyPage() {
           <MuralBoard />
         </CaseStudySection>
 
-        <Bee path="timeline" />
+        <BeeBreak path="timeline" />
 
         <CaseStudySection id="interviews" heading="What the Interviews Showed">
           <p>{interviews.intro}</p>
@@ -310,7 +259,7 @@ export default function PmPersonaStudyPage() {
           </div>
         </CaseStudySection>
 
-        <Bee path="homeFeatured" />
+        <BeeBreak path="homeFeatured" />
 
         <CaseStudySection id="persona" heading="Persona">
           <p>
@@ -336,7 +285,7 @@ export default function PmPersonaStudyPage() {
           </p>
         </CaseStudySection>
 
-        <Bee path="homeBridge" />
+        <BeeBreak path="homeBridge" />
 
         <CaseStudySection
           id="decision"
@@ -365,7 +314,7 @@ export default function PmPersonaStudyPage() {
           </DataTable>
         </CaseStudySection>
 
-        <Bee path="timeline" />
+        <BeeBreak path="timeline" />
 
         <CaseStudySection id="delivery" heading="Delivery">
           <p>{delivery.intro}</p>
@@ -392,7 +341,7 @@ export default function PmPersonaStudyPage() {
           </p>
         </CaseStudySection>
 
-        <Bee path="homeFeatured" />
+        <BeeBreak path="homeFeatured" />
 
         <CaseStudySection id="impact" heading="Impact">
           <p>{impact.intro}</p>
@@ -411,7 +360,7 @@ export default function PmPersonaStudyPage() {
           </DataTable>
         </CaseStudySection>
 
-        <Bee path="homeBridge" />
+        <BeeBreak path="homeBridge" />
 
         <CaseStudySection id="next" heading="Next Steps">
           <p>{nextSteps.intro}</p>
