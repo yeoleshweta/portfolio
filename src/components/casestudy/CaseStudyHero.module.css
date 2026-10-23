@@ -1,6 +1,10 @@
+/* Light hero on the page's own background, so it hands off to the white body
+   without a dark-to-white jump. Every text colour below is a token that clears
+   4.5:1 on --color-bg; there is no glow or text-shadow behind the type. */
 .hero {
   padding: calc(var(--header-height) + 56px) 24px 80px;
-  background: #06070a;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -8,25 +12,9 @@
 
 .abtools {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(28, 28, 28, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 28, 28, 0.05) 1px, transparent 1px);
   background-size: 48px 48px;
-  background-color: #06070a;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 600px;
-  background: radial-gradient(
-    ellipse at top,
-    rgba(139, 105, 250, 0.1) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
 }
 
 .headerRow {
@@ -97,9 +85,9 @@
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--color-accent);
-  border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
-  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  color: var(--color-accent-text);
+  border: 1px solid color-mix(in srgb, var(--color-accent-text) 40%, transparent);
+  background: color-mix(in srgb, var(--color-accent-text) 8%, transparent);
   border-radius: var(--radius-pill);
   padding: 6px 14px;
 }
@@ -110,7 +98,7 @@
   letter-spacing: 0.12em;
   font-size: 12px;
   font-weight: 600;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   margin-bottom: 16px;
   display: block;
 }
@@ -121,7 +109,7 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.86);
+  color: var(--color-text-secondary);
 }
 
 .title {
@@ -129,33 +117,15 @@
   font-size: clamp(32px, 5vw, 54px);
   line-height: 1.2;
   font-weight: 800;
-  color: #8b69fa;
+  color: var(--color-accent-text);
   margin-bottom: 24px;
   letter-spacing: -0.015em;
-  text-shadow:
-    0 0 15px rgba(139, 105, 250, 0.6),
-    0 0 30px rgba(139, 105, 250, 0.3);
 }
 
+/* The ABTools hero sets its title a little larger. */
 .titleGlow {
   font-size: clamp(38px, 5.4vw, 60px);
   line-height: 1.15;
-  animation: glowPulse 4s ease-in-out infinite alternate;
-}
-
-@keyframes glowPulse {
-  from {
-    text-shadow: 0 0 18px rgba(139, 105, 250, 0.35);
-  }
-  to {
-    text-shadow: 0 0 34px rgba(139, 105, 250, 0.75);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .titleGlow {
-    animation: none;
-  }
 }
 
 .subtitle {
@@ -163,7 +133,7 @@
   margin: 0 auto 20px;
   font-size: clamp(16px, 2vw, 20px);
   line-height: 1.55;
-  color: #b8b8c4;
+  color: var(--color-text-secondary);
   font-weight: 400;
 }
 
@@ -177,7 +147,7 @@
   justify-content: center;
   gap: 40px;
   margin-top: 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(28, 28, 28, 0.14);
   padding-top: 32px;
   flex-wrap: wrap;
 }
@@ -189,7 +159,7 @@
 .metaLabel {
   font-size: 11px;
   text-transform: uppercase;
-  color: #8e8e9a;
+  color: var(--color-text-secondary);
   margin-bottom: 8px;
   display: block;
   letter-spacing: 0.15em;
@@ -199,8 +169,7 @@
 .metaValue {
   font-size: 16px;
   font-weight: 500;
-  color: #ffffff;
-  opacity: 0.9;
+  color: var(--color-text);
 }
 
 .mockupContainer {
