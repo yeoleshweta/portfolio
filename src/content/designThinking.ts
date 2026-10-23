@@ -1,60 +1,101 @@
 /**
- * Design Thinking / PM persona case study content.
- * Source: design-thinking-case-study-implementation.md — do not reword.
+ * PM persona refinement case study content.
+ * Source: PM Persona Study.md — do not reword.
  */
 
+/** Plain text with inline bold runs. */
+export type Rich = (string | { strong: string })[];
+
 export const hero = {
-  title:
-    "No UX, No Problem? A Qualitative Study into How Product Managers Navigate UX Without UX Support",
-  meta: [
-    { label: "Role", value: "UX Coach and Researcher" },
-    { label: "Team", value: "Product and Customer (P&C), Foundry, John Deere" },
-    { label: "Method", value: "8 semi-structured interviews" },
-    { label: "Timeline", value: "12 weeks, 2023" },
-  ],
+  title: "Keeping the PM Persona Current: A Quarterly Refinement Study",
+  subtitle:
+    "A standing quarterly practice at John Deere India — this Q3 2023 cycle updated the PM persona and fed directly into Q4 roadmap planning.",
+  role: "UX Coach and Researcher",
+  team: "Product and Customer (P&C), Foundry, John Deere",
+  method: "Usage logs + 8 structured interviews",
+  timeline: "12 weeks, Q3 2023",
 };
 
 export const overview = {
   paragraphs: [
-    "John Deere India runs 250+ internal products, and most have no dedicated UX professional. Product Managers absorb the gap. They run their own research, shape their own flows and make calls on judgement.",
-    "As UX coach on the Product and Customer (P&C) team, part of Foundry in John Deere's Strategy and Transformation pillar, I interviewed eight Product Managers to refine the PM persona and learn what support would fit the way they already work. The study led to a community forum and a monthly PM cohort.",
+    "John Deere India runs 250+ internal products, most without a dedicated UX professional. Product managers absorb the gap — they run their own research, shape their own flows, and make calls on instinct.",
+    "The Q3 2023 study is one cycle in a standing quarterly refinement practice. Each cycle updates the PM persona artifact that feeds roadmap planning, keeping it grounded in how PMs are actually working right now.",
+    "The cycle ran for 12 weeks: two weeks of desk research into usage logs, a synthesis sprint, then structured interviews, ending in a delivered persona deck and a Q4 input brief.",
   ],
   stats: [
-    { number: "8", label: "Product Managers interviewed", dark: true },
-    { number: "45", label: "minutes per session" },
-    { number: "6", label: "need clusters" },
-    { number: "8", label: "workshops delivered" },
+    { number: "8", label: "PMs interviewed", dark: true },
+    { number: "45", label: "Minutes per session" },
+    { number: "6", label: "Need clusters" },
+    { number: "8", label: "Workshops delivered" },
   ],
-  researchGoal:
-    "refine the persona for Product Managers, and find the support that would realistically fit their existing workflow.",
+};
+
+export const rhythm = {
+  intro:
+    "Each quarter follows a compressed Double Diamond. Q3 is this study — highlighted below. Q4 is the planned validation cycle.",
+  caption:
+    "Quarterly persona refinement cycle — Q1 to Q4 2023, with Q3 as the current study",
+  heads: ["Quarter", "Focus", "Method", "Outcome"],
+  quarters: [
+    {
+      quarter: "Q1 2023",
+      focus: "Baseline persona creation",
+      method: "12 in-depth interviews, card sorting",
+      outcome: "First PM persona artifact",
+    },
+    {
+      quarter: "Q2 2023",
+      focus: "Feature-adoption delta check",
+      method: "Usage log analysis, 6 interviews",
+      outcome: "Revised pain-point hierarchy",
+    },
+    {
+      quarter: "Q3 2023",
+      tag: "This study",
+      current: true,
+      focus: "Role-scope & tooling shift",
+      method: "Usage logs, structured interviews, forum scan",
+      outcome: "Updated persona + Q4 roadmap input",
+    },
+    {
+      quarter: "Q4 2023",
+      tag: "Planned",
+      focus: "Post-roadmap validation",
+      method: "Survey + 4 concept tests",
+      outcome: "Validate Q3 updates against shipped features",
+    },
+  ],
 };
 
 export const process = {
-  intro:
-    "The work followed the Double Diamond: open up to understand the problem, narrow to define it, then open and narrow again on what to build.",
+  intro: [
+    "The work followed the ",
+    { strong: "Double Diamond" },
+    ": open up to understand what changed, narrow to define the sharpest updates, then open and narrow again on what to build.",
+  ] satisfies Rich,
   cards: [
     {
       label: "01 · Diverge",
       title: "Discover",
-      text: "Interview guide in six blocks. Eight interviews with note-takers.",
+      text: "Usage log analysis, desk research on feature adoption, community forum scan. Two weeks before any recruiting.",
       mode: "diverge" as const,
     },
     {
       label: "02 · Converge",
       title: "Define",
-      text: "Per-participant grid, six need clusters, the Rajesh persona and a reframed problem statement.",
+      text: "Affinity mapping, updating hypothesis themes, narrowing to 3 interview focus areas.",
       mode: "converge" as const,
     },
     {
       label: "03 · Diverge",
       title: "Develop",
-      text: "Discussion-led sessions on ways to answer each need: a forum, a cohort, buddies, templates.",
+      text: "8 structured interviews, theme extraction, updated journey touchpoints.",
       mode: "diverge" as const,
     },
     {
       label: "04 · Converge",
       title: "Deliver",
-      text: "Community forum, monthly PM cohort, Buddy-Up pairs, Mural templates and eight workshops.",
+      text: "Updated persona deck, interview synthesis, Q4 input brief for product leadership.",
       mode: "converge" as const,
     },
   ],
@@ -62,8 +103,8 @@ export const process = {
 
 export const gathering = {
   paragraphs: [
-    "I ran eight semi-structured interviews in June and July 2023, each 45 minutes, with one or two note-takers in the room. Participants ranged from ten months to six years in the PM role, with backgrounds in infrastructure, security, engineering, SAP and cloud.",
-    "Every session opened with the same script: no right or wrong answers, confidentiality, and consent to record. The guide then moved through six blocks.",
+    "Eight semi-structured interviews in June and July 2023, each 45 minutes, with one or two note-takers in each session. Every session opened with the same script: no right or wrong answers, confidentiality, and consent to record.",
+    "The interview guide ran in six thematic blocks, moving from the whole person to the specific friction points:",
   ],
   blocks: [
     {
@@ -93,13 +134,46 @@ export const gathering = {
     },
     {
       label: "Block 6",
-      title: "Strategy and community",
+      title: "Strategy & community",
       text: "Product versus org strategy, PM groups, topics for coaching.",
     },
   ],
-  image: {
-    src: "/assets/pm-persona-board.jpg",
-    alt: "Research board for the product-manager study, with a persona card for Rajesh and clusters of needs and pain points",
+  board: {
+    title: "Mural · PM Research Board — Q3 2023",
+    columns: [
+      {
+        title: "No forum or peer community",
+        count: "6 of 8",
+        notes: [
+          "No active forums for PMs to connect",
+          "No way to ask questions outside my team",
+          "Isolated when facing a new problem",
+          "No senior PM to look up to",
+        ],
+      },
+      {
+        title: "Career path unclear",
+        count: "5 of 8",
+        notes: [
+          "No way to gauge personal growth",
+          "Unclear what next level looks like",
+          "No benchmark of best practises",
+          "Growth feels invisible",
+        ],
+      },
+      {
+        title: "UX & data support missing",
+        count: "4 of 8",
+        notes: [
+          "Need UX and data analytics resource",
+          "Doing research alone, no training",
+          "Technical side of aspect is weak",
+          "Struggling to manage time as PM",
+        ],
+      },
+    ],
+    footnote:
+      "Board notes reproduced as written. Names and owner IDs redacted per portfolio guidelines.",
     caption:
       "Gathering Insights: notes from eight PM interviews on the Mural board, grouped into needs and pain points.",
   },
@@ -107,149 +181,167 @@ export const gathering = {
 
 export const interviews = {
   intro:
-    "Notes from each session went onto a Mural board, one row per participant, then into clusters of needs and pain points. Isolation came through most strongly: six of eight PMs had no peer community to turn to.",
+    "Notes from each session went onto the Mural board — one row per participant, then into clusters of needs. Seven distinct themes emerged, ranked by how many participants raised them:",
+  total: 8,
+  caption:
+    "Interview findings — themes ranked by number of participants who raised each one, with representative quotes",
+  heads: ["Theme", "Count", "Representative note"],
   themes: [
     {
       theme: "No forum or peer community",
-      count: "6 of 8",
-      fill: 75,
+      count: 6,
       note: "No active forums for PMs",
     },
     {
       theme: "Career path and growth unclear",
-      count: "5 of 8",
-      fill: 62.5,
+      count: 5,
       note: "No way to gauge personal growth",
     },
     {
       theme: "UX, research and data support missing",
-      count: "4 of 8",
-      fill: 50,
-      note: "UX and data analytics person/resource - need",
+      count: 4,
+      note: "UX and data analytics person/resource — need",
     },
     {
       theme: "No best practices or benchmarks",
-      count: "2 of 8",
-      fill: 25,
+      count: 2,
       note: "No benchmark of best practises",
     },
     {
       theme: "Technical grounding weak",
-      count: "2 of 8",
-      fill: 25,
+      count: 2,
       note: "Technical side of aspect is weak",
     },
     {
       theme: "Time management",
-      count: "2 of 8",
-      fill: 25,
+      count: 2,
       note: "Struggling to manage time as PM",
     },
     {
       theme: "Unsure how to use the P&C team",
-      count: "1 of 8",
-      fill: 12.5,
-      note: "Process side dont know how to utilize P&C services",
+      count: 1,
+      note: "Don't know how to utilise P&C services",
     },
   ],
-  themeCaption:
-    "Participants who raised each theme. Lines in quotes are notes from the board as written, not verbatim quotes.",
-  problemFraming: {
-    src: "/assets/problem-framing.png",
-    alt: "Problem framing in three steps: three lenses, the statement, and three drafts ending in infrastructure, not education",
-    caption:
-      "Framing the Problem: mapping user lenses, forming statement drafts, and refining to the root cause.",
+  note:
+    "Participants who raised each theme. Lines in quotes are notes from the board as written, not verbatim participant quotes.",
+  framing: {
+    title: "Framing the problem",
+    steps: [
+      {
+        label: "Step 1",
+        title: "Three lenses",
+        text: "Behaviour, context, and emotion mapped across all 8 participants.",
+      },
+      {
+        label: "Step 2",
+        title: "Statement drafts",
+        text: "Three problem statement candidates written from the lens clusters.",
+      },
+      {
+        label: "Step 3",
+        title: "Root cause",
+        text: "Narrowed to the structural cause: missing infrastructure, not missing skill.",
+      },
+    ],
   },
   reframe: {
-    label: "THE REFRAME",
+    label: "The Reframe",
     statement: "Infrastructure, not education.",
-    text: "PMs did not need more training. They needed a place to ask, people to ask, and practices within reach. Workshops stayed in the plan as the way people reach that infrastructure, not as the answer itself.",
+    text: "PMs did not need more training. They needed a place to ask, people to ask, and practices within reach.",
   },
   hypothesis: {
-    src: "/assets/hypothesis-formula.png",
-    alt: "Hypothesis formula: outcome, user, benefit and feature, with adoption, value and speed as measures",
-    caption:
-      "Insights plugged into a formula: the hypothesis and how we would know it worked.",
+    title: "From insight to hypothesis",
+    statement: [
+      { strong: "We believe" },
+      " that PMs will feel less isolated and make better product decisions ",
+      { strong: "for" },
+      " John Deere India product teams ",
+      { strong: "if" },
+      " we give them a community forum, a standing cohort, and buddy pairs.",
+    ] satisfies Rich,
+    success: {
+      label: "We'll know when:",
+      text: "forum joins, cohort attendance, and self-reported confidence improve within 3 months.",
+    },
+    failure: {
+      label: "We're wrong if:",
+      text: "fewer than 10 PMs engage in the first month, or forum threads drop after week 4.",
+    },
   },
 };
 
 export const persona = {
-  intro:
-    "The clusters became Rajesh, a composite Product Manager built from all eight interviews.",
-  image: {
-    src: "/assets/rajesh_persona.png",
-    alt: "Persona card for Rajesh, the Product Manager: behaviours, expectations and pain points",
-    caption:
-      "Meet Rajesh: a composite persona built from 8 interviews, June to July 2023.",
-  },
-  profilesIntro:
-    "One persona hides real differences. The notes point to three kinds of PM, each needing a different way in.",
+  intro: [
+    "The clusters became ",
+    { strong: "Rajesh" },
+    ", a composite Product Manager built from all eight interviews. One persona hides real differences — the notes point to three kinds of PM, each needing a different weight of support.",
+  ] satisfies Rich,
   profiles: [
     {
-      label: "3 of 8",
+      icon: "🌱",
       title: "The new PM from the business",
-      text: "Recently moved into the role with no IT background. Plans on own judgement. Needs role clarity and someone to ask.",
-      pill: "Buddy-Up first",
+      who: "3 of 8 · Recently moved into the role",
+      quote: "Plans on own judgement. Needs role clarity and structured support.",
     },
     {
-      label: "3 of 8",
+      icon: "📊",
       title: "The data-hungry veteran",
-      text: "Years in the company. Already digs into data or sketches ideas alone. Needs a UX and analytics partner and a growth path.",
-      pill: "A route to UX collaboration",
+      who: "3 of 8 · Years in the company",
+      quote:
+        "Already digs into data or sketches ideas alone. Needs a UX and analytics partner.",
     },
     {
-      label: "2 of 8",
+      icon: "🔩",
       title: "The settled specialist",
-      text: "Deep technical niche, content in the role, few goals set. Needs a reason to engage and to know a community exists.",
-      pill: "Forum, light touch",
+      who: "2 of 8 · Deep technical niche",
+      quote:
+        "Content in the role, few goals set. Needs a reason to engage and to know a community exists.",
     },
   ],
+  status:
+    "Persona last updated Q3 2023. Tracked quarterly — next refresh scheduled Q4 2023 post-roadmap validation cycle.",
 };
 
 export const decisionFlow = {
   intro:
-    "Following one product decision from start to finish shows where each pain point lands, and where the programme steps in. The six steps are reconstructed from the interview notes.",
+    "Following one product decision from start to finish shows where each pain point lands, and where the programme adds something.",
+  caption:
+    "Decision flow — each step of a product decision, the pain PMs described, and what the programme adds",
+  heads: ["Step", "Pain PMs described", "Programme intervention"],
   rows: [
     {
-      n: "1",
-      step: "Strategy and OKRs",
+      step: "Strategy & OKRs",
       pain: "Goals arrive top-down each quarter. Org strategy outweighs product strategy.",
       add: "Not addressed by the programme",
-      dashed: true,
+      none: true,
     },
     {
-      n: "2",
       step: "Spot a need",
       pain: "Customer polls and opportunity documents. Feedback from customers is hard to get.",
       add: "Mural templates for self-run discovery sessions",
     },
     {
-      n: "3",
       step: "Gather evidence",
-      pain: "Data is missing or unreliable. PMs dig alone, with no set method for using it.",
+      pain: "Data is missing or unreliable. PMs dig alone, with no set method.",
       add: "Buddy-Up with a UX coach or a peer PM",
     },
     {
-      n: "4",
       step: "Shape a solution",
-      pain: "Stories, slides and spreadsheets, made on own judgement with no UX support.",
-      add: "Monthly PM cohort, with the UX topics PMs asked for",
+      pain: "Stories, slides and spreadsheets — made on own judgement with no UX support.",
+      add: "Monthly PM cohort with the UX topics PMs asked for",
     },
     {
-      n: "5",
       step: "Ask for help",
       pain: "No forum and no mentor. Unsure how to reach the right support team.",
       add: "Community forum and Buddy-Up pairs",
     },
     {
-      n: "6",
       step: "Decide and build",
       pain: "Value against effort. No benchmark or best practice to check a decision against.",
-      add: "Awareness of the existing DeereUX site",
+      add: "DeereUX site awareness raised in workshops",
     },
   ],
-  caption:
-    "Left to right: the step, the pain PMs described, and what the programme adds.",
 };
 
 export const delivery = {
@@ -265,84 +357,70 @@ export const delivery = {
     {
       label: "Answers 5 of 8",
       title: "Monthly PM cohort",
-      text: "A standing monthly session that gives career growth, and the UX courses PMs asked for, a regular home.",
+      text: "A standing monthly session giving career growth and the UX courses PMs asked for.",
     },
     {
-      label: "Someone to ask",
       title: "Buddy-Up pairs",
-      text: "Each PM paired with a UX coach or a peer PM, as a guide or simply a thinking partner.",
+      text: "Each PM paired with a UX coach or a peer PM as a guide or thinking partner.",
     },
     {
-      label: "Practices within reach",
       title: "Mural templates",
       text: "Structured frameworks PMs can run themselves in discovery and brainstorming sessions.",
     },
   ],
-  closing:
-    "Eight workshops brought PMs to the forum, their buddies and the templates. One finding needed nothing new: the DeereUX site already existed, but few PMs knew it was there, so the programme pointed them to it.",
+  closing: [
+    { strong: "Eight workshops" },
+    " brought PMs to the forum, their buddies, and the templates. One finding needed nothing new: the DeereUX site already existed — PMs just didn't know it.",
+  ] satisfies Rich,
 };
 
 export const impact = {
   intro:
-    "The forum and the cohort launched. What they changed is reported at four levels, and stated plainly where it was not measured.",
+    "The forum and the cohort launched. What they changed is reported at four levels, stated plainly where the evidence is thin.",
+  caption:
+    "Impact of the PM support programme at four levels — reaction, learning, behaviour, and results",
+  heads: ["Level", "Change", "Signal"],
   rows: [
     {
       level: "1 · Reaction",
-      question: "Did PMs value it?",
-      evidence: "Average 12 PMs per monthly cohort",
+      change: "Average 12 PMs per monthly cohort",
+      signal: "Attendance records",
     },
     {
       level: "2 · Learning",
-      question: "Did they gain anything?",
-      evidence:
+      change:
         "Eight workshops on forum use, Buddy-Up, Mural discovery templates, and UX fundamentals",
+      signal: "Workshop completion logs",
     },
     {
       level: "3 · Behaviour",
-      question: "Did they act differently?",
-      evidence: "24 forum members and 38 threads in the first three months",
+      change: "24 forum members and 38 threads in the first three months",
+      signal: "Forum analytics",
     },
     {
       level: "4 · Results",
-      question: "Did products improve?",
-      evidence: "Not measured",
+      change: "Product quality improvement — not yet measured",
+      signal: "No comparison group; outcome measurement planned for Q4",
+      open: true,
     },
   ],
 };
 
-export const limitations = [
-  "Eight participants from one organisation. The patterns may not hold across every product line.",
-  "One analyst clustered the notes. No second coder checked the themes.",
-  "The debrief after each interview was skipped, so early surprises were not captured while fresh.",
-  "Outcomes were not measured against a comparison group.",
-];
-
-export const lessons = [
-  {
-    title: "Debrief while it is fresh",
-    text: "Five minutes of takeaways after each interview would have made synthesis faster and sharper.",
-  },
-  {
-    title: "The guide shapes the findings",
-    text: "A guide built to profile the PM surfaced career and community first. The questions decide what you hear.",
-  },
-  {
-    title: "Plan the measure before launch",
-    text: "Deciding how success would be counted on day one would have turned a launch into evidence.",
-  },
-];
-
-export const nextSteps = [
-  {
-    strong: "Diary study:",
-    text: "PMs log real product decisions for two weeks.",
-  },
-  {
-    strong: "Monthly tracking:",
-    text: "cohort attendance and forum activity, month by month.",
-  },
-  {
-    strong: "Comparison group:",
-    text: "PMs outside the programme, measured on the same things.",
-  },
-];
+export const nextSteps = {
+  intro:
+    "The Q4 cycle validates Q3 persona updates against features that shipped. Focus shifts from discovery to confirmation.",
+  items: [
+    {
+      strong: "Diary study:",
+      text: "PMs log real product decisions for two weeks",
+    },
+    {
+      strong: "Monthly tracking:",
+      text: "cohort attendance and forum activity, month by month",
+    },
+    {
+      strong: "Comparison group:",
+      text: "PMs outside the programme, measured on the same things",
+    },
+  ],
+};

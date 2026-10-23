@@ -169,15 +169,13 @@ const TLDR: Record<string, Tldr> = {
   },
   "pm-ux-study": {
     problem:
-      "John Deere India runs 250+ internal products, and most have no dedicated UX professional. Product managers absorb the gap.",
+      "PM personas drifted from reality between annual refreshes, reducing their usefulness for roadmap planning",
     role: "UX Coach and Researcher",
     team: "Product and Customer (P&C), Foundry, John Deere",
-    timeline: "12 weeks, 2023",
-    methods: "8 semi-structured interviews, 45 minutes each, with note-takers.",
-    outcome:
-      "A community forum and a monthly PM cohort, plus buddy pairs, Mural templates, and eight workshops.",
-    decision:
-      "Stand up a community forum and a monthly cohort for teams working without dedicated UX support.",
+    timeline: "12 weeks, Q3 2023",
+    methods: "Usage log analysis, 8 structured interviews, community forum scan",
+    outcome: "Updated persona deck, interview synthesis, Q4 input brief",
+    decision: "Quarterly persona refresh formalised as a standing team practice",
   },
   "healthcare-bias": {
     problem:

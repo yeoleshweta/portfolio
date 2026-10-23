@@ -14,7 +14,7 @@ export type Category = (typeof CATEGORIES)[number];
 export type CaseStudyMeta = {
   /** Browser-tab title. The root template appends " · Shweta Sharma". */
   title: string;
-  /** One sentence, outcome-led. */
+  /** One or two sentences, outcome-led. */
   description: string;
   category: Category;
   /** Public path shown on the social image, when the study has a cover. */
@@ -43,9 +43,9 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     cover: "/assets/crypto_secure_hero.png",
   },
   "pm-ux-study": {
-    title: "No UX, No Problem?",
+    title: "Keeping the PM Persona Current",
     description:
-      "Eight interviews with John Deere product managers led to a community forum and a monthly PM cohort for teams working without dedicated UX support.",
+      "Eight interviews with John Deere product managers led to a community forum and a monthly PM cohort. This Q3 2023 cycle is one instance of a standing quarterly practice that asks: what changed since last quarter?",
     category: "Qualitative Research",
     cover: "/assets/pm-persona-board.jpg",
   },
