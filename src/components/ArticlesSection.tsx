@@ -34,18 +34,18 @@ export default function ArticlesSection() {
       aria-labelledby="articles-title"
     >
       <div className={styles.inner}>
-        <p className={styles.eyebrow}>// medium and linkedin</p>
+        <p className={styles.eyebrow}>// medium, linkedin and substack</p>
         <h2 id="articles-title" className={styles.title}>
           Articles <span className={styles.titleAccent}>and essays.</span>
         </h2>
         <p className={styles.intro}>
-          Essays I publish on Medium and LinkedIn. Each one here links to the
+          Essays I publish on Medium, LinkedIn and Substack. Each one here links to the
           original post.
         </p>
         {ARTICLES.length === 0 ? (
           <p className={styles.empty} role="status">
-            No essays published yet. When a piece goes up on Medium or
-            LinkedIn, it will be added here.
+            No essays published yet. When a piece goes up on Medium,
+            LinkedIn or Substack, it will be added here.
           </p>
         ) : (
           <ul className={styles.list}>

@@ -42,6 +42,7 @@ const SOCIAL_HOSTS: Record<string, string> = {
   "x.com": "x",
   "twitter.com": "x",
   "medium.com": "medium",
+  "shweta969612.substack.com": "substack",
   "dribbble.com": "dribbble",
   "behance.net": "behance",
   "www.behance.net": "behance",
