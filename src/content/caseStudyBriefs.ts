@@ -21,6 +21,15 @@ export const CASE_STUDY_ORDER = [
 
 export type CaseStudySlug = (typeof CASE_STUDY_ORDER)[number];
 
+/**
+ * Studies kept off the homepage cards and out of the previous/next links.
+ * Their pages still load by URL; remove a slug here to show it again.
+ */
+export const HIDDEN_STUDIES: ReadonlySet<CaseStudySlug> = new Set([
+  "healthcare-bias",
+  "my-ai-friends",
+]);
+
 export type Tldr = {
   problem: string;
   role: string;
@@ -225,8 +234,8 @@ export function studyFromPath(pathname: string) {
 export function studyNeighbors(slug: string) {
   const index = CASE_STUDY_ORDER.indexOf(slug as CaseStudySlug);
   if (index === -1) return { previous: undefined, next: undefined };
-  const previous = index > 0 ? STUDY_BRIEFS[index - 1] : undefined;
-  const next =
-    index < STUDY_BRIEFS.length - 1 ? STUDY_BRIEFS[index + 1] : undefined;
+  const shown = (study: StudyBrief) => !HIDDEN_STUDIES.has(study.slug);
+  const previous = STUDY_BRIEFS.slice(0, index).reverse().find(shown);
+  const next = STUDY_BRIEFS.slice(index + 1).find(shown);
   return { previous, next };
 }

@@ -19,6 +19,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useMotionOff } from "@/components/MotionControl";
+import { HIDDEN_STUDIES } from "@/content/caseStudyBriefs";
 import { CASE_STUDIES, type CaseStudyMeta } from "@/lib/caseStudyMeta";
 import styles from "./AboutMeSection.module.css";
 
@@ -29,19 +30,19 @@ const FEATURED_SLUGS = new Set([
   "abim",
 ]);
 
-/** Studies that are not in the featured four, in slider order. */
+/** Studies that are not in the featured four, in slider order. Hidden ones (HIDDEN_STUDIES) are filtered out below. */
 const SLUGS = [
   "pm-ux-study",
-  "healthcare-bias",
+  "team-contract",
   "gesturepro",
+  "crypto-secure",
+  "stories-by-children",
   "miss-selfridge",
   "dorothy-perkins",
   "evans",
   "burton",
-  "team-contract",
-  "crypto-secure",
+  "healthcare-bias",
   "my-ai-friends",
-  "stories-by-children",
 ] as const;
 
 const ICONS: Record<(typeof SLUGS)[number], LucideIcon> = {
@@ -84,16 +85,16 @@ function firstClause(description: string) {
   return sentence;
 }
 
-const STUDIES: StudyCard[] = SLUGS.filter((slug) => !FEATURED_SLUGS.has(slug)).map(
-  (slug) => {
-    const study = CASE_STUDIES[slug];
-    return {
-      ...study,
-      slug,
-      outcome: METRICS[slug] ?? firstClause(study.description),
-    };
-  },
-);
+const STUDIES: StudyCard[] = SLUGS.filter(
+  (slug) => !FEATURED_SLUGS.has(slug) && !HIDDEN_STUDIES.has(slug),
+).map((slug) => {
+  const study = CASE_STUDIES[slug];
+  return {
+    ...study,
+    slug,
+    outcome: METRICS[slug] ?? firstClause(study.description),
+  };
+});
 
 export default function AboutMeSection() {
   const motionOff = useMotionOff();
