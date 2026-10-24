@@ -34,7 +34,7 @@ function TocList({
   sections: { id: string; label: string }[];
   activeSection: string;
   onNavigate: (event: React.MouseEvent<HTMLAnchorElement>, id: string) => void;
-  /** Desktop rail: a thin line with a dot per section, labels shown for the active one. */
+  /** Desktop rail: a thin line with a dot per section, no visible labels. */
   rail?: boolean;
 }) {
   const activeIndex = Math.max(
@@ -59,7 +59,7 @@ function TocList({
             data-track-link-label={`toc:${section.label}`}
             data-track-location="case_study_toc"
           >
-            <span className={styles.tocLabel}>{section.label}</span>
+            <span className={rail ? "sr-only" : styles.tocLabel}>{section.label}</span>
           </a>
         </li>
       ))}
@@ -135,7 +135,6 @@ export default function CaseStudyLayout({
   return (
     <div className={styles.layout} data-case-study-layout>
       <nav className={styles.toc} aria-label="On this page">
-        <p className={styles.tocHeading}>On this page</p>
         <TocList
           sections={sections}
           activeSection={activeSection}
