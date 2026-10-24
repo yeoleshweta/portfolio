@@ -79,7 +79,7 @@ Results for this change: `tsc --noEmit` and ESLint pass on the touched files; th
 
 ## 8. Open points for the user
 
-- **Homepage badge** says "Segmented 50% of UK sales" with no "as reported" qualifier. The design qualifies it. This page now does; the homepage and `caseStudyMeta.ts` were not changed here.
+- **Homepage badge** now reads "Segmented 50% of UK sales (as reported)", to match the design. `caseStudyMeta.ts` is unchanged; its description says "about half", which the design's "(as reported)" figure supports.
 - **Quote:** the removed Gareth Rees-John quote can be restored only with the design's sign-off and the person's approval.
 - **Role title:** the design says "Personalization specialist"; the Evans page says "Personalization & Experimentation Specialist". Confirm the title for this project.
 - **WCAG mapping:** the design's mapping is kept as written. Confirm if the page should say "mapped to" rather than "meets".

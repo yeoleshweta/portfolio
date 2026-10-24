@@ -65,7 +65,7 @@ const METRICS: Partial<Record<(typeof SLUGS)[number], string>> = {
   "healthcare-bias": "4-label framework",
   gesturepro: "Real-time, zero hardware",
   "miss-selfridge": "47% new customer rate",
-  "dorothy-perkins": "Segmented 50% of UK sales",
+  "dorothy-perkins": "Segmented 50% of UK sales (as reported)",
   evans: "2.5% to 8.43% RPV uplift",
   burton: "+11.6% conversion lift",
   "team-contract": "9 participants · ~230 observations",
