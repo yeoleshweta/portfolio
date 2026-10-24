@@ -1,0 +1,795 @@
+/* Burton case study, styled to the design PDF on the portfolio's theme tokens (globals.css).
+   There is no scoped palette. The weather bars map to --color-sticky (sun) and --color-bg (rain),
+   and the italic accent uses --color-lilac on light grounds only in headings. Contrast is checked
+   in docs/burton-redesign/PLAN.md. */
+
+.page {
+  color: var(--color-text-secondary);
+  font-family: var(--font-primary);
+}
+
+/* ── Hero: a dark band, as on the Evans and Miss Selfridge pages ── */
+.hero {
+  padding: clamp(96px, 12vw, 136px) 0 clamp(64px, 8vw, 96px);
+  text-align: center;
+  color: var(--color-surface);
+  background:
+    radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--color-accent) 32%, transparent), transparent 70%),
+    var(--color-text);
+}
+
+.heroInner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 40px);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 6px 14px;
+  border: 1px solid color-mix(in srgb, var(--color-surface) 24%, var(--color-text));
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-border);
+}
+
+.heroTitle {
+  margin: 0 0 22px;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6.4vw, 72px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--color-surface);
+}
+
+.heroLine {
+  display: block;
+}
+
+.heroTitle .accent {
+  color: var(--color-sticky-accent);
+}
+
+.heroLead {
+  max-width: 56ch;
+  margin: 0 auto 40px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--color-border);
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px 32px;
+  max-width: 960px;
+  margin: 0 auto 40px;
+  padding-top: 28px;
+  border-top: 1px solid color-mix(in srgb, var(--color-surface) 14%, var(--color-text));
+}
+
+.metaItem dt {
+  margin-bottom: 6px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-border);
+}
+
+.metaItem dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--color-surface);
+}
+
+.stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 28px;
+  text-align: left;
+  background: color-mix(in srgb, var(--color-surface) 8%, var(--color-text));
+  border: 1px solid color-mix(in srgb, var(--color-surface) 14%, var(--color-text));
+  border-radius: var(--radius-sm);
+}
+
+.statValue {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-sticky);
+}
+
+.statLabel {
+  max-width: 24ch;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-border);
+}
+
+/* ── Chapters ── */
+.chapter {
+  padding: clamp(56px, 7vw, 88px) 0;
+}
+
+.grey {
+  background: var(--color-bg);
+}
+
+.lilac {
+  background: color-mix(in srgb, var(--color-accent) 12%, var(--color-bg));
+}
+
+.inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 40px);
+}
+
+.kicker {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+
+.h2 {
+  max-width: 30ch;
+  margin: 0 0 28px;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4.2vw, 46px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-accent-text);
+}
+
+.accent {
+  font-family: var(--font-script), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-lilac);
+}
+
+.lead {
+  max-width: 62ch;
+  margin: 0 0 36px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.note {
+  margin: 20px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.handNote {
+  margin: 28px 0 0;
+  font-family: var(--font-hand), "Comic Sans MS", cursive;
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--color-accent-text);
+}
+
+/* ── 01 The gaps: sticky notes ── */
+.stickies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sticky {
+  padding: 22px 22px 26px;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px var(--color-sticky-shadow), 0 2px 4px var(--color-sticky-shadow);
+  color: var(--color-text);
+}
+
+.sticky:nth-child(1) {
+  transform: rotate(-1.2deg);
+}
+
+.sticky:nth-child(2) {
+  transform: rotate(1.2deg);
+}
+
+.sticky:nth-child(3) {
+  transform: rotate(-0.6deg);
+}
+
+.stickyYellow {
+  background: var(--color-sticky);
+}
+
+.stickyLilac {
+  background: var(--color-sticky-accent);
+}
+
+.stickyTitle {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text);
+}
+
+.stickyBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+/* ── 02 Pattern decisions: option cards ── */
+.group {
+  margin-top: 40px;
+}
+
+.groupTitle {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.option {
+  padding: 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.optionChosen {
+  border-color: var(--color-accent-text);
+  box-shadow: inset 0 0 0 1px var(--color-accent-text);
+}
+
+.tag {
+  display: inline-block;
+  margin: 0;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
+  border-radius: var(--radius-pill);
+}
+
+.tagChosen {
+  color: var(--color-surface);
+  background: var(--color-accent-text);
+}
+
+.optionTitle {
+  margin: 12px 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text);
+}
+
+.optionBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+/* ── 03 Interaction logic: the chain and its fallbacks ── */
+.chain {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.step {
+  counter-increment: step;
+  padding: 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.stepIndex {
+  display: block;
+  margin-bottom: 10px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--color-accent-text);
+}
+
+.stepIndex::before {
+  content: counter(step, decimal-leading-zero);
+}
+
+.stepName {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.stepText {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.fallbacks {
+  margin-top: 40px;
+  padding: 28px 32px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.fallbacksTitle {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.fallbackList {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.fallbackList li + li {
+  margin-top: 6px;
+}
+
+/* ── 04 The component: tiles and their spec ── */
+.specimen {
+  margin-top: 32px;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.specimenHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 16px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.specimenTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.specimenTag {
+  margin: 0;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--color-accent-text);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+  padding: 22px;
+  background: var(--color-bg);
+}
+
+.tileCell {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  min-width: 0;
+}
+
+.cellLabel {
+  margin: 0;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.tile {
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.tileBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.tileBarSun {
+  background: var(--color-sticky);
+}
+
+.tileBarRain {
+  background: var(--color-bg);
+}
+
+.tileBody {
+  display: grid;
+  gap: 12px;
+  padding: 16px 14px 18px;
+}
+
+.tileMessage {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--color-text);
+}
+
+.tilePhoto {
+  display: grid;
+  place-items: center;
+  min-height: 84px;
+  padding: 10px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
+  border-radius: 10px;
+}
+
+/* A static recreation of a button. It is a span, not a link, so it is not focusable. */
+.cta {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-surface);
+  background: var(--color-text);
+  border-radius: var(--radius-pill);
+}
+
+.specRows {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 18px 22px 22px;
+  border-top: 1px solid var(--color-border);
+}
+
+.specRow {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 12px;
+  margin: 0;
+}
+
+.specRow dt {
+  padding-top: 2px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.specRow dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+/* ── Tables: tokens and rules ── */
+.tableWrap {
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.caption {
+  padding: 14px 16px;
+  font-size: 13px;
+  text-align: left;
+  color: var(--color-text-secondary);
+  caption-side: top;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.table th,
+.table td {
+  padding: 14px 16px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid var(--color-border);
+}
+
+.table th {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.table td {
+  color: var(--color-text-secondary);
+}
+
+.strong {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.token {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12.5px;
+  color: var(--color-accent-text);
+}
+
+.swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 8px;
+  vertical-align: -1px;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+}
+
+/* ── 07 Results ── */
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.resultValue {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-accent-text);
+}
+
+.resultLabel {
+  max-width: 30ch;
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.reading {
+  margin-top: 40px;
+  padding: 28px 32px;
+  color: var(--color-surface);
+  background: var(--color-text);
+  border-radius: var(--radius-sm);
+}
+
+.readingKicker {
+  margin: 0 0 10px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-sticky);
+}
+
+.readingBody {
+  max-width: 62ch;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-surface);
+}
+
+/* ── 08 Reflection ── */
+.reflectionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  padding: 24px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.cardLilac {
+  background: var(--color-sticky-accent);
+  border-color: transparent;
+}
+
+.cardTitle {
+  margin: 0 0 10px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text);
+}
+
+.cardBody {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.next {
+  margin-top: 20px;
+  padding: 28px 32px;
+  background: var(--color-sticky-accent);
+  border-radius: var(--radius-sm);
+}
+
+.nextTitle {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.nextList {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.nextList li + li {
+  margin-top: 6px;
+}
+
+@media (max-width: 960px) {
+  .meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .statGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .chain {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .stat {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chain {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .specRow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .fallbacks,
+  .reading,
+  .next {
+    padding: 22px;
+  }
+
+  .table thead {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    padding: 12px 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .table td {
+    padding: 6px 16px;
+    border-top: 0;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    display: block;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky {
+    transform: none;
+  }
+}
