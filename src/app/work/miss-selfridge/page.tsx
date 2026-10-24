@@ -2,371 +2,253 @@
 
 import React from "react";
 import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
-import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
-import { CaseStudySection, Blockquote } from "@/components/casestudy/CaseStudyContent";
+import {
+  hero,
+  sectionNav,
+  question,
+  experiment,
+  budget,
+  results,
+  reflection,
+} from "@/content/missSelfridge";
+import styles from "./missSelfridge.module.css";
 
-const sections = [
-  { id: "overview", label: "Overview" },
-  { id: "tension", label: "01: The Tension" },
-  { id: "craft", label: "02: The Craft" },
-  { id: "implementation", label: "03: Implementation" },
-  { id: "evidence", label: "04: The Evidence" },
-];
-
-function FunnelJobVisual() {
+/* Renders *word* as an italic accent inside a heading. */
+function Marked({ text }: { text: string }) {
   return (
-    <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "40px", borderRadius: "16px", margin: "32px 0" }}>
-      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-        Budget fenced by funnel job, not by channel habit
-      </div>
-      
-      {/* Stacked bar */}
-      <div style={{ display: "flex", height: "48px", borderRadius: "8px", overflow: "hidden", marginTop: "24px" }}>
-        <div style={{ width: "50%", background: "var(--color-accent)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: "15px" }}>
-          50%
-        </div>
-        <div style={{ width: "25%", background: "rgba(139, 105, 250, 0.5)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-text)", fontWeight: 700, fontSize: "15px" }}>
-          25%
-        </div>
-        <div style={{ width: "25%", background: "var(--color-text)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-surface)", fontWeight: 700, fontSize: "15px" }}>
-          25%
-        </div>
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "16px", marginTop: "20px" }}>
-        <div>
-          <div style={{ fontWeight: 700, fontSize: "14px" }}>New Customers</div>
-          <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "4px" }}>Prospecting focused allocation</div>
-        </div>
-        <div>
-          <div style={{ fontWeight: 700, fontSize: "14px" }}>Prospects</div>
-          <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "4px" }}>Conversion focused allocation</div>
-        </div>
-        <div>
-          <div style={{ fontWeight: 700, fontSize: "14px" }}>Lifetime Value</div>
-          <div style={{ fontSize: "13px", color: "var(--color-text-secondary)", marginTop: "4px" }}>Retention focused allocation</div>
-        </div>
-      </div>
-      
-      <div style={{ borderTop: "1px solid var(--color-border)", marginTop: "24px", paddingTop: "16px", fontSize: "13px", color: "var(--color-text-secondary)", fontStyle: "italic" }}>
-        Each job kept its own scorecard. There was no blended ROI reporting that lets retargeting subsidize the optics of acquisition.
-      </div>
-    </div>
+    <>
+      {text.split("*").map((part, i) =>
+        i % 2 === 1 ? (
+          <em key={i} className={styles.accent}>{part}</em>
+        ) : (
+          <React.Fragment key={i}>{part}</React.Fragment>
+        ),
+      )}
+    </>
   );
 }
 
-function CraftLayerSelector() {
-  const [activeLayer, setActiveLayer] = React.useState("audience");
+type Tone = "grey" | "lilac" | "white";
 
-  const layers = {
-    audience: {
-      title: "1: Audience",
-      desc: "Ensuring clean user segmentation so that acquisition campaigns target only genuinely new visitors, ignoring those already familiar with the brand."
-    },
-    investment: {
-      title: "2: Investment",
-      desc: "Fencing budget allocations so that low funnel retargeting cannot devour prospecting resources. Spend is locked to the strategic value of the segment."
-    },
-    creative: {
-      title: "3: Creative",
-      desc: "Aligning display visuals dynamically to the live retail calendar without freezing campaigns or interrupting ongoing measurements."
-    },
-    measurement: {
-      title: "4: Measurement",
-      desc: "Holding all display activities to a randomized control holdout standard, isolating pure incrementality from organic demand."
-    }
-  };
-
-  const l = layers[activeLayer as keyof typeof layers];
-
+function Chapter({
+  id,
+  kicker,
+  title,
+  tone = "grey",
+  children,
+}: {
+  id: string;
+  kicker: string;
+  title: string;
+  tone?: Tone;
+  children: React.ReactNode;
+}) {
   return (
-    <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "40px", borderRadius: "16px", margin: "32px 0" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px", borderBottom: "1px solid var(--color-border)", paddingBottom: "16px", marginBottom: "24px" }}>
-        {Object.keys(layers).map((key) => {
-          const isActive = activeLayer === key;
-          return (
-            <button
-              key={key}
-              onClick={() => setActiveLayer(key)}
-              style={{
-                padding: "12px 8px",
-                border: "none",
-                background: isActive ? "var(--color-text)" : "transparent",
-                color: isActive ? "var(--color-surface)" : "var(--color-text-secondary)",
-                borderRadius: "20px",
-                fontWeight: isActive ? 700 : 500,
-                fontSize: "13.5px",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-                textAlign: "center"
-              }}
-            >
-              {key.charAt(0).toUpperCase() + key.slice(1)}
-            </button>
-          );
-        })}
+    <section id={id} className={`${styles.chapter} ${styles[tone]}`}>
+      <div className={styles.inner}>
+        <p className={styles.kicker}>{kicker}</p>
+        <h2 className={styles.h2}>
+          <Marked text={title} />
+        </h2>
+        {children}
       </div>
-      <div>
-        <h4 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "var(--color-text)" }}>{l.title}</h4>
-        <p style={{ marginTop: "10px", margin: 0, fontSize: "15px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
-          {l.desc}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function ArchitectureVisual() {
-  return (
-    <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "40px", borderRadius: "16px", margin: "32px 0" }}>
-      <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "28px" }}>
-        Measurement architecture: randomized holdout design
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "24px" }}>
-        <div style={{ border: "1px solid var(--color-border)", padding: "24px", borderRadius: "12px", background: "var(--color-bg)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontWeight: 700, fontSize: "15px" }}>Treated Arm</span>
-            <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "14px", fontWeight: 700 }}>90%</span>
-          </div>
-          <p style={{ fontSize: "14px", color: "var(--color-text-secondary)", marginTop: "12px", lineHeight: "1.5" }}>
-            Audience intelligence and investment logic with a live creative, measured against the holdout arm.
-          </p>
-        </div>
-
-        <div style={{ border: "1px solid var(--color-border)", padding: "24px", borderRadius: "12px", background: "var(--color-bg)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontWeight: 700, fontSize: "15px" }}>Holdout Arm</span>
-            <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "14px", fontWeight: 700, color: "var(--color-accent)" }}>10%</span>
-          </div>
-          <p style={{ fontSize: "14px", color: "var(--color-text-secondary)", marginTop: "12px", lineHeight: "1.5" }}>
-            Same audience and investment logic, but served a blank ad representing a true placebo.
-          </p>
-        </div>
-      </div>
-
-      <div style={{ marginTop: "32px", padding: "24px", background: "var(--color-text)", color: "var(--color-surface)", borderRadius: "12px" }}>
-        <div style={{ fontWeight: 700, fontSize: "16px" }}>Incrementality</div>
-        <p style={{ fontSize: "14px", marginTop: "8px", color: "rgba(255,255,255,0.8)", lineHeight: "1.5" }}>
-          Treated conversion rate minus holdout conversion rate. Validated by a two tailed significance test.
-        </p>
-        <div style={{ display: "inline-block", background: "rgba(255,255,255,0.15)", padding: "4px 10px", borderRadius: "4px", fontSize: "11px", fontWeight: 700, fontFamily: "JetBrains Mono, monospace", textTransform: "uppercase", marginTop: "12px", letterSpacing: "0.05em" }}>
-          Measured against the counterfactual, not against zero
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
 
 export default function MissSelfridgeCaseStudy() {
+  const jobsTotal = budget.jobs.reduce((sum, j) => sum + j.share, 0);
+
   return (
-    <>
-      <CaseStudyHero
-        title="Would they have bought anyway? Measuring true incrementality for Miss Selfridge"
-        category="Quantitative / Experimentation"
-        role="Measurement & Personalization Specialist"
-        team="Qubit · Client ecosystem: Miss Selfridge"
-        timeline="Experimentation Period"
-      />
-
-      <CaseStudyLayout sections={sections}>
-        {/* ============================================ */}
-        {/* SECTION: OVERVIEW                            */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="overview"
-          heading="Overview"
-        >
-          <p>
-            How a lifecycle display program was held to a causal standard: randomized holdouts, two tailed significance testing, and a metric deliberately matched to the mission, delivering a 47% new customer rate that could actually be defended.
-          </p>
-
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-            gap: "24px",
-            background: "var(--color-surface)",
-            padding: "32px",
-            borderRadius: "16px",
-            border: "1px solid var(--color-border)",
-            margin: "32px 0"
-          }}>
-            <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Role</span>
-              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Measurement & Personalization Specialist</p>
-            </div>
-            <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Team</span>
-              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Qubit · Miss Selfridge</p>
-            </div>
-            <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Methods</span>
-              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px" }}>Experiment design, segmenting, significance testing</p>
-            </div>
-            <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Outcome</span>
-              <p style={{ margin: "4px 0 0 0", fontWeight: 600, fontSize: "15px", color: "var(--color-accent)" }}>47% New Customer Rate</p>
-            </div>
-          </div>
-
-          <h3 style={{ fontSize: "20px", fontWeight: 700, marginTop: "40px", marginBottom: "16px" }}>Proving what marketing actually causes</h3>
-          <p>
-            This project centered on a question most marketing programs never honestly answer: of all the conversions a campaign claims, how many would have bought anyway? For Miss Selfridge, a lifecycle display program was building to handle three tasks: find new customers, convert prospects, and grow lifetime value. Against a relentless daily trade calendar, we introduced an intervention: a holdout structure that proved causality, not attribution artifact.
-          </p>
-          <p style={{ marginTop: "16px" }}>
-            Embedded in the Arcadia ecosystem, we relied on the measurement and audience architecture behind a creative led, data driven display strategy, one designed specifically to drive New Customer Rate rather than recycle existing demand.
-          </p>
-        </CaseStudySection>
-
-        {/* ============================================ */}
-        {/* SECTION: 01: THE TENSION                     */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="tension"
-          heading="01: The Tension"
-        >
-          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "24px" }}>Three ways the numbers could have lied</h3>
-          
-          <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
-            <div>
-              <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>1: The attribution trap</h4>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
-                Retargeting is a customer acquisition trap. It shows ads to people already deep in the funnel, then claims credit when they convert. Incremental ROI is usually an illusion. Some fractions of those customers would have purchased with no ad at all. The dashboard was success, but the counterfactual was revealing.
-              </p>
-            </div>
-            <div style={{ borderTop: "1px solid var(--color-border)", paddingTop: "24px" }}>
-              <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>2: One budget, three jobs</h4>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
-                Acquisition, prospecting, conversion, and retention budgets compete for the same spend, and they do not share a success metric. Optimizing the blended number quietly starves acquisition. Proving genuinely new customers to feed the overall line meant converting the book.
-              </p>
-            </div>
-            <div style={{ borderTop: "1px solid var(--color-border)", paddingTop: "24px" }}>
-              <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>3: A calendar that never sleeps</h4>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
-                Miss Selfridge&apos;s trade plan changed daily: Black Friday, Cyber Monday, and the Christmas run up, with creative refreshed to match offline promotions. Analysis had to accommodate this volatility. Any framework that required a frozen campaign to produce a clean read was useless here.
-              </p>
-            </div>
-          </div>
-
-          <Blockquote text="The risk was not a failing campaign. It was a campaign that looked successful: one whose numbers could flatter without informing. The most dangerous dashboard is the one that is always green." />
-        </CaseStudySection>
-
-        {/* ============================================ */}
-        {/* SECTION: 02: THE CRAFT                       */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="craft"
-          heading="02: The Craft"
-        >
-          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px" }}>A measurement first framework</h3>
-          <p>
-            Budget, audience, and metric were matched deliberately by funnel job, and everything was measured against a control holdout. Explore the four intelligence layers below.
-          </p>
-
-          <FunnelJobVisual />
-
-          <CraftLayerSelector />
-
-          <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "36px", borderRadius: "12px", borderLeft: "4px solid var(--color-accent)" }}>
-            <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 700, letterSpacing: "0.05em" }}>Core Principle</span>
-            <h4 style={{ margin: "8px 0 12px 0", fontSize: "17px", fontWeight: 700 }}>Every claim of impact must survive a comparison against what if we did nothing.</h4>
-            <ul style={{ margin: 0, paddingLeft: "20px", fontSize: "14.5px", color: "var(--color-text-secondary)", display: "flex", flexDirection: "column", gap: "8px", lineHeight: "1.5" }}>
-              <li>A 10% randomized holdout receives the audience and investment loop, but is served a blank ad.</li>
-              <li>Incrementality is calculated as treated conversion minus holdout conversion.</li>
-            </ul>
-          </div>
-        </CaseStudySection>
-
-        {/* ============================================ */}
-        {/* SECTION: 03: IMPLEMENTATION                  */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="implementation"
-          heading="03: Implementation"
-        >
-          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px" }}>Rigorous execution: the placebo arm</h3>
-          <p>
-            We delivered a 10% control group in a true placebo arm: same audience intelligence, same investment logic, but a blank creative, so that the difference between arms could only be attributed to the advertising itself.
-          </p>
-          <p style={{ marginTop: "16px" }}>
-            The lift was validated as statistically significant by a two tailed test. We chose a two tailed test because a campaign can plausibly hurt as well as help, and an honest test checks both directions. We held a hard reporting line: incremental ROI was never reported on its own. It was always paired with New Customer Rate, so the program was judged on its mission, not on recycled demand.
-          </p>
-
-          <ArchitectureVisual />
-        </CaseStudySection>
-
-        {/* ============================================ */}
-        {/* SECTION: 04: THE EVIDENCE                    */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="evidence"
-          heading="04: The Evidence"
-        >
-          <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "24px" }}>Measuring the lift</h3>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "24px", margin: "24px 0" }}>
-            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>47%</div>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)", lineHeight: "1.5" }}>New Customer Rate: nearly half of campaign driven purchases came from customers entirely new to the brand.</p>
-            </div>
-            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>10%</div>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)", lineHeight: "1.5" }}>randomized holdout: incrementality confirmed by a two tailed significance test.</p>
-            </div>
-            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>50/25/25</div>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)", lineHeight: "1.5" }}>disciplined allocation: budget fenced by funnel job, preventing retargeting from swallowing the budget.</p>
-            </div>
-            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "28px", borderRadius: "12px", borderTop: "3px solid var(--color-accent)" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 700, color: "var(--color-accent)" }}>Daily</div>
-              <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "var(--color-text-secondary)", lineHeight: "1.5" }}>creative alignment: displays refreshed against the trade calendar through peak season.</p>
-            </div>
-          </div>
-
-          <Blockquote text="Our campaign was creative led, but data driven, and designed specifically to find completely new customers and increase existing customer lifetime value." />
-
-          <div style={{ borderTop: "2px solid var(--color-text)", marginTop: "48px", paddingTop: "40px" }}>
-            <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "24px" }}>Key learnings</h3>
-            
-            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-              <div>
-                <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>ROI can lie</h4>
-                <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
-                  The most targeted number in the program was not ROI; it was the holdout&apos;s conversion rate. Without the counterfactual, retargeting flatters itself. With it, we claim only what we cause. This is the study that made measured against the counterfactual, not against zero my operating standard for data decisions.
-                </p>
+    <CaseStudyLayout sections={sectionNav} hideBrief>
+      {/* ── Hero ── */}
+      <section className={styles.hero} aria-labelledby="ms-title">
+        <div className={styles.heroInner}>
+          <ul className={styles.tags}>
+            {hero.tags.map((tag) => (
+              <li key={tag}>{tag}</li>
+            ))}
+          </ul>
+          <h1 id="ms-title" className={styles.heroTitle}>
+            {hero.titleLines.map((line) => (
+              <span key={line} className={styles.heroLine}>
+                <Marked text={line} />
+              </span>
+            ))}
+          </h1>
+          <p className={styles.heroLead}>{hero.lead}</p>
+          <dl className={styles.heroMeta}>
+            {hero.meta.map((item) => (
+              <div key={item.label} className={styles.heroMetaItem}>
+                <dt>{item.label}</dt>
+                <dd>{item.value}</dd>
               </div>
-              <div>
-                <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>The metric must match the mission</h4>
-                <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
-                  A program whose mission is new customers cannot be judged on blended ROI. Liberating New Customer Rate from organic search changed what the program optimized for, and gave the team the courage to make hard decisions.
-                </p>
-              </div>
-              <div>
-                <h4 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>Two tailed humility</h4>
-                <p style={{ margin: "8px 0 0 0", fontSize: "14.5px", color: "var(--color-text-secondary)", lineHeight: "1.6" }}>
-                  Testing both directions is a statement of intellectual honesty: an intervention can hurt as well as help. Building that risk into the design makes the result, when positive, that much more defensible.
-                </p>
-              </div>
-            </div>
+            ))}
+          </dl>
+          <div className={styles.statBox}>
+            <p className={styles.statValue}>{hero.stat.value}</p>
+            <p className={styles.statLabel}>{hero.stat.label}</p>
           </div>
+        </div>
+      </section>
 
-          <div
-            style={{
-              marginTop: "64px",
-              padding: "24px",
-              background: "rgba(0,0,0,0.015)",
-              borderRadius: "8px",
-              border: "1px solid var(--color-border)",
-              fontSize: "13px",
-              color: "var(--color-text-secondary)",
-              fontStyle: "italic",
-              textAlign: "center",
-            }}
-          >
-            Lifecycle display measurement within the Arcadia Group ecosystem. Proprietary metrics generalized for confidentiality.
-          </div>
-        </CaseStudySection>
-      </CaseStudyLayout>
-    </>
+      {/* ── 01 The question ── */}
+      <Chapter id="question" kicker="01 · The question" title={question.title} tone="grey">
+        <p className={styles.lead}>{question.lead}</p>
+        <p className={styles.body}>{question.body}</p>
+
+        <ul className={styles.stickies}>
+          {question.stickies.map((s) => (
+            <li key={s.title} className={`${styles.sticky} ${s.tone === "yellow" ? styles.stickyYellow : styles.stickyLilac}`}>
+              <p className={styles.stickyTitle}>{s.title}</p>
+              <p className={styles.stickyBody}>{s.body}</p>
+            </li>
+          ))}
+        </ul>
+      </Chapter>
+
+      {/* ── 02 Experiment design ── */}
+      <Chapter id="experiment" kicker="02 · Experiment design" title={experiment.title} tone="lilac">
+        <p className={styles.lead}>{experiment.lead}</p>
+
+        <div className={styles.flow}>
+          {experiment.steps.map((step) => (
+            <React.Fragment key={step.label}>
+              <div className={styles.flowStep}>
+                <p className={styles.flowLabel}>{step.label}</p>
+                <p className={styles.flowText}>{step.text}</p>
+              </div>
+              <span className={styles.flowArrow} aria-hidden="true">↓</span>
+            </React.Fragment>
+          ))}
+        </div>
+
+        <div className={styles.arms}>
+          {experiment.arms.map((arm) => (
+            <article key={arm.name} className={`${styles.arm} ${arm.tone === "treated" ? styles.armTreated : styles.armHoldout}`}>
+              <div className={styles.armHead}>
+                <h3 className={styles.armName}>{arm.name}</h3>
+                <p className={styles.armShare}>{arm.share}</p>
+              </div>
+              <p className={`${styles.armCreative} ${arm.tone === "treated" ? styles.creativeTreated : styles.creativeHoldout}`}>
+                {arm.creative}
+              </p>
+              <p className={styles.armNote}>{arm.note}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className={styles.formula}>
+          <p className={styles.formulaText}>{experiment.formula}</p>
+          <p className={styles.formulaNote}>{experiment.formulaNote}</p>
+        </div>
+
+        <h3 className={styles.h3}>{experiment.decisionsTitle}</h3>
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
+            <caption className={styles.tableCaption}>{experiment.decisionsCaption}</caption>
+            <thead>
+              <tr>
+                <th scope="col">Decision</th>
+                <th scope="col">Instead of</th>
+                <th scope="col">Why</th>
+              </tr>
+            </thead>
+            <tbody>
+              {experiment.decisions.map((d) => (
+                <tr key={d.decision}>
+                  <td data-label="Decision" className={styles.strong}>{d.decision}</td>
+                  <td data-label="Instead of">{d.instead}</td>
+                  <td data-label="Why">{d.why}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Chapter>
+
+      {/* ── 03 Budget by job ── */}
+      <Chapter id="budget" kicker="03 · Budget by job" title={budget.title} tone="grey">
+        <p className={styles.lead}>{budget.lead}</p>
+
+        <div className={styles.split} role="img" aria-label={`Budget split: ${budget.jobs.map((j) => `${j.name} ${j.share}%`).join(", ")}`}>
+          {budget.jobs.map((j) => (
+            <span
+              key={j.name}
+              className={`${styles.splitPart} ${j.name === "Prospecting" ? styles.splitProspect : styles.splitOther}`}
+              style={{ width: `${(j.share / jobsTotal) * 100}%` }}
+            >
+              {j.share}%
+            </span>
+          ))}
+        </div>
+
+        <div className={styles.jobGrid}>
+          {budget.jobs.map((j) => (
+            <article key={j.name} className={styles.card}>
+              <p className={styles.jobShare}>{j.name} · {j.share}%</p>
+              <p className={styles.cardBody}>{j.body}</p>
+              {j.scored ? <p className={styles.cardFoot}>{j.scored}</p> : null}
+            </article>
+          ))}
+        </div>
+        <p className={styles.note}>{budget.footnote}</p>
+      </Chapter>
+
+      {/* ── 04 Results ── */}
+      <Chapter id="results" kicker="04 · Results" title={results.title} tone="lilac">
+        <div className={styles.resultGrid}>
+          {results.cards.map((c) => (
+            <article key={c.label} className={styles.resultCard}>
+              <p className={styles.resultValue}>{c.value}</p>
+              <p className={styles.resultLabel}>{c.label}</p>
+              <p className={styles.cardBody}>{c.body}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className={styles.twoCol}>
+          <article className={styles.card}>
+            <h3 className={styles.cardTitle}>{results.meaning.title}</h3>
+            <p className={styles.cardBody}>{results.meaning.body}</p>
+          </article>
+          <article className={styles.card}>
+            <h3 className={styles.cardTitle}>{results.changed.title}</h3>
+            <p className={styles.cardBody}>{results.changed.body}</p>
+          </article>
+        </div>
+        <p className={styles.footnoteBox}>{results.footnote}</p>
+      </Chapter>
+
+      {/* ── 05 Reflection ── */}
+      <Chapter id="reflection" kicker="05 · Reflection" title={reflection.title} tone="lilac">
+        <div className={styles.reflectionGrid}>
+          {reflection.cards.map((c) => (
+            <article key={c.title} className={styles.card}>
+              <h3 className={styles.cardTitle}>{c.title}</h3>
+              <p className={styles.cardBody}>{c.body}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className={styles.nextCard}>
+          <h3 className={styles.nextTitle}>{reflection.nextTitle}</h3>
+          <ol className={styles.nextList}>
+            {reflection.next.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ol>
+        </div>
+
+        <p className={styles.reading}>
+          {reflection.reading.label}{" "}
+          <a href={reflection.reading.href} target="_blank" rel="noreferrer">
+            {reflection.reading.title}
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>{" "}
+          ({reflection.reading.source}).
+        </p>
+      </Chapter>
+    </CaseStudyLayout>
   );
 }

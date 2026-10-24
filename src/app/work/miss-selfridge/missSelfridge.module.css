@@ -1,0 +1,673 @@
+/* Miss Selfridge case study, styled to the design PDF. Colours come from globals.css tokens. */
+
+.accent {
+  font-family: var(--font-script), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-lilac);
+}
+
+/* ── Chapters ── */
+.chapter {
+  padding: clamp(56px, 7vw, 88px) 0;
+}
+
+.grey {
+  background: var(--color-bg);
+}
+
+.lilac {
+  background: color-mix(in srgb, var(--color-accent) 12%, var(--color-bg));
+}
+
+.white {
+  background: var(--color-surface);
+}
+
+.inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 40px);
+}
+
+.kicker {
+  margin: 0 0 12px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+
+.h2 {
+  margin: 0 0 28px;
+  max-width: 30ch;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-accent-text);
+}
+
+.h3 {
+  margin: 40px 0 14px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.lead {
+  margin: 0 0 20px;
+  max-width: 66ch;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.body {
+  margin: 0 0 28px;
+  max-width: 66ch;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.note {
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.card {
+  padding: 22px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+}
+
+.cardTitle {
+  margin: 0 0 10px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text);
+}
+
+.cardBody {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.cardFoot {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-accent-text);
+}
+
+.strong {
+  font-weight: 700;
+}
+
+/* ── Hero ── */
+.hero {
+  padding: clamp(96px, 12vw, 136px) 0 clamp(64px, 8vw, 96px);
+  background:
+    radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--color-accent) 32%, transparent), transparent 70%),
+    var(--color-text);
+  color: var(--color-surface);
+}
+
+.heroInner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 40px);
+  text-align: center;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 6px 14px;
+  border: 1px solid color-mix(in srgb, var(--color-surface) 35%, transparent);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-border);
+}
+
+.heroTitle {
+  margin: 0 0 24px;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 6.5vw, 76px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--color-surface);
+}
+
+.heroLine {
+  display: block;
+}
+
+.heroLead {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  font-size: clamp(16px, 1.8vw, 19px);
+  line-height: 1.6;
+  color: var(--color-border);
+}
+
+.heroMeta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 20px 32px;
+  margin: 0 0 40px;
+  padding-top: 28px;
+  border-top: 1px solid color-mix(in srgb, var(--color-surface) 15%, transparent);
+}
+
+.heroMetaItem dt {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-border);
+}
+
+.heroMetaItem dd {
+  margin: 6px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-surface);
+}
+
+.statBox {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 460px;
+  padding: 20px 26px;
+  border: 1px solid color-mix(in srgb, var(--color-surface) 15%, transparent);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--color-surface) 6%, transparent);
+  text-align: left;
+}
+
+.statValue {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 60px);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-sticky);
+}
+
+.statLabel {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-surface);
+}
+
+/* ── 01 The question ── */
+.stickies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sticky {
+  padding: 22px 24px;
+  border-radius: 4px;
+  box-shadow: 0 10px 24px var(--color-sticky-shadow);
+  transform: rotate(-1deg);
+}
+
+.sticky:nth-child(2) {
+  transform: rotate(1deg);
+}
+
+.stickyYellow {
+  background: var(--color-sticky);
+}
+
+.stickyLilac {
+  background: var(--color-sticky-accent);
+}
+
+.stickyTitle {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.stickyBody {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+/* ── 02 Experiment design ── */
+.flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 32px auto 0;
+  max-width: 460px;
+}
+
+.flowStep {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.flowLabel {
+  margin: 0 0 4px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.flowText {
+  margin: 0;
+  font-size: 15px;
+  color: var(--color-text);
+}
+
+.flowArrow {
+  font-size: 18px;
+  line-height: 1;
+  color: var(--color-accent-text);
+}
+
+.arms {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 24px 0 0;
+}
+
+@media (min-width: 640px) {
+  .arms {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.arm {
+  padding: 20px;
+  border-radius: 14px;
+  background: var(--color-surface);
+}
+
+.armTreated {
+  border: 2px solid var(--color-accent-text);
+}
+
+.armHoldout {
+  border: 2px dashed var(--color-text-secondary);
+}
+
+.armHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.armName {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.armShare {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-accent-text);
+}
+
+.armCreative {
+  margin: 14px 0 12px;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-text);
+}
+
+.creativeTreated {
+  background: color-mix(in srgb, var(--color-accent) 22%, var(--color-surface));
+}
+
+.creativeHoldout {
+  background: var(--color-bg);
+}
+
+.armNote {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.formula {
+  margin: 28px auto 0;
+  max-width: 760px;
+  padding: 22px;
+  border-radius: 12px;
+  background: var(--color-text);
+  text-align: center;
+}
+
+.formulaText {
+  margin: 0;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-sticky);
+}
+
+.formulaNote {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--color-border);
+}
+
+/* Tables: stacked below 640px via data-label cells. */
+.tableWrap {
+  margin: 8px 0 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  font-size: 15px;
+}
+
+.tableCaption {
+  caption-side: top;
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.table th,
+.table td {
+  padding: 14px 18px;
+  border-top: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.table th {
+  background: var(--color-bg);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* ── 03 Budget by job ── */
+.split {
+  display: flex;
+  height: 44px;
+  overflow: hidden;
+  margin: 32px 0 0;
+  border-radius: 999px;
+}
+
+.splitPart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.splitProspect {
+  background: var(--color-accent-text);
+  color: #ffffff;
+}
+
+.splitOther {
+  background: var(--color-sticky-accent);
+  color: var(--color-text);
+}
+
+.jobGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 24px 0 0;
+  padding: 0;
+}
+
+@media (min-width: 900px) {
+  .jobGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.jobShare {
+  margin: 0 0 10px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+
+/* ── 04 Results ── */
+.resultGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  .resultGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.resultCard {
+  padding: 22px;
+  border-radius: 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.resultValue {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--color-accent-text);
+}
+
+.resultLabel {
+  margin: 6px 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 28px 0 0;
+}
+
+@media (min-width: 900px) {
+  .twoCol {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.footnoteBox {
+  margin: 36px 0 0;
+  padding: 18px 22px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 13px;
+  font-style: italic;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+/* ── 05 Reflection ── */
+.reflectionGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .reflectionGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.nextCard {
+  margin-top: 32px;
+  padding: 28px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--color-accent) 18%, var(--color-surface));
+}
+
+.nextTitle {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.nextList {
+  margin: 0;
+  padding-left: 22px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.nextList li + li {
+  margin-top: 8px;
+}
+
+.reading {
+  margin: 28px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.reading a {
+  color: var(--color-accent-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── Small screens: stack the tables ── */
+@media (max-width: 640px) {
+  .table thead {
+    display: none;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    padding: 10px 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .table td {
+    padding: 4px 16px;
+    border-top: 0;
+  }
+
+  .table td::before {
+    display: block;
+    margin-bottom: 2px;
+    content: attr(data-label);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .card,
+  .nextCard,
+  .resultCard,
+  .formula {
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky {
+    transform: none;
+  }
+}
