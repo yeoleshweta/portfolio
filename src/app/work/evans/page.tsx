@@ -179,7 +179,7 @@ export default function EvansCaseStudy() {
             <h1 id="ev-title" className={styles.heroTitle}>
               {hero.titleLines.map((line) => (
                 <span key={line} className={styles.heroLine}>
-                  <Marked text={line} />
+                  <Marked text={line} />{" "}
                 </span>
               ))}
             </h1>

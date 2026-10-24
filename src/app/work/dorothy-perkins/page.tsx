@@ -221,7 +221,7 @@ export default function DorothyPerkinsCaseStudy() {
             <h1 id="dp-title" className={styles.heroTitle}>
               {hero.titleLines.map((line) => (
                 <span key={line} className={styles.heroLine}>
-                  <Marked text={line} />
+                  <Marked text={line} />{" "}
                 </span>
               ))}
             </h1>

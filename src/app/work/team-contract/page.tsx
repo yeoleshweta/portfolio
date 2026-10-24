@@ -318,10 +318,10 @@ export default function TeamContractCaseStudy() {
             ))}
           </ul>
           <h1 id="tc-title" className={styles.heroTitle}>
-            <span>{hero.titleLead}</span>
+            <span>{hero.titleLead}</span>{" "}
             <span className={styles.heroLine}>
               <em className={styles.heroAccent}>{hero.titleAccent}</em> {hero.titleRest}
-            </span>
+            </span>{" "}
             <span>{hero.titleLast}</span>
           </h1>
           <p className={styles.heroLead}>{hero.lead}</p>

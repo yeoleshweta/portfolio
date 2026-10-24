@@ -111,6 +111,7 @@ export default function CryptoSecureCaseStudy() {
             {hero.titleLines.map((line) => (
               <span key={line} className={styles.heroLine}>
                 <Marked text={line} />
+                {line.endsWith("-") ? null : " "}
               </span>
             ))}
           </h1>
