@@ -1,548 +1,475 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
 import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
-import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
 import {
-  CaseStudySection,
-  ContextCard,
-  ResultsGrid,
-  BaselineTargetMetrics,
-  SkillSpotlight,
-  SkillConstellation,
-} from "@/components/casestudy/CaseStudyContent";
+  hero,
+  sectionNav,
+  problem,
+  design,
+  components,
+  tokens,
+  interactions,
+  access,
+  reflection,
+} from "@/content/storiesByChildren";
+import styles from "./storiesByChildren.module.css";
 
-const sections = [
-  { id: "challenge", label: "The Challenge" },
-  { id: "research", label: "Research" },
-  { id: "design", label: "Design" },
-  { id: "impact", label: "Impact" },
-];
-
-/* ─────── Insight → Design Decision Card ─────── */
-function InsightToDesign({
-  insight,
-  insightSource,
-  designDecision,
-  designDetail,
-  index,
-}: {
-  insight: string;
-  insightSource: string;
-  designDecision: string;
-  designDetail: string;
-  index: number;
-}) {
+/* Renders *word* as an italic accent inside a heading. */
+function Marked({ text }: { text: string }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.12 }}
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr auto 1fr",
-        gap: "24px",
-        alignItems: "center",
-        marginBottom: "24px",
-      }}
-    >
-      {/* Research Insight */}
-      <div
-        style={{
-          background: "rgba(220, 53, 69, 0.03)",
-          border: "1px solid rgba(220, 53, 69, 0.12)",
-          borderRadius: "16px",
-          padding: "24px",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "11px",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            color: "#dc3545",
-            fontWeight: 700,
-            marginBottom: "10px",
-          }}
-        >
-          🔍 Research Insight
-        </div>
-        <p style={{ margin: "0 0 8px 0", fontWeight: 600, fontSize: "15px" }}>
-          {insight}
-        </p>
-        <p
-          style={{
-            margin: 0,
-            fontSize: "13px",
-            color: "var(--color-text-secondary)",
-            fontStyle: "italic",
-          }}
-        >
-          — {insightSource}
-        </p>
-      </div>
-
-      {/* Arrow */}
-      <div style={{ color: "#11a961", fontSize: "24px", fontWeight: 700 }}>
-        →
-      </div>
-
-      {/* Design Decision */}
-      <div
-        style={{
-          background: "rgba(17, 169, 97, 0.04)",
-          border: "1px solid rgba(17, 169, 97, 0.15)",
-          borderRadius: "16px",
-          padding: "24px",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "11px",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            color: "#11a961",
-            fontWeight: 700,
-            marginBottom: "10px",
-          }}
-        >
-          ✅ Design Decision
-        </div>
-        <p style={{ margin: "0 0 8px 0", fontWeight: 600, fontSize: "15px" }}>
-          {designDecision}
-        </p>
-        <p
-          style={{
-            margin: 0,
-            fontSize: "13px",
-            color: "var(--color-text-secondary)",
-          }}
-        >
-          {designDetail}
-        </p>
-      </div>
-    </motion.div>
+    <>
+      {text.split("*").map((part, i) =>
+        i % 2 === 1 ? (
+          <em key={i} className={styles.accent}>{part}</em>
+        ) : (
+          <React.Fragment key={i}>{part}</React.Fragment>
+        ),
+      )}
+    </>
   );
 }
 
-/* ─────── Feature Walkthrough Strip ─────── */
-function FeatureStrip({
-  items,
+type Tone = "grey" | "lilac" | "white";
+
+function Chapter({
+  id,
+  kicker,
+  title,
+  tone = "grey",
+  children,
 }: {
-  items: { icon: string; title: string; desc: string }[];
+  id: string;
+  kicker: string;
+  title: string;
+  tone?: Tone;
+  children: React.ReactNode;
 }) {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: `repeat(${items.length}, 1fr)`,
-        gap: "16px",
-        marginTop: "32px",
-        marginBottom: "32px",
-      }}
-    >
-      {items.map((item, i) => (
-        <motion.div
-          key={item.title}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: i * 0.1 }}
-          style={{
-            background: "#ffffff",
-            borderRadius: "16px",
-            padding: "24px",
-            border: "1px solid rgba(0,0,0,0.05)",
-            boxShadow: "0 4px 20px rgba(0,0,0,0.03)",
-            textAlign: "center",
-          }}
-        >
-          <div style={{ fontSize: "28px", marginBottom: "12px" }}>
-            {item.icon}
+    <section id={id} className={`${styles.chapter} ${styles[tone]}`}>
+      <div className={styles.inner}>
+        <p className={styles.kicker}>{kicker}</p>
+        <h2 className={styles.h2}>
+          <Marked text={title} />
+        </h2>
+        {children}
+      </div>
+    </section>
+  );
+}
+
+const audienceClass: Record<"Kids" | "Parents" | "Both", string> = {
+  Kids: styles.audKids,
+  Parents: styles.audParents,
+  Both: styles.audBoth,
+};
+
+/* Placeholder story listing: genre chips, age filters and sorting above a grid. No photos, no names. */
+function ListingMock() {
+  return (
+    <div className={styles.mock} aria-hidden="true">
+      <p className={styles.mockTitle}>Adventure Stories</p>
+      <div className={styles.chipRow}>
+        {["Adventure", "Fantasy", "Animals", "Mystery"].map((g) => (
+          <span key={g} className={styles.chip}>{g}</span>
+        ))}
+      </div>
+      <div className={styles.filterRow}>
+        <span className={styles.filterPill}>Age ▾</span>
+        <span className={styles.filterPill}>Sort ▾</span>
+      </div>
+      <div className={styles.storyGrid}>
+        {[
+          { age: "Age 7–8", title: "[Story title]" },
+          { age: "Age 10–12", title: "[Story title]" },
+          { age: "Age 13–15", title: "[Story title]" },
+        ].map((card) => (
+          <div key={card.age} className={styles.storyCard}>
+            <div className={styles.storyArt} />
+            <span className={styles.storyBadge}>{card.age}</span>
+            <p className={styles.storyName}>{card.title}</p>
+            <p className={styles.storyBy}>by [first name]</p>
           </div>
-          <h4 style={{ margin: "0 0 6px 0", fontSize: "15px" }}>
-            {item.title}
-          </h4>
-          <p
-            style={{
-              margin: 0,
-              fontSize: "13px",
-              color: "var(--color-text-secondary)",
-              lineHeight: 1.5,
-            }}
-          >
-            {item.desc}
-          </p>
-        </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* Placeholder contest cards: a child-facing art panel, and one dark panel with a single clear action. */
+function ContestMock() {
+  return (
+    <div className={styles.mock} aria-hidden="true">
+      {[0, 1, 2].map((i) => (
+        <div key={i} className={styles.contestCard}>
+          <div className={styles.contestArt} />
+          <div className={styles.contestPanel}>
+            <p className={styles.contestTitle}>Story Writing Contest</p>
+            <p className={styles.contestMeta}>[date] · [venue]</p>
+            <span className={styles.contestBtn}>Enrol Now</span>
+            <p className={styles.contestLink}>View brief</p>
+          </div>
+        </div>
       ))}
     </div>
   );
 }
 
 export default function StoriesByChildrenCaseStudy() {
+  const counts = design.audiences.map((a) => ({
+    label: a,
+    n: design.sections.filter((s) => s.who === a).length,
+  }));
+
   return (
-    <>
-      <CaseStudyHero
-        title="Redesigning a Storytelling Platform for Young Creators"
-        category="Qualitative Research"
-        role="Lead IA & UI Designer"
-        team="1 Designer, 1 Developer, 1 Stakeholder"
-        timeline="6 Weeks"
-      />
+    <CaseStudyLayout sections={sectionNav} hideBrief>
+      {/* ── Hero ── */}
+      <section className={styles.hero} aria-labelledby="sbc-title">
+        <div className={styles.heroInner}>
+          <ul className={styles.tags}>
+            {hero.tags.map((tag) => (
+              <li key={tag}>{tag}</li>
+            ))}
+          </ul>
+          <h1 id="sbc-title" className={styles.heroTitle}>
+            {hero.titleLines.map((line) => (
+              <span key={line} className={styles.heroLine}>
+                <Marked text={line} />
+              </span>
+            ))}
+          </h1>
+          <p className={styles.heroLead}>{hero.lead}</p>
+          <dl className={styles.heroMeta}>
+            {hero.meta.map((item) => (
+              <div key={item.label} className={styles.heroMetaItem}>
+                <dt>{item.label}</dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))}
+          </dl>
 
-      <CaseStudyLayout sections={sections}>
-        {/* ============================================ */}
-        {/* SECTION 1: THE CHALLENGE                     */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="challenge"
-          label="Overview"
-          heading="60% of Users Never Reached a Story"
-        >
-          <SkillConstellation
-            primary={["Information Architecture", "Usability Testing", "User Research with Families"]}
-            supporting={["Lean UX", "Rapid Prototyping"]}
-            emerging={["Design for Children", "Accessibility"]}
-          />
-
-          <p>
-            <a
-              href="https://www.storiesbychildren.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "#11a961", fontWeight: 600 }}
-            >
-              Stories by Children
-            </a>{" "}
-            is an online platform where young readers aged 6–12 discover stories
-            and budding writers aged 7–17 share original work. It&apos;s a space
-            families and educators rely on to nurture creativity — but the
-            platform was quietly failing its users.
-          </p>
-          <p>
-            Analytics told the story: <strong>60% of users dropped off</strong>{" "}
-            before reaching a story listing. Parents trying to upload work got
-            lost. Styling varied wildly. There were no visual cues for
-            age-appropriate content. The platform had heart — its UX was the
-            problem.
-          </p>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "24px",
-              marginTop: "32px",
-              marginBottom: "16px",
-            }}
-          >
-            <ContextCard
-              title="Approach"
-              text="Lean UX sprints + Double Diamond framework — research with real families, rapid prototyping, two validation cycles."
-            />
-            <ContextCard
-              title="Audience"
-              text="Young readers (6–12), aspiring writers (7–17), parents & educators managing content and uploads."
-            />
+          <div className={styles.frame}>
+            <div className={styles.frameBar} aria-hidden="true">
+              <span className={styles.frameDot} />
+              <span className={styles.frameDot} />
+              <span className={styles.frameDot} />
+              <span className={styles.frameSite}>Stories by Children</span>
+            </div>
+            <div className={styles.frameBody}>
+              <div className={styles.frameArt}>
+                <Image
+                  src={hero.cover.filename}
+                  alt={hero.cover.alt}
+                  width={hero.cover.width}
+                  height={hero.cover.height}
+                  sizes="(min-width: 800px) 360px, 70vw"
+                  unoptimized
+                  className={styles.frameImage}
+                />
+              </div>
+              <div className={styles.frameText}>
+                <p className={styles.frameHeading}>There Is A Story Inside All Of Us</p>
+                <p className={styles.frameLead}>Placeholder text, shown for layout only.</p>
+              </div>
+            </div>
           </div>
-        </CaseStudySection>
+        </div>
+      </section>
 
-        {/* ============================================ */}
-        {/* SECTION 2: RESEARCH                          */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="research"
-          label="The Craft"
-          heading="Testing with Real Families"
-        >
-          <p>
-            I recruited family units — children alongside their parents — for
-            moderated usability testing followed by contextual interviews.
-            Testing with families together was deliberate: it revealed the
-            natural dynamics of how children and adults collaborate when
-            browsing and submitting content.
-          </p>
+      {/* ── 01 Problem & research ── */}
+      <Chapter id="problem" kicker="01 · Problem & research" title={problem.title} tone="grey">
+        <p className={styles.lead}>{problem.lead}</p>
+        <p className={styles.body}>{problem.body}</p>
 
-          <SkillSpotlight
-            skill="User Research with Children & Families"
-            description="Conducted sessions with real families, adapting methods for child participants (shorter sessions, visual prompts, parent co-participation)."
-            evidence="5 distinct insights each mapped directly to a design decision."
-          />
+        <dl className={styles.stats}>
+          {problem.stats.map((stat) => (
+            <div key={stat.label} className={styles.stat}>
+              <dt className={styles.statLabel}>{stat.label}</dt>
+              <dd className={`${styles.statValue} ${stat.accent ? styles.statValueAccent : ""}`}>{stat.value}</dd>
+            </div>
+          ))}
+        </dl>
 
-          <h3 style={{ marginTop: "48px" }}>Three Signals from Children</h3>
+        <ul className={styles.stickies}>
+          {problem.stickies.map((s) => (
+            <li key={s.text} className={`${styles.sticky} ${s.tone === "yellow" ? styles.stickyYellow : styles.stickyLilac}`}>
+              <span className={styles.stickyWho}>{s.who}</span> {s.text}
+            </li>
+          ))}
+        </ul>
+      </Chapter>
 
-          <FeatureStrip
-            items={[
-              {
-                icon: "🎨",
-                title: "Colour = Fun",
-                desc: "Kids responded positively to vibrant layouts. White = boring. Visual richness drove perceived fun.",
-              },
-              {
-                icon: "🏆",
-                title: "Recognition = Motivation",
-                desc: "Being featured as a 'winner' or seeing their profile displayed was a powerful motivator.",
-              },
-              {
-                icon: "👫",
-                title: "Peers = Trust",
-                desc: "Kids engaged far more with content from children they knew. Familiarity drove discovery.",
-              },
-            ]}
-          />
+      {/* ── 02 Design breakdown ── */}
+      <Chapter id="design" kicker="02 · Design breakdown" title={design.title} tone="lilac">
+        <p className={styles.lead}>{design.body}</p>
 
-          <h3>The Critical Parent Finding</h3>
-          <p>
-            Parents consistently broke down at the upload workflow. They
-            couldn&apos;t place their child&apos;s submission in the right section, didn&apos;t
-            understand the review process, and frequently abandoned the flow
-            entirely. This wasn&apos;t friction — it was a{" "}
-            <strong>complete barrier to contribution</strong>.
-          </p>
-        </CaseStudySection>
+        <p className={styles.audienceCount}>
+          {counts.map((c) => (
+            <span key={c.label} className={`${styles.audienceChip} ${audienceClass[c.label]}`}>
+              {c.label}: {c.n}
+            </span>
+          ))}
+        </p>
 
-        {/* ============================================ */}
-        {/* SECTION 3: DESIGN                            */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="design"
-          label="Research → Design"
-          heading="How Every Insight Became a Design Decision"
-        >
-          <p>
-            Insights were synthesised into three themes:{" "}
-            <strong>quick access</strong>,{" "}
-            <strong>age-appropriate visual cues</strong>, and{" "}
-            <strong>social proof through peer visibility</strong>. The design
-            section below maps each research finding directly to the interface
-            decision it produced.
-          </p>
+        <ul className={styles.sectionGrid}>
+          {design.sections.map((s) => (
+            <li key={s.n} className={styles.sectionItem}>
+              <span className={styles.sectionNum}>{s.n}</span>
+              <span className={styles.sectionName}>{s.name}</span>
+              <span className={`${styles.audience} ${audienceClass[s.who]}`}>{s.who}</span>
+            </li>
+          ))}
+        </ul>
+        <p className={styles.note}>{design.sectionsNote}</p>
 
-          <SkillSpotlight
-            skill="Information Architecture"
-            description="Restructured platform IA to reduce cognitive load for young users, simplifying navigation and making submission flows intuitive."
-            evidence="Task success 50% → 85%, navigation depth 4+ clicks → 1-2 clicks."
-          />
+        <div className={styles.twoUp}>
+          <figure className={styles.figure}>
+            <ListingMock />
+            <figcaption className={styles.caption}>
+              {design.listing.caption} <span className={styles.redacted}>{design.listing.note}</span>
+            </figcaption>
+          </figure>
+          <figure className={styles.figure}>
+            <ContestMock />
+            <figcaption className={styles.caption}>
+              {design.contest.caption} <span className={styles.redacted}>{design.contest.note}</span>
+            </figcaption>
+          </figure>
+        </div>
+      </Chapter>
 
-          <div style={{ marginTop: "48px" }}>
-            <InsightToDesign
-              index={0}
-              insight="Children called plain white layouts 'boring' and engaged 3× more with colourful interfaces."
-              insightSource="Usability sessions with children aged 7–11"
-              designDecision="Vibrant, illustration-rich visual system"
-              designDetail="Replaced the minimal white aesthetic with bold colour blocks, playful illustrations, and gradient accents across every page."
-            />
+      {/* ── 03 Components ── */}
+      <Chapter id="components" kicker="03 · Components" title={components.title} tone="grey">
+        <p className={styles.lead}>{components.body}</p>
+        <p className={styles.note}>{components.setsNote}</p>
 
-            <InsightToDesign
-              index={1}
-              insight="Kids lit up when asked 'What if your picture was on the website?' — being seen was the strongest motivator."
-              insightSource="Contextual interviews, post-task"
-              designDecision="Contributor Spotlights & Winner Sections"
-              designDetail="Introduced prominent 'Winners' and 'Featured Authors' sections with children's photos and names on the homepage."
-            />
+        <ul className={styles.setGrid}>
+          {components.sets.map((set) => (
+            <li key={set.name} className={styles.card}>
+              <h3 className={styles.cardTitle}>{set.name}</h3>
+              <p className={styles.setMeta}>{set.meta}</p>
+              <p className={styles.cardBody}>{set.body}</p>
+            </li>
+          ))}
+        </ul>
 
-            <InsightToDesign
-              index={2}
-              insight="Children explored 4× more content when it was created by someone they recognised or related to."
-              insightSource="Behavioral observation during testing"
-              designDecision="Peer-based content feeds"
-              designDetail="Added 'Stories by Kids Like You' and age-matching recommendation surfaces to leverage social trust."
-            />
-
-            <InsightToDesign
-              index={3}
-              insight="100% of parents failed to complete the upload flow. They got lost between sections and abandoned."
-              insightSource="Task failure analysis, all parent participants"
-              designDecision="Guided step-by-step upload wizard"
-              designDetail="Rebuilt submission as a linear wizard with progress bar, category picker, preview, and clear confirmation at every step."
-            />
-
-            <InsightToDesign
-              index={4}
-              insight="No visual cues helped parents or children identify age-appropriate content at a glance."
-              insightSource="Heuristic analysis + parent interviews"
-              designDecision="Colour-coded age-group badges"
-              designDetail="Every story card and section header displays a colour-coded age badge, providing instant clarity without deep navigation."
-            />
+        <div className={styles.anatomy}>
+          <h3 className={styles.h3}>{components.anatomy.title}</h3>
+          <p className={styles.body}>{components.anatomy.body}</p>
+          <div className={styles.anatomyLayout}>
+            <figure className={styles.figure}>
+              <div className={styles.storyCardBig} aria-hidden="true">
+                <span className={`${styles.marker} ${styles.m1}`}>1</span>
+                <span className={`${styles.marker} ${styles.m2}`}>2</span>
+                <span className={`${styles.marker} ${styles.m3}`}>3</span>
+                <span className={`${styles.marker} ${styles.m4}`}>4</span>
+                <span className={`${styles.marker} ${styles.m5}`}>5</span>
+                <div className={styles.bigArt}>
+                  <span className={styles.bigBadge}>Age 7–8</span>
+                </div>
+                <div className={styles.bigAvatar}>AB</div>
+                <p className={styles.bigGenre}>Adventure · 12 min read</p>
+                <p className={styles.bigTitle}>[Story title]</p>
+                <p className={styles.bigBy}>by [first name + initial]</p>
+                <div className={styles.bigActions}>
+                  <span className={styles.bigPrimary}>Read Now</span>
+                  <span className={styles.bigSecondary}>Add to Reads</span>
+                </div>
+              </div>
+              <figcaption className={styles.caption}>{components.anatomy.caption}</figcaption>
+            </figure>
+            <ol className={styles.callouts}>
+              {components.anatomy.callouts.map((c) => (
+                <li key={c.n} className={styles.callout}>
+                  <span className={styles.calloutNum}>{c.n}</span>
+                  <div>
+                    <p className={styles.calloutName}>{c.name}</p>
+                    <p className={styles.cardBody}>{c.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
+        </div>
+      </Chapter>
 
-          <SkillSpotlight
-            skill="Rapid Prototyping"
-            description="Produced testable prototypes within 6-week constraint, enabling multiple rounds of validation with real users."
-            evidence="Two rapid Lean UX sprint cycles completed."
-          />
+      {/* ── 04 Variables & tokens ── */}
+      <Chapter id="tokens" kicker="04 · Variables & tokens" title={tokens.title} tone="white">
+        <p className={styles.lead}>{tokens.body}</p>
 
-          <h3 style={{ marginTop: "48px" }}>
-            The Platform Experience: Key Screens
-          </h3>
-          <p>
-            The final design system was built around these five core experiences
-            — each shaped directly by what families told us:
-          </p>
+        <div className={styles.layerGrid}>
+          {tokens.layers.map((layer) => (
+            <section key={layer.layer} className={styles.layer} aria-labelledby={`layer-${layer.layer}`}>
+              <h3 id={`layer-${layer.layer}`} className={styles.layerTitle}>{layer.layer}</h3>
+              <p className={styles.layerNote}>{layer.note}</p>
+              <ul className={styles.tokenList}>
+                {layer.items.map((t) => (
+                  <li key={t.name} className={styles.tokenItem}>
+                    <p className={styles.tokenName}>
+                      {t.hex ? <span aria-hidden="true" className={styles.swatch} style={{ background: t.hex }} /> : null}
+                      {t.name}
+                      {t.hex ? <span className={styles.tokenHex}> {t.hex}</span> : null}
+                    </p>
+                    <p className={styles.tokenUse}>{t.use}</p>
+                    {t.count ? <p className={styles.tokenCount}>{t.count}</p> : null}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
 
-          <FeatureStrip
-            items={[
-              {
-                icon: "🏠",
-                title: "Homepage",
-                desc: "Featured stories, winner spotlights, and age-filtered browsing within one scroll.",
-              },
-              {
-                icon: "📖",
-                title: "Reading Page",
-                desc: "Large type, playful accents, minimal chrome. Designed for immersion, not navigation.",
-              },
-              {
-                icon: "📚",
-                title: "Bookstore",
-                desc: "Cover-forward grid with author photos. Peer discovery through visual browsing.",
-              },
-              {
-                icon: "🏅",
-                title: "Reading Challenges",
-                desc: "Progress tracking, milestone badges, and leaderboards that gamify engagement.",
-              },
-              {
-                icon: "ℹ️",
-                title: "About & Trust",
-                desc: "Warm, transparent page explaining safety, editorial review, and community values.",
-              },
-            ]}
-          />
+        <h3 className={styles.h3}>Type scale</h3>
+        <dl className={styles.typeList}>
+          {tokens.typeScale.map((t) => (
+            <div key={t.name} className={styles.typeItem}>
+              <dt className={styles.typeName}>{t.name}</dt>
+              <dd className={styles.typeSpec}>{t.spec}</dd>
+              <dd className={styles.typeSample}>{t.sample}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className={styles.note}>{tokens.typeNote}</p>
+        <p className={styles.caption}>{tokens.caption}</p>
+      </Chapter>
 
-          <h3 style={{ marginTop: "48px" }}>
-            Validation: 50% → 85% Task Success
-          </h3>
-          <p>
-            Prototypes were tested through moderated sessions with real
-            families. Two rapid Lean UX sprint cycles improved task success from
-            50% to 85%.
-          </p>
+      {/* ── 05 Interaction patterns ── */}
+      <Chapter id="interactions" kicker="05 · Interaction patterns" title={interactions.title} tone="lilac">
+        <p className={styles.lead}>{interactions.body}</p>
 
-          <SkillSpotlight
-            skill="Usability Testing"
-            description="Tested redesigned flows with target users (children + parents)."
-            evidence="50%→85% task success, verified across both audience segments."
-          />
+        <ul className={styles.bars}>
+          {interactions.rows.map((row) => (
+            <li key={row.label} className={styles.bar}>
+              <span className={styles.barLabel}>{row.label}</span>
+              <span className={styles.barTrack} aria-hidden="true">
+                <span className={styles.barFill} style={{ width: `${(row.count / 110) * 100}%` }} />
+              </span>
+              <span className={styles.barCount}>{row.count}</span>
+            </li>
+          ))}
+        </ul>
+        <p className={styles.barTotal}>
+          Total: {interactions.rows.reduce((sum, r) => sum + r.count, 0)} interactions.
+        </p>
 
-          <BaselineTargetMetrics
-            items={[
-              {
-                label: "Task success rate",
-                baseline: "50%",
-                target: "85%",
-                fillPercentage: 85,
-              },
-              {
-                label: "Navigation depth to stories",
-                baseline: "4+ clicks",
-                target: "1–2 clicks",
-                fillPercentage: 75,
-              },
-              {
-                label: "Upload completion (parents)",
-                baseline: "Broken",
-                target: "End-to-end",
-                fillPercentage: 100,
-              },
-            ]}
-          />
-        </CaseStudySection>
+        <div className={styles.decisionGrid}>
+          {interactions.decisions.map((d) => (
+            <article key={d.title} className={styles.card}>
+              <h3 className={styles.cardTitle}>{d.title}</h3>
+              <p className={styles.cardBody}>{d.body}</p>
+            </article>
+          ))}
+        </div>
 
-        {/* ============================================ */}
-        {/* SECTION 4: IMPACT                            */}
-        {/* ============================================ */}
-        <CaseStudySection
-          id="impact"
-          label="The Evidence & Growth"
-          heading="The Numbers After Launch"
-        >
-          <p>
-            The redesigned platform launched and was tracked over the first
-            month.
-          </p>
+        <div className={styles.threeCards}>
+          {interactions.cards.map((c) => (
+            <article key={c.title} className={styles.card}>
+              <h3 className={styles.cardTitle}>{c.title}</h3>
+              <p className={styles.cardBody}>{c.body}</p>
+            </article>
+          ))}
+        </div>
+      </Chapter>
 
-          <ResultsGrid
-            items={[
-              {
-                value: "+40%",
-                label: "Page Views",
-                description: "Increase in first month post-launch.",
-              },
-              {
-                value: "+25%",
-                label: "Story Submissions",
-                description: "Upload volume from young contributors.",
-              },
-              {
-                value: "70%",
-                label: "Category Exploration",
-                description: "New users exploring 2+ categories per session.",
-              },
-              {
-                value: "50→85%",
-                label: "Task Success",
-                description: "Improvement across moderated usability testing.",
-              },
-            ]}
-          />
+      {/* ── 06 Accessibility & content ── */}
+      <Chapter id="access" kicker="06 · Accessibility & content" title={access.title} tone="grey">
+        <p className={styles.lead}>{access.lead}</p>
 
-          <h3 style={{ marginTop: "48px" }}>What Came Next</h3>
-          <p>
-            Post-launch heatmaps confirmed contributor spotlights and peer
-            content feeds are the most-interacted elements. The roadmap now
-            includes multi-language support, educator-focused reading-level
-            filters, peer feedback features, and enhanced accessibility.
-          </p>
+        <div className={styles.twoCol}>
+          {[access.kids, access.parents].map((group) => (
+            <article key={group.title} className={styles.card}>
+              <h3 className={styles.cardTitle}>{group.title}</h3>
+              <ul className={styles.bullets}>
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
 
-          <div
-            style={{
-              marginTop: "48px",
-              padding: "32px",
-              background: "rgba(139, 105, 250, 0.04)",
-              borderRadius: "16px",
-              border: "1px solid rgba(139, 105, 250, 0.1)",
-            }}
-          >
-            <h4 style={{ margin: "0 0 12px 0", fontSize: "16px", color: "#8b69fa", fontWeight: 700 }}>
-              Key Growth Learnings
-            </h4>
-            <p style={{ fontSize: "15px", lineHeight: 1.7, margin: "0 0 8px 0" }}>
-              Designing for children requires fundamentally different IA thinking. Lean UX works when committed to real users, not just fast timelines.
-            </p>
-            <p style={{ fontSize: "14px", lineHeight: 1.6, margin: 0, color: "var(--color-text-secondary)", fontStyle: "italic" }}>
-              Insight-to-decision mapping makes design rationale transparent and defensible.
-            </p>
-          </div>
+        <h3 className={styles.h3}>{access.modelTitle}</h3>
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
+            <caption className={styles.tableCaption}>{access.model.caption}</caption>
+            <thead>
+              <tr>
+                {access.model.headers.map((h) => (
+                  <th key={h} scope="col">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {access.model.rows.map((r) => (
+                <tr key={r.field}>
+                  <td data-label="Field" className={styles.strong}>{r.field}</td>
+                  <td data-label="Example from the file">{r.example}</td>
+                  <td data-label="Serves">{r.serves}</td>
+                  <td data-label="Why">{r.why}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-          <div
-            style={{
-              marginTop: "64px",
-              padding: "24px",
-              background: "rgba(0,0,0,0.02)",
-              borderRadius: "8px",
-              border: "1px solid rgba(0,0,0,0.05)",
-              fontSize: "14px",
-              color: "var(--color-text-secondary)",
-              fontStyle: "italic",
-              textAlign: "center",
-            }}
-          >
-            Visit the live platform at{" "}
-            <a
-              href="https://www.storiesbychildren.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "#11a961" }}
-            >
-              storiesbychildren.com
-            </a>
-            .
-          </div>
-        </CaseStudySection>
-      </CaseStudyLayout>
-    </>
+        <h3 className={styles.h3}>{access.wcagTitle}</h3>
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
+            <caption className={styles.tableCaption}>{access.wcag.caption}</caption>
+            <thead>
+              <tr>
+                {access.wcag.headers.map((h) => (
+                  <th key={h} scope="col">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {access.wcag.rows.map((r) => (
+                <tr key={r.gap}>
+                  <td data-label="Gap" className={styles.strong}>{r.gap}</td>
+                  <td data-label="WCAG">{r.criterion}</td>
+                  <td data-label="Fix">{r.fix}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className={styles.privacy}>
+          <h3 className={styles.cardTitle}>{access.privacy.title}</h3>
+          <p className={styles.cardBody}>{access.privacy.body}</p>
+          <p className={styles.cardBody}>{access.privacy.signup}</p>
+        </div>
+      </Chapter>
+
+      {/* ── 07 Reflection ── */}
+      <Chapter id="reflection" kicker="07 · Outcome & reflection" title={reflection.title} tone="lilac">
+        <div className={styles.reflectionGrid}>
+          {reflection.cards.map((c) => (
+            <article key={c.title} className={styles.card}>
+              <h3 className={styles.cardTitle}>{c.title}</h3>
+              <p className={styles.cardBody}>{c.body}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className={styles.nextCard}>
+          <h3 className={styles.nextTitle}>{reflection.nextTitle}</h3>
+          <ol className={styles.nextList}>
+            {reflection.next.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ol>
+        </div>
+
+        <p className={styles.siteLink}>
+          <a href={hero.siteHref} target="_blank" rel="noreferrer">
+            {hero.siteLabel}
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </p>
+      </Chapter>
+    </CaseStudyLayout>
   );
 }

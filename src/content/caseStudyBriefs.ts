@@ -149,7 +149,7 @@ const MICRO: Record<string, MicroBrief> = {
     method:
       "Qualitative research and an information-architecture redesign over 6 weeks.",
     found: "Research showed 60% of visitors never reached a story.",
-    changed: "A redesigned storytelling flow cut that drop-off.",
+    changed: "Task success rose from 50% to 85% across two rounds of family testing.",
     visual: cover("stories-by-children", "Stories by Children storytelling platform"),
   },
 };

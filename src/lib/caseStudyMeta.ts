@@ -112,7 +112,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
   "stories-by-children": {
     title: "Stories by Children",
     description:
-      "A redesigned storytelling flow for families cut the share of visitors who never reached a story, after research showed 60% dropped off.",
+      "A reading platform for children and the parents who guide them. Task success rose from 50% to 85% across two Lean UX rounds of family testing.",
     category: "Qualitative Research",
     cover: "/assets/StoriesByChildren.jpg",
   },
