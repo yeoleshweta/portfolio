@@ -50,7 +50,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     cover: "/assets/pm-persona-board.jpg",
   },
   "dorothy-perkins": {
-    title: "Why Were Students Not Saving?",
+    title: "Why Weren’t Students Saving?",
     description:
       "Segment-aware personalization made a student discount and regional ranking visible, covering about half of Dorothy Perkins' UK sales.",
     category: "Quantitative / Experimentation",
