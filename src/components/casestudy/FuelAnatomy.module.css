@@ -1,0 +1,127 @@
+/* Anatomy figure: a screenshot with numbered markers and a readable list.
+   Tokens come from globals.css. The Deere green is scoped here for the markers. */
+.figure {
+  --deere-green: #2e6b24; /* 6.4:1 with white text, as in the Fuel survey study */
+  margin: 40px 0 8px;
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.marker {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--deere-green);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  transition: transform 150ms ease;
+}
+
+.markerActive {
+  transform: scale(1.25);
+}
+
+@media (max-width: 640px) {
+  .marker {
+    width: 22px;
+    height: 22px;
+    margin: -11px 0 0 -11px;
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marker {
+    transition: none;
+  }
+}
+
+.caption {
+  margin: 14px 0 0;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 32px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 900px) {
+  .list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--deere-green);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.component {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+.role {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.finding {
+  margin: 6px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--deere-green);
+}

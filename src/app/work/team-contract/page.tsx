@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
+import FuelAnatomy, { type AnatomyItem } from "@/components/casestudy/FuelAnatomy";
 
 /* ─────────── Design tokens ─────────── */
 const T = {
@@ -486,7 +487,7 @@ function FuelComponentsSample() {
           <div style={labelStyle}>Form field</div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "28px", maxWidth: "520px" }}>
             <div>
-              <div style={{ fontSize: "13px", fontWeight: 600, color: T.text, marginBottom: "8px" }}>Current status</div>
+              <div style={{ fontSize: "13px", fontWeight: 600, color: T.text, marginBottom: "8px" }}>Validation date</div>
               <div style={{
                 height: "44px",
                 border: `1px solid ${T.border}`,
@@ -498,7 +499,7 @@ function FuelComponentsSample() {
                 fontSize: "14px",
                 background: T.white,
               }}>
-                $100
+                28-Feb-2025
               </div>
               <div style={{ ...stateLabel, textAlign: "left" }}>Filled</div>
             </div>
@@ -571,7 +572,7 @@ const HISTORY_ROWS = [
     when: "Jan 2025",
     from: "90%",
     to: "72%",
-    status: "#D97706",
+    status: "#B45309",
     reason: "Parts arrived late, so two builds moved to later.",
   },
   {
@@ -584,12 +585,27 @@ const HISTORY_ROWS = [
 ] as const;
 
 function HistoryChangeAnimation() {
+  const reduce = useReducedMotion();
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const [playing, setPlaying] = React.useState(true);
+  const [onScreen, setOnScreen] = React.useState(true);
   const [phase, setPhase] = React.useState<"before" | "after">("before");
   const [visibleRows, setVisibleRows] = React.useState(0);
 
+  // Stop the loop while the animation is scrolled out of view.
   React.useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => setOnScreen(entry.isIntersecting), { threshold: 0.2 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Loop every 9 seconds. Reduced motion never starts the loop.
+  React.useEffect(() => {
+    if (reduce || !playing || !onScreen) return;
     let cancelled = false;
-    let timers: ReturnType<typeof setTimeout>[] = [];
+    const timers: ReturnType<typeof setTimeout>[] = [];
 
     const run = () => {
       if (cancelled) return;
@@ -616,7 +632,15 @@ function HistoryChangeAnimation() {
       cancelled = true;
       timers.forEach(clearTimeout);
     };
-  }, []);
+  }, [reduce, playing, onScreen]);
+
+  // Reduced motion shows the finished "after" state. Wait for mount so the server
+  // and the first client render match; reduced-motion users see the static state right after.
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
+  const staticView = mounted && !!reduce;
+  const currentPhase = staticView ? "after" : phase;
+  const rowsShown = staticView ? HISTORY_ROWS.length : visibleRows;
 
   return (
     <figure style={{ margin: "36px 0" }}>
@@ -638,202 +662,290 @@ function HistoryChangeAnimation() {
         }
       `}</style>
       <div
-        style={{
-          border: `1px solid ${T.border}`,
-          borderRadius: "10px",
-          background: T.white,
-          overflow: "hidden",
-          boxShadow: "0 10px 30px rgba(28, 27, 23, 0.04)",
-        }}
-        aria-label="Animation showing before and after: a red number with no explanation, then the same number with history and reasons"
+        ref={rootRef}
+        role="group"
+        aria-label="Concept animation, illustrative only: a red number with no explanation, then the same number with a history and a reason for each change"
       >
-        <div style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: "12px",
-          padding: "14px 20px",
-          background: T.surface,
-          borderBottom: `1px solid ${T.border}`,
-        }}>
+        {/* The visual is decorative for assistive tech; the text below carries the same content. */}
+        <div
+          aria-hidden="true"
+          style={{
+            border: `1px solid ${T.border}`,
+            borderRadius: "10px",
+            background: T.white,
+            overflow: "hidden",
+            boxShadow: "0 10px 30px rgba(28, 27, 23, 0.04)",
+          }}
+        >
           <div style={{
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: "10px",
-            letterSpacing: "0.16em",
-            textTransform: "uppercase" as const,
-            color: T.muted,
-            fontWeight: 700,
-          }}>
-            Before and after
-          </div>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={phase}
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
-              transition={{ duration: 0.25 }}
-              style={{
-                fontFamily: "JetBrains Mono, monospace",
-                fontSize: "10px",
-                letterSpacing: "0.14em",
-                textTransform: "uppercase" as const,
-                fontWeight: 700,
-                color: phase === "before" ? "#B91C1C" : T.green,
-              }}
-            >
-              {phase === "before" ? "Hard to explain" : "Easy to explain"}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        <div style={{ padding: "22px 20px 20px" }}>
-          <div className="tc-history-meta" style={{
-            display: "grid",
-            gridTemplateColumns: "1.4fr 0.7fr 0.7fr",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
             gap: "12px",
-            alignItems: "end",
-            marginBottom: "18px",
+            padding: "14px 20px",
+            background: T.surface,
+            borderBottom: `1px solid ${T.border}`,
           }}>
-            <div>
-              <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase" as const, color: T.muted, marginBottom: "6px" }}>
-                What we track
-              </div>
-              <div style={{ fontSize: "15px", fontWeight: 700, color: T.text }}>
-                Forecast on track
-              </div>
+            <div style={{
+              fontFamily: "JetBrains Mono, monospace",
+              fontSize: "10px",
+              letterSpacing: "0.16em",
+              textTransform: "uppercase" as const,
+              color: T.muted,
+              fontWeight: 700,
+            }}>
+              Before and after
             </div>
-            <div>
-              <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase" as const, color: T.muted, marginBottom: "6px" }}>
-                Goal
-              </div>
-              <div style={{ fontSize: "15px", fontWeight: 600, color: T.text }}>96%</div>
-            </div>
-            <div>
-              <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase" as const, color: T.muted, marginBottom: "6px" }}>
-                Today
-              </div>
+            <AnimatePresence mode="wait">
               <motion.div
-                animate={{ color: "#B91C1C" }}
-                style={{ fontSize: "22px", fontWeight: 800, letterSpacing: "-0.02em" }}
+                key={currentPhase}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.25 }}
+                style={{
+                  fontFamily: "JetBrains Mono, monospace",
+                  fontSize: "10px",
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase" as const,
+                  fontWeight: 700,
+                  color: currentPhase === "before" ? "#B91C1C" : T.green,
+                }}
               >
-                41%
+                {currentPhase === "before" ? "Hard to explain" : "Easy to explain"}
               </motion.div>
-            </div>
+            </AnimatePresence>
           </div>
 
-          <AnimatePresence mode="wait">
-            {phase === "before" ? (
-              <motion.div
-                key="before"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35 }}
-                style={{
-                  border: "1px solid #FECACA",
-                  background: "#FEF2F2",
-                  borderRadius: "8px",
-                  padding: "18px 16px",
-                  minHeight: "168px",
-                  display: "flex",
-                  flexDirection: "column" as const,
-                  justifyContent: "center",
-                  gap: "8px",
-                }}
-              >
-                <div style={{ fontSize: "15px", fontWeight: 700, color: "#991B1B" }}>
-                  Before: only a red number
+          <div style={{ padding: "22px 20px 20px" }}>
+            <div className="tc-history-meta" style={{
+              display: "grid",
+              gridTemplateColumns: "1.4fr 0.7fr 0.7fr",
+              gap: "12px",
+              alignItems: "end",
+              marginBottom: "18px",
+            }}>
+              <div>
+                <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase" as const, color: T.muted, marginBottom: "6px" }}>
+                  What we track
                 </div>
-                <div style={{ fontSize: "14px", lineHeight: 1.6, color: "#7F1D1D" }}>
-                  Leaders see 41% against a 96% goal. There is no past trail and no note for why it dropped. The program manager has to explain it from memory.
+                <div style={{ fontSize: "15px", fontWeight: 700, color: T.text }}>
+                  Forecast on track
                 </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="after"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35 }}
-                style={{
-                  border: `1px solid ${T.border}`,
-                  borderRadius: "8px",
-                  overflow: "hidden",
-                  minHeight: "168px",
-                  background: T.surface,
-                }}
-              >
-                <div className="tc-history-grid tc-history-head" style={{
-                  padding: "10px 14px",
-                  borderBottom: `1px solid ${T.border}`,
-                  fontFamily: "JetBrains Mono, monospace",
-                  fontSize: "9.5px",
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase" as const,
-                  color: T.muted,
-                  fontWeight: 700,
-                }}>
-                  <span>When</span>
-                  <span>Was</span>
-                  <span>Now</span>
-                  <span>Why it changed</span>
+              </div>
+              <div>
+                <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase" as const, color: T.muted, marginBottom: "6px" }}>
+                  Goal
                 </div>
+                <div style={{ fontSize: "15px", fontWeight: 600, color: T.text }}>96%</div>
+              </div>
+              <div>
+                <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase" as const, color: T.muted, marginBottom: "6px" }}>
+                  Today
+                </div>
+                <motion.div
+                  animate={{ color: "#B91C1C" }}
+                  style={{ fontSize: "22px", fontWeight: 800, letterSpacing: "-0.02em" }}
+                >
+                  41%
+                </motion.div>
+              </div>
+            </div>
 
-                {HISTORY_ROWS.map((row, i) => (
-                  <motion.div
-                    key={row.when}
-                    className="tc-history-grid"
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={visibleRows > i ? { opacity: 1, y: 0 } : { opacity: 0.15, y: 8 }}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
-                    style={{
-                      padding: "12px 14px",
-                      borderBottom: i < HISTORY_ROWS.length - 1 ? `1px solid ${T.border}` : "none",
-                      background: T.white,
-                      alignItems: "start",
-                    }}
-                  >
-                    <span style={{ fontSize: "13px", color: T.muted, fontWeight: 600 }}>{row.when}</span>
-                    <span style={{ fontSize: "13px", color: T.muted }}>{row.from}</span>
-                    <span style={{ fontSize: "13px", fontWeight: 700, color: row.status }}>{row.to}</span>
-                    <span style={{ fontSize: "13px", color: T.text, lineHeight: 1.45 }}>{row.reason}</span>
-                  </motion.div>
-                ))}
+            <AnimatePresence mode="wait">
+              {currentPhase === "before" ? (
+                <motion.div
+                  key="before"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35 }}
+                  style={{
+                    border: "1px solid #FECACA",
+                    background: "#FEF2F2",
+                    borderRadius: "8px",
+                    padding: "18px 16px",
+                    minHeight: "168px",
+                    display: "flex",
+                    flexDirection: "column" as const,
+                    justifyContent: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <div style={{ fontSize: "15px", fontWeight: 700, color: "#991B1B" }}>
+                    Before: only a red number
+                  </div>
+                  <div style={{ fontSize: "14px", lineHeight: 1.6, color: "#7F1D1D" }}>
+                    Leaders see 41% against a 96% goal. There is no past trail and no note for why it dropped. The program manager has to explain it from memory.
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="after"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35 }}
+                  style={{
+                    border: `1px solid ${T.border}`,
+                    borderRadius: "8px",
+                    overflow: "hidden",
+                    minHeight: "168px",
+                    background: T.surface,
+                  }}
+                >
+                  <div className="tc-history-grid tc-history-head" style={{
+                    padding: "10px 14px",
+                    borderBottom: `1px solid ${T.border}`,
+                    fontFamily: "JetBrains Mono, monospace",
+                    fontSize: "9.5px",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase" as const,
+                    color: T.muted,
+                    fontWeight: 700,
+                  }}>
+                    <span>When</span>
+                    <span>Was</span>
+                    <span>Now</span>
+                    <span>Why it changed</span>
+                  </div>
 
-                <AnimatePresence>
-                  {visibleRows >= HISTORY_ROWS.length && (
+                  {HISTORY_ROWS.map((row, i) => (
                     <motion.div
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.35 }}
+                      key={row.when}
+                      className="tc-history-grid"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={rowsShown > i ? { opacity: 1, y: 0 } : { opacity: 0.15, y: 8 }}
+                      transition={{ duration: 0.35, ease: "easeOut" }}
                       style={{
-                        padding: "14px 14px 16px",
-                        background: "#F0F7EE",
-                        borderTop: `1px solid ${T.border}`,
+                        padding: "12px 14px",
+                        borderBottom: i < HISTORY_ROWS.length - 1 ? `1px solid ${T.border}` : "none",
+                        background: T.white,
+                        alignItems: "start",
                       }}
                     >
-                      <div style={{ fontSize: "14px", fontWeight: 700, color: T.green, marginBottom: "4px" }}>
-                        After: the story travels with the number
-                      </div>
-                      <div style={{ fontSize: "13.5px", lineHeight: 1.55, color: T.text }}>
-                        Program managers can show leaders what changed and why, in one place. No more digging through memory or pasting screenshots into slides.
-                      </div>
+                      <span style={{ fontSize: "13px", color: T.muted, fontWeight: 600 }}>{row.when}</span>
+                      <span style={{ fontSize: "13px", color: T.muted }}>{row.from}</span>
+                      <span style={{ fontSize: "13px", fontWeight: 700, color: row.status }}>{row.to}</span>
+                      <span style={{ fontSize: "13px", color: T.text, lineHeight: 1.45 }}>{row.reason}</span>
                     </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                  ))}
+
+                  <AnimatePresence>
+                    {rowsShown >= HISTORY_ROWS.length && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.35 }}
+                        style={{
+                          padding: "14px 14px 16px",
+                          background: "#F0F7EE",
+                          borderTop: `1px solid ${T.border}`,
+                        }}
+                      >
+                        <div style={{ fontSize: "14px", fontWeight: 700, color: T.green, marginBottom: "4px" }}>
+                          After: the story travels with the number
+                        </div>
+                        <div style={{ fontSize: "13.5px", lineHeight: 1.55, color: T.text }}>
+                          Program managers can show leaders what changed and why, in one place. No more digging through memory or pasting screenshots into slides.
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
+
+        {mounted && !reduce && (
+          <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "10px" }}>
+            <button
+              type="button"
+              onClick={() => setPlaying((p) => !p)}
+              style={{
+                minWidth: "44px",
+                minHeight: "44px",
+                padding: "0 16px",
+                border: `1px solid ${T.border}`,
+                borderRadius: "6px",
+                background: T.white,
+                color: T.text,
+                fontFamily: "inherit",
+                fontSize: "13px",
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              {playing ? "Pause animation" : "Play animation"}
+            </button>
+          </div>
+        )}
+
+        <p className="sr-only">
+          Before: only a red number, 41% against a 96% goal, with no past trail and no reason for the drop. After: each change is listed with its date and the reason for it.
+        </p>
+        <ul className="sr-only">
+          {HISTORY_ROWS.map((row) => (
+            <li key={row.when}>
+              {row.when}: {row.from} to {row.to}. {row.reason}
+            </li>
+          ))}
+        </ul>
       </div>
       <figcaption style={{ fontSize: "13px", color: T.muted, marginTop: "14px", fontStyle: "italic", lineHeight: 1.5 }}>
-        Outcome: a red number stops being a blame moment. It becomes something you can explain.
+        Illustrative example, not real Team Contract data. Outcome: a red number stops being a blame moment. It becomes something you can explain.
       </figcaption>
     </figure>
   );
 }
+
+/* ─────────── Hero meta strip ─────────── */
+const meta = [
+  { label: "Organisation", value: "John Deere · Manufacturing / PDP" },
+  { label: "Role", value: "UX Research & Product Design" },
+  { label: "Research", value: "9 people · 5 sessions" },
+  { label: "Design System", value: "Fuel v5 (John Deere)" },
+  { label: "Product", value: "Team Contract" },
+];
+
+/* ─────────── Fuel anatomy: markers on the Option 5 metric grid ─────────── */
+const fuelAnatomy: AnatomyItem[] = [
+  { n: 1, x: 8, y: 23.3, component: "Accordion Item", role: "Program Metrics section, collapsed by default", finding: "Overwhelming number of metrics" },
+  { n: 2, x: 63, y: 27, component: "Search", role: "Find a metric by name" },
+  { n: 3, x: 88, y: 27, component: "Button · primary (Fuel yellow)", role: "Save, disabled until every row is valid", finding: "Validation failed at save" },
+  { n: 4, x: 14, y: 31.4, component: "Select", role: "All Phases filter", finding: "Different metrics matter in different phases" },
+  { n: 5, x: 59, y: 31.4, component: "Dropdown Menu + Button", role: "Filter Subprocess and View", finding: "Sequence by tag wasn't needed; a filter was" },
+  { n: 6, x: 86, y: 31.4, component: "Button · secondary", role: "Add New Metric", finding: "Add or remove metrics per program" },
+  { n: 7, x: 11, y: 41.7, component: "Badge", role: "Subprocess tag (PM, FMFA)" },
+  { n: 8, x: 23, y: 41.7, component: "Tooltip trigger", role: "Metric definition at the point of entry", finding: "What goes in this field?" },
+  { n: 9, x: 36, y: 41.4, component: "TextField (Input)", role: "Tolerance; shows Fuel's error state inline", finding: "Error messages written for developers" },
+  { n: 10, x: 46, y: 41.4, component: "TextField · date", role: "AFE target date, with approved deviation beneath", finding: "Grid too wide to scan" },
+  { n: 11, x: 73, y: 58, component: "Status fill (Fuel colour tokens)", role: "Current status, red, yellow and green", finding: "The one feature people valued" },
+];
+
+/* Token names and values as they appeared in the Figma file. Illustrative, not a published API. */
+const fuelTokens: { group: string; name: string; value: string }[] = [
+  { group: "Brand and action", name: "fuel/color/background/brand", value: "#367C2B" },
+  { group: "Brand and action", name: "fuel/color/brand/secondary", value: "#FFDE00" },
+  { group: "Brand and action", name: "fuel/color/brand/jd-charcoal", value: "#54585A" },
+  { group: "Brand and action", name: "fuel/color/action/primary/base", value: "#FFDE00" },
+  { group: "Text", name: "fuel/color/text/primary", value: "#1B1B1B" },
+  { group: "Text", name: "fuel/color/text/tertiary", value: "#666666" },
+  { group: "Text", name: "fuel/color/text/disabled", value: "#B3B3B3" },
+  { group: "Text", name: "fuel/color/text/inverse", value: "#FFFFFF" },
+  { group: "Border", name: "fuel/color/border/light", value: "#DDDDDD" },
+  { group: "Border", name: "fuel/color/border/base", value: "#CCCCCC" },
+  { group: "Border", name: "fuel/color/border/dark", value: "#B3B3B3" },
+  { group: "Messaging", name: "messaging/success/base", value: "#99BD93" },
+  { group: "Messaging", name: "messaging/warning/base", value: "#FFBB52" },
+  { group: "Messaging", name: "messaging/info/base", value: "#7AABD6" },
+  { group: "Messaging", name: "messaging/danger/dark", value: "#C21020" },
+  { group: "Space and radius", name: "fuel/spacing/1", value: "4px" },
+  { group: "Space and radius", name: "fuel/spacing/2", value: "8px" },
+  { group: "Space and radius", name: "fuel/radius/sm", value: "4px" },
+];
 
 /* ─────────── Sections nav ─────────── */
 const sections = [
@@ -843,7 +955,9 @@ const sections = [
   { id: "findings", label: "What We Learned" },
   { id: "actions", label: "Actionable Items" },
   { id: "decisions", label: "Findings to Decisions" },
+  { id: "exploration", label: "Exploration" },
   { id: "design", label: "The Design" },
+  { id: "validation", label: "What Held Up" },
   { id: "fuel", label: "Fuel Design System" },
   { id: "reflection", label: "Reflection" },
 ];
@@ -869,7 +983,7 @@ function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
         <div style={{ height: "6px", background: T.yellow }} />
         <div style={{ background: T.green, padding: "28px 24px", textAlign: "center" as const, color: T.white }}>
           <div style={{ fontSize: "18px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase" as const }}>John Deere</div>
-          <div style={{ fontSize: "11px", marginTop: "5px", opacity: 0.75, fontFamily: "JetBrains Mono, monospace", letterSpacing: "0.1em" }}>TEAM CONTRACT</div>
+          <div style={{ fontSize: "11px", marginTop: "5px", fontFamily: "JetBrains Mono, monospace", letterSpacing: "0.1em" }}>TEAM CONTRACT</div>
         </div>
         <form onSubmit={handleSubmit} style={{ padding: "36px 32px", display: "flex", flexDirection: "column" as const, gap: "20px" }}>
           <div style={{ textAlign: "center" as const }}>
@@ -960,13 +1074,14 @@ export default function TeamContractCaseStudy() {
 
           {/* Meta strip */}
           <div style={{ display: "flex", gap: "0", borderTop: `1px solid ${T.border}`, flexWrap: "wrap" as const }}>
-            {[
-              { label: "Organisation", value: "John Deere · Manufacturing / PDP" },
-              { label: "Role", value: "UX Research & Product Design" },
-              { label: "Design System", value: "Fuel (John Deere)" },
-              { label: "Product", value: "Team Contract" },
-            ].map((m, i) => (
-              <div key={m.label} style={{ padding: "18px 32px 18px 0", marginRight: "32px", borderRight: i < 3 ? `1px solid ${T.border}` : "none", paddingRight: i < 3 ? "32px" : "0" }}>
+            {/* Dividers only make sense in one row; on phones the items stack, so drop them. */}
+            <style>{`
+              @media (max-width: 640px) {
+                .tc-meta-item { border-right: none !important; padding-right: 0 !important; margin-right: 24px !important; }
+              }
+            `}</style>
+            {meta.map((m, i) => (
+              <div key={m.label} className="tc-meta-item" style={{ padding: "18px 32px 18px 0", marginRight: "32px", borderRight: i < meta.length - 1 ? `1px solid ${T.border}` : "none", paddingRight: i < meta.length - 1 ? "32px" : "0" }}>
                 <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase" as const, color: T.muted, marginBottom: "4px" }}>{m.label}</div>
                 <div style={{ fontSize: "14px", fontWeight: 600, color: T.text }}>{m.value}</div>
               </div>
@@ -1017,6 +1132,14 @@ export default function TeamContractCaseStudy() {
             <BodyText>
               Team Contract sat at the centre of program reporting, and it created friction on both sides of the job.
             </BodyText>
+
+            <Figure
+              filename="00-before-legacy-grid.jpg"
+              alt="The legacy Team Contract metrics grid: a dense table with columns for Title, Subprocess, Tolerance Calculation, AFE Target, Approved Deviation, Upper and Lower Bound, Current Status, Validation Date and Estimate at Full Production. Values are pixelated."
+              caption="Before: nine columns of manual entry per metric, a horizontal scroll, and validation that only ran on save. Values redacted."
+              width={1117}
+              height={602}
+            />
             <BodyText>
               <strong>Getting data in took too much effort.</strong> There were many metrics. Validation was strict and unclear. A lot of the input was still manual. One participant described chasing colleagues for numbers: <em>&ldquo;Tedious to go and ask people to add data.&rdquo;</em>
             </BodyText>
@@ -1026,6 +1149,10 @@ export default function TeamContractCaseStudy() {
 
             <PullQuote cite="Program Management Group (P7 to P9) session">
               &ldquo;Difficulty in explaining red metrics to senior leadership without context.&rdquo;
+            </PullQuote>
+
+            <PullQuote cite="Program Manager (P3)">
+              &ldquo;Doesn&apos;t drive action.&rdquo;
             </PullQuote>
 
             <PullQuote>
@@ -1097,6 +1224,14 @@ export default function TeamContractCaseStudy() {
             </ScrollTable>
 
             <Figure
+              filename="02b-interview-notes-p1.jpg"
+              alt="A grid of 46 blue sticky notes from the Product Owner interview, including: Feels like a heavy tool for just data filling; Too many validations; Error messages written for developers; Frustration in locating validation problems; Wants a feature to assign people to fill data in; Time stamps to see last updates."
+              caption="Raw notes from one session (P1, Product Owner). Two of these, &ldquo;Error messages written for developers&rdquo; and &ldquo;Wants a feature to assign people to fill data in&rdquo;, became design decisions."
+              width={1152}
+              height={1400}
+            />
+
+            <Figure
               filename="02-research-board-sessions.png"
               alt="FigJam research board with a summary section and three colour coded columns of sticky note observations from interview sessions"
               caption="Research board with interview sessions captured as sticky notes."
@@ -1106,8 +1241,45 @@ export default function TeamContractCaseStudy() {
 
             <SubHeading>Synthesis</SubHeading>
             <BodyText>
-              Roughly 230 observations were affinity mapped into four lenses: <strong>Current Status</strong> (what the tool does today), <strong>Confusion</strong> (where understanding breaks), <strong>Reaction</strong> (how users feel about it), and <strong>Improvement</strong> (what they ask for). From there, we reduced the board to a prioritised set of actions.
+              I captured 233 notes across the five sessions, one observation per note. I affinity-mapped 186 of them into four lenses: <strong>Current Status</strong> (what the tool does today), <strong>Confusion</strong> (where understanding breaks), <strong>Reaction</strong> (how users feel about it), and <strong>Improvement</strong> (what they ask for). From there, 46 synthesis notes became 8 actionable items and a working list of 12 insights.
             </BodyText>
+
+            <ScrollTable label="Research synthesis, from sessions to insights">
+              <thead>
+                <tr>
+                  <Th>Step</Th>
+                  <Th>Count</Th>
+                  <Th>What it is</Th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <Td strong>Sessions</Td>
+                  <Td>5</Td>
+                  <Td>3 one-to-one, 2 group sessions (P1 to P9)</Td>
+                </tr>
+                <tr>
+                  <Td strong>Interview notes</Td>
+                  <Td>233</Td>
+                  <Td>One observation per note, kept per session</Td>
+                </tr>
+                <tr>
+                  <Td strong>Clustered notes</Td>
+                  <Td>186</Td>
+                  <Td>Current Status 77 · Improvement 44 · Confusion 40 · Reaction 25</Td>
+                </tr>
+                <tr>
+                  <Td strong>Synthesis notes</Td>
+                  <Td>46</Td>
+                  <Td>Themes per lens, plus 8 actionable items</Td>
+                </tr>
+                <tr>
+                  <Td strong>Insights</Td>
+                  <Td>12</Td>
+                  <Td>The working list used to scope each design option</Td>
+                </tr>
+              </tbody>
+            </ScrollTable>
 
             <Figure
               filename="03-affinity-clusters.png"
@@ -1120,6 +1292,14 @@ export default function TeamContractCaseStudy() {
             <BodyText>
               Splitting <em>Confusion</em> from <em>Reaction</em> mattered. Confusion pointed at interface and information problems I could design against. Reaction pointed at a credibility problem. People disliked the tool not because it was hard, but because the effort did not come back to them as value. Those two problems needed different responses.
             </BodyText>
+
+            <Figure
+              filename="03d-improvement-themes.jpg"
+              alt="Twelve green synthesis notes: Allow for more customization; Provide data visualization and better metrics guidance; Alerts and notifications; Introduce a poke or reminder feature; Improve the validation system; Improve error messages and validations; Enhance the reporting and data presentation; Visual indicators for goal tracking; Incorporate historical data and trends; Categorize releases; Enhance support for different phases; Integration with other tools."
+              caption="The Improvement lens rewritten as twelve needs, before any solution was chosen."
+              width={1504}
+              height={1312}
+            />
           </div>
         </Wrap>
       </section>
@@ -1134,9 +1314,48 @@ export default function TeamContractCaseStudy() {
             <SectionLabel>What We Learned</SectionLabel>
             <SectionTitle>Five findings, in the participants&apos; own words.</SectionTitle>
 
+            <BodyText>
+              Before the findings, a sense of breadth. Counts are sessions in which a theme came up, coded from the 233 notes. Two sessions were groups of three, so this is not a head count, and with five sessions it shows spread, not prevalence.
+            </BodyText>
+
+            <ScrollTable label="Themes by number of sessions in which they appeared, out of five">
+              <thead>
+                <tr>
+                  <Th>Theme</Th>
+                  <Th>Sessions</Th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <Td strong>Manual entry and chasing people for data</Td>
+                  <Td>5 of 5</Td>
+                </tr>
+                <tr>
+                  <Td strong>Reporting and visualisation</Td>
+                  <Td>5 of 5</Td>
+                </tr>
+                <tr>
+                  <Td strong>Unclear fields and definitions</Td>
+                  <Td>4 of 5</Td>
+                </tr>
+                <tr>
+                  <Td strong>Validation and error messages</Td>
+                  <Td>3 of 5</Td>
+                </tr>
+                <tr>
+                  <Td strong>No history or trends</Td>
+                  <Td>2 of 5</Td>
+                </tr>
+                <tr>
+                  <Td strong>Alerts and notifications</Td>
+                  <Td>2 of 5</Td>
+                </tr>
+              </tbody>
+            </ScrollTable>
+
             <SubHeading>1. The tool captured state, not change</SubHeading>
             <BodyText>
-              This was the gap we heard most often. Team Contract showed where a metric stood. It never showed how it got there.
+              This was the gap that ran through every lens of the synthesis. Team Contract showed where a metric stood. It never showed how it got there.
             </BodyText>
             <QuoteList quotes={[
               "Static view, snapshot of current status.",
@@ -1270,7 +1489,7 @@ export default function TeamContractCaseStudy() {
               <tbody>
                 <tr>
                   <Td strong>No history, so a red metric could not be explained</Td>
-                  <Td>Historical tracking plus capturing the reason for a change</Td>
+                  <Td>Trend history in reports. Capturing the reason for each change is still open</Td>
                   <Td>A changed value only holds up later if the &ldquo;why&rdquo; was recorded when it was edited.</Td>
                 </tr>
                 <tr>
@@ -1316,6 +1535,73 @@ export default function TeamContractCaseStudy() {
       </section>
 
       {/* ════════════════════════════════════════════════════ */}
+      {/*  EXPLORATION: five options, each review cut something */}
+      <section id="exploration" style={{ padding: "64px 0", background: T.white }}>
+        <Wrap>
+          <SectionDivider />
+          <div style={{ paddingTop: "56px" }}>
+            <SectionLabel>Exploration</SectionLabel>
+            <SectionTitle>Five options. Each review removed something.</SectionTitle>
+
+            <BodyText>
+              I explored five options for the same core flow: program overview, monthly metric update, error state, and reports. Each round was reviewed, and features that didn&apos;t earn their place were cut, not restyled.
+            </BodyText>
+
+            <ScrollTable label="The five design options and what each changed">
+              <thead>
+                <tr>
+                  <Th>Option</Th>
+                  <Th>What it tried</Th>
+                  <Th>What happened</Th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <Td strong>1 · Fix in place</Td>
+                  <Td>Kept the existing accordion; added My View / Global View, groups and a phase filter to the grid</Td>
+                  <Td>The grid was still too wide and too long</Td>
+                </tr>
+                <tr>
+                  <Td strong>2 · Program overview</Td>
+                  <Td>Layouts for the Common Segmentation program page that holds Team Contract</Td>
+                  <Td>Set the shell the later options sit in</Td>
+                </tr>
+                <tr>
+                  <Td strong>3 · Full feature set</Td>
+                  <Td>Custom views, phase tooltips, Add metric, and a Notifications tab</Td>
+                  <Td>Notifications tab judged &ldquo;not useful&rdquo;</Td>
+                </tr>
+                <tr>
+                  <Td strong>4 · Notifications removed</Td>
+                  <Td>Option 3&apos;s flow without the Notifications tab</Td>
+                  <Td>Carried into Option 5</Td>
+                </tr>
+                <tr>
+                  <Td strong>5 · Focused set</Td>
+                  <Td>Subprocess filter, saved custom views, trends in reports</Td>
+                  <Td>Taken forward</Td>
+                </tr>
+              </tbody>
+            </ScrollTable>
+
+            <Figure
+              filename="04a-option1-metrics.jpg"
+              alt="Option 1 metrics screen: the Team Contract accordion opened inside the program page, with My View and Global View toggles, a Groups dropdown, an All Phases filter, a Help link, and a table listing metrics such as Gate 17 Ship Release, SOP and Weighted Net Sales Per Unit with status checkboxes."
+              caption="Option 1: views, groups and a phase filter added to the existing grid. User name redacted."
+              width={1440}
+              height={1250}
+            />
+            <Figure
+              filename="04b-option3-notifications-cut.jpg"
+              alt="Option 3 Notifications tab inside Program Metrics, with All and Unread columns of alert cards such as: Trend X is degrading and will not meet goal at the current rate for Metric Gate 17 Ship Release, each with a date and an owner."
+              caption="Option 3: a Notifications tab. Cut in review as &ldquo;not useful&rdquo;; alerts became pending-task status per owner instead. Owner names redacted."
+              width={1440}
+              height={890}
+            />
+          </div>
+        </Wrap>
+      </section>
+
       {/*  THE DESIGN                                         */}
       {/* ════════════════════════════════════════════════════ */}
       <section id="design" style={{ padding: "64px 0", background: T.white }}>
@@ -1327,7 +1613,7 @@ export default function TeamContractCaseStudy() {
 
             <SubHeading>Program overview: from a pile of data to program health</SubHeading>
             <BodyText>
-              We rebuilt the overview around modular cards. Each block of program information can stand on its own and be rearranged, so a program manager can put what they are judged on up front.
+              We rebuilt the overview around modular cards. Each block of program information stands on its own.
             </BodyText>
             <PullQuote>
               &ldquo;One-stop shop for program health overview.&rdquo;
@@ -1338,6 +1624,18 @@ export default function TeamContractCaseStudy() {
               caption="Program overview with modular report cards for program health."
               width={1024}
               height={179}
+            />
+
+            <SubHeading>Inside the program, collapsed by default</SubHeading>
+            <BodyText>
+              Team Contract moved inside the Common Segmentation program page as two sections, Program Metrics and Reports. Everything starts collapsed, so a program manager opens only the section they came for. Integration with Common Segmentation was the first item on the insights list, and it held up in review.
+            </BodyText>
+            <Figure
+              filename="04c-option5-program-overview.jpg"
+              alt="Program page with collapsed accordion sections: Program Dates, Program Build Dates, Program Metrics (Team Contract), Reports (Team Contract), Associated Common Segmentation Programs, SAP Mapping Details, Mapped Tools, One Pager - Summary, and Retrospective (Lessons Learned)."
+              caption="Program overview with Team Contract as two collapsed sections. User name redacted."
+              width={1440}
+              height={620}
             />
 
             <BodyText>
@@ -1363,6 +1661,18 @@ export default function TeamContractCaseStudy() {
               height={125}
             />
 
+            <SubHeading>Filter by subprocess, save your own view</SubHeading>
+            <BodyText>
+              An early option sequenced metrics by subprocess tag. Review feedback was blunt: the sequence wasn&apos;t needed, a filter was. Tags shrank to small labels (PM, FMFA, FMTC), and a Filter Subprocess control lets each owner narrow the grid to their own metrics. Users also asked for more than one way to see the grid, so views became saveable, with a column picker.
+            </BodyText>
+            <Figure
+              filename="04d-option5-custom-view.jpg"
+              alt="Add/Edit Custom View dialog with a required View Name field and checkboxes for columns: Tolerance Calculation, Target as of AFE, Upper and Lower Bound, Current Status, Estimate at Full Production, Owner, Progress Update and Comments, with Cancel and Save buttons."
+              caption="Custom view: pick the columns, name the view, save it."
+              width={789}
+              height={497}
+            />
+
             <SubHeading>Validation that helps, instead of blocking</SubHeading>
             <BodyText>
               Errors now show up in context with a short plain language explanation and a clear path to the field. That replaces the save time failure participants found hardest to resolve.
@@ -1375,9 +1685,9 @@ export default function TeamContractCaseStudy() {
               height={79}
             />
 
-            <SubHeading>What we designed: history and change reasons in the tool</SubHeading>
+            <SubHeading>Concept: history and change reasons</SubHeading>
             <BodyText>
-              In Team Contract, every updated metric now keeps a short history and a note for why it changed. That product change came from the research finding that people could not explain a red number. The animation below shows what that looks like in the tool.
+              A concept, not a shipped feature. The idea is that every updated metric keeps a short history and a note for why it changed. It came from the finding that people could not explain a red number. PM-written notes on why a metric changed were requested but not designed in this round. The animation below shows the concept.
             </BodyText>
             <HistoryChangeAnimation />
 
@@ -1398,6 +1708,69 @@ export default function TeamContractCaseStudy() {
       </section>
 
       {/* ════════════════════════════════════════════════════ */}
+      {/*  WHAT HELD UP: what the reviews kept and cut */}
+      <section id="validation" style={{ padding: "64px 0", background: T.white }}>
+        <Wrap>
+          <SectionDivider />
+          <div style={{ paddingTop: "56px" }}>
+            <SectionLabel>What Held Up</SectionLabel>
+            <SectionTitle>What the reviews kept, and what they cut.</SectionTitle>
+
+            <BodyText>
+              After each round, outcomes were written onto the design board as validated features and failed solutions.
+            </BodyText>
+
+            <ScrollTable label="Review outcomes: validated features and failed solutions">
+              <thead>
+                <tr>
+                  <Th>Validated</Th>
+                  <Th>Cut</Th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <Td>Team Contract integrated with Common Segmentation</Td>
+                  <Td>Notifications section (&ldquo;not useful&rdquo;)</Td>
+                </tr>
+                <tr>
+                  <Td>Delete column at the start of the table</Td>
+                  <Td>Progress section (&ldquo;not needed&rdquo;)</Td>
+                </tr>
+                <tr>
+                  <Td>Custom views with saved preferences</Td>
+                  <Td>Default sequence by subprocess tag, replaced by a filter</Td>
+                </tr>
+                <tr>
+                  <Td>Global filter at the top of the table</Td>
+                  <Td>&mdash;</Td>
+                </tr>
+                <tr>
+                  <Td>Pending-task status shown per owner</Td>
+                  <Td>&mdash;</Td>
+                </tr>
+              </tbody>
+            </ScrollTable>
+
+            <div style={{ background: T.text, borderRadius: "8px", padding: "28px 32px", margin: "32px 0" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "40px", fontWeight: 800, color: T.yellow, lineHeight: 1 }}>
+                25&ndash;30 hours
+              </div>
+              <p style={{ color: T.white, fontSize: "15px", lineHeight: 1.6, margin: "12px 0 0" }}>
+                <strong>Time saved, reported by PMs and observed.</strong> The design board records about 25&ndash;30 hours of time and effort saved. The period and baseline weren&apos;t recorded, so read it as indicative, not measured.
+              </p>
+            </div>
+
+            <Figure
+              filename="03e-insights-list.jpg"
+              alt="Insights list: integrate with CS; incorporate alerts and notifications; implement a poke or reminder feature; add or remove metrics; correct the report format; archived reports; help link for all terms and fields; separate help for tooltip content; input data so Team Contract can be automated; 13 personas who access Team Contract; better validation fields."
+              caption="The working insights list used to scope each option."
+              width={1190}
+              height={704}
+            />
+          </div>
+        </Wrap>
+      </section>
+
       {/*  WORKING IN THE FUEL DESIGN SYSTEM                  */}
       {/* ════════════════════════════════════════════════════ */}
       <section id="fuel" style={{ padding: "64px 0", background: T.white }}>
@@ -1405,13 +1778,151 @@ export default function TeamContractCaseStudy() {
           <SectionDivider />
           <div style={{ paddingTop: "56px" }}>
             <SectionLabel>Working in the Fuel Design System</SectionLabel>
-            <SectionTitle>Built to feel like native Fuel.</SectionTitle>
+            <SectionTitle>Built from Fuel, extended where it ran out.</SectionTitle>
 
             <BodyText>
-              The work lived inside <strong>Fuel</strong>, John Deere&apos;s enterprise design system. Screens were built from shared components so Team Contract felt like part of the same product family, not a one off tool.
+              Team Contract lives inside John Deere&apos;s enterprise tools, so it had to look and behave like them. I built every option from <strong>Fuel v5</strong> components: text fields, buttons, badges, selects, toggles, accordions, tabs and table cells. Counted across the five options, that came to 5,251 component instances.
+            </BodyText>
+            <BodyText>
+              Using Fuel wasn&apos;t just about consistency. It made the research decisions cheaper to build. Inline validation is Fuel&apos;s TextField error state. Subprocess tags are Fuel badges. Saving a view uses Fuel&apos;s checkboxes and buttons inside a dialog I composed, because Fuel had no dialog for it. Status colours come from Fuel&apos;s colour tokens, so red, yellow and green mean the same thing here as in other Deere tools.
+            </BodyText>
+            <BodyText>
+              Where Fuel had no answer, I composed one from Fuel parts instead of inventing new visuals: the phase picker, the Add New Metric and Custom View dialogs, and the advanced filter.
             </BodyText>
 
+            <SubHeading>Component use across the five options</SubHeading>
+            <BodyText>
+              The largest Fuel groups, counted from component instances in the Figma file. The file has smaller groups that aren&apos;t listed, so these rows don&apos;t add up to the 5,251 total.
+            </BodyText>
+
+            <ScrollTable label="Fuel component instances by type, across the five options">
+              <thead>
+                <tr>
+                  <Th>Fuel component</Th>
+                  <Th>Instances</Th>
+                  <Th>Where it shows up in Team Contract</Th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <Td strong>TextField (Input)</Td>
+                  <Td>2,801</Td>
+                  <Td>Every editable metric cell; View Name in Custom View</Td>
+                </tr>
+                <tr>
+                  <Td strong>Badge</Td>
+                  <Td>378</Td>
+                  <Td>Subprocess tags (PM, FMFA, FMTC); status chips</Td>
+                </tr>
+                <tr>
+                  <Td strong>Button Icon (edit, delete)</Td>
+                  <Td>290</Td>
+                  <Td>Row edit and delete actions</Td>
+                </tr>
+                <tr>
+                  <Td strong>Container / Sharp</Td>
+                  <Td>286</Td>
+                  <Td>Grid and panel containers</Td>
+                </tr>
+                <tr>
+                  <Td strong>Divider / Horizontal</Td>
+                  <Td>286</Td>
+                  <Td>Table row and header rules</Td>
+                </tr>
+                <tr>
+                  <Td strong>Cell / Text, default</Td>
+                  <Td>268</Td>
+                  <Td>Read-only table cells</Td>
+                </tr>
+                <tr>
+                  <Td strong>Button (primary, secondary)</Td>
+                  <Td>82</Td>
+                  <Td>Save (primary, Fuel yellow), Cancel, Reset, Add New Metric</Td>
+                </tr>
+                <tr>
+                  <Td strong>Checkbox</Td>
+                  <Td>42</Td>
+                  <Td>Row selection; Custom View column picker</Td>
+                </tr>
+                <tr>
+                  <Td strong>Dropdown Menu + Button</Td>
+                  <Td>28</Td>
+                  <Td>View, Filter Subprocess</Td>
+                </tr>
+                <tr>
+                  <Td strong>Search, Toggle, Select, Accordion</Td>
+                  <Td>54</Td>
+                  <Td>Grid search; My View / Global View; All Phases; program page sections</Td>
+                </tr>
+              </tbody>
+            </ScrollTable>
+
+            <SubHeading>Anatomy of the metric grid</SubHeading>
+            <BodyText>
+              The Option 5 grid, taken apart. Numbers on the screen match the list below, which is the readable version.
+            </BodyText>
+            <FuelAnatomy
+              src="/assets/team-contract/04e-option5-metrics.jpg"
+              width={1377}
+              height={1200}
+              alt="Option 5 metrics grid built from Fuel components, with numbered markers on the toolbar, filters, table header, a metric row and a status cell. Values and user name are pixelated."
+              caption="Anatomy of the metric grid. Each part is Fuel, and most of them answer a research finding."
+              items={fuelAnatomy}
+            />
+
+            <SubHeading>Fuel building blocks, as used here</SubHeading>
             <FuelComponentsSample />
+
+            <SubHeading>Fuel tokens bound in the metric grid</SubHeading>
+            <BodyText>
+              Colours, spacing and radius in the screens are Figma variables, not hard-coded values. That is why yellow means primary action and green means on track here, as in other Deere tools.
+            </BodyText>
+
+            <ScrollTable label="Fuel token names and values used in the metric grid">
+              <thead>
+                <tr>
+                  <Th>Group</Th>
+                  <Th>Token</Th>
+                  <Th>Value</Th>
+                </tr>
+              </thead>
+              <tbody>
+                {fuelTokens.map((token) => (
+                  <tr key={token.name}>
+                    <Td strong>{token.group}</Td>
+                    <Td>{token.name}</Td>
+                    <Td>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                        {token.value.startsWith("#") ? (
+                          <span
+                            aria-hidden="true"
+                            style={{
+                              display: "inline-block",
+                              width: "16px",
+                              height: "16px",
+                              borderRadius: "3px",
+                              border: `1px solid ${T.border}`,
+                              background: token.value,
+                            }}
+                          />
+                        ) : null}
+                        {token.value}
+                      </span>
+                    </Td>
+                  </tr>
+                ))}
+              </tbody>
+            </ScrollTable>
+            <BodyText style={{ fontSize: "13px" }}>
+              Token names are shown as they appeared in the Figma file, to illustrate how the screens were wired. They aren&apos;t a published API.
+            </BodyText>
+
+            <BodyText>
+              <strong>Contrast.</strong> Fuel&apos;s tertiary text (#666666) is 5.7:1 on white, so it is used for helper text. The disabled grey (#B3B3B3) is about 2.1:1. That is allowed only because inactive controls are excluded from WCAG 1.4.3, and it is never used for content.
+            </BodyText>
+            <BodyText>
+              Status fills (success #99BD93, warning #FFBB52) carry dark text, and every status also shows its value. Colour is never the only signal.
+            </BodyText>
           </div>
         </Wrap>
       </section>
@@ -1434,6 +1945,9 @@ export default function TeamContractCaseStudy() {
             </BodyText>
             <BodyText>
               <strong>Separating confusion from reaction changed what I designed.</strong> Confusion was an interface problem. Reaction was a value problem. Fixing only the first would have produced a clearer tool that people still resented filling in.
+            </BodyText>
+            <BodyText>
+              <strong>Cutting was part of the design.</strong> Alerts came up in the research, yet the Notifications tab was the first thing reviewers cut. The need was real, but it belonged next to each owner&apos;s work, not on a page of its own.
             </BodyText>
 
             {/* Credits */}

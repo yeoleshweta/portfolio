@@ -120,7 +120,7 @@ const MICRO: Record<string, MicroBrief> = {
   },
   "team-contract": {
     question: "What would make program metrics worth using?",
-    method: "Research with 9 participants and about 230 observations.",
+    method: "Research with 9 participants and 233 interview notes.",
     found:
       "John Deere's program-metrics tool was unused data entry.",
     changed: "It became numbers managers could defend.",
