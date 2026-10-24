@@ -1,0 +1,543 @@
+/* Evans case study, styled to Design_evans.pdf. The design is a paper-and-rust editorial look
+   that the site tokens do not carry, so its palette is scoped to .page. The serif is a system
+   stack, so no font is added. Contrast for each pairing is checked in docs/evans-redesign/PLAN.md. */
+
+.page {
+  --ev-paper: #fbfaf7;
+  --ev-cream: #f4f0e6;
+  --ev-ink: #1c1b17;
+  --ev-body: #3a3832;
+  --ev-muted: #6b675c;
+  --ev-rust: #8b4a2b;
+  --ev-rule: #e3ddd0;
+  --ev-bar-idle: #8f887a;
+  --ev-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --ev-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  background: var(--ev-paper);
+  color: var(--ev-body);
+  font-family: var(--font-primary);
+}
+
+/* ── Chapters ── */
+.chapter {
+  padding: clamp(56px, 7vw, 88px) 0;
+}
+
+.paper {
+  background: var(--ev-paper);
+}
+
+.cream {
+  background: var(--ev-cream);
+}
+
+.ink {
+  background: var(--ev-ink);
+  color: #d9d3c5;
+}
+
+.inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 40px);
+}
+
+.kicker {
+  margin: 0 0 14px;
+  font-family: var(--ev-mono);
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ev-rust);
+}
+
+.h2 {
+  margin: 0 0 28px;
+  max-width: 30ch;
+  font-family: var(--ev-serif);
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--ev-ink);
+}
+
+.ink .kicker {
+  color: #a9a397;
+}
+
+.ink .h2 {
+  color: #f4f0e6;
+}
+
+.body {
+  max-width: 62ch;
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ev-body);
+}
+
+.body strong {
+  color: var(--ev-ink);
+  font-weight: 600;
+}
+
+/* ── Hero ── */
+.hero {
+  padding: clamp(96px, 12vw, 136px) 0 clamp(64px, 8vw, 96px);
+}
+
+.heroInner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 40px);
+}
+
+.heroTitle {
+  max-width: 18ch;
+  margin: 0 0 28px;
+  font-family: var(--ev-serif);
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--ev-ink);
+}
+
+.heroLead {
+  max-width: 60ch;
+  margin: 0 0 40px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ev-body);
+}
+
+/* Four cells on a 1px rule: the grid's background shows through the gaps. */
+.meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  background: var(--ev-rule);
+  border: 1px solid var(--ev-rule);
+}
+
+.metaItem {
+  margin: 0;
+  padding: 18px 20px;
+  background: #fff;
+}
+
+.metaItem dt {
+  margin-bottom: 6px;
+  font-family: var(--ev-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ev-muted);
+}
+
+.metaItem dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ev-ink);
+}
+
+.metaItem:last-child dd {
+  color: var(--ev-rust);
+  font-weight: 600;
+}
+
+/* ── 01 Tension ── */
+.cards {
+  display: grid;
+  gap: 14px;
+  max-width: 640px;
+  margin: 0 0 40px;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  padding: 22px;
+  background: var(--ev-paper);
+  border: 1px solid var(--ev-rule);
+  border-radius: 12px;
+}
+
+.cardTitle {
+  margin: 0 0 10px;
+  font-family: var(--ev-mono);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ev-rust);
+}
+
+.cardBody {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ev-body);
+}
+
+.pull {
+  max-width: 640px;
+  margin: 0;
+  padding-left: 22px;
+  border-left: 3px solid var(--ev-rust);
+}
+
+.pull p {
+  margin: 0;
+  font-family: var(--ev-serif);
+  font-size: clamp(20px, 2.4vw, 24px);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--ev-ink);
+}
+
+/* ── 02 Craft: the experiment chart ── */
+.chart {
+  max-width: 880px;
+  margin-top: 36px;
+  padding: 24px clamp(16px, 3vw, 32px) 28px;
+  background: var(--ev-paper);
+  border: 1px solid var(--ev-rule);
+  border-radius: 14px;
+}
+
+.chartHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--ev-rule);
+}
+
+.chartTitle,
+.chartNote {
+  margin: 0;
+  font-family: var(--ev-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.chartTitle {
+  color: var(--ev-rust);
+}
+
+.chartNote {
+  color: var(--ev-muted);
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(6px, 2vw, 16px);
+}
+
+.bar {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+
+.bar:focus-visible {
+  outline: 2px solid var(--ev-rust);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* A fixed-height track, so the percentage heights below resolve against it. */
+.track {
+  position: relative;
+  display: block;
+  height: 200px;
+}
+
+.fill {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: var(--h);
+  background: var(--ev-bar-idle);
+  border-radius: 4px 4px 0 0;
+  transition: height 0.3s ease, background-color 0.2s ease;
+}
+
+.value {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: calc(var(--h) + 6px);
+  font-family: var(--ev-mono);
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--ev-muted);
+}
+
+.label {
+  display: block;
+  min-height: 2.6em;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ev-muted);
+}
+
+.bar[aria-pressed="true"] .fill {
+  background: var(--ev-rust);
+}
+
+.bar[aria-pressed="true"] .value {
+  font-weight: 700;
+  color: var(--ev-rust);
+}
+
+.bar[aria-pressed="true"] .label {
+  font-weight: 700;
+  color: var(--ev-ink);
+}
+
+/* The detail card for the selected bar. */
+.detail {
+  margin-top: 28px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid var(--ev-rule);
+  border-radius: 12px;
+}
+
+.detailHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px 20px;
+  margin-bottom: 14px;
+}
+
+.detailCategory {
+  margin: 0 0 6px;
+  font-family: var(--ev-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ev-muted);
+}
+
+.detailTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ev-ink);
+}
+
+.detailUplift {
+  margin: 0;
+  font-family: var(--ev-serif);
+  font-size: 26px;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--ev-rust);
+}
+
+.detailBody {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ev-body);
+}
+
+.detailNote {
+  margin: 12px 0 0;
+  font-family: var(--ev-serif);
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--ev-muted);
+}
+
+/* ── 04 Evidence ── */
+/* A 2 × 2 grid on a 1px rule, as in the design. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-bottom: 44px;
+  background: var(--ev-rule);
+  border: 1px solid var(--ev-rule);
+}
+
+.stat {
+  padding: 28px;
+  background: #fff;
+}
+
+.statValue {
+  margin: 0 0 10px;
+  font-family: var(--ev-serif);
+  font-size: clamp(36px, 4.5vw, 46px);
+  line-height: 1;
+  color: var(--ev-rust);
+}
+
+.statLabel {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ev-body);
+}
+
+.quote {
+  max-width: 46rem;
+  margin: 0;
+  padding-left: 22px;
+  border-left: 3px solid var(--ev-rust);
+}
+
+.quote p {
+  margin: 0;
+  font-family: var(--ev-serif);
+  font-size: clamp(20px, 2.4vw, 24px);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--ev-ink);
+}
+
+.cite {
+  margin: 12px 0 0;
+  font-family: var(--ev-mono);
+  font-size: 13px;
+  color: var(--ev-muted);
+}
+
+/* ── Key learnings (dark band) ── */
+.learningList {
+  display: grid;
+  gap: 28px;
+  max-width: 66ch;
+}
+
+.learningTitle {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #f4f0e6;
+}
+
+.learningBody {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #d9d3c5;
+}
+
+/* ── Credit line, on the paper below the dark band ── */
+.credit {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px clamp(20px, 4vw, 40px) 64px;
+}
+
+.credit p {
+  margin: 0 0 8px;
+  font-family: var(--ev-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ev-muted);
+}
+
+@media (max-width: 640px) {
+  .meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stat {
+    padding: 22px;
+  }
+
+  /* On phones a bar is too narrow for its label, so the bars become a 2-column grid of cards
+     with horizontal fills. The label sits above its fill, and the value above that. */
+  .bars {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .bar {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    padding: 12px;
+    text-align: left;
+    background: var(--ev-paper);
+    border: 1px solid var(--ev-rule);
+    border-radius: 10px;
+  }
+
+  .bar[aria-pressed="true"] {
+    background: #fff;
+    border-color: var(--ev-rust);
+  }
+
+  .track {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: auto;
+  }
+
+  .value,
+  .fill {
+    position: static;
+  }
+
+  .fill {
+    width: var(--h);
+    height: 8px;
+    border-radius: 4px;
+  }
+
+  .value {
+    font-size: 12px;
+  }
+
+  .label {
+    min-height: 0;
+    margin-top: 0;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    transition: none;
+  }
+}
