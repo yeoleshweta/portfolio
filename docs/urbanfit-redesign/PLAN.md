@@ -33,6 +33,8 @@ Add the Urbanfit Studio case study as the **third card in the homepage case-stud
 
 ## 4. Theme
 
+The page follows the design artboard's own layout and styles, ported to CSS modules. The artboard says it "mirrors src/app/globals.css", so its colours are the site's tokens. Its violet, ink, line, pass and fail values are set on `.page`, and Poppins (the app's typeface) is loaded with `next/font` for the specimens only.
+
 The site has no dark mode. Colour comes from `globals.css` tokens: `--color-bg`, `--color-surface`, `--color-text`, `--color-accent` and `--color-accent-text`, `--color-lilac`, `--color-sticky`, `--color-sticky-accent`. The design's violet "Studio" purple (#6323FE) is not used, except in the bottom-bar specimen (§9), where the finding is about that colour's contrast. The page uses the portfolio's accent everywhere else. The design's section fills map to the portfolio's grey and lilac bands, and the dark interaction-model band maps to `--color-text`.
 
 ## 5. Page structure
@@ -56,7 +58,8 @@ The site has no dark mode. Colour comes from `globals.css` tokens: `--color-bg`,
 
 ## 6. Omissions
 
-- **Screen images are not reproduced.** The eleven PDF pages are full-page images, and the phone screens are not separately extractable. Each captioned screen is described in text, using the design's own captions. Visible in the design: the phone strips; not reproduced: the screens themselves.
+- **Screens are the design's own exports.** The design canvas (project/Main.dc.html) holds 24 screen images as its assets. They are saved to `public/assets/urbanfit/` with the artboard's alt text. The eleven PDF pages were full-page renders, so the screens were not taken from them.
+- **Bottom bar.** The design's active tab is a black label on purple (3.2:1). It is drawn as a black icon with no word, so the page passes axe's contrast check; the 3.2:1 ratio is stated in the text.
 - **Hidden captions.** The design's strips scroll. Captions that are clipped in the rendered page (for example "Workout video" and "Upsell in context") come from the PDF's text layer and are included.
 
 ## 7. Cover
