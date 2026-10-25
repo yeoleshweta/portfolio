@@ -29,6 +29,12 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     category: "AI / ML Research",
     cover: "/assets/abim-hero.png",
   },
+  urbanfit: {
+    title: "Urbanfit Studio: a Coach, a Dietitian and a Tracker in One Pocket",
+    description:
+      "One mobile app for iOS and Android that sets up a personal plan, tracks the day and connects members to paid experts, built from one shared design and audited against WCAG 2.2 AA across 75 screens.",
+    category: "Design Systems",
+  },
   burton: {
     title: "Should the Homepage Check the Forecast?",
     description:

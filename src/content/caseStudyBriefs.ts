@@ -4,6 +4,7 @@ import { CASE_STUDIES } from "@/lib/caseStudyMeta";
 export const CASE_STUDY_ORDER = [
   "fuel-design-system",
   "john-deere-sus",
+  "urbanfit",
   "abim",
   "pm-ux-study",
   "healthcare-bias",

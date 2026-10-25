@@ -6,7 +6,7 @@ export function AbimCover() {
       <div className={styles.visual}>
         <div className={styles.visualTop}>
           <span className={styles.kicker}>
-            {"// CASE STUDY 04  ·  BEHAVIOR ANALYSIS MODEL"}
+            {"// CASE STUDY 05  ·  BEHAVIOR ANALYSIS MODEL"}
           </span>
           <span className={styles.brand}>ABIM–2025</span>
         </div>
@@ -82,7 +82,7 @@ export function AbimCover() {
       <div className={styles.info}>
         <div className={styles.infoTop}>
           <p className={styles.badgeRow}>
-            <span className={`${styles.badge} ${styles.badgeLav}`}>04</span>
+            <span className={`${styles.badge} ${styles.badgeLav}`}>05</span>
             AI / ML RESEARCH · ABIM–2025
           </p>
           <span className={styles.go} aria-hidden="true">

@@ -1312,3 +1312,267 @@
     opacity: 0.25;
   }
 }
+
+/* ── Urbanfit (case study 03): a phone with a tracker ring. Expert chips merge into a plan card,
+   and a tab indicator steps across the bottom bar. Loops about six seconds. ── */
+.c5 .visual {
+  background: #eef0fa;
+}
+
+.badgeSand {
+  background: #fff3b8;
+  color: #4a3b00;
+}
+
+.uStage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.uPhone {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  width: 220px;
+  height: 440px;
+  margin-left: -110px;
+  padding: 10px;
+  box-sizing: border-box;
+  background: #1c1c1c;
+  border-radius: 40px;
+  box-shadow: 0 30px 60px rgba(28, 28, 28, 0.18);
+}
+
+.uScreen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #ffffff;
+  border-radius: 30px;
+}
+
+.uHead {
+  position: relative;
+  height: 170px;
+  background: #8b69fa;
+  border-radius: 0 0 50% 50% / 0 0 26px 26px;
+}
+
+.uRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 110px;
+  height: 110px;
+  transform: translate(-50%, -50%);
+  overflow: visible;
+}
+
+.uRingTrack {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 10;
+}
+
+.uRingFill {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 301.6;
+  transform: rotate(-90deg);
+  transform-origin: 60px 60px;
+  animation: u-ring 6s ease-in-out infinite both;
+}
+
+.uRingText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 110px;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-content: center;
+  text-align: center;
+  color: #ffffff;
+}
+
+.uRingText strong {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.uRingText span {
+  font-size: 11px;
+}
+
+.uSentence {
+  position: absolute;
+  top: 184px;
+  left: 14px;
+  right: 14px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  text-align: center;
+  color: #5c5c5c;
+}
+
+.uPlan {
+  position: absolute;
+  top: 214px;
+  left: 14px;
+  right: 14px;
+  padding: 12px 14px;
+  background: #f4f0ff;
+  border-radius: 14px;
+  animation: u-plan 6s ease-in-out infinite both;
+}
+
+.uPlanTitle {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #1c1c1c;
+}
+
+.uPlanRow {
+  margin: 0 0 4px;
+  font-size: 11px;
+  color: #5c5c5c;
+}
+
+.uChip {
+  position: absolute;
+  left: 300px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1c1c1c;
+  background: #ffffff;
+  border: 1px solid #d4d4d8;
+  border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(28, 28, 28, 0.08);
+  animation: u-chip 6s ease-in-out infinite both;
+}
+
+.uChipCoach {
+  top: 120px;
+  background: #ece6ff;
+}
+
+.uChipDiet {
+  top: 200px;
+  background: #d7eadc;
+  animation-delay: 0.25s;
+}
+
+.uChipTrack {
+  top: 280px;
+  background: #fff3b8;
+  animation-delay: 0.5s;
+}
+
+.uTabs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 54px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: center;
+  background: #8b69fa;
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+}
+
+.uTabs > span:not(.uIndicator) {
+  position: relative;
+  z-index: 1;
+}
+
+.uIndicator {
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: 0;
+  width: 25%;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  animation: u-tabs 8s ease-in-out infinite both;
+}
+
+@keyframes u-ring {
+  0%,
+  10% {
+    stroke-dashoffset: 301.6;
+  }
+  45%,
+  80% {
+    stroke-dashoffset: 215.3;
+  }
+  100% {
+    stroke-dashoffset: 301.6;
+  }
+}
+
+@keyframes u-chip {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  18%,
+  48% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  62% {
+    opacity: 0;
+    transform: translateX(320px) scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+}
+
+@keyframes u-plan {
+  0%,
+  58% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  72%,
+  92% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes u-tabs {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(100%);
+  }
+  50% {
+    transform: translateX(200%);
+  }
+  75% {
+    transform: translateX(300%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

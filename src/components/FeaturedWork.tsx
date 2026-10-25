@@ -11,6 +11,7 @@ import {
   FuelCover,
   JohnDeereSusCover,
   PersonalizationCover,
+  UrbanfitCover,
 } from "@/components/covers";
 import styles from "./FeaturedWork.module.css";
 
@@ -35,6 +36,14 @@ const FEATURED: FeaturedStudy[] = [
     coverLabel:
       "Animated cover: When Did Better Actually Mean Better? A lilac SUS chart from 60 to 85.6 over eight months.",
     Cover: JohnDeereSusCover,
+  },
+  {
+    slug: "urbanfit",
+    outcome:
+      "One shared design for iOS and Android: a bottom bar, one tracker template, and a WCAG 2.2 AA audit of 75 screens.",
+    coverLabel:
+      "Animated cover: Urbanfit Studio. A coach, a dietitian and a tracker merge into one plan while a ring fills to 2860 steps.",
+    Cover: UrbanfitCover,
   },
   {
     slug: "personalization",

@@ -8,7 +8,7 @@ export function PersonalizationCover() {
       <div className={styles.visual}>
         <div className={styles.visualTop}>
           <span className={styles.kicker}>
-            {"// CASE STUDY 03  ·  QUANTITATIVE ANALYSIS"}
+            {"// CASE STUDY 04  ·  QUANTITATIVE ANALYSIS"}
           </span>
           <span className={styles.brand}>TOPSHOP</span>
         </div>
@@ -73,7 +73,7 @@ export function PersonalizationCover() {
       <div className={styles.info}>
         <div className={styles.infoTop}>
           <p className={styles.badgeRow}>
-            <span className={`${styles.badge} ${styles.badgePink}`}>03</span>
+            <span className={`${styles.badge} ${styles.badgePink}`}>04</span>
             QUANTITATIVE / EXPERIMENTATION
           </p>
           <span className={styles.go} aria-hidden="true">

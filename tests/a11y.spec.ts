@@ -19,6 +19,7 @@ const ROUTES = [
   "/work/personalization",
   "/work/stories-by-children",
   "/work/team-contract",
+  "/work/urbanfit",
 ];
 
 const WCAG_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
