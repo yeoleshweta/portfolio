@@ -6,6 +6,7 @@ const ROUTES = [
   "/experience",
   "/work/abim",
   "/work/burton",
+  "/work/control-panel",
   "/work/crypto-secure",
   "/work/pm-ux-study",
   "/work/dorothy-perkins",

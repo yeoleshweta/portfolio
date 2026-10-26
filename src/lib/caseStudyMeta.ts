@@ -115,6 +115,12 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     category: "Quantitative / Experimentation",
     cover: "/assets/personalization-hero.png",
   },
+  "control-panel": {
+    title: "Urbanfit Control Panel: one screen for every branch",
+    description:
+      "An internal tool for Urbanfit's supplement business, where admins, warehouses and franchise shops share one layout and see only what their role allows. Its price calculator turns one purchase price into three channel prices.",
+    category: "Design Systems",
+  },
   poshmera: {
     title: "Poshmera: a fashion app built for trust at checkout",
     description:
