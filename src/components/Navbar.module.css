@@ -18,6 +18,7 @@
 }
 
 .navbar[data-compact="true"] {
+  height: 68px;
   background: rgba(241, 238, 238, 0.72);
   backdrop-filter: blur(16px) saturate(1.15);
   border-bottom-color: rgba(23, 23, 23, 0.28);
@@ -61,15 +62,6 @@
   transition: font-size 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.navbar[data-compact="true"] .brand {
-  font-size: 20px;
-}
-
-.navbar[data-compact="true"] .brandScript {
-  font-size: 26px;
-  margin-left: 4px;
-}
-
 .links {
   display: flex;
   align-items: center;
@@ -79,10 +71,6 @@
   min-width: 0;
   flex-wrap: nowrap;
   transition: gap 0.28s ease;
-}
-
-.navbar[data-compact="true"] .links {
-  gap: 4px;
 }
 
 .navLink {
@@ -142,27 +130,6 @@
     transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.navbar[data-compact="true"] .navIcon {
-  position: static;
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: none;
-}
-
-.navbar[data-compact="true"] .navLabel {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-  opacity: 0;
-  transform: scale(0.86);
-}
-
 .cvBtn {
   position: relative;
   flex: 0 0 auto;
@@ -194,28 +161,25 @@
   color: #181818;
 }
 
-.navbar[data-compact="true"] .cvBtn {
-  padding: 0;
-  width: 44px;
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-.navbar[data-compact="true"] .cvLabel {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 .navbar[data-motion="off"],
 .navbar[data-motion="off"] * {
   transition: none !important;
+}
+
+/* Desktop shrinks on scroll. Phone already uses the compact bar, so its own sizes stay put. */
+@media (min-width: 810px) {
+  .navbar[data-compact="true"] .brand {
+    font-size: 20px;
+  }
+
+  .navbar[data-compact="true"] .brandScript {
+    font-size: 26px;
+    margin-left: 4px;
+  }
+
+  .navbar[data-compact="true"] .links {
+    gap: 4px;
+  }
 }
 
 @media (max-width: 809px) {

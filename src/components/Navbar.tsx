@@ -28,8 +28,8 @@ const pageSections = ["work", "articles", "contact"];
 
 const cvHref = "/assets/UX_Researcher_Resume.pdf";
 
-const COMPACT_ON = 72;
-const COMPACT_OFF = 28;
+/** Quiet time after the last scroll event before the bar grows back. */
+const SCROLL_SETTLE_MS = 200;
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -38,30 +38,18 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
   useEffect(() => {
-    let frame = 0;
-    const read = () => {
-      frame = 0;
-      const y = window.scrollY;
-      setCompact((prev) => (prev ? y > COMPACT_OFF : y > COMPACT_ON));
-    };
+    let settle = 0;
     const onScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(read);
+      setCompact(true);
+      window.clearTimeout(settle);
+      settle = window.setTimeout(() => setCompact(false), SCROLL_SETTLE_MS);
     };
-    read();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
+      window.clearTimeout(settle);
     };
   }, []);
-
-  useEffect(() => {
-    document.documentElement.dataset.nav = compact ? "compact" : "expanded";
-    return () => {
-      delete document.documentElement.dataset.nav;
-    };
-  }, [compact]);
 
   useEffect(() => {
     if (pathname !== "/") {

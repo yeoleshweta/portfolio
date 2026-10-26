@@ -133,10 +133,6 @@ html.reduce-motion *::after {
   animation: none !important;
 }
 
-html[data-nav="compact"] {
-  --header-height: 68px;
-}
-
 @media (max-width: 809px) {
   :root {
     --header-height: 68px;
