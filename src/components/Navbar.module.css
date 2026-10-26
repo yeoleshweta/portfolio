@@ -190,11 +190,13 @@
 
   .brand {
     font-size: 18px;
+    flex-wrap: wrap;
+    column-gap: 4px;
   }
 
   .brandScript {
     font-size: 22px;
-    margin-left: 4px;
+    margin-left: 0;
   }
 
   .links {
