@@ -12,6 +12,7 @@ import {
   MessageCircle,
   MessageSquare,
   Shield,
+  Shirt,
   ShoppingBag,
   Stethoscope,
   TrendingUp,
@@ -32,6 +33,7 @@ const FEATURED_SLUGS = new Set([
 
 /** Studies that are not in the featured four, in slider order. Hidden ones (HIDDEN_STUDIES) are filtered out below. */
 const SLUGS = [
+  "poshmera",
   "pm-ux-study",
   "team-contract",
   "gesturepro",
@@ -46,6 +48,7 @@ const SLUGS = [
 ] as const;
 
 const ICONS: Record<(typeof SLUGS)[number], LucideIcon> = {
+  poshmera: Shirt,
   "pm-ux-study": MessageSquare,
   "healthcare-bias": Stethoscope,
   gesturepro: Hand,
@@ -61,6 +64,7 @@ const ICONS: Record<(typeof SLUGS)[number], LucideIcon> = {
 
 /** Short outcomes already used on the site. Studies without one fall back to the description. */
 const METRICS: Partial<Record<(typeof SLUGS)[number], string>> = {
+  poshmera: "8,000 installs in month one (as reported)",
   "pm-ux-study": "8 PM interviews",
   "healthcare-bias": "4-label framework",
   gesturepro: "Real-time, zero hardware",

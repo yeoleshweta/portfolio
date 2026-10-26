@@ -115,6 +115,12 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     category: "Quantitative / Experimentation",
     cover: "/assets/personalization-hero.png",
   },
+  poshmera: {
+    title: "Poshmera: a fashion app built for trust at checkout",
+    description:
+      "A women's fashion app designed from research to launch around the moments shoppers hesitate: size, delivery, price and payment. It reached 8,000 installs in its first month against a target of 5,000, as reported.",
+    category: "Mixed Methods",
+  },
   "stories-by-children": {
     title: "Stories by Children",
     description:

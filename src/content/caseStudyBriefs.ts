@@ -6,6 +6,7 @@ export const CASE_STUDY_ORDER = [
   "john-deere-sus",
   "urbanfit",
   "abim",
+  "poshmera",
   "pm-ux-study",
   "healthcare-bias",
   "personalization",

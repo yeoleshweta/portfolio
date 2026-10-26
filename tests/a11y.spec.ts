@@ -17,6 +17,7 @@ const ROUTES = [
   "/work/miss-selfridge",
   "/work/my-ai-friends",
   "/work/personalization",
+  "/work/poshmera",
   "/work/stories-by-children",
   "/work/team-contract",
   "/work/urbanfit",
