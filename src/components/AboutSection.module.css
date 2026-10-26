@@ -3,6 +3,9 @@
   z-index: 30;
   background: var(--color-bg);
   isolation: isolate;
+  /* Clip the 3D ring at the section edge. Not overflow: hidden, which would
+     make this element a scroll container and stop the sticky stage pinning. */
+  overflow-x: clip;
   /* Sticky viewport, then one viewport of scroll for a single full turn of
      the ring (14 photos, 7 unique images shown twice). The page then scrolls
      on to the next section. */

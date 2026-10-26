@@ -1,7 +1,9 @@
 .section {
   position: relative;
   z-index: 20;
-  overflow: visible;
+  /* The orb bleeds past the right edge by design. Clip it at the section edge
+     so it does not widen the page. */
+  overflow-x: clip;
   overflow-anchor: none;
   background: #f2f2f2;
   padding: 88px 0 96px;
