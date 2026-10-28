@@ -283,3 +283,28 @@ test("Resend settings persist and the GA tag alone does not expose reports", asy
     page.getByText(/The tracking tag collects events, but report access needs/),
   ).toBeVisible();
 });
+
+test("Resume section shows report totals, focused charts and filtered visitor activity", async ({ page }) => {
+  await login(page);
+  const nav = page.getByRole("navigation", { name: "Admin sections" });
+  await nav.getByRole("button", { name: "Resume", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Resume", exact: true })).toBeVisible();
+  await expect(nav.getByRole("button", { name: "Resume", exact: true })).toHaveAttribute("aria-current", "page");
+  const report = await (await page.request.get("/api/admin/analytics")).json();
+  const metrics = page.getByRole("region", { name: "Resume metrics" });
+  for (const [label, key] of [["Résumé views", "resumeViews"], ["Download clicks", "resumeDownloads"], ["Résumé shares", "resumeShares"]] as const) {
+    await expect(metrics.locator("article").filter({ has: page.getByText(label, { exact: true }) }).locator("strong")).toHaveText(report.totals[key].toLocaleString());
+  }
+  await expect(page.getByLabel("Chart metric")).toHaveValue("resumeViews");
+  await expect(page.getByLabel("Chart metric").locator("option")).toHaveCount(3);
+  await page.getByLabel("Chart metric").selectOption("resumeShares");
+  await expect(page.getByRole("heading", { name: "Résumé interest" })).toBeVisible();
+  await page.getByLabel("Admin appearance").selectOption("dark");
+  await page.screenshot({ path: "test-results/admin-resume-desktop.png", fullPage: true });
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.screenshot({ path: "test-results/admin-resume-mobile.png", fullPage: true });
+  await page.getByRole("button", { name: "View résumé activity", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Activity", exact: true })).toBeVisible();
+  await expect(page.getByRole("combobox", { name: "Show", exact: true })).toHaveValue("resumes");
+});

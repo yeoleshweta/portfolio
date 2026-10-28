@@ -11,8 +11,14 @@ const metrics = [
 ] as const;
 type Key = (typeof metrics)[number]["key"];
 /** Extends the reference chart's bucket/max scaling with explicit zero buckets and selectable series. */
-export default function TrendChart({ points }: { points: SeriesPoint[] }) {
-  const [metric, setMetric] = useState<Key>("views");
+export default function TrendChart({ points, resumeOnly = false }: {
+  points: SeriesPoint[];
+  resumeOnly?: boolean;
+}) {
+  const availableMetrics = resumeOnly
+    ? metrics.filter((m) => m.key.startsWith("resume"))
+    : metrics;
+  const [metric, setMetric] = useState<Key>(resumeOnly ? "resumeViews" : "views");
   const [style, setStyle] = useState<"line" | "bars">("line");
   const id = useId();
   const label = metrics.find((m) => m.key === metric)!.label;
@@ -33,7 +39,7 @@ export default function TrendChart({ points }: { points: SeriesPoint[] }) {
             value={metric}
             onChange={(e) => setMetric(e.target.value as Key)}
           >
-            {metrics.map((m) => (
+            {availableMetrics.map((m) => (
               <option key={m.key} value={m.key}>
                 {m.label}
               </option>

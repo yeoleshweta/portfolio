@@ -1108,3 +1108,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.metrics.resumeMetrics {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+}

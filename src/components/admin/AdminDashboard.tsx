@@ -11,6 +11,7 @@ import {
   LogOut,
   RefreshCw,
   Search,
+  Share2,
   Settings,
   Users,
   X,
@@ -33,6 +34,7 @@ import styles from "./admin.module.css";
 type Tab =
   | "overview"
   | "cases"
+  | "resume"
   | "audience"
   | "activity"
   | "google"
@@ -40,6 +42,7 @@ type Tab =
 const tabs: { id: Tab; label: string }[] = [
   { id: "overview", label: "Overview" },
   { id: "cases", label: "Case studies" },
+  { id: "resume", label: "Resume" },
   { id: "audience", label: "Audience" },
   { id: "activity", label: "Activity" },
   { id: "google", label: "Google Analytics" },
@@ -619,11 +622,66 @@ export default function AdminDashboard({
                   </p>
                 )}
               </section>
+            </>
+          )}
+          {tab === "resume" && (
+            <>
+              <section className={`${styles.metrics} ${styles.resumeMetrics}`} aria-label="Resume metrics">
+                {[
+                  ...metricKeys.filter(
+                    ({ key }) => key === "resumeViews" || key === "resumeDownloads",
+                  ),
+                  {
+                    key: "resumeShares" as const,
+                    label: "Résumé shares",
+                    description:
+                      "Successful native shares or résumé links copied to the clipboard. This does not confirm the recipient opened the link.",
+                    icon: Share2,
+                  },
+                ].map(({ key, label, description, icon: Icon }) => (
+                  <article key={key} className={styles.metric}>
+                    <div>
+                      <span>{label}</span>
+                      <Icon size={17} />
+                    </div>
+                    <strong>
+                      {report ? report.totals[key].toLocaleString() : "—"}
+                    </strong>
+                    <p>
+                      {report
+                        ? comparisonLabel(report.totals[key], report.previousTotals[key])
+                        : "Waiting for data"}
+                    </p>
+                    <button
+                      type="button"
+                      className={styles.metricInfo}
+                      title={description}
+                      aria-label={description}
+                      data-detail={description}
+                    >
+                      i
+                    </button>
+                  </article>
+                ))}
+              </section>
+              <section className={styles.panel}>
+                <div className={styles.panelHeader}>
+                  <div>
+                    <h2>Résumé activity over time</h2>
+                    <p>Views, download clicks, and shares in the selected period</p>
+                  </div>
+                  <FileText size={18} />
+                </div>
+                {report ? (
+                  <TrendChart key="resume" points={report.series} resumeOnly />
+                ) : (
+                  <div className={styles.skeleton}>Loading résumé activity…</div>
+                )}
+              </section>
               <section className={styles.panel}>
                 <h2>Résumé interest</h2>
                 <p className={styles.muted}>
-                  Which placements lead people to the résumé and download
-                  action.
+                  Where people open, download, and share the résumé.
                 </p>
                 {report?.placements.length ? (
                   <div className={styles.tableWrap}>
@@ -654,6 +712,30 @@ export default function AdminDashboard({
                     viewer.
                   </p>
                 )}
+              </section>
+              <section className={styles.panel}>
+                <div className={styles.panelHeader}>
+                  <div>
+                    <h2>Explore résumé visits</h2>
+                    <p>See each recorded action and open its visitor journey.</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      chooseTab("activity");
+                      setKind("resumes");
+                      setSearch("");
+                      setOffset(0);
+                    }}
+                  >
+                    View résumé activity
+                  </button>
+                </div>
+                <p className={styles.muted}>
+                  Counts include consented activity and follow the selected dates
+                  and bot/internal filters. Download clicks do not confirm a file
+                  was saved.
+                </p>
               </section>
             </>
           )}
