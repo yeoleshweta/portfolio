@@ -182,27 +182,20 @@
   }
 }
 
-@media (max-width: 809px) {
-  .container {
-    padding: 0 12px;
-    gap: 8px;
-  }
-
-  .brand {
-    font-size: 18px;
-    flex-wrap: wrap;
-    column-gap: 4px;
-  }
-
-  .brandScript {
-    font-size: 22px;
-    margin-left: 0;
-  }
-
+/* The seven labelled tabs and the CV button need about 950px, so below that the bar goes icon-only. */
+@media (max-width: 959px) {
+  /* On a phone the seven tabs outrun the bar, so the strip scrolls. The padding keeps focus rings from being clipped. */
   .links {
     gap: 2px;
-    flex: 0 0 auto;
-    justify-content: flex-end;
+    flex: 0 1 auto;
+    justify-content: flex-start;
+    padding: 6px 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .links::-webkit-scrollbar {
+    display: none;
   }
 
   .navLink,
@@ -255,6 +248,27 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+}
+
+@media (max-width: 809px) {
+  .container {
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .brand {
+    font-size: 18px;
+    flex-wrap: wrap;
+    /* Give up width before the tab strip does, but never narrower than the two-line name. */
+    flex-shrink: 8;
+    min-width: min-content;
+    column-gap: 4px;
+  }
+
+  .brandScript {
+    font-size: 22px;
+    margin-left: 0;
   }
 }
 

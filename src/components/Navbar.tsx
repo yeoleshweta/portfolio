@@ -7,7 +7,9 @@ import {
   Book,
   Briefcase,
   Download,
+  Github,
   Home,
+  Linkedin,
   Mail,
   Newspaper,
   type LucideIcon,
@@ -22,6 +24,12 @@ const navLinks: { label: string; href: string; icon: LucideIcon }[] = [
   { label: "Blog", href: "/#articles", icon: Newspaper },
   { label: "Career", href: "/experience", icon: Briefcase },
   { label: "Contact", href: "/#contact", icon: Mail },
+];
+
+/** Profiles on other sites. They open in a new tab, so they never take aria-current. */
+const profileLinks: { label: string; href: string; icon: LucideIcon }[] = [
+  { label: "GitHub", href: "https://github.com/yeoleshweta", icon: Github },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/sharmashweta08", icon: Linkedin },
 ];
 
 const pageSections = ["work", "articles", "contact"];
@@ -137,6 +145,26 @@ export default function Navbar() {
                 <Icon className={styles.navIcon} size={20} strokeWidth={2.1} aria-hidden />
                 <span className={styles.navLabel}>{link.label}</span>
               </Link>
+            );
+          })}
+          {profileLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className={styles.navLink}
+                data-track="nav_click"
+                data-track-link-label={link.label}
+                data-track-link-href={link.href}
+                data-track-location="navbar"
+              >
+                <Icon className={styles.navIcon} size={20} strokeWidth={2.1} aria-hidden />
+                <span className={styles.navLabel}>{link.label}</span>
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
             );
           })}
         </div>
