@@ -1,4 +1,3 @@
-import nodemailer from "nodemailer";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { analyticsDatabase } from "../analytics/server";
 export type AlertJob = {
@@ -13,36 +12,18 @@ export type AlertJob = {
 };
 export function emailDeliveryEnabled() {
   return (
-    process.env.SMTP_ALERT_DELIVERY_ENABLED === "true" &&
+    process.env.ALERT_DELIVERY_ENABLED === "true" &&
     process.env.NODE_ENV === "production" &&
     process.env.VERCEL_ENV !== "preview"
   );
 }
-export function smtpConfigured() {
-  return Boolean(process.env.SMTP_USER && process.env.SMTP_PASSWORD);
+export function emailConfigured() {
+  return Boolean(process.env.RESEND_API_KEY && process.env.RESEND_FROM_EMAIL);
 }
-export function smtpFailure(error: unknown) {
-  const e = error as { command?: string; code?: string };
-  const safe = /^(EHLO|HELO|AUTH|STARTTLS|MAIL FROM|RCPT TO)$/i.test(
-    e.command ?? "",
-  );
-  return {
-    status: safe ? "failed" : "uncertain",
-    retry: safe,
-    detail: safe
-      ? "SMTP did not accept the message. Check the sending account; a safe retry is scheduled."
-      : "SMTP delivery could not be confirmed. It may have succeeded; no automatic resend.",
-  } as const;
-}
-type Transport = {
-  sendMail: (
-    message: Record<string, unknown>,
-  ) => Promise<{ accepted?: unknown[] }>;
-};
 export async function deliverAlert(
   db: SupabaseClient,
   job: AlertJob,
-  transport: Transport,
+  request: typeof fetch = fetch,
 ) {
   const allowed = (process.env.ADMIN_EMAILS ?? "")
     .split(",")
@@ -64,30 +45,41 @@ export async function deliverAlert(
   if (error || !started) return;
   let status: "sent" | "failed" | "uncertain" = "sent",
     retry = false,
-    detail =
-      "Google SMTP accepted the message. Inbox delivery is not confirmed.";
+    detail = "Resend accepted the message. Inbox delivery is not confirmed.";
   try {
     const label = job.kind === "visitors" ? "visitors" : "résumé views";
-    const result = await transport.sendMail({
-      from: process.env.SMTP_USER,
-      to: job.email,
-      messageId: `<portfolio-${job.id}@${process.env.SMTP_USER?.split("@")[1] ?? "localhost"}>`,
-      subject: `Portfolio alert: ${job.threshold} ${label} reached`,
-      text: `Your portfolio reached ${job.observed_count} ${label} in this ${job.period} window.\nThreshold: ${job.threshold}\nWindow begins: ${new Date(job.window_start).toISOString()} (UTC)\n\nBots and internal visits are excluded. Counts represent consented activity.\nOpen your portfolio admin panel to explore the details.`,
+    const result = await request("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+        "Idempotency-Key": `portfolio-alert/${job.id}`,
+      },
+      signal: AbortSignal.timeout(15000),
+      body: JSON.stringify({
+        from: process.env.RESEND_FROM_EMAIL,
+        to: [job.email],
+        subject: `Portfolio alert: ${job.threshold} ${label} reached`,
+        text: `Your portfolio reached ${job.observed_count} ${label} in this ${job.period} window.\nThreshold: ${job.threshold}\nWindow begins: ${new Date(job.window_start).toISOString()} (UTC)\n\nBots and internal visits are excluded. Counts represent consented activity.\nOpen your portfolio admin panel to explore the details.`,
+      }),
     });
-    if (
-      !result.accepted?.some(
-        (value) => String(value).toLowerCase() === job.email.toLowerCase(),
-      )
-    ) {
-      status = "failed";
-      detail = "SMTP did not accept the recipient. No automatic retry.";
+    if (!result.ok) {
+      status = result.status >= 500 ? "uncertain" : "failed";
+      retry = result.status === 429;
+      detail = retry
+        ? "Resend rate limited the request; a safe retry is scheduled."
+        : status === "uncertain"
+          ? "Resend acceptance could not be confirmed; no automatic resend."
+          : "Resend rejected the request. Check the API key and verified sender; no automatic retry.";
+    } else {
+      const receipt = await result.json();
+      if (typeof receipt?.id !== "string" || !receipt.id)
+        throw Error("Missing receipt");
     }
-  } catch (error) {
-    const failure = smtpFailure(error);
-    status = failure.status;
-    retry = failure.retry;
-    detail = failure.detail;
+  } catch {
+    status = "uncertain";
+    retry = false;
+    detail = "Resend acceptance could not be confirmed. It may have succeeded; no automatic resend.";
   }
   const { error: finishError } = await db.rpc("finish_analytics_alert", {
     p_id: job.id,
@@ -98,10 +90,10 @@ export async function deliverAlert(
   });
   if (finishError) throw Error("Unable to record delivery status");
 }
-/** Adapts reference analyticsAlerts preferences/logging/cooldown behavior for Google SMTP. */
+/** Adapts reference analyticsAlerts preferences/logging/cooldown behavior for Resend. */
 export async function processAnalyticsAlerts() {
   if (!emailDeliveryEnabled()) return { state: "disabled", processed: 0 };
-  if (!smtpConfigured()) return { state: "unconfigured", processed: 0 };
+  if (!emailConfigured()) return { state: "unconfigured", processed: 0 };
   const db = analyticsDatabase();
   if (!db) return { state: "unconfigured", processed: 0 };
   const { data, error } = await db.rpc("claim_analytics_alerts", {
@@ -110,32 +102,14 @@ export async function processAnalyticsAlerts() {
   if (error) return { state: "unavailable", processed: 0 };
   const jobs = (data ?? []) as AlertJob[];
   if (!jobs.length) return { state: "ready", processed: 0 };
-  const transport = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASSWORD?.replace(/\s/g, ""),
-    },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 15000,
-    disableFileAccess: true,
-    disableUrlAccess: true,
-  });
   let processed = 0;
-  try {
-    for (const job of jobs) {
-      try {
-        await deliverAlert(db, job, transport);
-        processed++;
-      } catch {
-        /* Lease becomes uncertain if a recorded send cannot be finalized. */
-      }
+  for (const job of jobs) {
+    try {
+      await deliverAlert(db, job);
+      processed++;
+    } catch {
+      /* Lease becomes uncertain if a recorded send cannot be finalized. */
     }
-  } finally {
-    transport.close();
   }
   return { state: "ready", processed };
 }

@@ -243,7 +243,7 @@ test("dark mode persists and chart metrics remain accessible", async ({
   await page.screenshot({ path: "test-results/admin-dark-mobile.png" });
 });
 
-test("SMTP settings persist and the GA tag alone does not expose reports", async ({
+test("Resend settings persist and the GA tag alone does not expose reports", async ({
   page,
 }) => {
   await login(page);
@@ -267,7 +267,7 @@ test("SMTP settings persist and the GA tag alone does not expose reports", async
     visitors: 50,
     resumeViews: 15,
   });
-  expect(saved.smtpConfigured).toBe(false);
+  expect(saved.emailConfigured).toBe(false);
   expect(saved.deliveryEnabled).toBe(false);
   await page
     .getByRole("checkbox", { name: "Enable threshold emails" })

@@ -29,3 +29,9 @@ Useful further ideas to suggest: campaign/UTM comparisons, per-case-study drop-o
 - SMTP requires explicit production-only SMTP_ALERT_DELIVERY_ENABLED. User choice changed the planned Resend provider to Google SMTP; duplicate-safety uses uncertain statuses instead of claiming provider idempotency.
 - Database upgrade file was opened and requested. At the final read-only check, enhanced hosted reports were not installed, and SMTP_USER, SMTP_PASSWORD, GA_PROPERTY_ID and GOOGLE_SERVICE_ACCOUNT_JSON were absent. Implementation is verified locally; hosted activation remains pending those user-controlled prerequisites.
 - Suggested follow-ups: campaign conversion comparisons, section drop-off, weekly summaries, broken-link/performance/error alerts. No unrelated features, production deployment or external messages were performed.
+
+## Provider correction
+
+The user subsequently confirmed Resend only and supplied local Resend credentials. Replace SMTP with the Resend HTTPS API, retain private thresholds and production-only delivery, remove Nodemailer, and document the local Google service-account JSON format. Existing SQL needs no provider-specific change. Earlier SMTP setup notes above describe the superseded provider decision.
+
+Provider correction verified: 39 unit/database tests, six browser flows, scoped ESLint, TypeScript, production build and independent review passed. Read-only hosted checks confirmed enhanced analytics_report and analytics_alert_preferences are installed. Local Resend key/sender are present; GA_PROPERTY_ID and GOOGLE_SERVICE_ACCOUNT_JSON were absent from this checkout's .env.local at verification. No live emails sent; production alert delivery remains explicitly disabled until configured.

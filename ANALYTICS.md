@@ -12,7 +12,7 @@ The portfolio uses a consent-gated first-party collector backed by Supabase Post
 - Bot/internal filters, browser exclusion and marking a visit internal.
 - RLS-protected tables, service-only SQL functions, bounded/validated ingestion, retry deduplication, persistent rate limits and a scheduled retention endpoint.
 
-Google SMTP threshold alerts, aggregate GA geography and new/returning-browser reporting are included in the admin expansion below. Klyro transcripts, historical GA4 import into first-party records and a content-management editor remain separate work.
+Resend threshold alerts, aggregate GA geography and new/returning-browser reporting are included in the admin expansion below. Klyro transcripts, historical GA4 import into first-party records and a content-management editor remain separate work.
 
 ## Setup and activation
 
@@ -111,7 +111,7 @@ The reference is `/Users/areefsyed/Desktop/Code/portfolio`:
 
 The existing site's instrumentation and design tokens are retained instead of adding a second set of component-level trackers or copying the reference's Tailwind theme.
 
-## Admin expansion: appearance, charts, sharing, SMTP and GA
+## Admin expansion: appearance, charts, sharing, Resend and GA
 
 The admin now supports persisted Light/Dark/System appearance. The time-series chart can switch between page views, visits with events, résumé views, download clicks and shares, with line/bar displays and an accessible data table. Missing UTC buckets are filled with zeroes. New/returning browser counts use retained history. The visit-to-action funnel counts distinct visits per action; stages are independent, so it is not presented as an ordered attribution model.
 
@@ -121,19 +121,19 @@ The public résumé viewer includes Share résumé. Native sharing records `resu
 
 Existing installations should run `supabase/upgrade-admin-expansion.sql` in the Supabase SQL Editor. It applies migrations 003 and 004 transactionally without deleting visits/events. Fresh installations can run the full setup script. This adds enhanced reporting, private per-admin threshold settings, durable delivery claims and delivery history. Public/ordinary authenticated roles cannot read or execute these functions.
 
-### Google SMTP alerts
+### Resend alerts
 
-Set server-only `SMTP_USER` and `SMTP_PASSWORD` (a Google app password). Sending uses `smtp.gmail.com:465` with TLS, bounded timeouts, and disabled file/URL attachment access. The sender is the configured Google account; recipients are restricted to the verified allowlisted admin account.
+Set server-only `RESEND_API_KEY` and `RESEND_FROM_EMAIL` in this project's `.env.local` and in production hosting secrets. The sender must be allowed by your verified Resend domain (or Resend's restricted test-sender rules). Requests use the Resend HTTPS API with a 15-second timeout; recipients are restricted to the verified allowlisted admin account.
 
-Enable live delivery explicitly with `SMTP_ALERT_DELIVERY_ENABLED=true` **in production**. Development, tests and Vercel previews do not claim or send live email. Settings show both credential presence and environment delivery status. A configured account alone does not enable delivery.
+Enable live delivery explicitly with `ALERT_DELIVERY_ENABLED=true` **in production**. Development, tests and Vercel previews do not claim or send live email. Settings show both credential presence and environment delivery status. Credentials alone do not enable delivery.
 
 In Settings, choose a visitor threshold and/or résumé-view threshold, an hourly/daily/weekly UTC counting window, then enable threshold emails. Empty thresholds disable the metric. Weeks start Monday. Visitors mean distinct anonymous browsers; résumé views count viewer/direct-PDF-open events. Bots/internal visits are excluded. Enabling alerts can include activity already recorded in the current window. Preference edits invalidate unstarted claims, while sent/uncertain records remain durable so they cannot cause a duplicate email in that window.
 
 Evaluation runs after successful first-party collection using Next.js `after()`, and from the existing daily retention cron. `/api/cron/alerts` is an additional bearer-protected endpoint for hosts that can run checks more frequently. Configure an external/hosting scheduler every 5–15 minutes if desired; the repository does not assume a paid Vercel cron tier. The setting is an application feature, not a Codex automation.
 
-SMTP lacks a provider idempotency mechanism. Claims prevent concurrent sends; interrupted sending becomes `uncertain` and is not automatically resent. Definitive failures before submission can retry up to three claims, separated by five minutes. Generic socket/CONN timeouts are uncertain because the server may already have accepted the message. `sent` means SMTP accepted the recipient/message, not proof of inbox delivery. Delivery history remains visible in Settings.
+Each request uses a stable `Idempotency-Key` derived from the durable alert ID. Rate-limit responses can retry up to three claims, separated by five minutes. Network errors, server errors, and interrupted sends become `uncertain` and are not automatically resent. Other rejected requests require configuration correction. `sent` means Resend accepted the API request, not proof of inbox delivery. Delivery history remains visible in Settings.
 
-Google account setup: [Google app passwords](https://support.google.com/accounts/answer/185833), [Nodemailer Gmail guidance](https://nodemailer.com/guides/using-gmail).
+Sources: [Resend send API](https://resend.com/docs/api-reference/emails/send-email), [24-hour idempotency keys](https://resend.com/docs/dashboard/emails/idempotency-keys).
 
 ### Read-only GA4 reporting
 
@@ -143,6 +143,15 @@ The measurement tag is configured independently from report access. To read repo
 2. Enable the Google Analytics Data API in the service account's Google Cloud project.
 3. Grant the service-account email Viewer access to the intended GA4 property.
 4. Set `GOOGLE_SERVICE_ACCOUNT_JSON` to the service-account JSON credential as a server-only environment variable. Never paste it into client code or commit it.
+
+Locally, the JSON belongs in `/Users/areefsyed/Desktop/Shweta/portfolio/.env.local`, alongside `GA_PROPERTY_ID`. In Google Cloud, open IAM & Admin → Service Accounts → your account → Keys → Add key → Create new key → JSON. Use the entire downloaded JSON, compacted onto one line and wrapped in single quotes. Preserve the literal `\n` escape sequences within `private_key`:
+
+```dotenv
+GA_PROPERTY_ID=123456789
+GOOGLE_SERVICE_ACCOUNT_JSON='{"type":"service_account","client_email":"analytics@project.iam.gserviceaccount.com","private_key":"-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"}'
+```
+
+This is an illustrative format; paste the complete actual JSON, including its other fields. Do not prefix this variable with `NEXT_PUBLIC_`. Restart the development server after changing environment variables. For production, enter the complete JSON as the environment variable's value in the hosting secret settings (without the shell's enclosing single quotes).
 
 The Google Analytics tab fetches totals, daily active users/page views, top countries, session sources, device/browser breakdowns, top events, and active users over the last 30 minutes. Requests use Google's maintained auth library and only `analytics.readonly`. Results are cached server-side for up to five minutes. Auth is checked before every endpoint access, including cached results. Missing credentials, access denial, quota failures, incomplete reports and partial realtime/device availability have explicit UI states.
 

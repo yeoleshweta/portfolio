@@ -1,7 +1,7 @@
 import { requireAdmin, adminError } from "@/lib/admin/auth";
 import { analyticsDatabase, sameOrigin } from "@/lib/analytics/server";
 import { parseAlertSettings } from "@/lib/admin/alerts-contract";
-import { smtpConfigured, emailDeliveryEnabled } from "@/lib/admin/alerts";
+import { emailConfigured, emailDeliveryEnabled } from "@/lib/admin/alerts";
 export async function GET() {
   try {
     const user = await requireAdmin();
@@ -19,7 +19,7 @@ export async function GET() {
       {
         ...data,
         email: user.email,
-        smtpConfigured: smtpConfigured(),
+        emailConfigured: emailConfigured(),
         deliveryEnabled: emailDeliveryEnabled(),
       },
       { headers: { "Cache-Control": "private, no-store" } },

@@ -23,7 +23,7 @@ export default function AlertSettings() {
   });
   const [email, setEmail] = useState("");
   const [ready, setReady] = useState(false);
-  const [smtp, setSmtp] = useState(false);
+  const [configured, setEmailConfigured] = useState(false);
   const [deliveryEnabled, setDeliveryEnabled] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -40,7 +40,7 @@ export default function AlertSettings() {
         if (!r.ok) throw Error(data.error ?? "Unable to load alert settings.");
         setSettings(data.settings);
         setEmail(data.email);
-        setSmtp(data.smtpConfigured);
+        setEmailConfigured(data.emailConfigured);
         setDeliveryEnabled(data.deliveryEnabled);
         setDeliveries(data.deliveries);
         setReady(true);
@@ -91,11 +91,11 @@ export default function AlertSettings() {
         <>
           <p className={styles.small}>
             Delivery to {email}.{" "}
-            {smtp
-              ? "Google SMTP is configured."
-              : "Google SMTP is not configured; settings can be saved, but email will not send yet."}{" "}
+            {configured
+              ? "Resend is configured."
+              : "Resend is not configured; settings can be saved, but email will not send yet."}{" "}
             {!deliveryEnabled &&
-              "Live delivery is disabled in this environment. Enable it explicitly on production after verifying SMTP."}
+              "Live delivery is disabled in this environment. Enable it explicitly on production after verifying the Resend sender."}
           </p>
           <form onSubmit={save} className={styles.alertForm}>
             <label
@@ -214,7 +214,7 @@ export default function AlertSettings() {
             <p className={styles.empty}>No threshold emails yet.</p>
           )}
           <p className={styles.small}>
-            Sent means SMTP accepted the email. An uncertain delivery may have
+            Sent means Resend accepted the email. An uncertain delivery may have
             succeeded and is not resent automatically.
           </p>
         </>

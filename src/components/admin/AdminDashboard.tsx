@@ -993,7 +993,7 @@ export default function AdminDashboard({
                     daily cleanup is configured.
                   </li>
                   <li>
-                    Email threshold delivery requires Google SMTP. Google
+                    Email threshold delivery requires Resend. Google
                     Analytics reports use a separate read-only connection;
                     chatbot transcripts are not connected.
                   </li>

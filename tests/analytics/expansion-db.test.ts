@@ -101,7 +101,7 @@ test("visitor and resume thresholds claim once per UTC window, excluding interna
   );
   expect(again.rows[0].jobs).toHaveLength(0);
 });
-test("expired sending leases become uncertain instead of generating duplicate SMTP sends", async () => {
+test("expired sending leases become uncertain instead of generating duplicate Resend sends", async () => {
   await db.exec(
     "UPDATE public.analytics_alert_deliveries SET status='sending',locked_until=now()-interval '1 minute'",
   );
