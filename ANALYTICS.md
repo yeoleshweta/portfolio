@@ -12,7 +12,7 @@ The portfolio uses a consent-gated first-party collector backed by Supabase Post
 - Bot/internal filters, browser exclusion and marking a visit internal.
 - RLS-protected tables, service-only SQL functions, bounded/validated ingestion, retry deduplication, persistent rate limits and a scheduled retention endpoint.
 
-Email alerts, geography, Klyro transcripts, historical GA4 import and a content-management editor are not implemented. The admin currently reports aggregate browser counts; it does not provide a separate new/returning-browser report.
+Google SMTP threshold alerts, aggregate GA geography and new/returning-browser reporting are included in the admin expansion below. Klyro transcripts, historical GA4 import into first-party records and a content-management editor remain separate work.
 
 ## Setup and activation
 
@@ -110,3 +110,46 @@ The reference is `/Users/areefsyed/Desktop/Code/portfolio`:
 - `convex/adminAnalytics.ts`: ported reporting concepts to SQL aggregates and consistent server-side filters; Convex-specific queries/auth were replaced with Supabase.
 
 The existing site's instrumentation and design tokens are retained instead of adding a second set of component-level trackers or copying the reference's Tailwind theme.
+
+## Admin expansion: appearance, charts, sharing, SMTP and GA
+
+The admin now supports persisted Light/Dark/System appearance. The time-series chart can switch between page views, visits with events, résumé views, download clicks and shares, with line/bar displays and an accessible data table. Missing UTC buckets are filled with zeroes. New/returning browser counts use retained history. The visit-to-action funnel counts distinct visits per action; stages are independent, so it is not presented as an ordered attribution model.
+
+The public résumé viewer includes Share résumé. Native sharing records `resume_shared` only after successful completion; unsupported native sharing falls back to copying the résumé link and records `method=copy_link`. Cancelling native sharing records no share. Shared links use `from=share` to attribute subsequent viewer opens. View/download/share tracking uses the existing consent gate and the same GA event destination when enabled.
+
+### Database upgrade
+
+Existing installations should run `supabase/upgrade-admin-expansion.sql` in the Supabase SQL Editor. It applies migrations 003 and 004 transactionally without deleting visits/events. Fresh installations can run the full setup script. This adds enhanced reporting, private per-admin threshold settings, durable delivery claims and delivery history. Public/ordinary authenticated roles cannot read or execute these functions.
+
+### Google SMTP alerts
+
+Set server-only `SMTP_USER` and `SMTP_PASSWORD` (a Google app password). Sending uses `smtp.gmail.com:465` with TLS, bounded timeouts, and disabled file/URL attachment access. The sender is the configured Google account; recipients are restricted to the verified allowlisted admin account.
+
+Enable live delivery explicitly with `SMTP_ALERT_DELIVERY_ENABLED=true` **in production**. Development, tests and Vercel previews do not claim or send live email. Settings show both credential presence and environment delivery status. A configured account alone does not enable delivery.
+
+In Settings, choose a visitor threshold and/or résumé-view threshold, an hourly/daily/weekly UTC counting window, then enable threshold emails. Empty thresholds disable the metric. Weeks start Monday. Visitors mean distinct anonymous browsers; résumé views count viewer/direct-PDF-open events. Bots/internal visits are excluded. Enabling alerts can include activity already recorded in the current window. Preference edits invalidate unstarted claims, while sent/uncertain records remain durable so they cannot cause a duplicate email in that window.
+
+Evaluation runs after successful first-party collection using Next.js `after()`, and from the existing daily retention cron. `/api/cron/alerts` is an additional bearer-protected endpoint for hosts that can run checks more frequently. Configure an external/hosting scheduler every 5–15 minutes if desired; the repository does not assume a paid Vercel cron tier. The setting is an application feature, not a Codex automation.
+
+SMTP lacks a provider idempotency mechanism. Claims prevent concurrent sends; interrupted sending becomes `uncertain` and is not automatically resent. Definitive failures before submission can retry up to three claims, separated by five minutes. Generic socket/CONN timeouts are uncertain because the server may already have accepted the message. `sent` means SMTP accepted the recipient/message, not proof of inbox delivery. Delivery history remains visible in Settings.
+
+Google account setup: [Google app passwords](https://support.google.com/accounts/answer/185833), [Nodemailer Gmail guidance](https://nodemailer.com/guides/using-gmail).
+
+### Read-only GA4 reporting
+
+The measurement tag is configured independently from report access. To read reports:
+
+1. Set `GA_PROPERTY_ID` to the numeric property ID (not the `G-...` measurement ID).
+2. Enable the Google Analytics Data API in the service account's Google Cloud project.
+3. Grant the service-account email Viewer access to the intended GA4 property.
+4. Set `GOOGLE_SERVICE_ACCOUNT_JSON` to the service-account JSON credential as a server-only environment variable. Never paste it into client code or commit it.
+
+The Google Analytics tab fetches totals, daily active users/page views, top countries, session sources, device/browser breakdowns, top events, and active users over the last 30 minutes. Requests use Google's maintained auth library and only `analytics.readonly`. Results are cached server-side for up to five minutes. Auth is checked before every endpoint access, including cached results. Missing credentials, access denial, quota failures, incomplete reports and partial realtime/device availability have explicit UI states.
+
+GA's property timezone, reporting identity, consent processing/modeling and delays differ from first-party records. The admin keeps these datasets separate. First-party bot/internal switches do not alter GA reports. Privacy thresholds, sampling and grouped-other data loss are surfaced when reported by Google. Breakdowns are top lists, not complete visitor records. Automatic `file_download` and custom `resume_downloaded` counts must not be added together.
+
+Sources: [GA Data API quickstart](https://developers.google.com/analytics/devguides/reporting/data/v1/quickstart), [dimensions and metrics](https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema), [realtime reporting](https://developers.google.com/analytics/devguides/reporting/data/v1/rest/v1beta/properties/runRealtimeReport).
+
+### Further improvements
+
+Recommended follow-ups: source/campaign conversion comparisons, case-study section drop-off and return visits, weekly email digests, and broken-link/performance/error monitoring. Geography now has a GA country report; it is aggregate geography, not visitor identification. A content editor and Klyro transcript integration remain separate projects.

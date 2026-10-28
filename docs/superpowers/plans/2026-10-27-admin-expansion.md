@@ -21,3 +21,11 @@ Authorized by the user: dark mode, analytics charts, frontend resume view/share/
 - Test with deterministic Google/SMTP responses and real local PostgreSQL. Run scoped lint, TypeScript, production build, browser desktop/mobile/theme/share/settings tests. Independent final code review and phase commit.
 
 Useful further ideas to suggest: campaign/UTM comparisons, per-case-study drop-off, weekly summaries, performance/error monitoring, and opt-in contact attribution. Implement the closely related new/returning audience and conversion funnel now; leave other suggestions explicit.
+
+## Outcomes
+- Backend/tracking foundations committed as b8cf9fb; frontend integration committed as 20118dd. Shared interfaces were implemented together and committed backend-first so each public tracker retained its existing interface.
+- Verification: 36 unit/database tests, six browser flows, scoped ESLint, TypeScript and production build passed. Browser tests cover dark desktop/mobile layouts, chart controls, consent, resume share/download, authenticated settings persistence and GA's unconfigured state. SMTP and GA protocol tests use deterministic responses; no live emails were sent.
+- Independent review found three material issues: missing nonproduction send gate, Nodemailer CONN timeout ambiguity, and stale claims after preferences change. Each was reproduced in a failing regression and fixed; the final suite passed.
+- SMTP requires explicit production-only SMTP_ALERT_DELIVERY_ENABLED. User choice changed the planned Resend provider to Google SMTP; duplicate-safety uses uncertain statuses instead of claiming provider idempotency.
+- Database upgrade file was opened and requested. At the final read-only check, enhanced hosted reports were not installed, and SMTP_USER, SMTP_PASSWORD, GA_PROPERTY_ID and GOOGLE_SERVICE_ACCOUNT_JSON were absent. Implementation is verified locally; hosted activation remains pending those user-controlled prerequisites.
+- Suggested follow-ups: campaign conversion comparisons, section drop-off, weekly summaries, broken-link/performance/error alerts. No unrelated features, production deployment or external messages were performed.
