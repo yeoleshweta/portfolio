@@ -27,16 +27,6 @@ import {
 } from "@/content/teamContract";
 import styles from "./teamContract.module.css";
 
-/* Colours for the password gate only. The case study itself uses globals.css tokens. */
-const T = {
-  green: "#367C2B",
-  yellow: "#FFDE00",
-  text: "#1c1b17",
-  muted: "#6e6b60",
-  border: "#e3e0d6",
-  white: "#ffffff",
-};
-
 /* Renders *word* as an italic accent inside a heading. */
 function Marked({ text }: { text: string }) {
   return (
@@ -226,87 +216,8 @@ const TYPE_TONE: Record<string, string> = {
 
 const sections = sectionNav;
 
-/* ─────────── Password gate (unchanged) ─────────── */
-function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === "deere2026") {
-      localStorage.setItem("team_contract_access", "deere2026");
-      onUnlock();
-    } else {
-      setError("Incorrect password. Please try again.");
-    }
-  };
-
-  return (
-    <div role="region" aria-label="Password protected case study" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f5f3", padding: "24px" }}>
-      <div style={{ background: T.white, border: `1px solid ${T.border}`, borderRadius: "12px", width: "100%", maxWidth: "440px", overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}>
-        <div style={{ height: "6px", background: T.yellow }} />
-        <div style={{ background: T.green, padding: "28px 24px", textAlign: "center" as const, color: T.white }}>
-          <div style={{ fontSize: "18px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase" as const }}>John Deere</div>
-          <div style={{ fontSize: "11px", marginTop: "5px", fontFamily: "JetBrains Mono, monospace", letterSpacing: "0.1em" }}>TEAM CONTRACT</div>
-        </div>
-        <form onSubmit={handleSubmit} style={{ padding: "36px 32px", display: "flex", flexDirection: "column" as const, gap: "20px" }}>
-          <div style={{ textAlign: "center" as const }}>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: T.text, margin: "0 0 8px 0" }}>Protected Case Study</h3>
-            <p style={{ fontSize: "13.5px", color: T.muted, margin: 0, lineHeight: 1.55 }}>
-              This case study contains proprietary materials under NDA. Please enter the password to view.
-            </p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" as const, gap: "6px" }}>
-            <label htmlFor="team-contract-password" style={{ fontSize: "12px", fontWeight: 600, color: T.text }}>
-              Password
-            </label>
-            <input
-              id="team-contract-password"
-              type="password"
-              autoComplete="current-password"
-              placeholder="Enter password..."
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              aria-invalid={Boolean(error)}
-              aria-describedby={error ? "team-contract-password-error" : undefined}
-              style={{ padding: "12px 16px", border: `1px solid ${T.border}`, borderRadius: "4px", fontSize: "14px", width: "100%", color: T.text, boxSizing: "border-box" as const }}
-              onFocus={(e) => { e.target.style.borderColor = T.green; }}
-              onBlur={(e) => { e.target.style.borderColor = T.border; }}
-            />
-            {error && (
-              <span id="team-contract-password-error" role="alert" style={{ fontSize: "12.5px", color: "#b91c1c", fontWeight: 600 }}>
-                {error}
-              </span>
-            )}
-          </div>
-          <button
-            type="submit"
-            style={{ background: T.yellow, color: T.text, border: "none", padding: "14px", borderRadius: "4px", fontWeight: 700, fontSize: "13px", textTransform: "uppercase" as const, letterSpacing: "0.1em", cursor: "pointer" }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#e5c800"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = T.yellow; }}
-          >
-            Unlock Case Study
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-}
-
 /* ─────────── Main page ─────────── */
 export default function TeamContractCaseStudy() {
-  const [unlocked, setUnlocked] = React.useState(false);
-
-  React.useEffect(() => {
-    if (localStorage.getItem("team_contract_access") === "deere2026") {
-      setUnlocked(true);
-    }
-  }, []);
-
-  if (!unlocked) {
-    return <PasswordGate onUnlock={() => setUnlocked(true)} />;
-  }
-
   return (
     <CaseStudyLayout sections={sections} hideBrief>
       {/* ── Hero ── */}
