@@ -1,3 +1,5 @@
+import { after } from "next/server";
+import { processAnalyticsAlerts } from "@/lib/admin/alerts";
 import { parseBatch } from "@/lib/analytics/contract";
 import { classifyUserAgent } from "@/lib/analytics/helpers";
 import {
@@ -47,5 +49,8 @@ export async function POST(request: Request) {
       status: error.message.includes("rate limit") ? 429 : 503,
       headers,
     });
+  after(async () => {
+    await processAnalyticsAlerts();
+  });
   return new Response(null, { status: 204, headers });
 }

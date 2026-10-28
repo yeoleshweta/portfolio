@@ -1,3 +1,4 @@
+import { processAnalyticsAlerts } from "@/lib/admin/alerts";
 import { analyticsDatabase, secretMatches } from "@/lib/analytics/server";
 export async function GET(request: Request) {
   if (
@@ -14,8 +15,9 @@ export async function GET(request: Request) {
       { status: 503 },
     );
   const { error } = await db.rpc("prune_analytics");
+  const alerts = await processAnalyticsAlerts();
   return Response.json(
-    { ok: !error },
+    { ok: !error, alerts },
     { status: error ? 503 : 200, headers: { "Cache-Control": "no-store" } },
   );
 }

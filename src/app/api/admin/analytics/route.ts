@@ -1,3 +1,4 @@
+import { fillSeries } from "@/lib/admin/chart";
 import { requireAdmin, adminError } from "@/lib/admin/auth";
 import { parseFilters, toCsv } from "@/lib/admin/filters";
 import { analyticsDatabase } from "@/lib/analytics/server";
@@ -34,9 +35,18 @@ export async function GET(request: Request) {
         }),
       ]);
       if (current.error || previous.error) throw Error("Reporting failed");
+      if (typeof current.data?.totals?.resumeShares !== "number")
+        return Response.json(
+          {
+            error:
+              "Run the admin expansion database upgrade to enable the new reports.",
+          },
+          { status: 503, headers: { "Cache-Control": "private, no-store" } },
+        );
       return Response.json(
         {
           ...current.data,
+          series: fillSeries(current.data.series, filters.from, filters.to),
           previousTotals: previous.data.totals,
           updatedAt: new Date().toISOString(),
         },
