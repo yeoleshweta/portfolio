@@ -1,0 +1,9 @@
+# Portfolio analytics and administration
+
+Approved scope: implement the preceding chat proposal in phases; tracking and backend precede the dashboard. Use the Supabase project the user is setting up. Reuse the reference portfolio at /Users/areefsyed/Desktop/Code/portfolio wherever its behavior fits.
+
+1. Private analytics backend: PostgreSQL tables, indexes, RLS, transactional ingestion, deduplication, bounded collection, reporting, retention. Browser clients never receive database secrets or permission to read analytics. Use Supabase Auth with a server-enforced email allowlist for administration.
+2. Tracking: preserve existing event attributes and GA4 destination, add consent-gated first-party collection, persistent anonymous browser IDs and separate 30-minute visits, heartbeats, retries and exclusions. Separate resume viewer opens and download intent. Distinguish protected gates from content views. Public pages retain their design; admin gets an isolated layout.
+3. Dashboard: adapt reference metrics, date filters, timelines, visitor breakdowns and CSV export to this site's gray/lilac CSS-module design. Add case-study reports. Honest loading, empty, error, truncated and unconfigured states. No fabricated data. Contact clicks are intent; 90% scroll is reaching the end; download clicks are not proof of saving. Exclude bots/internal traffic consistently. Anonymous visitors are browsers, not identified people.
+
+Deliver code and migrations with automated local tests, phase commits, deployment instructions, and an explicit distinction between local verification and hosted activation. Do not send email, deploy or apply migrations to a remote project without the project connection. Optional email alerts, geography and Klyro transcripts are follow-up integrations, not invented capabilities.
