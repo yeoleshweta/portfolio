@@ -148,6 +148,24 @@ const server = http.createServer(async (req, res) => {
       "p_search",
     ],
     prune_analytics: [],
+    save_analytics_alert_settings: [
+      "p_owner",
+      "p_email",
+      "p_enabled",
+      "p_period",
+      "p_visitors",
+      "p_resume",
+    ],
+    analytics_alert_preferences: ["p_owner"],
+    claim_analytics_alerts: ["p_now"],
+    start_analytics_alert: ["p_id", "p_token"],
+    finish_analytics_alert: [
+      "p_id",
+      "p_token",
+      "p_status",
+      "p_detail",
+      "p_retry",
+    ],
   };
   const name = url.pathname.split("/").at(-1);
   try {

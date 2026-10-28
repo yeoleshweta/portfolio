@@ -17,6 +17,9 @@ import {
 } from "lucide-react";
 import { signOut } from "@/app/admin/actions";
 import { EXCLUDE_KEY } from "@/lib/analytics/client";
+import GoogleAnalyticsPanel from "./GoogleAnalyticsPanel";
+import AlertSettings from "./AlertSettings";
+import ThemeControl from "./ThemeControl";
 import TrendChart from "./TrendChart";
 import type {
   ActivityResult,
@@ -27,12 +30,19 @@ import type {
 } from "./types";
 import styles from "./admin.module.css";
 
-type Tab = "overview" | "cases" | "audience" | "activity" | "settings";
+type Tab =
+  | "overview"
+  | "cases"
+  | "audience"
+  | "activity"
+  | "google"
+  | "settings";
 const tabs: { id: Tab; label: string }[] = [
   { id: "overview", label: "Overview" },
   { id: "cases", label: "Case studies" },
   { id: "audience", label: "Audience" },
   { id: "activity", label: "Activity" },
+  { id: "google", label: "Google Analytics" },
   { id: "settings", label: "Settings" },
 ];
 function dateInputValue(date: Date) {
@@ -350,7 +360,7 @@ export default function AdminDashboard({
     setOffset((n) => Math.max(0, n - 50));
   };
   return (
-    <div className={styles.admin}>
+    <div className={styles.admin} data-admin-root data-theme="light">
       <a className="skipLink" href="#admin-content">
         Skip to analytics
       </a>
@@ -388,14 +398,17 @@ export default function AdminDashboard({
             <p className={styles.muted}>Your portfolio at a glance</p>
             <h1>{tabs.find((t) => t.id === tab)?.label}</h1>
           </div>
-          <button
-            className={styles.iconButton}
-            onClick={() => setRefresh((n) => n + 1)}
-            aria-label="Refresh analytics"
-            disabled={loading}
-          >
-            <RefreshCw size={18} />
-          </button>
+          <div className={styles.headerActions}>
+            <ThemeControl />
+            <button
+              className={styles.iconButton}
+              onClick={() => setRefresh((n) => n + 1)}
+              aria-label="Refresh analytics"
+              disabled={loading}
+            >
+              <RefreshCw size={18} />
+            </button>
+          </div>
         </header>
         <form className={styles.filters} onSubmit={(e) => e.preventDefault()}>
           <div className={styles.quickRanges} aria-label="Date presets">
@@ -509,12 +522,53 @@ export default function AdminDashboard({
                   </article>
                 ))}
               </section>
+              <section
+                className={styles.funnel}
+                aria-label="Visit conversion funnel"
+              >
+                <h2>From visit to action</h2>
+                <p>
+                  Unique visits performing each action; stages may occur
+                  independently.
+                </p>
+                <div>
+                  {(
+                    [
+                      "visits",
+                      "caseStudies",
+                      "resume",
+                      "downloads",
+                      "shares",
+                      "contacts",
+                    ] as const
+                  ).map((key) => (
+                    <article key={key}>
+                      <strong>
+                        {(report?.funnel?.[key] ?? 0).toLocaleString()}
+                      </strong>
+                      <span>
+                        {{
+                          visits: "Visits",
+                          caseStudies: "Case studies",
+                          resume: "Résumé",
+                          downloads: "Downloads",
+                          shares: "Shares",
+                          contacts: "Contact",
+                        }[key] ?? key}
+                      </span>
+                    </article>
+                  ))}
+                </div>
+              </section>
               <div className={styles.overviewGrid}>
                 <section className={styles.panel}>
                   <div className={styles.panelHeader}>
                     <div>
                       <h2>Attention over time</h2>
-                      <p>Page views in the selected period</p>
+                      <p>
+                        Explore traffic and résumé actions in the selected
+                        period
+                      </p>
                     </div>
                     <Eye size={18} />
                   </div>
@@ -579,6 +633,7 @@ export default function AdminDashboard({
                           <th scope="col">Placement</th>
                           <th scope="col">Views</th>
                           <th scope="col">Download clicks</th>
+                          <th scope="col">Shares</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -587,6 +642,7 @@ export default function AdminDashboard({
                             <th scope="row">{p.label.replaceAll("_", " ")}</th>
                             <td>{p.views}</td>
                             <td>{p.downloads}</td>
+                            <td>{p.shares ?? 0}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -693,6 +749,11 @@ export default function AdminDashboard({
           )}
           {tab === "audience" && (
             <>
+              <p className={styles.notice}>
+                {report?.totals.newVisitors ?? 0} first-time browsers ·{" "}
+                {report?.totals.returningVisitors ?? 0} returning browsers in
+                the selected dates. Based on retained history.
+              </p>
               <div className={styles.breakdownGrid}>
                 <BreakdownList title="Devices" rows={report?.devices ?? []} />
                 <BreakdownList title="Browsers" rows={report?.browsers ?? []} />
@@ -837,8 +898,10 @@ export default function AdminDashboard({
               </p>
             </section>
           )}
+          {tab === "google" && <GoogleAnalyticsPanel from={from} to={to} />}
           {tab === "settings" && (
             <>
+              <AlertSettings />
               <section className={styles.panel}>
                 <div className={styles.panelHeader}>
                   <div>
@@ -930,8 +993,9 @@ export default function AdminDashboard({
                     daily cleanup is configured.
                   </li>
                   <li>
-                    Email alerts, geographic enrichment, and chatbot transcripts
-                    are not connected.
+                    Email threshold delivery requires Google SMTP. Google
+                    Analytics reports use a separate read-only connection;
+                    chatbot transcripts are not connected.
                   </li>
                 </ul>
               </section>

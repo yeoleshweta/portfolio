@@ -128,6 +128,26 @@ test("consent controls collection and resume viewing is distinct from downloads"
       { timeout: 15000 },
     )
     .toBe(true);
+  await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.evaluate(() =>
+    Object.defineProperty(navigator, "share", {
+      value: undefined,
+      configurable: true,
+    }),
+  );
+  await page.getByRole("button", { name: "Share résumé", exact: true }).click();
+  await expect(
+    page.getByText("Résumé link copied.", { exact: true }),
+  ).toBeVisible();
+  await expect
+    .poll(
+      () =>
+        batches
+          .flatMap((b) => b.events)
+          .some((e) => e.name === "resume_shared"),
+      { timeout: 15000 },
+    )
+    .toBe(true);
   await page.getByRole("button", { name: "Privacy settings" }).click();
   await page.getByRole("button", { name: "Decline", exact: true }).click();
   expect(
@@ -181,4 +201,85 @@ test("consent grants and revocation synchronize across open tabs", async ({
   await second.waitForTimeout(6000);
   expect(batches.length).toBe(count);
   await second.close();
+});
+
+test("dark mode persists and chart metrics remain accessible", async ({
+  page,
+}) => {
+  await login(page);
+  await page.getByLabel("Admin appearance").selectOption("dark");
+  await expect(page.locator("[data-admin-root]")).toHaveAttribute(
+    "data-theme",
+    "dark",
+  );
+  await page
+    .getByLabel("Chart metric", { exact: true })
+    .selectOption("resumeShares");
+  await page.getByRole("button", { name: "Bars", exact: true }).click();
+  await expect(page.getByRole("img", { name: /Résumé shares:/ })).toBeVisible();
+  const result = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(
+    result.violations.filter((v) =>
+      ["serious", "critical"].includes(v.impact ?? ""),
+    ),
+  ).toEqual([]);
+  await page.screenshot({
+    path: "test-results/admin-dark.png",
+    fullPage: true,
+  });
+  await page.reload();
+  await expect(page.locator("[data-admin-root]")).toHaveAttribute(
+    "data-theme",
+    "dark",
+  );
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    ),
+  ).toBe(true);
+  await page.screenshot({ path: "test-results/admin-dark-mobile.png" });
+});
+
+test("SMTP settings persist and the GA tag alone does not expose reports", async ({
+  page,
+}) => {
+  await login(page);
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "Email thresholds", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByLabel("Visitor threshold", { exact: true }),
+  ).toHaveValue("25");
+  await page.getByLabel("Visitor threshold", { exact: true }).fill("50");
+  await page.getByLabel("Résumé view threshold", { exact: true }).fill("15");
+  await page.getByRole("checkbox", { name: "Enable threshold emails" }).check();
+  await page.getByRole("button", { name: "Save email settings" }).click();
+  await expect(
+    page.getByText("Alert settings saved.", { exact: true }),
+  ).toBeVisible();
+  const saved = await (await page.request.get("/api/admin/alerts")).json();
+  expect(saved.settings).toMatchObject({
+    enabled: true,
+    visitors: 50,
+    resumeViews: 15,
+  });
+  expect(saved.smtpConfigured).toBe(false);
+  expect(saved.deliveryEnabled).toBe(false);
+  await page
+    .getByRole("checkbox", { name: "Enable threshold emails" })
+    .uncheck();
+  await page.getByRole("button", { name: "Save email settings" }).click();
+  await expect(
+    page.getByText("Alert settings saved.", { exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Google Analytics", exact: true })
+    .click();
+  await expect(
+    page.getByText(/The tracking tag collects events, but report access needs/),
+  ).toBeVisible();
 });

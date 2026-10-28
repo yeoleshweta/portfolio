@@ -1,4 +1,42 @@
 .admin {
+  --admin-sidebar: #eae8ef;
+  --admin-border: #d9d7df;
+  --admin-soft: #eee8fe;
+  --admin-grid: #f0eef4;
+  --admin-inverse: #fff;
+  --admin-active: #1c1c1c;
+  color-scheme: light;
+}
+.admin[data-theme="dark"] {
+  --color-bg: #15141a;
+  --color-surface: #211f28;
+  --color-text: #f3f1f8;
+  --color-text-secondary: #bdb6ca;
+  --color-border: #383342;
+  --color-accent: #b59aff;
+  --color-accent-text: #c9b6ff;
+  --admin-sidebar: #1c1a23;
+  --admin-border: #494252;
+  --admin-soft: #342b48;
+  --admin-grid: #302b39;
+  --admin-inverse: #15141a;
+  --admin-active: #e6dcff;
+  color-scheme: dark;
+}
+.admin[data-theme="dark"] .error {
+  background: #391e27;
+  color: #ffcad1;
+  border-color: #7f4554;
+}
+.admin[data-theme="dark"] .primary {
+  background: #b59aff !important;
+  color: #181220 !important;
+}
+.admin .sidebar nav button[aria-current] {
+  background: var(--admin-active);
+  color: var(--admin-inverse);
+}
+.admin {
   min-height: 100vh;
   background: var(--color-bg);
   color: var(--color-text);
@@ -31,7 +69,7 @@
   font: inherit;
   color: inherit;
   background: var(--color-surface);
-  border: 1px solid #d3d3d3;
+  border: 1px solid var(--admin-border);
   border-radius: 10px;
   padding: 10px 12px;
   max-width: 100%;
@@ -48,8 +86,8 @@
   display: flex;
   flex-direction: column;
   padding: 32px 24px;
-  background: #eae8ef;
-  border-right: 1px solid #dedbe7;
+  background: var(--admin-sidebar);
+  border-right: 1px solid var(--admin-border);
 }
 .wordmark {
   font-size: 22px;
@@ -79,7 +117,7 @@
   font-weight: 500;
 }
 .sidebar nav button:hover {
-  background: #ffffff80;
+  background: var(--admin-soft);
 }
 .sidebar nav button[aria-current] {
   background: var(--color-text);
@@ -127,7 +165,7 @@
   color: var(--color-text-secondary);
 }
 .iconButton {
-  border: 1px solid #d5d3d8 !important;
+  border: 1px solid var(--admin-border) !important;
   border-radius: 50%;
   width: 44px;
   height: 44px;
@@ -142,7 +180,7 @@
   gap: 12px;
   flex-wrap: wrap;
   padding-bottom: 20px;
-  border-bottom: 1px solid #d9d7df;
+  border-bottom: 1px solid var(--admin-border);
 }
 .filters label {
   display: flex;
@@ -157,10 +195,10 @@
 .quickRanges {
   display: flex;
   padding: 4px;
-  border: 1px solid #d9d7df;
+  border: 1px solid var(--admin-border);
   border-radius: var(--radius-pill);
   margin-right: auto;
-  background: #eae8ef;
+  background: var(--admin-sidebar);
 }
 .quickRanges button {
   padding: 7px 12px;
@@ -186,8 +224,8 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
-  background: #dedce4;
-  border: 1px solid #dedce4;
+  background: var(--admin-border);
+  border: 1px solid var(--admin-border);
   border-radius: 24px;
   overflow: hidden;
   margin-bottom: 24px;
@@ -228,7 +266,7 @@
   height: 16px;
   display: grid;
   place-items: center;
-  border: 1px solid #b5b1bf;
+  border: 1px solid var(--admin-border);
   border-radius: 50%;
   font:
     11px Georgia,
@@ -272,14 +310,14 @@
   display: flex;
   align-items: flex-end;
   gap: 5px;
-  border-bottom: 1px solid #d9d7df;
+  border-bottom: 1px solid var(--admin-border);
   margin-top: 28px;
   background: repeating-linear-gradient(
     to top,
     transparent,
     transparent calc(25% - 1px),
-    #f0eef4 calc(25% - 1px),
-    #f0eef4 25%
+    var(--admin-grid) calc(25% - 1px),
+    var(--admin-grid) 25%
   );
 }
 .barSlot {
@@ -336,7 +374,7 @@
 .track {
   height: 5px;
   border-radius: 4px;
-  background: #efedf4;
+  background: var(--admin-soft);
   margin-top: 8px;
   overflow: hidden;
 }
@@ -362,7 +400,7 @@
 .liveCount {
   font-size: 12px;
   padding: 5px 10px;
-  background: #eee9fe;
+  background: var(--admin-soft);
   border-radius: 20px;
   white-space: nowrap;
 }
@@ -467,7 +505,7 @@
   align-items: center;
   gap: 8px;
   padding-left: 12px;
-  border: 1px solid #d3d3d3;
+  border: 1px solid var(--admin-border);
   border-radius: 10px;
   flex: 1;
   max-width: 420px;
@@ -514,12 +552,12 @@
 }
 .secondary {
   background: var(--color-bg) !important;
-  border: 1px solid #ddd9e5 !important;
+  border: 1px solid var(--admin-border) !important;
 }
 .notice {
   padding: 16px 20px;
-  border: 1px solid #d3c6fa;
-  background: #eee8fe;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-soft);
   border-radius: 16px;
   margin: 12px 0 24px;
   font-size: 13px;
@@ -612,7 +650,7 @@
 .timeline li {
   display: grid;
   gap: 5px;
-  border-left: 2px solid #ddd4f8;
+  border-left: 2px solid var(--admin-border);
   padding: 0 0 28px 20px;
   position: relative;
   font-size: 13px;
@@ -753,7 +791,7 @@
     position: relative;
     padding: 20px;
     border: 0;
-    border-bottom: 1px solid #dedbe7;
+    border-bottom: 1px solid var(--admin-border);
   }
   .sidebar nav {
     display: flex;
@@ -878,5 +916,195 @@
   }
   .dialog::backdrop {
     backdrop-filter: none;
+  }
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.headerActions label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+.headerActions select {
+  padding: 8px;
+}
+.chartControls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 24px 0 8px;
+  font-size: 12px;
+}
+.chartControls label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.chartControls > div {
+  display: flex;
+  gap: 4px;
+}
+.chartControls button {
+  padding: 7px 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 20px;
+}
+.chartControls button[aria-pressed="true"] {
+  background: var(--admin-soft);
+}
+.chartControls > strong {
+  margin-left: auto;
+  font-size: 20px;
+}
+.chartControls strong span {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+.svgChart {
+  display: block;
+  width: 100%;
+  height: 220px;
+  overflow: visible;
+  margin-top: 24px;
+}
+.gridLine {
+  stroke: var(--admin-grid);
+  stroke-width: 1;
+}
+.chartLine {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+.chartArea {
+  fill: var(--color-accent);
+  opacity: 0.12;
+}
+.chartPoint {
+  fill: var(--color-accent);
+}
+.chartPoint:hover {
+  fill: var(--color-accent-text);
+}
+.funnel {
+  margin: 0 0 24px;
+  padding: 26px 28px;
+  border: 1px solid var(--admin-border);
+  border-radius: 24px;
+}
+.funnel h2 {
+  font-size: 20px;
+  letter-spacing: -0.035em;
+}
+.funnel > p {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-top: 6px;
+}
+.funnel > div {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+.funnel article {
+  display: grid;
+  gap: 4px;
+}
+.funnel strong {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+.funnel span {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+@media (max-width: 700px) {
+  .headerActions {
+    gap: 8px;
+    align-items: flex-end;
+  }
+  .headerActions label {
+    font-size: 0;
+  }
+  .headerActions select {
+    font-size: 12px;
+    width: 95px;
+  }
+  .chartControls {
+    gap: 12px;
+  }
+  .chartControls > strong {
+    width: 100%;
+    margin-left: 0;
+  }
+  .funnel {
+    padding: 20px;
+  }
+  .funnel > div {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.alertForm {
+  margin-top: 20px;
+}
+.alertFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.3fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.alertFields label {
+  display: grid;
+  gap: 8px;
+  font-size: 12px;
+}
+.alertForm > .primary {
+  margin-top: 20px;
+}
+.subheading {
+  font-size: 16px;
+  margin-top: 32px;
+  font-weight: 500;
+}
+@media (max-width: 700px) {
+  .alertFields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gaMetrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 28px;
+}
+.gaMetrics article {
+  display: grid;
+  gap: 8px;
+}
+.gaMetrics strong {
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+.gaMetrics span {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+@media (max-width: 700px) {
+  .gaMetrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

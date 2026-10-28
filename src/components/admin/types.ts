@@ -5,6 +5,9 @@ export type Totals = {
   caseViews: number;
   resumeViews: number;
   resumeDownloads: number;
+  resumeShares: number;
+  newVisitors: number;
+  returningVisitors: number;
   contactClicks: number;
   reachedEnd: number;
 };
@@ -13,7 +16,15 @@ export type AnalyticsReport = {
   totals: Totals;
   previousTotals: Totals;
   updatedAt: string;
-  series: { bucket: string; views: number; visits: number }[];
+  series: import("@/lib/admin/chart").SeriesPoint[];
+  funnel: {
+    visits: number;
+    caseStudies: number;
+    resume: number;
+    downloads: number;
+    shares: number;
+    contacts: number;
+  };
   cases: {
     path: string;
     views: number;
@@ -32,7 +43,12 @@ export type AnalyticsReport = {
   browsers: Breakdown[];
   pages: Breakdown[];
   campaigns: Breakdown[];
-  placements: { label: string; views: number; downloads: number }[];
+  placements: {
+    label: string;
+    views: number;
+    downloads: number;
+    shares: number;
+  }[];
   live: {
     id: string;
     current_path: string;
