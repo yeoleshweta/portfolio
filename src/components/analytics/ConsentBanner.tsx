@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GA_ENABLED, readConsent, setConsent } from "@/lib/analytics";
+import {
+  ANALYTICS_ENABLED,
+  CONSENT_EVENT,
+  readConsent,
+  setConsent,
+} from "@/lib/analytics";
 import styles from "./ConsentBanner.module.css";
 
 /**
@@ -14,11 +19,20 @@ export default function ConsentBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (!GA_ENABLED) return;
-    if (readConsent() === null) {
-      const timer = window.setTimeout(() => setVisible(true), 1200);
-      return () => window.clearTimeout(timer);
-    }
+    if (!ANALYTICS_ENABLED) return;
+    const timer =
+      readConsent() === null
+        ? window.setTimeout(() => setVisible(true), 1200)
+        : null;
+    const show = () => setVisible(true);
+    const sync = () => setVisible(false);
+    window.addEventListener("sw-open-privacy", show);
+    window.addEventListener(CONSENT_EVENT, sync);
+    return () => {
+      if (timer) clearTimeout(timer);
+      window.removeEventListener("sw-open-privacy", show);
+      window.removeEventListener(CONSENT_EVENT, sync);
+    };
   }, []);
 
   if (!visible) return null;
@@ -35,10 +49,11 @@ export default function ConsentBanner() {
       aria-label="Analytics cookie notice"
     >
       <p className={styles.text} id="consent-banner-text">
-        I use Google Analytics to see which case studies people actually read.
-        No ads, no profiles, no data sold.{" "}
+        With your permission, I measure visits, case-study reading, and résumé
+        interactions. No ads or data sold.{" "}
         <span className={styles.muted}>
-          Decline and nothing is stored on your device.
+          Decline to stop analytics. Your choice is saved; you can change it
+          below.
         </span>
       </p>
       <div className={styles.actions}>

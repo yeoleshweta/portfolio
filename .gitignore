@@ -32,3 +32,6 @@ next-env.d.ts
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+# Isolated admin integration-test build
+/.next-admin-test/

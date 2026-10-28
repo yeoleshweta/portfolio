@@ -402,11 +402,12 @@ export default function HeroSection() {
                   </button>
                   <a
                     className={styles.secondaryCta}
-                    href="/assets/UX_Researcher_Resume.pdf"
+                    href="/resume?from=hero"
+                    data-track-location="hero"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Download CV (PDF)
+                    View résumé (PDF)
                     <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 </div>

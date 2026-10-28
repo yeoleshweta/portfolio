@@ -34,7 +34,7 @@ const profileLinks: { label: string; href: string; icon: LucideIcon }[] = [
 
 const pageSections = ["work", "articles", "contact"];
 
-const cvHref = "/assets/UX_Researcher_Resume.pdf";
+const cvHref = "/resume?from=navbar";
 
 /** Quiet time after the last scroll event before the bar grows back. */
 const SCROLL_SETTLE_MS = 200;
@@ -177,7 +177,7 @@ export default function Navbar() {
           data-track-location="navbar"
         >
           <Download size={16} aria-hidden />
-          <span className={styles.cvLabel}>Download CV (PDF)</span>
+          <span className={styles.cvLabel}>View résumé (PDF)</span>
           <span className="sr-only"> (opens in a new tab)</span>
         </a>
       </div>

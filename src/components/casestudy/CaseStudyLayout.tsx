@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./CaseStudyLayout.module.css";
-import { EVENTS, projectSlugFor, track } from "@/lib/analytics";
+import { CONSENT_EVENT, EVENTS, projectSlugFor, track } from "@/lib/analytics";
 import { scrollToSection } from "@/lib/scrollToSection";
 import { studyFromPath, studyNeighbors } from "@/content/caseStudyBriefs";
 import {
@@ -41,12 +41,17 @@ function TocList({
     0,
     sections.findIndex((s) => s.id === activeSection),
   );
-  const progress = sections.length > 1 ? activeIndex / (sections.length - 1) : 0;
+  const progress =
+    sections.length > 1 ? activeIndex / (sections.length - 1) : 0;
 
   return (
     <ul
       className={rail ? `${styles.tocList} ${styles.tocRail}` : styles.tocList}
-      style={rail ? ({ "--toc-progress": progress } as React.CSSProperties) : undefined}
+      style={
+        rail
+          ? ({ "--toc-progress": progress } as React.CSSProperties)
+          : undefined
+      }
     >
       {sections.map((section) => (
         <li key={section.id}>
@@ -59,7 +64,9 @@ function TocList({
             data-track-link-label={`toc:${section.label}`}
             data-track-location="case_study_toc"
           >
-            <span className={rail ? "sr-only" : styles.tocLabel}>{section.label}</span>
+            <span className={rail ? "sr-only" : styles.tocLabel}>
+              {section.label}
+            </span>
           </a>
         </li>
       ))}
@@ -74,10 +81,21 @@ export default function CaseStudyLayout({
 }: CaseStudyLayoutProps) {
   const pathname = usePathname();
   const brief = studyFromPath(pathname);
-  const neighbors = brief ? studyNeighbors(brief.slug) : { previous: undefined, next: undefined };
-  const [activeSection, setActiveSection] = useState(sections[0]?.id || "");
+  const neighbors = brief
+    ? studyNeighbors(brief.slug)
+    : { previous: undefined, next: undefined };
+  const [activeSection, setActiveSection] = useState("");
   const [minutes, setMinutes] = useState<number | null>(null);
   const seenSections = useRef<Set<string>>(new Set());
+  const [consentEpoch, setConsentEpoch] = useState(0);
+  useEffect(() => {
+    const sync = () => {
+      seenSections.current.clear();
+      setConsentEpoch((n) => n + 1);
+    };
+    window.addEventListener(CONSENT_EVENT, sync);
+    return () => window.removeEventListener(CONSENT_EVENT, sync);
+  }, []);
   const bodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -92,7 +110,7 @@ export default function CaseStudyLayout({
       section_index: index + 1,
       section_count: sections.length,
     });
-  }, [activeSection, sections]);
+  }, [activeSection, sections, consentEpoch]);
 
   useEffect(() => {
     const handleScroll = () => {
