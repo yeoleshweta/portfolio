@@ -32,10 +32,10 @@
 ### Task 2: Public tracking and resume
 **Files:** src/lib/analytics.ts, src/lib/analytics/client.ts, src/components/analytics/*, src/components/PublicShell.tsx, src/app/layout.tsx, resume page/API and existing resume anchors/case-study gate.
 **Interfaces:** track(name, params) remains compatible; first-party collector sends validated batches to /api/analytics only after consent; browser+visit IDs use separate storage keys. Analytics enabled independently from GA4.
-- [ ] Write and run failing tests for no consent, denied consent, session expiry, storage failure, retry deduplication and exclusions.
-- [ ] Implement collector and explicit route tracking; adapt reference 30-second visible heartbeat.
-- [ ] Add resume viewer and download intent, gate/content events and isolated public shell.
-- [ ] Run analytics suite and typecheck. Expected: pass. Commit phase 2.
+- [x] Write and run failing tests for no consent, denied consent, session expiry, storage failure, retry deduplication and exclusions.
+- [x] Implement collector and explicit route tracking; adapt reference 30-second visible heartbeat.
+- [x] Add resume viewer and download intent, gate/content events and isolated public shell.
+- [x] Run analytics suite and typecheck. Expected: pass. Commit phase 2.
 
 ### Task 3: Authentication and dashboard
 **Files:** src/lib/supabase/*, src/lib/admin/*, src/app/admin/*, src/app/api/admin/*, src/components/admin/*, tests/analytics/admin.test.ts, tests/admin.spec.ts, ANALYTICS.md.

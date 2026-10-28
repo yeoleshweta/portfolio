@@ -53,7 +53,7 @@ begin
   if exists(select 1 from public.analytics_visits where id=v_id and browser_id<>b_id) then raise exception 'Invalid visit'; end if;
   if (select count(*) from public.analytics_events where visit_id=v_id and received_at > now()-interval '1 minute') + jsonb_array_length(p_batch->'events') > 240 then raise exception 'Analytics rate limit exceeded'; end if;
   insert into public.analytics_visits(id,browser_id,landing_path,current_path,referrer,campaign,device,browser,os,is_bot)
-  values(v_id,b_id,p_batch->>'path',p_batch->>'path',p_batch->>'referrer',coalesce(p_batch->'campaign','{}'),p_dimensions->>'device',p_dimensions->>'browser',p_dimensions->>'os',coalesce((p_dimensions->>'isBot')::boolean,false))
+  values(v_id,b_id,coalesce(p_batch->'events'->0->>'path',p_batch->>'path'),p_batch->>'path',p_batch->>'referrer',coalesce(p_batch->'campaign','{}'),p_dimensions->>'device',p_dimensions->>'browser',p_dimensions->>'os',coalesce((p_dimensions->>'isBot')::boolean,false))
   on conflict(id) do update set last_seen_at=now(),current_path=excluded.current_path;
   insert into public.analytics_events(id,visit_id,name,path,params,occurred_at)
   select (e->>'id')::uuid,v_id,e->>'name',e->>'path',coalesce(e->'params','{}'),coalesce((e->>'at')::timestamptz,now())

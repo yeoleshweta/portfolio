@@ -1,5 +1,7 @@
 "use client";
 
+import { EVENTS, CONSENT_EVENT, track } from "@/lib/analytics";
+
 import React from "react";
 import Image from "next/image";
 import CaseStudyLayout from "@/components/casestudy/CaseStudyLayout";
@@ -235,6 +237,7 @@ function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
     e.preventDefault();
     if (password === "deere2026") {
       localStorage.setItem("team_contract_access", "deere2026");
+      track(EVENTS.CASE_STUDY_UNLOCK, {project_slug:"team-contract"});
       onUnlock();
     } else {
       setError("Incorrect password. Please try again.");
@@ -302,6 +305,12 @@ export default function TeamContractCaseStudy() {
       setUnlocked(true);
     }
   }, []);
+
+  React.useEffect(() => {
+    const report = () => track(unlocked ? EVENTS.CASE_STUDY_VIEW : EVENTS.CASE_STUDY_GATE_VIEW, {project_slug:"team-contract"});
+    report(); window.addEventListener(CONSENT_EVENT, report);
+    return () => window.removeEventListener(CONSENT_EVENT, report);
+  }, [unlocked]);
 
   if (!unlocked) {
     return <PasswordGate onUnlock={() => setUnlocked(true)} />;

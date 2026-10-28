@@ -1,3 +1,4 @@
+import { browserCollector, setCollectorConsent } from "./analytics/client";
 /**
  * Analytics layer for shweta.tech
  * ------------------------------------------------------------------
@@ -18,6 +19,9 @@ export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
 export const GA_DEBUG = process.env.NEXT_PUBLIC_GA_DEBUG === "true";
 
 export const GA_ENABLED = GA_MEASUREMENT_ID.length > 0;
+export const ANALYTICS_ENABLED = GA_ENABLED || process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true";
+export const CONSENT_EVENT = "sw-analytics-consent";
+let memoryConsent: ConsentChoice | null = null;
 
 /** localStorage key holding the visitor's cookie choice. */
 export const CONSENT_STORAGE_KEY = "sw_consent_v1";
@@ -52,6 +56,13 @@ export const EVENTS = {
   PAGE_VIEW: "page_view",
   /** Resume/CV opened or downloaded. KEY EVENT. */
   CV_DOWNLOAD: "cv_download",
+  RESUME_VIEWED: "resume_viewed",
+  RESUME_DOWNLOADED: "resume_downloaded",
+  RESUME_SHARED: "resume_shared",
+  PAGE_ENGAGEMENT: "page_engagement",
+  CASE_STUDY_GATE_VIEW: "case_study_gate_view",
+  CASE_STUDY_UNLOCK: "case_study_unlock",
+  OUTBOUND_CLICK: "outbound_click",
   /** mailto: click — the strongest intent signal on the site. KEY EVENT. */
   CONTACT_CLICK: "contact_click",
   /** Outbound click to LinkedIn / GitHub / any social profile. */
@@ -112,7 +123,9 @@ function clean(params: EventParams): EventParams {
  * loading (the inline stub queues into dataLayer).
  */
 export function track(name: EventName, params: EventParams = {}): void {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined" || /^\/(admin|api)(\/|$)/.test(window.location.pathname)) return;
+  if (readConsent() !== "granted") return;
+  try { if (window.localStorage.getItem("sw_analytics_excluded") === "true") return; } catch { /* storage blocked */ }
 
   const payload = clean({
     page_path: window.location.pathname,
@@ -121,10 +134,10 @@ export function track(name: EventName, params: EventParams = {}): void {
   });
 
   if (GA_DEBUG) {
-    // eslint-disable-next-line no-console
     console.log("[analytics]", name, payload);
   }
 
+  browserCollector()?.collect(name, payload);
   if (!GA_ENABLED || typeof window.gtag !== "function") return;
 
   try {
@@ -141,9 +154,9 @@ export function readConsent(): ConsentChoice | null {
   if (typeof window === "undefined") return null;
   try {
     const value = window.localStorage.getItem(CONSENT_STORAGE_KEY);
-    return value === "granted" || value === "denied" ? value : null;
+    return value === "granted" || value === "denied" ? value : memoryConsent;
   } catch {
-    return null; // private mode / storage blocked
+    return memoryConsent; // private mode / storage blocked
   }
 }
 
@@ -153,6 +166,8 @@ export function readConsent(): ConsentChoice | null {
  */
 export function setConsent(choice: ConsentChoice): void {
   if (typeof window === "undefined") return;
+  memoryConsent = choice;
+  setCollectorConsent(choice);
 
   try {
     window.localStorage.setItem(CONSENT_STORAGE_KEY, choice);
@@ -169,5 +184,6 @@ export function setConsent(choice: ConsentChoice): void {
     });
   }
 
-  track(EVENTS.CONSENT_UPDATE, { consent_state: choice });
+  window.dispatchEvent(new Event(CONSENT_EVENT));
+  if (choice === "granted") track(EVENTS.CONSENT_UPDATE, { consent_state: choice });
 }

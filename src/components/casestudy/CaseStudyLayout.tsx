@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./CaseStudyLayout.module.css";
-import { EVENTS, projectSlugFor, track } from "@/lib/analytics";
+import { CONSENT_EVENT, EVENTS, projectSlugFor, track } from "@/lib/analytics";
 import { scrollToSection } from "@/lib/scrollToSection";
 import { studyFromPath, studyNeighbors } from "@/content/caseStudyBriefs";
 import {
@@ -78,6 +78,8 @@ export default function CaseStudyLayout({
   const [activeSection, setActiveSection] = useState(sections[0]?.id || "");
   const [minutes, setMinutes] = useState<number | null>(null);
   const seenSections = useRef<Set<string>>(new Set());
+  const [consentEpoch, setConsentEpoch] = useState(0);
+  useEffect(() => { const sync = () => { seenSections.current.clear(); setConsentEpoch(n => n + 1); }; window.addEventListener(CONSENT_EVENT, sync); return () => window.removeEventListener(CONSENT_EVENT, sync); }, []);
   const bodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -92,7 +94,7 @@ export default function CaseStudyLayout({
       section_index: index + 1,
       section_count: sections.length,
     });
-  }, [activeSection, sections]);
+  }, [activeSection, sections, consentEpoch]);
 
   useEffect(() => {
     const handleScroll = () => {

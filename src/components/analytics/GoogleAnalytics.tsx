@@ -1,27 +1,27 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Script from "next/script";
 import {
   CONSENT_STORAGE_KEY,
   GA_DEBUG,
   GA_ENABLED,
   GA_MEASUREMENT_ID,
+  CONSENT_EVENT,
+  readConsent,
 } from "@/lib/analytics";
 
-/**
- * Loads GA4 (gtag.js) with Google Consent Mode v2.
- *
- * Why a raw inline <script> and not <Script strategy="beforeInteractive">:
- * the consent defaults MUST execute before gtag.js runs its first config.
- * A plain inline script in the server-rendered HTML is parsed and executed
- * synchronously during document parse, which guarantees that ordering.
- * The external gtag.js file is then loaded lazily via next/script so it
- * never blocks first paint or hurts Core Web Vitals.
- *
- * Consent defaults: everything denied. Google still sends cookieless
- * "consent mode" pings, so aggregate traffic is modelled even before the
- * visitor answers the banner. A returning visitor who already accepted has
- * their choice restored from localStorage before the first hit fires.
+/** Configure GA's queue before tracking, but load the network library only after consent.
+ * Page views are emitted exclusively by AnalyticsProvider. Disable automatic history
+ * page views in the GA4 stream too when retaining GA4 as a secondary destination.
  */
 export default function GoogleAnalytics() {
+  const [allowed, setAllowed] = useState(false);
+  useEffect(() => {
+    const sync = () => setAllowed(readConsent() === "granted");
+    sync(); window.addEventListener(CONSENT_EVENT, sync);
+    return () => window.removeEventListener(CONSENT_EVENT, sync);
+  }, []);
   if (!GA_ENABLED) return null;
 
   const bootstrap = `
@@ -42,7 +42,7 @@ gtag('consent', 'default', {
 
 gtag('js', new Date());
 gtag('config', ${JSON.stringify(GA_MEASUREMENT_ID)}, {
-  send_page_view: true,
+  send_page_view: false,
   anonymize_ip: true${GA_DEBUG ? ",\n  debug_mode: true" : ""}
 });
 `.trim();
@@ -53,11 +53,11 @@ gtag('config', ${JSON.stringify(GA_MEASUREMENT_ID)}, {
         id="ga-bootstrap"
         dangerouslySetInnerHTML={{ __html: bootstrap }}
       />
-      <Script
+      {allowed && <Script
         id="ga-lib"
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-      />
+      />}
     </>
   );
 }

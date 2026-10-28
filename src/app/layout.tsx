@@ -1,17 +1,7 @@
 import type { Metadata } from "next";
 import { Caveat } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import CustomCursor from "@/components/CustomCursor";
-import SmoothScroll from "@/components/SmoothScroll";
-import MotionControl from "@/components/MotionControl";
-import HashScroll from "@/components/HashScroll";
-import BackgroundScene from "@/components/BackgroundScene";
-import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
-import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
-import ConsentBanner from "@/components/analytics/ConsentBanner";
-import ChatHeadingFix from "@/components/ChatHeadingFix";
+import PublicShell from "@/components/PublicShell";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.shwetasharma.tech"),
@@ -42,33 +32,7 @@ export default function RootLayout({
       style={{ scrollBehavior: "auto" }}
     >
       <body>
-        {/* GA4 + Consent Mode v2. Must be first so consent defaults are set
-            before any measurement hit leaves the browser. */}
-        <GoogleAnalytics />
-        <AnalyticsProvider />
-
-        <a href="#main-content" className="skipLink">
-          Skip to main content
-        </a>
-
-        <MotionControl>
-        <CustomCursor />
-        <HashScroll />
-        <SmoothScroll>
-          <Navbar />
-          <BackgroundScene />
-          <main id="main-content" className="main-content" tabIndex={-1}>
-            {children}
-          </main>
-        </SmoothScroll>
-        </MotionControl>
-        <ConsentBanner />
-        <ChatHeadingFix />
-        <Script
-          src="https://unpkg.com/@klyro/widget/dist/widget.js"
-          data-widget-key="1kr1f9xRlnhy"
-          strategy="afterInteractive"
-        />
+        <PublicShell>{children}</PublicShell>
       </body>
     </html>
   );
