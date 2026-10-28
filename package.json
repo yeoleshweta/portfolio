@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test:a11y": "playwright test tests/a11y.spec.ts",
-    "test:analytics": "vitest run tests/analytics"
+    "test:analytics": "vitest run tests/analytics",
+    "test:admin": "playwright test --config playwright.admin.config.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

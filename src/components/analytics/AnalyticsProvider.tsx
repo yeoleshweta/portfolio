@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { VisibleTime } from "@/lib/analytics/engagement";
+import { NUMERIC_PARAMS } from "@/lib/analytics/contract";
 import { browserCollector } from "@/lib/analytics/client";
 import { usePathname } from "next/navigation";
 import {
   CONSENT_EVENT,
+  CONTENT_EVENT,
+  syncConsentFromStorage,
   EVENTS,
   projectSlugFor,
   track,
@@ -65,7 +69,7 @@ function paramsFromDataset(el: HTMLElement): EventParams {
       .slice("track".length)
       .replace(/^[A-Z]/, (c) => c.toLowerCase())
       .replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
-    params[name] = value;
+    params[name] = NUMERIC_PARAMS.has(name) ? Number(value) : value;
   }
   return params;
 }
@@ -86,26 +90,38 @@ export default function AnalyticsProvider() {
   useEffect(() => {
     const report = () => {
       track(EVENTS.PAGE_VIEW, { page_title: document.title });
-      if (pathname?.startsWith("/work/") && pathname !== "/work/team-contract") {
-        track(EVENTS.CASE_STUDY_VIEW, {project_slug: projectSlugFor(pathname)});
+      if (
+        pathname?.startsWith("/work/") &&
+        pathname !== "/work/team-contract"
+      ) {
+        track(EVENTS.CASE_STUDY_VIEW, {
+          project_slug: projectSlugFor(pathname),
+        });
       }
     };
     const frame = requestAnimationFrame(report);
     window.addEventListener(CONSENT_EVENT, report);
-    const flush = window.setInterval(() => { void browserCollector()?.flush(); }, 5000);
+    const flush = window.setInterval(() => {
+      void browserCollector()?.flush();
+    }, 5000);
     const heartbeat = window.setInterval(() => {
-      if (document.visibilityState === "visible") void browserCollector()?.flush(true);
+      if (document.visibilityState === "visible")
+        void browserCollector()?.flush(true);
     }, 30000);
-    const onLeave = () => { void browserCollector()?.flush(); };
+    const onLeave = () => {
+      void browserCollector()?.flush();
+    };
     window.addEventListener("pagehide", onLeave);
     const sync = (event: StorageEvent) => {
-      if (event.key === "sw_consent_v1" || event.key === "sw_analytics_excluded") {
-        if (event.newValue !== "granted" || event.key === "sw_analytics_excluded") browserCollector()?.reset();
-      }
+      if (event.key === "sw_consent_v1" || event.key === null)
+        syncConsentFromStorage();
+      if (event.key === "sw_analytics_excluded") browserCollector()?.reset();
     };
     window.addEventListener("storage", sync);
     return () => {
-      cancelAnimationFrame(frame); clearInterval(flush); clearInterval(heartbeat);
+      cancelAnimationFrame(frame);
+      clearInterval(flush);
+      clearInterval(heartbeat);
       window.removeEventListener(CONSENT_EVENT, report);
       window.removeEventListener("pagehide", onLeave);
       window.removeEventListener("storage", sync);
@@ -152,12 +168,17 @@ export default function AnalyticsProvider() {
       // 3. Resume / document downloads
       const isDoc = DOC_PATTERN.test(rawHref);
       if (isDoc && RESUME_PATTERN.test(rawHref)) {
-        track(el.hasAttribute("download") ? EVENTS.RESUME_DOWNLOADED : EVENTS.RESUME_VIEWED, {
-          location,
-          file_name: rawHref.split("/").pop() ?? rawHref,
-          file_extension: rawHref.split(".").pop()?.split("?")[0] ?? "",
-          ...paramsFromDataset(el),
-        });
+        track(
+          el.hasAttribute("download")
+            ? EVENTS.RESUME_DOWNLOADED
+            : EVENTS.RESUME_VIEWED,
+          {
+            location,
+            file_name: rawHref.split("/").pop() ?? rawHref,
+            file_extension: rawHref.split(".").pop()?.split("?")[0] ?? "",
+            ...paramsFromDataset(el),
+          },
+        );
         return;
       }
 
@@ -173,12 +194,14 @@ export default function AnalyticsProvider() {
         if (network) {
           track(EVENTS.SOCIAL_CLICK, { network, location, link_domain: host });
         }
-        if (!network) track(EVENTS.OUTBOUND_CLICK, { link_domain: host, location });
+        if (!network)
+          track(EVENTS.OUTBOUND_CLICK, { link_domain: host, location });
       }
     };
 
     document.addEventListener("click", onClick, { capture: true });
-    return () => document.removeEventListener("click", onClick, { capture: true });
+    return () =>
+      document.removeEventListener("click", onClick, { capture: true });
   }, []);
 
   /* ── scroll depth + case-study completion, reset per route ── */
@@ -195,7 +218,11 @@ export default function AnalyticsProvider() {
 
     const measure = () => {
       ticking = false;
-      if (window.location.pathname === "/work/team-contract" && !document.querySelector("[data-case-study-body]")) return;
+      if (
+        window.location.pathname === "/work/team-contract" &&
+        !document.querySelector("[data-case-study-body]")
+      )
+        return;
       const doc = document.documentElement;
       const scrollable = doc.scrollHeight - doc.clientHeight;
       if (scrollable < 400) return; // short page — depth is meaningless
@@ -232,33 +259,66 @@ export default function AnalyticsProvider() {
 
   /* Visible-time slices retain short visits and final partial intervals. */
   useEffect(() => {
-    let visibleSince = document.visibilityState === "visible" ? Date.now() : null;
+    const visible = () => document.visibilityState === "visible";
+    const clock = new VisibleTime(
+      Date.now(),
+      visible(),
+      pathname !== "/work/team-contract" ||
+        Boolean(document.querySelector("[data-case-study-body]")),
+    );
     let seconds = 0;
     const fired = new Set<number>();
-    const checkpoint = () => {
-      if (visibleSince !== null) {
-        const duration = Math.max(0, (Date.now() - visibleSince) / 1000);
-        if (duration >= 1 && (pathname !== "/work/team-contract" || document.querySelector("[data-case-study-body]"))) {
-          seconds += duration;
-          track(EVENTS.PAGE_ENGAGEMENT, {duration_sec: Math.round(duration), project_slug: projectSlugFor(pathname), page_path: pathname});
-        }
+    const checkpoint = (isVisible = visible()) => {
+      const duration = clock.checkpoint(Date.now(), isVisible);
+      if (duration >= 1) {
+        seconds += duration;
+        track(EVENTS.PAGE_ENGAGEMENT, {
+          duration_sec: Math.round(duration),
+          project_slug: projectSlugFor(pathname),
+          page_path: pathname,
+        });
       }
-      visibleSince = document.visibilityState === "visible" ? Date.now() : null;
       for (const milestone of TIME_MILESTONES) {
         if (seconds >= milestone && !fired.has(milestone)) {
-          fired.add(milestone); track(EVENTS.ENGAGED_TIME, {seconds: milestone});
+          fired.add(milestone);
+          track(EVENTS.ENGAGED_TIME, {
+            seconds: milestone,
+            page_path: pathname,
+          });
         }
       }
     };
-    const onVisibility = () => { checkpoint(); void browserCollector()?.flush(); };
-    const onHide = () => { checkpoint(); visibleSince = null; void browserCollector()?.flush(); };
-    const resetTime = () => { seconds = 0; fired.clear(); visibleSince = document.visibilityState === "visible" ? Date.now() : null; };
+    const onVisibility = () => {
+      checkpoint();
+      void browserCollector()?.flush();
+    };
+    const onHide = () => {
+      checkpoint(false);
+      void browserCollector()?.flush();
+    };
+    const resetTime = () => {
+      seconds = 0;
+      fired.clear();
+      clock.reset(Date.now(), visible());
+    };
+    const activateContent = (event: Event) => {
+      if ((event as CustomEvent<string>).detail === pathname)
+        clock.activate(Date.now(), visible());
+    };
+    window.addEventListener(CONTENT_EVENT, activateContent);
     window.addEventListener(CONSENT_EVENT, resetTime);
-    const interval = window.setInterval(checkpoint, 15000);
+    const interval = window.setInterval(() => checkpoint(), 15000);
     document.addEventListener("visibilitychange", onVisibility);
     window.addEventListener("pagehide", onHide);
     // Old-route cleanup happens after window.location changes, so capture its path explicitly.
-    return () => { checkpoint(); clearInterval(interval); window.removeEventListener(CONSENT_EVENT, resetTime); document.removeEventListener("visibilitychange", onVisibility); window.removeEventListener("pagehide", onHide); };
+    return () => {
+      checkpoint();
+      clearInterval(interval);
+      window.removeEventListener(CONTENT_EVENT, activateContent);
+      window.removeEventListener(CONSENT_EVENT, resetTime);
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("pagehide", onHide);
+    };
   }, [pathname]);
 
   return null;

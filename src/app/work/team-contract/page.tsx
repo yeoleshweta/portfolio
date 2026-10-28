@@ -1,6 +1,6 @@
 "use client";
 
-import { EVENTS, CONSENT_EVENT, track } from "@/lib/analytics";
+import { EVENTS, CONSENT_EVENT, CONTENT_EVENT, track } from "@/lib/analytics";
 
 import React from "react";
 import Image from "next/image";
@@ -308,6 +308,7 @@ export default function TeamContractCaseStudy() {
 
   React.useEffect(() => {
     const report = () => track(unlocked ? EVENTS.CASE_STUDY_VIEW : EVENTS.CASE_STUDY_GATE_VIEW, {project_slug:"team-contract"});
+    if (unlocked) window.dispatchEvent(new CustomEvent(CONTENT_EVENT, {detail:"/work/team-contract"}));
     report(); window.addEventListener(CONSENT_EVENT, report);
     return () => window.removeEventListener(CONSENT_EVENT, report);
   }, [unlocked]);

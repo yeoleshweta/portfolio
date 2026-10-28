@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ANALYTICS_ENABLED, CONSENT_EVENT, readConsent, setConsent } from "@/lib/analytics";
+import {
+  ANALYTICS_ENABLED,
+  CONSENT_EVENT,
+  readConsent,
+  setConsent,
+} from "@/lib/analytics";
 import styles from "./ConsentBanner.module.css";
 
 /**
@@ -15,12 +20,19 @@ export default function ConsentBanner() {
 
   useEffect(() => {
     if (!ANALYTICS_ENABLED) return;
-    const timer = readConsent() === null ? window.setTimeout(() => setVisible(true), 1200) : null;
+    const timer =
+      readConsent() === null
+        ? window.setTimeout(() => setVisible(true), 1200)
+        : null;
     const show = () => setVisible(true);
     const sync = () => setVisible(false);
     window.addEventListener("sw-open-privacy", show);
     window.addEventListener(CONSENT_EVENT, sync);
-    return () => { if(timer) clearTimeout(timer); window.removeEventListener("sw-open-privacy",show); window.removeEventListener(CONSENT_EVENT,sync); };
+    return () => {
+      if (timer) clearTimeout(timer);
+      window.removeEventListener("sw-open-privacy", show);
+      window.removeEventListener(CONSENT_EVENT, sync);
+    };
   }, []);
 
   if (!visible) return null;
@@ -37,9 +49,11 @@ export default function ConsentBanner() {
       aria-label="Analytics cookie notice"
     >
       <p className={styles.text} id="consent-banner-text">
-        With your permission, I measure visits, case-study reading, and résumé interactions. No ads or data sold.{" "}
+        With your permission, I measure visits, case-study reading, and résumé
+        interactions. No ads or data sold.{" "}
         <span className={styles.muted}>
-          Decline to stop analytics. Your choice is saved; you can change it below.
+          Decline to stop analytics. Your choice is saved; you can change it
+          below.
         </span>
       </p>
       <div className={styles.actions}>

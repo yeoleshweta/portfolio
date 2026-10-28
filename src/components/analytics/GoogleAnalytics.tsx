@@ -18,8 +18,15 @@ import {
 export default function GoogleAnalytics() {
   const [allowed, setAllowed] = useState(false);
   useEffect(() => {
-    const sync = () => setAllowed(readConsent() === "granted");
-    sync(); window.addEventListener(CONSENT_EVENT, sync);
+    const sync = () => {
+      const granted = readConsent() === "granted";
+      (window as unknown as Record<string, unknown>)[
+        `ga-disable-${GA_MEASUREMENT_ID}`
+      ] = !granted;
+      setAllowed(granted);
+    };
+    sync();
+    window.addEventListener(CONSENT_EVENT, sync);
     return () => window.removeEventListener(CONSENT_EVENT, sync);
   }, []);
   if (!GA_ENABLED) return null;
@@ -53,11 +60,13 @@ gtag('config', ${JSON.stringify(GA_MEASUREMENT_ID)}, {
         id="ga-bootstrap"
         dangerouslySetInnerHTML={{ __html: bootstrap }}
       />
-      {allowed && <Script
-        id="ga-lib"
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-      />}
+      {allowed && (
+        <Script
+          id="ga-lib"
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        />
+      )}
     </>
   );
 }

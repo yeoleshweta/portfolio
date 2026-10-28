@@ -40,7 +40,19 @@
 ### Task 3: Authentication and dashboard
 **Files:** src/lib/supabase/*, src/lib/admin/*, src/app/admin/*, src/app/api/admin/*, src/components/admin/*, tests/analytics/admin.test.ts, tests/admin.spec.ts, ANALYTICS.md.
 **Interfaces:** requireAdmin() validates Supabase user and ADMIN_EMAILS on every read; dashboard API returns filtered reports, paginated events/visits and visitor journeys. Exports use identical filters and safe CSV cells.
-- [ ] Write and run failing tests for unauthorized reads, date filters, export formula safety and pagination.
-- [ ] Implement sign-in/out with Supabase SSR cookies, private APIs and adapted admin interactions in CSS modules.
-- [ ] Verify desktop/mobile admin states, keyboard navigation, collection/resume journeys, SQL tests, lint and production build. Expected: scoped checks pass; record pre-existing failures separately.
-- [ ] Document live activation steps and remaining optional integrations; commit phase 3.
+- [x] Write and run failing tests for unauthorized reads, date filters, export formula safety and pagination.
+- [x] Implement sign-in/out with Supabase SSR cookies, private APIs and adapted admin interactions in CSS modules.
+- [x] Verify desktop/mobile admin states, keyboard navigation, collection/resume journeys, SQL tests, lint and production build. Expected: scoped checks pass; record pre-existing failures separately.
+- [x] Document live activation steps and remaining optional integrations; commit phase 3.
+
+## Outcomes and rulings
+- Phase 1: 96c665f. Six initial PostgreSQL tests and typecheck passed.
+- Phase 2: 75d2577. Twelve tracking/database tests and scoped lint/typecheck passed.
+- Phase 3: Dashboard/auth/reporting implemented, independently reviewed; final verification recorded in ANALYTICS.md and Git commit.
+- Supabase replaces Convex and Clerk because the user provided a Supabase project. Reference behavior/code is adapted, not connected to the reference deployment.
+- Existing schema was partially configured. Setup is now transactional and rerunnable; hosted RPC and anonymous-denial checks passed after user applied it.
+- Review fixes: numeric metadata validation and guarded SQL; cross-tab GA consent and disable flag; delayed-event date parity; explicit protected-content timing. Each has a failing-then-passing regression test.
+- Hosted ingestion smoke check persisted an event through the actual local API. Its visit was marked internal first. Real admin password sign-in remains a user verification step; no password was requested or stored by this implementation.
+- Optional alerts, geography, Klyro transcripts and a separate new/returning-browser report remain follow-up work. No production deployment performed.
+- Final verification: 22 unit/database tests and 4 browser integration tests passed; scoped ESLint, TypeScript and production build passed. Desktop/mobile and admin accessibility checks passed; client bundle scan found no service-role/cron secrets. Four independent-review findings and one subsequent cleared-consent regression were fixed. No deferred review findings.
+- Live Supabase checks: all three report RPCs available; anonymous reads/report execution denied; one allowlisted, verified Auth account found; collector event persistence verified using an internal visit. Local collection enabled. Hosted password sign-in and production deployment remain unverified.

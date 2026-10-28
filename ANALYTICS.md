@@ -1,165 +1,112 @@
-# Analytics — implementation reference
+# Portfolio analytics and admin
 
-GA4 via `gtag.js`, wired by hand with `next/script`. No extra npm dependency,
-no Tag Manager, no vendor SDK.
+The portfolio uses a consent-gated first-party collector backed by Supabase PostgreSQL. GA4 remains an optional secondary destination. The private dashboard is at `/admin`; sign-in uses Supabase Auth and a verified-email allowlist.
 
-## Files
+## What is implemented
 
-| File | Role |
+- Anonymous browser identifiers and separate visits, renewed after 30 minutes without activity.
+- Page views, project-card clicks, protected-gate/content events, case-study section reach, scroll depth, visible-time slices and milestones.
+- On-site résumé views and separate download clicks, with originating placement.
+- Email/phone contact intent, known social links, other outbound domains, navigation and carousel events.
+- Live activity (seen within two minutes), date comparisons, case-study reports, audience breakdowns, searchable/paginated events and visits, visit timelines and CSV exports.
+- Bot/internal filters, browser exclusion and marking a visit internal.
+- RLS-protected tables, service-only SQL functions, bounded/validated ingestion, retry deduplication, persistent rate limits and a scheduled retention endpoint.
+
+Email alerts, geography, Klyro transcripts, historical GA4 import and a content-management editor are not implemented. The admin currently reports aggregate browser counts; it does not provide a separate new/returning-browser report.
+
+## Setup and activation
+
+See [the setup guide](docs/analytics-setup.md). `supabase/setup-analytics.sql` combines both migrations into one transactional, rerunnable SQL Editor script. It preserves existing analytics data. The source migrations also work through a normal Supabase CLI workflow.
+
+Required environment variables:
+
+| Variable | Purpose |
 | --- | --- |
-| `src/lib/analytics.ts` | Event-name registry, `track()`, consent helpers. The only file you edit to add an event. |
-| `src/components/analytics/GoogleAnalytics.tsx` | Loads gtag.js and sets Consent Mode v2 defaults. Server component. |
-| `src/components/analytics/AnalyticsProvider.tsx` | SPA page views, delegated clicks, scroll depth, engaged time, case-study views. Client component, mounted once. |
-| `src/components/analytics/ConsentBanner.tsx` | One-time cookie notice. |
-| `.env.local.example` | Template for `NEXT_PUBLIC_GA_ID` / `NEXT_PUBLIC_GA_DEBUG`. |
-| `.env.local` | Local secrets — nothing ships without `NEXT_PUBLIC_GA_ID`. |
+| `NEXT_PUBLIC_ANALYTICS_ENABLED=true` | Enable first-party collection; independent of GA4 |
+| `SUPABASE_URL` | Server database API URL; falls back to the public URL |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only secret; never expose in a public variable |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase Auth URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Publishable/anon key for Auth |
+| `ADMIN_EMAILS` | Comma-separated verified admin emails |
+| `SITE_URL` | Exact canonical origin for collector requests; defaults to request origin locally |
+| `CRON_SECRET` | Server-only bearer secret for scheduled cleanup |
+| `NEXT_PUBLIC_GA_ID` | Optional GA4 measurement ID |
+| `NEXT_PUBLIC_GA_DEBUG=true` | Optional developer event logging |
 
-## GA4 Admin checklist (do this once)
+Create the administrator in Supabase Authentication and disable public signups. Use the existing password with `/admin/login`. The site offers no registration UI. Every reporting API checks the authenticated user with Supabase, verifies the email is confirmed, and checks the server allowlist. An ordinary Supabase account cannot read reports.
 
-You need a Measurement ID before anything leaves the browser. Complete these
-steps in [Google Analytics](https://analytics.google.com/):
+Add the variables separately to production hosting and rebuild. Local `.env.local` is ignored by Git and does not configure hosted deployments. Keep analytics disabled in preview environments unless preview tracking is intentional.
 
-### 1. Property + data stream
+## Tracking architecture
 
-1. Admin → Create property (or reuse an existing one for the portfolio).
-2. Add a **Web** data stream for your live domain (e.g. `shweta.tech`).
-3. Copy the **Measurement ID** (`G-XXXXXXXXXX`).
-4. Data stream → **Enhanced measurement**: leave defaults on. Confirm
-   **Page changes based on browser history events** is enabled (backup for
-   SPA navigations; the app also sends explicit `page_view` on client routes).
+`src/lib/analytics.ts` keeps the existing `EVENTS` registry and `track(name, params)` interface. Existing `data-track-*` attributes continue to work through `AnalyticsProvider`.
 
-### 2. Custom definitions (event-scoped)
+`src/lib/analytics/client.ts` adapts the reference portfolio's visitor/heartbeat pattern. Collection starts only after consent, uses a bounded in-memory queue, preserves event UUIDs on retries, and clears pending data/identifiers on opt-out. Storage failures fall back to in-memory identification. Visible tabs send a heartbeat every 30 seconds; batches flush every five seconds. Up to four attempts are made; events expire after 30 minutes and are never persisted as a browser behavior log.
 
-Admin → **Custom definitions** → Create custom dimensions. Use these
-exact parameter names so they match what `track()` sends:
+`POST /api/analytics` accepts same-origin JSON only, limits the body to 32 KiB and a batch to 25 events, validates UUIDs/event names, allowlists metadata, strips URL queries, derives device/browser/bot dimensions and calls a service-only SQL function. The SQL transaction deduplicates event UUIDs and serializes per-visit writes. It limits a source key to 120 requests/minute and a visit to 240 recent events/minute. Public telemetry is still untrusted behavioral evidence, not authenticated proof of a real person.
 
-| Dimension name | Event parameter | Scope |
-| --- | --- | --- |
-| Page type | `page_type` | Event |
-| Project slug | `project_slug` | Event |
-| Location | `location` | Event |
-| Card group | `card_group` | Event |
-| Network | `network` | Event |
-| Section ID | `section_id` | Event |
-| Percent scrolled | `percent_scrolled` | Event |
-| Consent state | `consent_state` | Event |
+Only approved UTM fields are retained. Referrers are stored as hostnames. Raw IP addresses, email addresses, passwords, full search parameters and user-entered form text are not analytics fields. The collector uses a daily HMAC of the trusted proxy source address for short-lived rate-limit buckets. Configure reverse proxies to replace untrusted forwarded IP headers.
 
-Params that are not registered still fire; they just won't appear as
-breakdowns in standard reports.
+## Consent and GA4
 
-### 3. Key events (conversions)
+- No first-party identity or event collection before consent.
+- The GA network library is loaded only after consent. Custom events use the same consent gate.
+- Denial clears first-party identifiers/queue and disables GA measurement. The preference itself remains stored.
+- Consent changes synchronize across tabs. Privacy settings are available in the public footer.
+- Opting out stops future collection; it does not delete historical server records or erase cookies previously set by third parties.
+- The root analytics provider is the page-view authority, including initial loads. `gtag` uses `send_page_view:false`. When retaining GA4, disable automatic history-based page views in the GA4 stream to avoid duplicate reporting there.
+- Public presentation and tracking are excluded from `/admin`. Klyro is a separate existing integration; this consent control does not manage that vendor's storage or expose its conversations.
 
-Admin → **Events** (or **Key events**) → mark these as Key events:
+## Event semantics
 
-| Event | Why |
+| Event | Meaning |
 | --- | --- |
-| `cv_download` | Primary conversion — resume interest |
-| `contact_click` | Strongest intent — mailto / tel |
-| `case_study_complete` | Secondary — deep case-study engagement |
+| `page_view` | Page opened or client navigation after consent |
+| `project_card_click` | Click on an instrumented project card |
+| `case_study_view` | Case-study content opened; protected gate alone is excluded |
+| `case_study_gate_view` / `case_study_unlock` | Gate shown / successful local unlock, without entered passwords |
+| `case_study_section_view` | Section became active in the scroll spy, once per page instance/consent period |
+| `case_study_complete` | Scroll reached 90%, not proof of reading |
+| `scroll_depth` | 25/50/75/90% milestone |
+| `page_engagement` | Foreground-time slice, including final partial intervals of at least one second |
+| `engaged_time` | 30/60/180 seconds of accumulated visible time |
+| `resume_viewed` | On-site viewer opened, or direct résumé PDF link clicked; not proof of PDF rendering/reading |
+| `resume_downloaded` | Download action clicked, not confirmation the file was saved |
+| `contact_click` | Email/phone intent, not proof of a sent message |
+| `social_click` / `outbound_click` | Known social profile / other outbound hostname clicked |
+| `nav_click` / `carousel_scroll` / `easter_egg_play` | Existing public interaction events |
+| `consent_update` | A grant/change recorded after opt-in |
 
-### 4. DebugView
+The old `cv_download` name remains in the contract for compatibility but current resume links use the new view/download events. GA Enhanced Measurement events are not copied into the custom backend.
 
-While testing with `NEXT_PUBLIC_GA_DEBUG=true` (or the [GA Debugger](https://chrome.google.com/webstore/detail/google-analytics-debugger)
-extension), open Admin → **DebugView** to see hits within seconds.
+## Reporting limits and retention
 
-## Turning it on
+Dashboard date inputs represent inclusive UTC days. Event timestamps and receipt timestamps are separate; delayed retries remain attributable to their original date. Anonymous browser counts, visit counts, page views and intent counts are distinct. A browser is not a verified person; different devices cannot be joined.
+
+Bot/internal filters apply to reports, lists, timelines and exports. The live panel is independent of the selected historical date range. Activity is paginated; CSV export is capped at 5,000 matching rows, announces truncation, and protects against spreadsheet formula injection. Reports use database aggregates rather than summing a capped sample of event rows.
+
+`GET /api/cron/analytics` requires `Authorization: Bearer <CRON_SECRET>`. The Vercel schedule runs daily at 06:00 UTC after deployment. Other hosts need an equivalent scheduler. Pruning removes events and visits older than 400 days and rate-limit buckets older than one hour. Actual scheduled execution is a separate production verification step.
+
+## Verification
 
 ```bash
-cp .env.local.example .env.local
-# paste your G-XXXXXXXXXX into NEXT_PUBLIC_GA_ID
-# optional: NEXT_PUBLIC_GA_DEBUG=true while verifying
-npm run dev
+npm run test:analytics
+npx playwright test --config playwright.admin.config.ts
+npx tsc --noEmit
+npm run build
 ```
 
-With `NEXT_PUBLIC_GA_ID` empty, `GoogleAnalytics` renders `null` and every
-`track()` call is a no-op (except debug console logs when
-`NEXT_PUBLIC_GA_DEBUG=true`). Nothing breaks; nothing is sent to Google.
+Browser integration tests use an isolated local PostgreSQL engine and a synthetic Auth adapter. No test fixture data is written into the live Supabase project. They run on ports 3107/54329, use the installed Chrome browser, and use a separate Next build directory so the regular dev server can keep running. Desktop/mobile screenshots are in ignored `test-results/`.
 
-### Vercel (Production only)
+A separate hosted smoke check used the real local collector API and Supabase deployment. Its single verification visit was marked internal before the event was submitted, so default reports exclude it. Hosted admin password sign-in and production deployment are not implied by passing local integration tests.
 
-1. Project → **Settings → Environment Variables**.
-2. Add `NEXT_PUBLIC_GA_ID` = `G-XXXXXXXXXX`.
-3. Scope: **Production only** (not Preview / Development), so preview
-   deploys don't pollute the property.
-4. Redeploy Production so the build picks up the new public env var.
+## Reference reuse
 
-CLI equivalent (from the repo, after `npx vercel link`):
+The reference is `/Users/areefsyed/Desktop/Code/portfolio`:
 
-```bash
-printf '%s' 'G-XXXXXXXXXX' | npx vercel env add NEXT_PUBLIC_GA_ID production
-npx vercel --prod
-```
+- `convex/analyticsHelpers.ts`: adapted user-agent classification.
+- `lib/visitorAnalytics.tsx`: adapted identification, browser exclusion and visible heartbeat patterns, adding separate visit IDs and consent/retry handling.
+- `components/admin/AdminDashboard.tsx`: reused/adapted date formatting, comparisons, bar-chart structure, CSV/export approach, filter behavior and journey interaction.
+- `convex/adminAnalytics.ts`: ported reporting concepts to SQL aggregates and consistent server-side filters; Convex-specific queries/auth were replaced with Supabase.
 
-## Events
-
-Automatic (GA4 Enhanced Measurement — no code):
-`page_view` (first load), `session_start`, `first_visit`, `user_engagement`,
-`scroll` (90%), `click` (outbound), `file_download`.
-
-App Router soft navigations also send a custom `page_view` from
-`AnalyticsProvider` (skips the first load to avoid double-counting).
-
-Custom (this codebase):
-
-| Event | Fires when | Key params |
-| --- | --- | --- |
-| `page_view` | Soft (client) navigations only; first load uses gtag config | `page_title` |
-| `cv_download` | Any link to a resume PDF/zip is clicked | `location`, `file_name` |
-| `contact_click` | `mailto:` / `tel:` click | `method`, `location` |
-| `social_click` | LinkedIn / GitHub / X / Scholar click | `network`, `location` |
-| `project_card_click` | Home-page card → case study | `project_slug`, `project_title`, `card_group`, `card_position` |
-| `case_study_view` | A `/work/*` route opens | `project_slug` |
-| `case_study_section_view` | Scroll-spy enters a new section | `section_id`, `section_index`, `section_count` |
-| `case_study_complete` | 90% of a case study reached | `project_slug`, `time_on_page_sec` |
-| `scroll_depth` | 25 / 50 / 75 / 90 % of any page | `percent_scrolled` |
-| `nav_click` | Navbar, mobile menu, scroll-spy dot | `link_label`, `location` |
-| `carousel_scroll` | "More work" arrows | `direction` |
-| `engaged_time` | 30 / 60 / 180 s of *visible* time | `seconds` |
-| `easter_egg_play` | Contact-panel tiles tossed | `feature` |
-| `consent_update` | Banner answered | `consent_state` |
-
-Every custom event also carries `page_path` and `page_type`
-(`home` / `case_study` / `experience` / `other`), added automatically in `track()`.
-
-Note: Enhanced Measurement's automatic `scroll` (90%) and our custom
-`scroll_depth` (25/50/75/90) can both appear — use `scroll_depth` for
-milestone funnels; treat automatic `scroll` as a coarse engagement signal.
-
-## Adding a new event
-
-1. Add the name to `EVENTS` in `src/lib/analytics.ts`.
-2. Either call `track(EVENTS.YOUR_EVENT, { … })` directly, or — for anything
-   click-driven — add attributes and let `AnalyticsProvider` do it:
-
-```tsx
-<button
-  data-track="your_event"
-  data-track-project-slug="abim"     // → param: project_slug
-  data-track-location="hero"          // → param: location
->
-```
-
-`data-track-foo-bar` becomes the GA param `foo_bar`. No wiring needed.
-
-3. Register any new param as a **custom dimension** in GA4
-   (Admin → Custom definitions), or it won't appear in reports.
-
-## Consent
-
-Consent Mode v2 defaults to *denied* for everything, so pre-consent traffic is
-sent as cookieless pings (Google models it into aggregate reports). Accepting
-the banner calls `gtag('consent','update',{analytics_storage:'granted'})` and
-stores the choice in `localStorage` under `sw_consent_v1`. Ad-related consent
-signals stay denied permanently — this site runs no ads.
-
-To reset your own choice while testing:
-`localStorage.removeItem('sw_consent_v1')` then reload.
-
-## Not sending anything?
-
-- `NEXT_PUBLIC_GA_ID` missing or not prefixed `NEXT_PUBLIC_` → env var never
-  reaches the browser.
-- Ad blocker. Test in a clean profile; check the Network tab for
-  `google-analytics.com/g/collect` returning 204.
-- Set `NEXT_PUBLIC_GA_DEBUG=true`, reload, and watch the console for
-  `[analytics]` lines — they log even when GA itself is blocked.
+The existing site's instrumentation and design tokens are retained instead of adding a second set of component-level trackers or copying the reference's Tailwind theme.
