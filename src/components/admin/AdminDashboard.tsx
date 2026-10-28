@@ -22,6 +22,7 @@ import GoogleAnalyticsPanel from "./GoogleAnalyticsPanel";
 import AlertSettings from "./AlertSettings";
 import ThemeControl from "./ThemeControl";
 import TrendChart from "./TrendChart";
+import TablePagination, { useTablePagination } from "./TablePagination";
 import type {
   ActivityResult,
   ActivityRow,
@@ -203,6 +204,9 @@ export default function AdminDashboard({
     bots: String(bots),
     internal: String(internal),
   }).toString();
+  const placementsPage = useTablePagination(report?.placements ?? [], base);
+  const casesPage = useTablePagination(report?.cases ?? [], base);
+  const sectionsPage = useTablePagination(report?.sections ?? [], base);
   const activityQuery = new URLSearchParams({
     kind: tab === "audience" ? "visits" : kind,
     search,
@@ -300,6 +304,7 @@ export default function AdminDashboard({
   };
   const chooseTab = (id: Tab) => {
     setTab(id);
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     setOffset(0);
     setSearch("");
   };
@@ -695,7 +700,7 @@ export default function AdminDashboard({
                         </tr>
                       </thead>
                       <tbody>
-                        {report.placements.map((p) => (
+                        {placementsPage.rows.map((p) => (
                           <tr key={p.label}>
                             <th scope="row">{p.label.replaceAll("_", " ")}</th>
                             <td>{p.views}</td>
@@ -705,6 +710,7 @@ export default function AdminDashboard({
                         ))}
                       </tbody>
                     </table>
+                    <TablePagination label="Résumé placements" pager={placementsPage} />
                   </div>
                 ) : (
                   <p className={styles.empty}>
@@ -762,7 +768,7 @@ export default function AdminDashboard({
                         </tr>
                       </thead>
                       <tbody>
-                        {report.cases.map((study) => (
+                        {casesPage.rows.map((study) => (
                           <tr key={study.path}>
                             <th scope="row">
                               <a
@@ -783,6 +789,7 @@ export default function AdminDashboard({
                         ))}
                       </tbody>
                     </table>
+                    <TablePagination label="Case studies" pager={casesPage} />
                   </div>
                 ) : (
                   <p className={styles.empty}>
@@ -808,7 +815,7 @@ export default function AdminDashboard({
                         </tr>
                       </thead>
                       <tbody>
-                        {report.sections.map((section) => (
+                        {sectionsPage.rows.map((section) => (
                           <tr key={`${section.path}:${section.section_id}`}>
                             <td>{title(section.path)}</td>
                             <th scope="row">
@@ -819,6 +826,7 @@ export default function AdminDashboard({
                         ))}
                       </tbody>
                     </table>
+                    <TablePagination label="Case study sections" pager={sectionsPage} />
                   </div>
                 ) : (
                   <p className={styles.empty}>

@@ -308,3 +308,67 @@ test("Resume section shows report totals, focused charts and filtered visitor ac
   await expect(page.getByRole("heading", { name: "Activity", exact: true })).toBeVisible();
   await expect(page.getByRole("combobox", { name: "Show", exact: true })).toHaveValue("resumes");
 });
+
+test("tabs reset scroll and every report table can page independently", async ({ page }) => {
+  await page.route("**/api/admin/analytics?**", async (route) => {
+    if (new URL(route.request().url()).searchParams.has("view")) return route.continue();
+    const response = await route.fetch();
+    const data = await response.json();
+    data.placements = Array.from({length: 24}, (_, i) => ({label: `Placement ${i + 1}`, views: 2, downloads: 1, shares: 0}));
+    data.cases = Array.from({length: 24}, (_, i) => ({path: `/work/study-${i + 1}`, views: 2, readers: 1, completed: 0, active_seconds: 30}));
+    data.sections = Array.from({length: 24}, (_, i) => ({path: "/work/abim", label: `Section ${i + 1}`, section_id: `section-${i}`, visits: 1}));
+    await route.fulfill({response, json: data});
+  });
+  const gaRows = Array.from({length: 24}, (_, i) => ({dimensions: {date: `202610${String(i + 1).padStart(2,"0")}`, country: `Country ${i + 1}`, sessionSourceMedium: `Source ${i + 1}`, deviceCategory: "desktop", browser: `Browser ${i + 1}`, eventName: `event_${i + 1}`}, metrics: {activeUsers: 2, screenPageViews: 3, sessions: 4, engagementRate: 0.5, eventCount: 5}}));
+  await page.route("**/api/admin/google-analytics?**", (route) => route.fulfill({json: {configured: true, fetchedAt: new Date().toISOString(), timezone: "UTC", totals: {}, daily: gaRows, countries: gaRows, sources: gaRows, events: gaRows, devices: gaRows, activeUsers30m: 0, warnings: [], thresholded: false, sampled: false, otherRowLoss: false}}));
+  await page.route("**/api/admin/alerts", async (route) => {
+    const response = await route.fetch();
+    const data = await response.json();
+    data.deliveries = Array.from({length: 20}, (_, i) => ({id: String(i), kind: "visitors", status: "sent", observed_count: 25, threshold: 25, created_at: new Date().toISOString(), detail: "Synthetic fixture"}));
+    await route.fulfill({response, json: data});
+  });
+  await login(page);
+  const nav = page.getByRole("navigation", {name: "Admin sections"});
+  await nav.getByRole("button", {name: "Resume", exact: true}).click();
+  const placements = page.getByRole("navigation", {name: "Résumé placements pagination"});
+  await expect(placements.getByText("1–10 of 24", {exact: true})).toBeVisible();
+  await placements.getByRole("button", {name: "Next", exact: true}).click();
+  await expect(placements.getByText("11–20 of 24", {exact: true})).toBeVisible();
+  await expect(page.getByRole("rowheader", {name: "Placement 11", exact: true})).toBeVisible();
+  await placements.getByLabel("Résumé placements rows per page").selectOption("25");
+  await expect(placements.getByText("1–24 of 24", {exact: true})).toBeVisible();
+  await expect(placements.getByRole("button", {name: "Next", exact: true})).toBeDisabled();
+  await page.getByText("View chart data", {exact: true}).click();
+  const chart = page.getByRole("navigation", {name: "Résumé views chart data pagination"});
+  await chart.getByRole("button", {name: "Next", exact: true}).click();
+  await expect(chart.getByText(/Page 2 of/)).toBeVisible();
+  await page.getByLabel("Chart metric").selectOption("resumeDownloads");
+  await page.getByLabel("Chart metric").selectOption("resumeViews");
+  await expect(chart.getByText(/Page 1 of/)).toBeVisible();
+  await page.evaluate(() => window.scrollTo(0, 600));
+  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+  await nav.getByRole("button", {name: "Case studies", exact: true}).click();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+  for (const label of ["Case studies", "Case study sections"]) {
+    const pager = page.getByRole("navigation", {name: `${label} pagination`});
+    await pager.getByRole("button", {name: "Next", exact: true}).click();
+    await expect(pager.getByText("11–20 of 24", {exact: true})).toBeVisible();
+  }
+  await page.getByRole("button", {name: "7 days", exact: true}).click();
+  await expect(page.getByRole("navigation", {name: "Case studies pagination"}).getByText("1–10 of 24", {exact: true})).toBeVisible();
+  await page.getByRole("button", {name: "30 days", exact: true}).click();
+  await expect(page.getByRole("navigation", {name: "Case studies pagination"}).getByText("1–10 of 24", {exact: true})).toBeVisible();
+  await nav.getByRole("button", {name: "Google Analytics", exact: true}).click();
+  for (const label of ["Daily traffic", "Top countries", "Top sources", "Devices and browsers", "Top events"]) {
+    const pager = page.getByRole("navigation", {name: `${label} pagination`});
+    await pager.getByRole("button", {name: "Next", exact: true}).click();
+    await expect(pager.getByText("11–20 of 24", {exact: true})).toBeVisible();
+  }
+  await nav.getByRole("button", {name: "Settings", exact: true}).click();
+  const deliveries = page.getByRole("navigation", {name: "Email deliveries pagination"});
+  await deliveries.getByRole("button", {name: "Next", exact: true}).click();
+  await expect(deliveries.getByText("11–20 of 20", {exact: true})).toBeVisible();
+  await page.setViewportSize({width: 390, height: 844});
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.screenshot({path: "test-results/admin-pagination-mobile.png", fullPage: true});
+});

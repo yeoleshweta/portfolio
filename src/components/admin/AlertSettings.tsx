@@ -4,6 +4,7 @@ import type {
   AlertSettings as Preferences,
   AlertPeriod,
 } from "@/lib/admin/alerts-contract";
+import TablePagination, { useTablePagination } from "./TablePagination";
 import styles from "./admin.module.css";
 type Delivery = {
   id: string;
@@ -29,6 +30,7 @@ export default function AlertSettings() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [deliveries, setDeliveries] = useState<Delivery[]>([]);
+  const deliveriesPage = useTablePagination(deliveries);
   useEffect(() => {
     const controller = new AbortController();
     void fetch("/api/admin/alerts", {
@@ -194,7 +196,7 @@ export default function AlertSettings() {
                   </tr>
                 </thead>
                 <tbody>
-                  {deliveries.map((d) => (
+                  {deliveriesPage.rows.map((d) => (
                     <tr key={d.id}>
                       <th scope="row">{d.kind.replaceAll("_", " ")}</th>
                       <td>
@@ -209,6 +211,7 @@ export default function AlertSettings() {
                   ))}
                 </tbody>
               </table>
+              <TablePagination label="Email deliveries" pager={deliveriesPage} />
             </div>
           ) : (
             <p className={styles.empty}>No threshold emails yet.</p>

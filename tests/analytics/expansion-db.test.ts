@@ -185,3 +185,26 @@ test("preference edits invalidate old claims and allow a newly reached threshold
   expect(replacement.threshold).toBe(3);
   expect(replacement.claim_token).not.toBe(first.claim_token);
 });
+
+test("resume views count repeated opens while visitor thresholds count distinct browsers", async () => {
+  await db.exec("DELETE FROM public.analytics_alert_settings; DELETE FROM public.analytics_visits;");
+  await db.query("SELECT public.save_analytics_alert_settings($1,$2,true,'hour',2,2)", [owner, "admin@example.test"]);
+  const browser = crypto.randomUUID();
+  const claim = async () => (await db.query<{jobs: {id: string; claim_token: string; kind: string; observed_count: number}[]}>("SELECT public.claim_analytics_alerts(now()) AS jobs")).rows[0].jobs;
+  await record("resume_viewed", false, false, browser);
+  expect(await claim()).toHaveLength(0);
+  await record("resume_viewed", false, false, browser);
+  const resume = await claim();
+  expect(resume).toHaveLength(1);
+  expect(resume[0]).toMatchObject({kind: "resume_views", observed_count: 2});
+  await db.query("SELECT public.start_analytics_alert($1,$2)", [resume[0].id, resume[0].claim_token]);
+  await db.query("SELECT public.finish_analytics_alert($1,$2,'sent','Synthetic acceptance',false)", [resume[0].id, resume[0].claim_token]);
+  await record("resume_shared", false, false, browser);
+  await record("resume_downloaded", false, false, browser);
+  expect(await claim()).toHaveLength(0);
+  await record("page_view");
+  const visitor = await claim();
+  expect(visitor).toHaveLength(1);
+  expect(visitor[0]).toMatchObject({kind: "visitors", observed_count: 2});
+  expect(await claim()).toHaveLength(0);
+});

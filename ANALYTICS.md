@@ -162,3 +162,17 @@ Sources: [GA Data API quickstart](https://developers.google.com/analytics/devgui
 ### Further improvements
 
 Recommended follow-ups: source/campaign conversion comparisons, case-study section drop-off and return visits, weekly email digests, and broken-link/performance/error monitoring. Geography now has a GA country report; it is aggregate geography, not visitor identification. A content editor and Klyro transcript integration remain separate projects.
+
+### Table navigation and alert verification
+
+Admin section changes scroll to the page top. Report tables, chart-data tables and recent email deliveries default to 10 rows and offer 25/50 rows per page. Each table pages independently; date/filter and chart-metric changes reset its page. Activity/audience retain server pagination at 50 records and visitor journeys at 100 events. GA breakdowns remain the API's labelled top lists; pagination does not imply additional GA rows were fetched. Exports are unaffected.
+
+`npm run test:analytics` verifies threshold boundaries, distinct-browser visitor counts, repeated résumé views, bot/internal exclusions, and durable duplicate suppression without sending mail. To explicitly run the live delivery check:
+
+```sh
+RUN_LIVE_ALERT_TEST=true npx vitest run tests/manual/resend-alerts.test.ts
+```
+
+This opt-in test uses local PostgreSQL with the actual migrations and sends two `[TEST]` messages through the configured Resend account to one verified allowlisted admin. It checks each metric below and at a threshold of two, then checks duplicate suppression. It does not change hosted analytics, admin preferences, or the production delivery flag. It attempts to retrieve provider delivery receipts if the key permits reading them. A successful send receipt is provider acceptance; inbox placement is not confirmed. Verify `RESEND_FROM_EMAIL` belongs to a verified Resend domain before running it.
+
+On 2026-10-27, the local threshold checks passed, but both live test sends were rejected with HTTP 403. The configured sender used `shwetasharma.tech`, while the Resend domains API listed only `areefsyed.com` as verified. The user chose to retain `shwetasharma.tech` and verify it; live delivery verification remains pending that action. No hosted analytics or alert preferences were changed by the test.

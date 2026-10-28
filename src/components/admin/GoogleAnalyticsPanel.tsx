@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import type { GAResult, GARow } from "@/lib/admin/google-analytics";
+import TablePagination, { useTablePagination } from "./TablePagination";
 import styles from "./admin.module.css";
 function ReportTable({
   title,
@@ -13,6 +14,7 @@ function ReportTable({
   dimensions: string[];
   metrics: { key: string; label: string; percent?: boolean }[];
 }) {
+  const pager = useTablePagination(rows);
   return (
     <section className={styles.panel}>
       <h2>{title}</h2>
@@ -44,7 +46,7 @@ function ReportTable({
               </tr>
             </thead>
             <tbody>
-              {rows.map((row, i) => (
+              {pager.rows.map((row, i) => (
                 <tr key={i}>
                   <th scope="row">
                     {dimensions
@@ -62,6 +64,7 @@ function ReportTable({
               ))}
             </tbody>
           </table>
+          <TablePagination label={title} pager={pager} />
         </div>
       ) : (
         <p className={styles.empty}>No data returned for these dates.</p>

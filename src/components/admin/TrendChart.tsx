@@ -1,6 +1,7 @@
 "use client";
 import { useId, useState } from "react";
 import type { SeriesPoint } from "@/lib/admin/chart";
+import TablePagination, { useTablePagination } from "./TablePagination";
 import styles from "./admin.module.css";
 const metrics = [
   { key: "views", label: "Page views" },
@@ -21,6 +22,7 @@ export default function TrendChart({ points, resumeOnly = false }: {
   const [metric, setMetric] = useState<Key>(resumeOnly ? "resumeViews" : "views");
   const [style, setStyle] = useState<"line" | "bars">("line");
   const id = useId();
+  const dataPage = useTablePagination(points, `${metric}:${points[0]?.bucket}:${points.at(-1)?.bucket}`);
   const label = metrics.find((m) => m.key === metric)!.label;
   const max = Math.max(1, ...points.map((p) => p[metric]));
   const sum = points.reduce((n, p) => n + p[metric], 0);
@@ -152,7 +154,7 @@ export default function TrendChart({ points, resumeOnly = false }: {
             </tr>
           </thead>
           <tbody>
-            {points.map((p) => (
+            {dataPage.rows.map((p) => (
               <tr key={p.bucket}>
                 <th scope="row">{p.bucket.slice(0, 16).replace("T", " ")}</th>
                 <td>{p[metric]}</td>
@@ -160,6 +162,7 @@ export default function TrendChart({ points, resumeOnly = false }: {
             ))}
           </tbody>
         </table>
+        <TablePagination label={`${label} chart data`} pager={dataPage} />
       </details>
     </>
   );
