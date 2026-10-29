@@ -163,7 +163,7 @@ const TLDR: Record<string, Tldr> = {
       "Physicians are tested on medical knowledge, but the communication skills that shape patient outcomes are almost never measured at scale.",
     role: "Innovation Analyst (Data & Research Focused)",
     team: "I/O Psychologists, Data Scientist, AI/ML Engineer",
-    timeline: "Co-op, 6 months",
+    timeline: "6 months",
     methods:
       "Rubric design from Calgary-Cambridge and NURSE, mixed methods, NLP labeling, inter-rater reliability, and classifier evaluation.",
     outcome:
