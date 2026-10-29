@@ -23,9 +23,9 @@ export type CaseStudyMeta = {
 
 export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
   abim: {
-    title: "From Frameworks to F1 Scores",
+    title: "Teaching an AI what good doctor communication looks like",
     description:
-      "A rubric-grounded NLP pipeline that scores patient-centered communication in clinical transcripts, turning frameworks like Calgary-Cambridge into measurable constructs.",
+      "How I defined, measured and governed an AI system that reads physician-patient conversations, so its judgments could support human educators instead of replacing them.",
     category: "AI / ML Research",
     cover: "/assets/abim-hero.png",
   },
