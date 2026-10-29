@@ -16,7 +16,7 @@ export const hero = {
   meta: [
     { label: "Role", value: "Innovation Analyst, Data & Research · ABIM" },
     { label: "Team", value: "I/O psychologists, data scientist, AI/ML engineer" },
-    { label: "Timeline", value: "6 months, Sep 2025 – Mar 2026" },
+    { label: "Timeline", value: "6 months" },
     { label: "Methods", value: "Expert interviews, expert review, human-AI agreement, calibration" },
   ],
   scope:
